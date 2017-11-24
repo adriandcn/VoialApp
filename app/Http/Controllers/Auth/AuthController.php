@@ -24,7 +24,7 @@ class AuthController extends Controller {
         'username' => 'required|max:30|unique:users',
         'email' => 'required|email|max:255|unique:users',
         'password' => 'required|min:5',
-        'g-recaptcha-response' => 'required|recaptcha',
+        // 'g-recaptcha-response' => 'required|recaptcha',
     ];
 
     use AuthenticatesAndRegistersUsers,
@@ -48,7 +48,7 @@ class AuthController extends Controller {
      * @return Response
      */
     public function postLogin(
-    LoginRequest $request, Guard $auth, ServiciosOperadorRepository $gestion) {
+        LoginRequest $request, Guard $auth, ServiciosOperadorRepository $gestion) {
 
 
         $logValue = $request->input('log');
@@ -211,11 +211,11 @@ class AuthController extends Controller {
 
             $email = $auth->user()->email;
             $nombre = $auth->user()->email;
-            try {
-                $this->dispatch(new SendMail($user));
-            } catch (Exception $e) {
+            // try {
+            //     // $this->dispatch(new SendMail($user));
+            // } catch (Exception $e) {
                 
-            }
+            // }
             /* Busca si ya tiene servicios activos o no */
 
             //logica que comprueba si el usuario tiene servicios para ser modificados
@@ -275,7 +275,7 @@ class AuthController extends Controller {
         if ($request->session()->has('user_id')) {
             $user = $user_gestion->getById($request->session()->get('user_id'));
 
-            $this->dispatch(new SendMail($user));
+            // $this->dispatch(new SendMail($user));
 
             return redirect('/login')->with('ok', trans('front/verify.resend'));
         }
@@ -284,16 +284,10 @@ class AuthController extends Controller {
     }
     
     
-    
-    
-    
-    
     public function postLoginr(
-    LoginRequest $request, Guard $auth, ServiciosOperadorRepository $gestion) {
-
+        LoginRequest $request, Guard $auth, ServiciosOperadorRepository $gestion) {
 
         $logValue = $request->input('log');
- 
 
         $logAccess = filter_var($logValue, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 
@@ -302,9 +296,7 @@ class AuthController extends Controller {
         );
 
         if ($throttles && $this->hasTooManyLoginAttempts($request)) {
-            return redirect('/login')
-                            ->with('error', trans('front/login.maxattempt'))
-                            ->withInput($request->only('log'));
+            return response()->json(['error' => trans('front/login.maxattempt')]);   
         }
 
         $credentials = [
@@ -316,11 +308,7 @@ class AuthController extends Controller {
             if ($throttles) {
                 $this->incrementLoginAttempts($request);
             }
-            
-                return redirect('/loginres')
-                                ->with('error', trans('front/login.credentials'))
-                                ->withInput($request->only('log'));
-             
+            return response()->json(['error' => trans('front/login.credentials')]);
         }
 
         $user = $auth->getLastAttempted();
@@ -350,26 +338,26 @@ class AuthController extends Controller {
             $listServicios = $gestion->getServiciosidUsuario($user->id);
             if ($listServicios) {
                 $data['id_usuario_op'] = $listServicios[0]->id_usuario_op;
-                $request->session()->put('operador_id', $data['id_usuario_op']);
+                // $request->session()->put('operador_id', $data['id_usuario_op']);
+                $request->session()->put('operador_id', 1);
                 //        $view = view('Registro.catalogoServicio', compact('data', 'listServicios'));
                 $request->session()->put('tip_oper', $listServicios[0]->id_tipo_operador);
 
 
-                return redirect('/serviciosres')->with('user', $user->id);
+                // return redirect('/serviciosres')->with('user', $user->id);
+                return response()->json(['error' => false , 'redirectto' => 'serviciosres']);
                 //return redirect('/detalleServiciosRes')->with('user', $user->id);
                 // return ($view);
             } else {
 
                 //return redirect('/myProfileOp')->with('user', $user->id);
-                return redirect('/aboutus')->with('user', $user->id);
+                // return redirect('/aboutus')->with('user', $user->id);
+                return response()->json(['error' => false , 'redirectto' => 'serviciosres']);
                 
             }
         } else {
 
-            /* --------------------------------- */
-            return redirect('/login')
-                          ->with('error', trans('front/verify.again'))
-                          ->withInput($request->only('log'));
+            return response()->json(['error' => 'verifyMail']);
         }
 
 
@@ -389,7 +377,8 @@ class AuthController extends Controller {
                 'email' => $formFields['email'],
                 'password' => $formFields['password'],
                 'email_confirmation' => $formFields['email_confirmation'],
-                'g-recaptcha-response' => $formFields['g-recaptcha-response']
+                'system' => $formFields['system'],
+                // 'g-recaptcha-response' => $formFields['g-recaptcha-response']
             );
         } else {
 
@@ -398,7 +387,8 @@ class AuthController extends Controller {
                 'email' => $request->input('email'),
                 'password' => $request->input('password'),
                 'email_confirmation' => $request->input('email_confirmation'),
-                'g-recaptcha-response' => $formFields['g-recaptcha-response']
+                'system' => $formFields['system'],
+                // 'g-recaptcha-response' => $formFields['g-recaptcha-response']
             );
         }
 
@@ -452,12 +442,12 @@ class AuthController extends Controller {
               
             $email = $auth->user()->email;
             $nombre = $auth->user()->email;
-            try{
-                $this->dispatch(new SendMail($user));}
-                catch( Exception $e)
-                {
+            // try{
+            //     // $this->dispatch(new SendMail($user));}
+            //     catch( Exception $e)
+            //     {
                     
-                }
+            //     }
             /* Busca si ya tiene servicios activos o no */
 
             //logica que comprueba si el usuario tiene servicios para ser modificados
@@ -472,7 +462,7 @@ class AuthController extends Controller {
 
             } else {
 
-                      $returnHTML = ('/aboutus');//->with('user', $user->id);
+                      $returnHTML = ('serviciosres');//->with('user', $user->id);
               return response()->json(array('success' => true, 'redirectto' => $returnHTML));
           
             }

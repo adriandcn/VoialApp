@@ -1,1 +1,1 @@
-<div class=\"alert alert-{{ $type }} alert-dismissible\">{!! $message !!}</div>
+<div class=\"alert alert-{{ $type }} animated shake alert-dismissible\">{!! $message !!}</div>

@@ -18,28 +18,28 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
      
-<link rel="shortcut icon" href="{{ asset('public/favicon.ico')}}" />
-        <link rel="apple-touch-icon" href="{{ asset('public/images/favicon.png')}}" />        
+<link rel="shortcut icon" href="{{ asset('/favicon.ico')}}" />
+        <link rel="apple-touch-icon" href="{{ asset('/images/favicon.png')}}" />        
         <!-- Theme Styles -->
         <link rel="stylesheet" href="{{ asset('public_components/css/bootstrap.min.css')}}">
         <link rel="stylesheet" href="{{ asset('public_components/css/font-awesome.min.css')}}">
         
-        <link rel="apple-touch-icon" href="{{ asset('public/img/60x60_logo_iwana.png')}}">
+        <link rel="apple-touch-icon" href="{{ asset('/img/60x60_logo_iwana.png')}}">
         
-        <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('public/img/76x76logo_iwana.png')}}">
-        <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('public/img/120x120logo_iwana.png')}}">
-        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('public/img/180x180logo_iwana.png')}}">
-        <link rel="icon" sizes="180x180" href="{{ asset('public/img/180x180logo_iwana.png')}}">
+        <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('/img/76x76logo_iwana.png')}}">
+        <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('/img/120x120logo_iwana.png')}}">
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('/img/180x180logo_iwana.png')}}">
+        <link rel="icon" sizes="180x180" href="{{ asset('/img/180x180logo_iwana.png')}}">
         
         
 <meta property="og:title" content="iWaNaTrip | Ecuador" /> 
 <meta property="og:description" content="es un espacio de busqueda para la red viajeros de todo el mundo, permite compartir el contenido de forma sencilla a traves de internet.
               iWaNaTrip es experiencia de vida. Deja de ser turista, conviertete en viajero. Viaja por el mundo y descubre Ecuador" />
-<meta property="og:image" content="{{ asset('public/img/index-fondo.jpg')}}" />
+<meta property="og:image" content="{{ asset('/img/index-fondo.jpg')}}" />
      
 
-<link rel="stylesheet" href="{{ asset('public/public_components/css/letras.css')}}">
-        <link rel="stylesheet" href="{{ asset('public_components/css/animate.min.css')}}">
+        <link rel="stylesheet" href="{{ asset('/public_components/css/letras.css')}}">
+        <link rel="stylesheet" href="{{ asset('/public_components/css/animate.min.css')}}">
         <link rel="stylesheet" type="text/css" href="{{ asset('public_components/components/owl-carousel/owl.carousel.css')}}" media="screen" />
         <link rel="stylesheet" type="text/css" href="{{ asset('public_components/components/owl-carousel/owl.transitions.css')}}" media="screen" />
         <!-- Magnific Popup core CSS file -->
@@ -156,32 +156,7 @@
                                         
                                     </div>
                                 <div class="text-center" style="color: red;font-weight: bold;">
-                         
-                <div class="rowerror">
-
-    <br>
-    @if(session()->has('error'))
-    @include('partials/error', ['type' => 'danger', 'message' => session('error')])
-    @endif
-
-    @if(session()->has('ok'))
-    @include('partials/message', ['type' => 'message', 'message' => session('ok')])
-    @endif	
-    @if($errors->has())
-
-    <div>
-
-        <ul>
-            @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-
-    @endif
-
-
-</div> 
+               
                              
                              
                          <br>  
@@ -217,32 +192,7 @@
                                         <p>Anunciate y registra tus servicios turisticos totalmente gratis.Registra tus servicios y conectate con los viajeros de todo el mundo</p>
                                  <div>
                      <div class="text-center" style="color: red;font-weight: bold;">
-                         
-                <div class="rowerror1">
-
-    <br>
-    @if(session()->has('error'))
-    @include('partials/error', ['type' => 'danger', 'message' => session('error')])
-    @endif
-
-    @if(session()->has('ok'))
-    @include('partials/message', ['type' => 'message', 'message' => session('ok')])
-    @endif	
-    @if($errors->has())
-
-    <div>
-
-        <ul>
-            @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-
-    @endif
-
-
-</div> 
+        
                              
                              
                          <br>  
@@ -310,7 +260,7 @@
 
     <!-- Javascript -->
     {!! HTML::script('js/jquery.js') !!}
-    {!!HTML::script('js/js_public/Compartido.js') !!}
+    {!!HTML::script('js/js_/Compartido.js') !!}
     {!!HTML::script('js/loadingScreen/loadingoverlay.min.js') !!}
     {!!HTML::script('js/jquery.autocomplet.js') !!}
     {!!HTML::script('js/Compartido.js') !!}
@@ -618,14 +568,14 @@ jQuery(document).ready(function ($) {
                 errorString += '</ul>';
                  $(".testbox1").LoadingOverlay("hide", true);
                 //$('#error').html(errorString);
-                $('.rowerror1').html("@include('partials/error', ['type' => 'danger','message'=>'" + errorString + "'])");
+                $('.rowerror1').html("@include('../partials/error', ['type' => 'danger','message'=>'" + errorString + "'])");
 
             }
             if (data.success) {
                 $(".testbox1").LoadingOverlay("hide", true);
                 $('.register').fadeOut(); //hiding Reg form
                 var successContent = '' + data.message + '';
-                $('.rowerror1').html("@include('partials/error', ['type' => 'danger','message'=>'Success'])");
+                $('.rowerror1').html("@include('../partials/error', ['type' => 'danger','message'=>'Success'])");
                 window.location.href = data.redirectto;
 
 

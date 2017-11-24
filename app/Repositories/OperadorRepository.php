@@ -212,10 +212,8 @@ class OperadorRepository extends BaseRepository
  		$usuarioServicio->estado_servicio = 1;
  		$usuarioServicio->id_catalogo_servicio = $inputs['id_catalogo_servicio'];
 		$usuarioServicio->id_usuario_operador = $inputs['id_usuario_operador'];
-                                $usuarioServicio->created_at = \Carbon\Carbon::now()->toDateTimeString();
-                $usuarioServicio->updated_at = \Carbon\Carbon::now()->toDateTimeString();
-
-	
+        $usuarioServicio->created_at = \Carbon\Carbon::now()->toDateTimeString();
+        $usuarioServicio->updated_at = \Carbon\Carbon::now()->toDateTimeString();
 		$usuarioServicio->save();
 		return $usuarioServicio->id;
 	}
@@ -228,11 +226,9 @@ class OperadorRepository extends BaseRepository
  		$usuarioServicio->estado_servicio = 1;
  		$usuarioServicio->id_catalogo_servicio = $inputs['id_catalogo_servicio'];
 		$usuarioServicio->id_usuario_operador = $inputs['id_usuario_operador'];
-                $usuarioServicio->id_padre = $inputs['id_padre'];
-
-                                $usuarioServicio->created_at = \Carbon\Carbon::now()->toDateTimeString();
-                $usuarioServicio->updated_at = \Carbon\Carbon::now()->toDateTimeString();
-
+        $usuarioServicio->id_padre = $inputs['id_padre'];
+		$usuarioServicio->created_at = \Carbon\Carbon::now()->toDateTimeString();
+        $usuarioServicio->updated_at = \Carbon\Carbon::now()->toDateTimeString();
 		$usuarioServicio->save();
 		return $usuarioServicio->id;
 	}

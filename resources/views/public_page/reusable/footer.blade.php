@@ -7,21 +7,21 @@
                                 <h5 class="section-title box">Recent Posts</h5>
                                 <ul class="recent-posts">
                                     <li>
-                                        <a href="https://iwanatrip.com/detalle/Malecon-2000-Guayaquil/215" class="post-author-avatar"><span><img src="{!! asset('public/images/icon/2151905775610680e335c679b.jpg')!!}" alt=""></span></a>
+                                        <a href="https://iwanatrip.com/detalle/Malecon-2000-Guayaquil/215" class="post-author-avatar"><span><img src="{!! asset('/images/icon/2151905775610680e335c679b.jpg')!!}" alt=""></span></a>
                                         <div class="post-content">
                                             <a href="https://iwanatrip.com/detalle/Malecon-2000-Guayaquil/215" class="post-title">Malecón 2000 Guayaquil</a>
                                             <p class="post-meta">By <a href="#">Admin</a>  .  12 Feb, 2016</p>
                                         </div>
                                     </li>
                                     <li>
-                                        <a href="https://iwanatrip.com/detalle/Centro-Histórico-de-Quito/127" class="post-author-avatar"><span><img src="{!! asset('public/images/icon/127images.jpg')!!}" alt=""></span></a>
+                                        <a href="https://iwanatrip.com/detalle/Centro-Histórico-de-Quito/127" class="post-author-avatar"><span><img src="{!! asset('/images/icon/127images.jpg')!!}" alt=""></span></a>
                                         <div class="post-content">
                                             <a href="https://iwanatrip.com/detalle/Centro-Histórico-de-Quito/127" class="post-title">Centro Histórico de Quito</a>
                                             <p class="post-meta">By <a href="#">Admin</a>  .  12 Feb, 2016</p>
                                         </div>
                                     </li>
                                     
-                                        <a href="https://iwanatrip.com/detalle/Malecón-San-Cristóbal/232" class="post-author-avatar"><span><img src="{!! asset('public/images/icon/232img9106.jpg')!!}" alt=""></span></a>
+                                        <a href="https://iwanatrip.com/detalle/Malecón-San-Cristóbal/232" class="post-author-avatar"><span><img src="{!! asset('/images/icon/232img9106.jpg')!!}" alt=""></span></a>
                                         <div class="post-content">
                                             <a href="https://iwanatrip.com/detalle/Malecón-San-Cristóbal/232" class="post-title">Malecón San Cristóbal</a>
                                             <p class="post-meta">By <a href="#">Admin</a>  .  12 Feb, 2016</p>

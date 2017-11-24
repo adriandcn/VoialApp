@@ -771,8 +771,6 @@ $(document).on('ready',function(){
   
   <!-- Modal FOTOGRAFIA-->
 <div class="modal fade" id="foto" tabindex="-1" role="dialog">
-    
-    
   <div class="modal-dialog" role="document">
     <div class="modal-content">
         <div id="testboxForm" class="foto">

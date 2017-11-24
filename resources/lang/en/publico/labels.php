@@ -183,5 +183,17 @@ return [
      'reportarerror' => 'Report Error',
     'cerrarerror' => 'Close',
     'noscomunicaremos' => 'We will communicate',
-    'guardar' => 'Send'
+    'guardar' => 'Send',
+    //voialApp
+    'label147' => 'Search',
+    'label148' => 'Log in',
+    'label149' => 'Register',
+    // Formulario de ingreso
+    'labelUser' => 'Your email o username',
+    'labelPass' => 'Your password',
+    'labelName' =>'Name',
+    'labelUsername' =>'Username',
+    'labelEmail' =>'Email',
+    'labelPassword' =>'Password',
+    'labelEmailConfirmation' => 'Email confirmation'
 ];

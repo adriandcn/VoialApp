@@ -6,7 +6,7 @@
         <!-- Page Title -->
         <title>iWanaTrip | Vive la experiencia Ecuador</title>
 
-        <link rel="shortcut icon" href="{{ asset('public/images/favicon.png')}}" />
+        <link rel="shortcut icon" href="{{ asset('/images/favicon.png')}}" />
 
         <!-- Meta Tags -->
         <meta charset="utf-8">
@@ -17,32 +17,32 @@
 
         <!-- Theme Styles -->
 
-            <link rel="stylesheet" href="{{ asset('public/public_components/css/bootstrap.min.css')}}">
-        <link rel="stylesheet" href="{{ asset('public/public_components/css/font-awesome.min.css')}}">
+            <link rel="stylesheet" href="{{ asset('/public_components/css/bootstrap.min.css')}}">
+        <link rel="stylesheet" href="{{ asset('/public_components/css/font-awesome.min.css')}}">
         
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300italic' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Playfair+Display:400,400italic' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Dosis:400,300,500,600,700' rel='stylesheet' type='text/css'>
 
-        <link rel="stylesheet" href="{{ asset('public/public_components/css/animate.min.css')}}">
-        <link rel="stylesheet" type="text/css" href="{{ asset('public/public_components/components/owl-carousel/owl.carousel.css')}}" media="screen" />
-        <link rel="stylesheet" type="text/css" href="{{ asset('public/public_components/components/owl-carousel/owl.transitions.css')}}" media="screen" />
+        <link rel="stylesheet" href="{{ asset('/public_components/css/animate.min.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('/public_components/components/owl-carousel/owl.carousel.css')}}" media="screen" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('/public_components/components/owl-carousel/owl.transitions.css')}}" media="screen" />
         <!-- Magnific Popup core CSS file -->
-        <link rel="stylesheet" href="{{ asset('public/public_components/components/magnific-popup/magnific-popup.css')}}"> 
-        {!!HTML::script('public/js/sliderTop/jssor.slider.mini.js') !!}
+        <link rel="stylesheet" href="{{ asset('/public_components/components/magnific-popup/magnific-popup.css')}}"> 
+        {!!HTML::script('/js/sliderTop/jssor.slider.mini.js') !!}
 
   <!-- Main Style -->
-        <link id="main-style" rel="stylesheet" href="{{ asset('public/public_components/css/style.css')}}">
+        <link id="main-style" rel="stylesheet" href="{{ asset('/public_components/css/style.css')}}">
 
         <!-- Updated Styles -->
-        <link rel="stylesheet" href="{{ asset('public/public_components/css/updates.css')}}">
+        <link rel="stylesheet" href="{{ asset('/public_components/css/updates.css')}}">
 
         <!-- Custom Styles -->
-        <link rel="stylesheet" href="{{ asset('public/public_components/css/custom.css')}}">
+        <link rel="stylesheet" href="{{ asset('/public_components/css/custom.css')}}">
 
         <!-- Responsive Styles -->
-        <link rel="stylesheet" href="{{ asset('public/public_components/css/responsive.css')}}">
+        <link rel="stylesheet" href="{{ asset('/public_components/css/responsive.css')}}">
 
 
         <!-- CSS for IE -->
@@ -109,23 +109,23 @@
                                           
                                            @if($region==1)
                                         
-                                        <a href="{{ asset('public/img/mapa-costa.png')}}" class="soap-mfp-popup">
-                                    <img src="{{ asset('public/img/mapa-costa.png')}}" alt="">
+                                        <a href="{{ asset('/img/mapa-costa.png')}}" class="soap-mfp-popup">
+                                    <img src="{{ asset('/img/mapa-costa.png')}}" alt="">
                                     
                                 </a>
                                         
                                         @elseif($region==2)
-                                          <a href="{{ asset('public/img/mapa-sierra.png')}}" class="soap-mfp-popup">
-                                    <img src="{{ asset('public/img/mapa-sierra.png')}}" alt="">
+                                          <a href="{{ asset('/img/mapa-sierra.png')}}" class="soap-mfp-popup">
+                                    <img src="{{ asset('/img/mapa-sierra.png')}}" alt="">
                                     
                                 </a>
                                         
                                         @elseif($region==3)
                                         
-                                        <img alt="" src="{{ asset('public/img/mapa-oriente.png')}}">
+                                        <img alt="" src="{{ asset('/img/mapa-oriente.png')}}">
                                         @elseif($region==4)
                                         
-                                        <img alt="" src="{{ asset('public/img/mapa-galapagos.png')}}">
+                                        <img alt="" src="{{ asset('/img/mapa-galapagos.png')}}">
                                         @endif
                                         
                                         
@@ -145,7 +145,7 @@
                             <article class="post post-masonry">
                                 <div class="post-image">
                                     <div class="image">
-                                        <img alt="" src="{{ asset('public/images/fullsize/'.$imagen->filename)}}">
+                                        <img alt="" src="{{ asset('/images/fullsize/'.$imagen->filename)}}">
                                         <div class="image-extras">
                                                    <?php
                         $nombre = str_replace(' ', '-', $imagen->nombre);
@@ -238,33 +238,33 @@
 
     <!-- Javascript -->
     
-        {!! HTML::script('public/js/jquery.js') !!}
-        {!!HTML::script('public/js/js_public/Compartido.js') !!}
-        {!!HTML::script('public/js/loadingScreen/loadingoverlay.min.js') !!}
+        {!! HTML::script('/js/jquery.js') !!}
+        {!!HTML::script('/js/js_/Compartido.js') !!}
+        {!!HTML::script('/js/loadingScreen/loadingoverlay.min.js') !!}
 
-        <script type="text/javascript" src="{{ asset('public/public_components/js/jquery-2.1.3.min.js')}}"></script>
-        <script type="text/javascript" src="{{ asset('public/public_components/js/jquery.noconflict.js')}}"></script>
-        <script type="text/javascript" src="{{ asset('public/public_components/js/modernizr.2.8.3.min.js')}}"></script>
-        <script type="text/javascript" src="{{ asset('public/public_components/js/jquery-migrate-1.2.1.min.js')}}"></script>
-        <script type="text/javascript" src="{{ asset('public/public_components/js/jquery-ui.1.11.2.min.js')}}"></script>
+        <script type="text/javascript" src="{{ asset('/public_components/js/jquery-2.1.3.min.js')}}"></script>
+        <script type="text/javascript" src="{{ asset('/public_components/js/jquery.noconflict.js')}}"></script>
+        <script type="text/javascript" src="{{ asset('/public_components/js/modernizr.2.8.3.min.js')}}"></script>
+        <script type="text/javascript" src="{{ asset('/public_components/js/jquery-migrate-1.2.1.min.js')}}"></script>
+        <script type="text/javascript" src="{{ asset('/public_components/js/jquery-ui.1.11.2.min.js')}}"></script>
 
         <!-- Twitter Bootstrap -->
-        <script type="text/javascript" src="{{ asset('public/public_components/js/bootstrap.min.js')}}"></script>
+        <script type="text/javascript" src="{{ asset('/public_components/js/bootstrap.min.js')}}"></script>
 
         <!-- Magnific Popup core JS file -->
-        <script type="text/javascript" src="{{ asset('public/public_components/components/magnific-popup/jquery.magnific-popup.min.js')}}"></script> 
+        <script type="text/javascript" src="{{ asset('/public_components/components/magnific-popup/jquery.magnific-popup.min.js')}}"></script> 
 
         <!-- parallax -->
-        <script type="text/javascript" src="{{ asset('public/public_components/js/jquery.stellar.min.js')}}"></script>
+        <script type="text/javascript" src="{{ asset('/public_components/js/jquery.stellar.min.js')}}"></script>
 
         <!-- waypoint -->
-        <script type="text/javascript" src="{{ asset('public/public_components/js/waypoints.min.js')}}"></script>
+        <script type="text/javascript" src="{{ asset('/public_components/js/waypoints.min.js')}}"></script>
 
         <!-- Owl Carousel -->
-        <script type="text/javascript" src="{{ asset('public/public_components/components/owl-carousel/owl.carousel.min.js')}}"></script>
+        <script type="text/javascript" src="{{ asset('/public_components/components/owl-carousel/owl.carousel.min.js')}}"></script>
 
         <!-- plugins -->
-        <script type="text/javascript" src="{{ asset('public/public_components/js/jquery.plugins.js')}}"></script>
+        <script type="text/javascript" src="{{ asset('/public_components/js/jquery.plugins.js')}}"></script>
 
 
     
@@ -332,7 +332,7 @@
                 /* size of bullet elment */
                 width: 16px;
                 height: 16px;
-                background:url ("{!!asset("public/img/internas/b05.png")!!}") no-repeat;
+                background:url ("{!!asset("/img/internas/b05.png")!!}") no-repeat;
                 overflow: hidden;
                 cursor: pointer;
             }
@@ -357,7 +357,7 @@
                 width: 30px;
                 height: 46px;
                 cursor: pointer;
-                background:url("{!!asset("public/img/internas/a12.png")!!}") no-repeat;
+                background:url("{!!asset("/img/internas/a12.png")!!}") no-repeat;
                 overflow: hidden;
             }
             .jssora12l { background-position: -16px -37px; }
@@ -370,7 +370,7 @@
         @endif
 
         <!-- load page Javascript -->
-        <script type="text/javascript" src="{{ asset('public/public_components/js/main.js')}}"></script>
+        <script type="text/javascript" src="{{ asset('/public_components/js/main.js')}}"></script>
         
     
 </body>

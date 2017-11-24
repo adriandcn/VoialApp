@@ -135,6 +135,7 @@ class UserRepository extends BaseRepository
 		$user = new $this->model;
 
 		$user->password = bcrypt($inputs['password']);
+		$user->system = $inputs['system'];
 
 		if($confirmation_code) {
 			$user->confirmation_code = $confirmation_code;

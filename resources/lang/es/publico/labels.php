@@ -157,5 +157,17 @@ return [
     'reportarerror' => 'Reportar Error',
     'cerrarerror' => 'Cerrar',
     'noscomunicaremos' => 'Nos Comunicaremos',
-    'guardar' => 'Enviar'
+    'guardar' => 'Enviar',
+    //voilapp
+    'label147' => 'Buscar',
+    'label148' => 'Ingresar',
+    'label149' => 'Registro',
+    // Formulario de ingreso
+    'labelUser' => 'Tu email o usuario',
+    'labelPass' => 'Tu contrase&ntilde;a',
+    'labelName' =>'Nombre',
+    'labelUsername' =>'Usuario',
+    'labelEmail' =>'Email',
+    'labelPassword' =>'Contrase&ntilde;a',
+    'labelEmailConfirmation' => 'Ingresa nuevamente tu email'
 ];

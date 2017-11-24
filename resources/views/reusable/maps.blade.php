@@ -18,13 +18,13 @@
 </style>
 
 <div class='form-group'>
-    <label for='searchmap'>Ubicación: </label>
+    <!-- <label for='searchmap'>Ubicación: </label> -->
     <input type="text" id='searchmap' style="height: 27px; width: 90%;">
     <div id="map"></div>
 
 </div>
 <div class="form-group">
-    <input type="hidden" class='form-control input-sm' name='latitud_servicio' value="{!!$latitud_servicio!!}" id='latitud_servicio'/>
+    <input type="hidden" class="form-input" name='latitud_servicio' value="{!!$latitud_servicio!!}" id='latitud_servicio'/>
 </div>
 <div class="form-group">
     <input type="hidden" class='form-control input-sm' name='longitud_servicio' value="{!!$longitud_servicio!!}" id='longitud_servicio'/>

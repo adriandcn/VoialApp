@@ -139,12 +139,12 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         'Jenssegers\Agent\AgentServiceProvider',
-	App\Providers\AppServiceProvider::class,
-	App\Providers\AuthServiceProvider::class,
-	App\Providers\EventServiceProvider::class,
-        'Milon\Barcode\BarcodeServiceProvider',
-	App\Providers\RouteServiceProvider::class,
-	App\Services\Html\HtmlServiceProvider::class,
+		App\Providers\AppServiceProvider::class,
+		App\Providers\AuthServiceProvider::class,
+		App\Providers\EventServiceProvider::class,
+        Milon\Barcode\BarcodeServiceProvider::class,
+		App\Providers\RouteServiceProvider::class,
+		App\Services\Html\HtmlServiceProvider::class,
         Bestmomo\Filemanager\FilemanagerServiceProvider::class,
         Greggilbert\Recaptcha\RecaptchaServiceProvider::class
         
@@ -195,13 +195,13 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
-	'Form'		=> Collective\Html\FormFacade::class,
-	'HTML'		=> Collective\Html\HtmlFacade::class,
-         'Agent' => 'Jenssegers\Agent\Facades\Agent',
-         'DNS1D' => 'Milon\Barcode\Facades\DNS1DFacade',
-         'DNS2D' => 'Milon\Barcode\Facades\DNS2DFacade',
-         'Image'     => Intervention\Image\Facades\Image::class,
-         'Recaptcha' => Greggilbert\Recaptcha\Facades\Recaptcha::class
+		'Form'		=> Collective\Html\FormFacade::class,
+		'HTML'		=> Collective\Html\HtmlFacade::class,
+        'Agent' => 'Jenssegers\Agent\Facades\Agent',
+        'DNS1D' => Milon\Barcode\Facades\DNS1DFacade::class,
+    	'DNS2D' => Milon\Barcode\Facades\DNS2DFacade::class,
+        'Image'     => Intervention\Image\Facades\Image::class,
+        'Recaptcha' => Greggilbert\Recaptcha\Facades\Recaptcha::class
             
 
              

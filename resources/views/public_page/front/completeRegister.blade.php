@@ -596,21 +596,17 @@ jQuery(document).ready(function ($) {
     });
 
     $("#registro").submit(function (event) {
-
-        
+        alert(event);
         $(".testbox1").LoadingOverlay("show");
-        
-        
         event.preventDefault();
         var $form = $(this),
-                data = $form.serialize(),
-                url = $form.attr("action");
+            data = $form.serialize(),
+            url = $form.attr("action");
        
         var posting = $.post(url, {formData: data});
         posting.done(function (data) {
+            console.log(data);
             if (data.fail) {
-
-                
                 var errorString = '<ul>';
                 $.each(data.errors, function (key, value) {
                     errorString += '<li>' + value + '</li><br>';
@@ -619,7 +615,6 @@ jQuery(document).ready(function ($) {
                  $(".testbox1").LoadingOverlay("hide", true);
                 //$('#error').html(errorString);
                 $('.rowerror1').html("@include('partials/error', ['type' => 'danger','message'=>'" + errorString + "'])");
-
             }
             if (data.success) {
                 $(".testbox1").LoadingOverlay("hide", true);
@@ -627,9 +622,6 @@ jQuery(document).ready(function ($) {
                 var successContent = '' + data.message + '';
                 $('.rowerror1').html("@include('partials/error', ['type' => 'danger','message'=>'Success'])");
                 window.location.href = data.redirectto;
-
-
-
             } //success
         }); //done
         

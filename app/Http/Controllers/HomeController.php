@@ -16,25 +16,19 @@ class HomeController extends Controller {
      */
     public function index(Guard $auth) {
         //	
-
-
         $agent = new Agent();
-
         $desk = $device = $agent->isMobile();
         if ($desk == 1)
             $desk = "mobile";
         else {
             $desk = "desk";
         }
-
         Session::put('device', $desk);
-
         if ($auth->check()) {
             $user = $auth->user();
            // $view = view('RegistroOperadores.registroStep1'); // revisar debe redirecccionar a otro lado
             return redirect('/servicios')->with('user', $user->id);
         } else {
-
             $view = view('auth.completeRegister');
         }
         return $view;
@@ -49,26 +43,20 @@ class HomeController extends Controller {
     public function language(
     ChangeLocale $changeLocale) {
         $this->dispatch($changeLocale);
-
         return redirect()->back();
     }
     
     
-            public function indexres(Guard $auth) {
+    public function indexres(Guard $auth) {
         //	
-
-
         $agent = new Agent();
-
         $desk = $device = $agent->isMobile();
         if ($desk == 1)
             $desk = "mobile";
         else {
             $desk = "desk";
         }
-
         Session::put('device', $desk);
-
         if ($auth->check()) {
             $user = $auth->user();
            // $view = view('RegistroOperadores.registroStep1'); // revisar debe redirecccionar a otro lado
@@ -79,8 +67,4 @@ class HomeController extends Controller {
         }
         return $view;
     }
-
-
-   
-
 }

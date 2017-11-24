@@ -3,9 +3,9 @@
 <div class="form-group-1">
                     {!!Form::label('parroquia_1', 'Parroquia', array('class'=>'control-label','id'=>'iconFormulario-step4'))!!}
                     
-                    
+                
                     <!-- <select name="id_parroquia" id="id_parroquia" class='inputselect chng'> -->
-                    <select name="id_parroquia" id="id_parroquia" class="input-text chng" style="height: 40px;width: 100%;">
+<select name="id_parroquia" id="id_parroquia" class="form-control chng" style="height: 40px;width: 100%;">
                         
                         <option value="0"  >Seleccionar</option>
 @foreach($parroquias as $parroquia)

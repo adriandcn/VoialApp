@@ -12,37 +12,37 @@
 
                     <div data-u="slides" style="cursor: default; position: relative; top: 0px; left: 0px; width: 1360px; height: 235px; overflow: hidden;">
                         <div data-p="112.50" style="display: none;">
-                            <img data-u="image" src="{{ asset('public/img/internas/banner-1.png')}}" />
+                            <img data-u="image" src="{{ asset('/img/internas/banner-1.png')}}" />
                         </div>
                         <div data-p="112.50" style="display: none;">
-                            <img data-u="image" src="{{ asset('public/img/internas/banner-11.png')}}" />
+                            <img data-u="image" src="{{ asset('/img/internas/banner-11.png')}}" />
                         </div>
                         <div data-p="112.50" style="display: none;">
-                            <img data-u="image" src="{{ asset('public/img/internas/banner-3.png')}}" />
+                            <img data-u="image" src="{{ asset('/img/internas/banner-3.png')}}" />
                         </div>
                         <div data-p="112.50" style="display: none;">
-                            <img data-u="image" src="{{ asset('public/img/internas/banner-4.png')}}" />
+                            <img data-u="image" src="{{ asset('/img/internas/banner-4.png')}}" />
                         </div>
                         <div data-p="112.50" style="display: none;">
-                            <img data-u="image" src="{{ asset('public/img/internas/banner-5.png')}}" />
+                            <img data-u="image" src="{{ asset('/img/internas/banner-5.png')}}" />
                         </div>
                         <div data-p="112.50" style="display: none;">
-                            <img data-u="image" src="{{ asset('public/img/internas/banner-6.png')}}" />
+                            <img data-u="image" src="{{ asset('/img/internas/banner-6.png')}}" />
                         </div>
                         <div data-p="112.50" style="display: none;">
-                            <img data-u="image" src="{{ asset('public/img/internas/banner-7.png')}}" />
+                            <img data-u="image" src="{{ asset('/img/internas/banner-7.png')}}" />
                         </div>
                         <div data-p="112.50" style="display: none;">
-                            <img data-u="image" src="{{ asset('public/img/internas/banner-8.png')}}" />
+                            <img data-u="image" src="{{ asset('/img/internas/banner-8.png')}}" />
                         </div>
                         <div data-p="112.50" style="display: none;">
-                            <img data-u="image" src="{{ asset('public/img/internas/banner-9.png')}}" />
+                            <img data-u="image" src="{{ asset('/img/internas/banner-9.png')}}" />
                         </div>
                         <div data-p="112.50" style="display: none;">
-                            <img data-u="image" src="{{ asset('public/img/internas/banner-13.png')}}" />
+                            <img data-u="image" src="{{ asset('/img/internas/banner-13.png')}}" />
                         </div>
                         <div data-p="112.50" style="display: none;">
-                            <img data-u="image" src="{{ asset('public/img/internas/banner-15.png')}}" />
+                            <img data-u="image" src="{{ asset('/img/internas/banner-15.png')}}" />
                         </div>
                     </div>
                     <!-- Bullet Navigator -->

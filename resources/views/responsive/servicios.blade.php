@@ -870,7 +870,6 @@ jQuery(document).ready(function ($) {
             {!!Form::label('detalle_1', 'Detalle', array('id'=>'iconFormulario-step2-popup'))!!}
             <textarea class="input-text full-width" name="detalle_servicio" id="detallerestaurant" placeholder="Incluye equipos, incluye almuerzo, no incluye bicicletas, etc" style="resize:none;"></textarea>
           </div>
-        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">{{trans('front/responsive.cerrar')}}</button>

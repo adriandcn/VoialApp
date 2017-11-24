@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Response;
 use App\Repositories\PublicServiceRepository;
+use App\Repositories\catalogoServiciosRepository;
 use Input;
 use Validator;
 use Jenssegers\Agent\Agent;
@@ -15,6 +16,8 @@ use Illuminate\Support\Facades\Session;
 use App\Models\Review_Usuario_Servicio;
 use App\Jobs\VerifyReview;
 use App\Jobs\ContactosMail;
+use DB;
+
 class HomePublicController extends Controller {
 
     private function getIp() {
@@ -30,19 +33,14 @@ class HomePublicController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function getHome(PublicServiceRepository $gestion) {
-        //
+    public function getHome(catalogoServiciosRepository $catalogoServicios) {
         try {
             $ipUser = $this->getIp();
-
             //$location = json_decode(file_get_contents("http://ipinfo.io/" . $ipUser));
             $location = json_decode(file_get_contents("http://ipinfo.io/186.47.240.232"));
         } catch (Exception $e) {
             $location = json_decode(file_get_contents("http://ipinfo.io/186.47.240.232"));
         }
-
-
-
         $agent = new Agent();
 
         $desk = $device = $agent->isMobile();
@@ -51,10 +49,17 @@ class HomePublicController extends Controller {
         else {
             $desk = "desk";
         }
-
         Session::put('device', $desk);
+        $serviciosList = $catalogoServicios->getList();
+        $campos = ['id_catalogo_servicios','nombre_servicio','nombre_servicio_eng'];
+        $padresList = DB::table('catalogo_servicios')
+                            ->select($campos)
+                            ->where('estado_catalogo_servicios',1)
+                            ->where('id_padre',0)
+                            ->get();
+        $headerCategories = $catalogoServicios->recursiveList($padresList,2);
 
-        return view('public_page.front.homePage')->with('location', $location)
+        return view('site.blades.home-default',compact('serviciosList','headerCategories'));
         ;
     }
 

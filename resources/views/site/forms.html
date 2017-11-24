@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html class="wide wow-animation" lang="en">
+  <head>
+    <!-- Site Title-->
+    <title>Forms</title>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <!-- Stylesheets-->
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Exo+2:400,600,700,800%7CLato:400,700%7CKanit:700i">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+		<!--[if lt IE 10]>
+    <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img src="images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
+    <script src="js/html5shiv.min.js"></script>
+		<![endif]-->
+  </head>
+  <body>
+    <!-- Page-->
+    <div class="text-center text-sm-left page">
+      <!-- Page preloader-->
+      <div class="page-loader">
+        <div>
+          <div class="page-loader-body">
+            <div class="center" id="loop"></div>
+            <div class="center" id="bike-wrapper">
+              <div class="centerBike" id="bike"></div>
+            </div>
+            <h1>DownHill</h1>
+          </div>
+        </div>
+      </div>
+      <!-- Page Header-->
+      <!-- Modal-->
+      <header class="page-header rd-navbar-default">
+        <!-- RD Navbar-->
+        <div class="rd-navbar-wrap">
+          <nav class="rd-navbar" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fullwidth" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-static" data-lg-device-layout="rd-navbar-static" data-md-stick-up-offset="80px" data-lg-stick-up-offset="46px" data-stick-up="true" data-sm-stick-up="true" data-md-stick-up="true" data-lg-stick-up="true">
+            <div class="rd-navbar-collapse-toggle" data-rd-navbar-toggle=".rd-navbar-collapse"><span></span></div>
+            <div class="rd-navbar-top-panel">
+              <div class="rd-navbar-top-panel-inner">
+                <!--RD Navbar Search-->
+                <div class="rd-navbar-search"><a class="rd-navbar-search-toggle" data-rd-navbar-toggle=".rd-navbar-search" href="#">
+                    <div class="search-content">Search</div><span></span></a>
+                  <form class="rd-search" action="search-results.html" data-search-live="rd-search-results-live" method="GET">
+                    <div class="form-wrap">
+                      <label class="form-label form-label" for="rd-navbar-search-form-input">Search</label>
+                      <input class="rd-navbar-search-form-input form-input" id="rd-navbar-search-form-input" type="text" name="s" autocomplete="off">
+                      <div class="rd-search-results-live" id="rd-search-results-live"></div>
+                    </div>
+                    <button class="rd-search-form-submit fa-search"></button>
+                  </form>
+                </div>
+                <div class="rd-navbar-collapse">
+                  <div class="forms-modal"><a href="#" data-toggle="modal" data-target="#form-modal-1">Log in</a><a href="#" data-toggle="modal" data-target="#form-modal-2">Register</a></div>
+                        <ul class="list-inline">
+                          <li><a class="icon fa fa-facebook text-white" href="#"></a></li>
+                          <li><a class="icon fa fa-google-plus text-white" href="#"></a></li>
+                          <li><a class="icon fa fa-linkedin text-white" href="#"></a></li>
+                          <li><a class="icon fa fa-twitter text-white" href="#"></a></li>
+                        </ul>
+                </div>
+              </div>
+            </div>
+            <div class="rd-navbar-inner">
+              <div class="rd-navbar-aside-wrap">
+                <!-- RD Navbar Panel-->
+                <div class="rd-navbar-panel">
+                  <!-- RD Navbar Toggle-->
+                  <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
+                  <!-- RD Navbar Brand-->
+                  <div class="rd-navbar-brand"><a class="brand-name" href="./"><img class="logo-long" src="images/logo-white-209x19.png" alt="" width="209" height="19"/><img class="logo-short" src="images/logo-white-123x34.png" alt="" width="123" height="34"/></a></div>
+                </div>
+                <div class="rd-navbar-aside-right">
+                  <div class="rd-navbar-nav-wrap">
+                    <ul class="rd-navbar-nav">
+                      <li><a href="index.html">Home<span class="overlay-skew"></span></a>
+                      </li>
+                      <li><a href="#">Products<span class="overlay-skew"></span></a>
+                        <!-- RD Navbar Dropdown-->
+                        <ul class="rd-navbar-dropdown">
+                          <li><a href="products.html">Products<span class="overlay-skew"></span></a>
+                          </li>
+                          <li><a href="product-families.html">Product families<span class="overlay-skew"></span></a>
+                          </li>
+                          <li><a href="product-page.html">Product page<span class="overlay-skew"></span></a>
+                          </li>
+                          <li><a href="shopping-cart.html">Shopping cart<span class="overlay-skew"></span></a>
+                          </li>
+                          <li><a href="checkout.html">Checkout<span class="overlay-skew"></span></a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a href="#">Videos<span class="overlay-skew"></span></a>
+                        <!-- RD Navbar Dropdown-->
+                        <ul class="rd-navbar-dropdown">
+                          <li><a href="videos.html">Videos<span class="overlay-skew"></span></a>
+                          </li>
+                          <li><a href="single-video.html">Single video<span class="overlay-skew"></span></a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a href="#">Blog<span class="overlay-skew"></span></a>
+                        <!-- RD Navbar Dropdown-->
+                        <ul class="rd-navbar-dropdown">
+                          <li><a href="blog.html">Blog<span class="overlay-skew"></span></a>
+                          </li>
+                          <li><a href="left-sidebar-blog.html">Left sidebar blog<span class="overlay-skew"></span></a>
+                          </li>
+                          <li><a href="right-sidebar-blog.html">Right sidebar blog<span class="overlay-skew"></span></a>
+                          </li>
+                          <li><a href="grid-blog.html">Grid blog<span class="overlay-skew"></span></a>
+                          </li>
+                          <li><a href="modern-blog.html">Modern blog<span class="overlay-skew"></span></a>
+                          </li>
+                          <li><a href="masonry-blog.html">Masonry blog<span class="overlay-skew"></span></a>
+                          </li>
+                          <li><a href="single-post.html">Single post<span class="overlay-skew"></span></a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a href="#">Teams<span class="overlay-skew"></span></a>
+                        <!-- RD Navbar Dropdown-->
+                        <ul class="rd-navbar-dropdown">
+                          <li><a href="teams.html">Teams<span class="overlay-skew"></span></a>
+                          </li>
+                          <li><a href="team-members.html">Team members<span class="overlay-skew"></span></a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a href="#">Events<span class="overlay-skew"></span></a>
+                        <!-- RD Navbar Dropdown-->
+                        <ul class="rd-navbar-dropdown">
+                          <li><a href="events.html">Events<span class="overlay-skew"></span></a>
+                          </li>
+                          <li><a href="single-event.html">Single event<span class="overlay-skew"></span></a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a href="contacts.html">Contacts<span class="overlay-skew"></span></a>
+                      </li>
+                      <li class="active"><a href="#">Pages<span class="overlay-skew"></span></a>
+                        <!-- RD Navbar Megamenu-->
+                        <ul class="rd-navbar-megamenu">
+                          <li>
+                            <p class="rd-megamenu-header">Layouts</p>
+                            <ul class="rd-megamenu-list">
+                              <li><a href="home-default.html">Default Layout<span class="overlay-skew"></span></a></li>
+                              <li><a href="home-variant-2.html">Layout #2<span class="overlay-skew"></span></a></li>
+                              <li><a href="home-variant-3.html">Layout #3<span class="overlay-skew"></span></a></li>
+                            </ul>
+                          </li>
+                          <li>
+                            <p class="rd-megamenu-header">Blog</p>
+                            <ul class="rd-megamenu-list">
+                              <li><a href="blog.html">Blog<span class="overlay-skew"></span></a></li>
+                              <li><a href="blog-sidebar-left.html">Blog sidebar left<span class="overlay-skew"></span></a></li>
+                              <li><a href="blog-sidebar-right.html">Blog sidebar right<span class="overlay-skew"></span></a></li>
+                              <li><a href="grid-blog.html">Grid blog<span class="overlay-skew"></span></a></li>
+                              <li><a href="modern-blog.html">Modern blog<span class="overlay-skew"></span></a></li>
+                              <li><a href="masonry-blog.html">Masonry blog<span class="overlay-skew"></span></a></li>
+                              <li><a href="single-post.html">Single post<span class="overlay-skew"></span></a></li>
+                            </ul>
+                          </li>
+                          <li>
+                            <p class="rd-megamenu-header">Pages</p>
+                            <ul class="rd-megamenu-list">
+                              <li><a href="404.html">404<span class="overlay-skew"></span></a></li>
+                              <li><a href="503.html">503<span class="overlay-skew"></span></a></li>
+                              <li><a href="maintenance.html">Maintenance<span class="overlay-skew"></span></a></li>
+                              <li><a href="coming-soon.html">Coming Soon<span class="overlay-skew"></span></a></li>
+                              <li><a href="site-map.html">Site Map<span class="overlay-skew"></span></a></li>
+                              <li><a href="privacy-policy.html">Privacy Policy<span class="overlay-skew"></span></a></li>
+                              <li><a href="search-results.html">Search results<span class="overlay-skew"></span></a></li>
+                            </ul>
+                          </li>
+                          <li>
+                            <p class="rd-megamenu-header">Elements</p>
+                            <ul class="rd-megamenu-list">
+                              <li><a href="typography.html">Typography<span class="overlay-skew"></span></a></li>
+                              <li><a href="tabs-&amp;-accordions.html">Tabs &amp; Accordions<span class="overlay-skew"></span></a></li>
+                              <li><a href="progress-bars.html">Progress Bars<span class="overlay-skew"></span></a></li>
+                              <li><a href="tables.html">Tables<span class="overlay-skew"></span></a></li>
+                              <li><a href="forms.html">Forms<span class="overlay-skew"></span></a></li>
+                              <li><a href="buttons.html">Buttons<span class="overlay-skew"></span></a></li>
+                              <li><a href="grid.html">Grid<span class="overlay-skew"></span></a></li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nav>
+        </div>
+              <div class="modal modal-custom fade" id="form-modal-1" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+                    <div class="modal-header">
+                      <h5>Log in</h5>
+                    </div>
+                    <div class="modal-body">
+                      <form class="rd-mailform">
+                        <div class="form-wrap">
+                          <label class="form-label-outside" for="register-username-4">Username</label>
+                          <input class="form-input" id="register-username-4" type="text" name="pass" data-constraints="@Required">
+                        </div>
+                        <div class="form-wrap">
+                          <label class="form-label-outside" for="register-password-4">Password</label>
+                          <input class="form-input" id="register-password-4" type="password" name="pass" data-constraints="@Required">
+                        </div>
+                        <div class="button-wrap text-right">
+                          <button class="button-primary button" type="submit">Log in<span></span></button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Modal-->
+              <div class="modal modal-custom fade" id="form-modal-2" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+                    <div class="modal-header">
+                      <h5>Register</h5>
+                    </div>
+                    <div class="modal-body">
+                      <form class="rd-mailform">
+                        <div class="form-wrap">
+                          <label class="form-label-outside" for="login-name-4">Name</label>
+                          <input class="form-input" id="login-name-4" type="text" name="text" data-constraints="@Required">
+                        </div>
+                        <div class="form-wrap">
+                          <label class="form-label-outside" for="login-username-4">Username</label>
+                          <input class="form-input" id="login-username-4" type="text" name="pass" data-constraints="@Required">
+                        </div>
+                        <div class="form-wrap">
+                          <label class="form-label-outside" for="login-email-4">Email</label>
+                          <input class="form-input" id="login-email-4" type="email" name="email" data-constraints="@Email">
+                        </div>
+                        <div class="form-wrap">
+                          <label class="form-label-outside" for="login-password-4">Password</label>
+                          <input class="form-input" id="login-password-4" type="password" name="pass" data-constraints="@Required">
+                        </div>
+                        <div class="button-wrap text-right">
+                          <button class="button-primary button" type="submit">Register<span></span></button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+      </header>
+      <!-- Breadcrumbs & Page title-->
+      <section class="page-title breadcrumbs-elements page-title-inset-1">
+        <div class="shell">
+          <div class="page-title__overlay box-skew box-skew-var-1"><span class="box-skew__item"></span>
+            <div class="page-title-text">Forms</div>
+            <ul class="breadcrumbs-custom">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="#">Pages</a></li>
+              <li class="active">Forms</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-xs bg-white">
+        <div class="shell">
+          <h1>Forms</h1>
+          <p class="big text-width-medium">With forms you can get almost any kind of information from your visitors, who will definitely appreciate this attractive element.</p>
+        </div>
+      </section>
+      <section class="section-xs bg-white">
+        <div class="shell">
+          <div class="range range-50">
+            <div class="cell-md-6">
+              <div class="range range-60">
+                <div class="cell-lg-10">
+                  <h6>Login form</h6>
+                  <!-- RD Mailform-->
+                  <form class="rd-mailform">
+                    <div class="form-wrap">
+                      <label class="form-label-outside" for="login-email">Email</label>
+                      <input class="form-input" id="login-email" type="email" name="email" data-constraints="@Required @Email">
+                    </div>
+                    <div class="form-wrap">
+                      <label class="form-label-outside" for="login-password">Password</label>
+                      <input class="form-input" id="login-password" type="password" name="pass" data-constraints="@Required">
+                    </div>
+                    <div class="button-wrap text-sm-right">
+                      <button class="button button-primary" type="submit">Enter<span></span></button>
+                    </div>
+                  </form>
+                  <h6>or</h6>
+                  <div class="group-buttons-3 group-md-justify"><a class="button button-facebook button-icon button-icon-sm button-icon-right fa-facebook" href="#">Facebook<span></span></a><a class="button button-twitter button-icon button-icon-sm button-icon-right fa-twitter" href="#">Twitter<span></span></a><a class="button button-google button-icon button-icon-sm button-icon-right fa-google-plus" href="#">Google+<span></span></a></div>
+                </div>
+                <div class="cell-xs-12">
+                  <h6>Contact us</h6>
+                  <!-- RD Mailform-->
+                  <form class="rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="bat/rd-mailform.php">
+                    <div class="range range-15">
+                      <div class="cell-sm-6">
+                        <div class="form-wrap">
+                          <label class="form-label-outside" for="contact-first-name">First name</label>
+                          <input class="form-input" id="contact-first-name" type="text" name="name" data-constraints="@Required">
+                        </div>
+                      </div>
+                      <div class="cell-sm-6">
+                        <div class="form-wrap">
+                          <label class="form-label-outside" for="contact-last-name">Last name</label>
+                          <input class="form-input" id="contact-last-name" type="text" name="name" data-constraints="@Required">
+                        </div>
+                      </div>
+                      <div class="cell-xs-12">
+                        <div class="form-wrap">
+                          <label class="form-label-outside" for="contact-message">Message</label>
+                          <textarea class="form-input" id="contact-message" name="message" data-constraints="@Required"></textarea>
+                        </div>
+                      </div>
+                      <div class="cell-sm-12">
+                        <div class="form-inline form-inline-custom">
+                          <div class="form-wrap">
+                            <label class="form-label-outside" for="contact-email">E-mail</label>
+                            <input class="form-input" id="contact-email" type="email" name="email" data-constraints="@Email @Required">
+                          </div>
+                          <button class="button button-primary" type="submit">Send message<span></span></button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <!-- Contact Form with ReCaptcha-->
+                <div class="cell-xs-12">
+                  <h6>Contact Form with ReCaptcha</h6>
+                  <!-- RD Mailform-->
+                  <form class="rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="bat/rd-mailform.php">
+                    <div class="range range-15">
+                      <div class="cell-sm-6">
+                        <div class="form-wrap">
+                          <label class="form-label-outside" for="contact-first-name-2">First name</label>
+                          <input class="form-input" id="contact-first-name-2" type="text" name="name" data-constraints="@Required">
+                        </div>
+                      </div>
+                      <div class="cell-sm-6">
+                        <div class="form-wrap">
+                          <label class="form-label-outside" for="contact-last-name-2">Last name</label>
+                          <input class="form-input" id="contact-last-name-2" type="text" name="name" data-constraints="@Required">
+                        </div>
+                      </div>
+                      <div class="cell-xs-12">
+                        <div class="form-wrap">
+                          <label class="form-label-outside" for="contact-message-2">Message</label>
+                          <textarea class="form-input" id="contact-message-2" name="message" data-constraints="@Required"></textarea>
+                        </div>
+                      </div>
+                      <div class="cell-sm-12">
+                        <div class="form-inline form-inline-custom">
+                          <div class="form-wrap">
+                            <label class="form-label-outside" for="contact-email-2">E-mail</label>
+                            <input class="form-input" id="contact-email-2" type="email" name="email" data-constraints="@Email @Required">
+                          </div>
+                          <button class="button button-primary" type="submit">Send message<span></span></button>
+                        </div>
+                      </div>
+                      <div class="cell-md-12 m-h-78 text-right">
+                        <!--Google captcha-->
+                        <div class="form-wrap form-wrap-captcha form-wrap-inline">
+                          <div class="recaptcha" id="captcha1" data-sitekey="6LfZlSETAAAAAC5VW4R4tQP8Am_to4bM3dddxkEt"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="cell-xs-12">
+                  <h6>Newsletter</h6>
+                  <p class="text-width-small">Sign up to our newsletter and be the first to know about our latest news, special offers, events, and discounts.</p>
+                  <!-- RD Mailform-->
+                  <form class="rd-mailform form-inline" data-form-output="form-output-global" data-form-type="subscribe" method="post" action="bat/rd-mailform.php">
+                    <div class="form-wrap">
+                      <label class="form-label" for="subscribe-email-1">Your e-mail address</label>
+                      <input class="form-input" id="subscribe-email-1" type="email" name="email" data-constraints="@Email @Required">
+                    </div>
+                    <button class="button button-primary" type="submit">Subscribe<span></span></button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="cell-md-6">
+              <h5>Billing details</h5>
+              <!-- RD Mailform-->
+              <form class="rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="bat/rd-mailform.php">
+                <div class="range range-15">
+                  <div class="cell-sm-6">
+                    <div class="form-wrap">
+                      <label class="form-label-outside" for="contact-first-name-3">First name</label>
+                      <input class="form-input" id="contact-first-name-3" type="text" name="name" data-constraints="@Required">
+                    </div>
+                  </div>
+                  <div class="cell-sm-6">
+                    <div class="form-wrap">
+                      <label class="form-label-outside" for="contact-last-name-3">Last name</label>
+                      <input class="form-input" id="contact-last-name-3" type="text" name="name" data-constraints="@Required">
+                    </div>
+                  </div>
+                  <div class="cell-xs-12">
+                    <div class="form-wrap">
+                      <label class="form-label-outside" for="company-name">Company name</label>
+                      <input class="form-input" id="company-name" type="text" name="name" data-constraints="@Required">
+                    </div>
+                  </div>
+                  <div class="cell-sm-6">
+                    <div class="form-wrap">
+                      <label class="form-label-outside" for="contact-email-3">Email address</label>
+                      <input class="form-input" id="contact-email-3" type="text" name="name" data-constraints="@Email">
+                    </div>
+                  </div>
+                  <div class="cell-sm-6">
+                    <div class="form-wrap">
+                      <label class="form-label-outside" for="forms-phone">Phone</label>
+                      <input class="form-input" id="forms-phone" type="text" name="phone" data-constraints="@Numeric @Required" placeholder="+1 (xxx) xxx xxxx">
+                    </div>
+                  </div>
+                  <div class="cell-sm-12">
+                    <div class="form-wrap">
+                      <!--Select 2-->
+                      <p class="text-label">Country</p>
+                      <select class="form-control select-filter" data-minimum-results-for-search="Infinity" data-constraints="@Required">
+                        <option value="1">Country 1</option>
+                        <option value="2">Country 2</option>
+                        <option value="3">Country 3</option>
+                        <option value="4">Country 4</option>
+                        <option value="5">Country 5</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="cell-sm-12">
+                    <div class="form-wrap">
+                      <label class="form-label-outside" for="forms-street">Address</label>
+                      <input class="form-input" id="forms-street" type="text" name="name" data-constraints="@Required">
+                    </div>
+                  </div>
+                  <div class="cell-sm-12">
+                    <div class="form-wrap">
+                      <label class="form-label-outside" for="forms-address">Apartment, suite, unit etc. (optional)</label>
+                      <input class="form-input" id="forms-address" type="text" name="name" data-constraints="@Required">
+                    </div>
+                  </div>
+                  <div class="cell-sm-12">
+                    <div class="form-wrap">
+                      <label class="form-label-outside" for="forms-town">Town / City</label>
+                      <input class="form-input" id="forms-town" type="text" name="name" data-constraints="@Required">
+                    </div>
+                  </div>
+                  <div class="cell-sm-6">
+                    <div class="form-wrap">
+                      <label class="form-label-outside" for="forms-country">Country</label>
+                      <input class="form-input" id="forms-country" type="text" name="name" data-constraints="@Required">
+                    </div>
+                  </div>
+                  <div class="cell-sm-6">
+                    <div class="form-wrap">
+                      <label class="form-label-outside" for="forms-postcode">Postcode</label>
+                      <input class="form-input" id="forms-postcode" type="text" name="name" data-constraints="@Required">
+                    </div>
+                  </div>
+                  <div class="cell-xs-12">
+                    <div class="form-wrap">
+                      <div class="checkbox">
+                        <label>
+                          <input name="input-group-radio" value="checkbox-1" type="checkbox">Create an account
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Page Footer-->
+      <footer class="page-footer footer-default">
+        <section class="section-xs bg-gray-darker">
+          <div class="shell">
+            <div class="range range-30 range-around box-border-md-right">
+              <div class="cell-md-4 cell-sm-5 cell-xs-10 wow fadeInUp" data-wow-delay=".2s">
+                <h4>Recent posts</h4>
+                      <div class="post-mini post-footer">
+                        <div class="unit unit-horizontal unit-spacing-xs">
+                          <div class="unit__left"><a href="#"><img src="images/user-01-70x70.jpg" alt="" width="70" height="70"/></a></div>
+                          <div class="unit__body">
+                            <time datetime="2017-08-25">August 25, 2017</time>
+                            <p><a href="single-post.html">Cotic Releases Three New Full Suspension Bikes for Pro Riders</a></p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="post-mini post-footer">
+                        <div class="unit unit-horizontal unit-spacing-xs">
+                          <div class="unit__left"><a href="#"><img src="images/user-02-70x70.jpg" alt="" width="70" height="70"/></a></div>
+                          <div class="unit__body">
+                            <time datetime="2017-08-20">August 20, 2017</time>
+                            <p><a href="single-post.html">Review: Cannondale Beast of the East 2. A Plus - Size Reboot</a></p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="post-mini post-footer">
+                        <div class="unit unit-horizontal unit-spacing-xs">
+                          <div class="unit__left"><a href="#"><img src="images/user-03-70x70.jpg" alt="" width="70" height="70"/></a></div>
+                          <div class="unit__body">
+                            <time datetime="2017-08-15">August 15, 2017</time>
+                            <p><a href="single-post.html">Basic Downhill Equipment 2017. What`s New?</a></p>
+                          </div>
+                        </div>
+                      </div>
+              </div>
+              <div class="cell-md-4 cell-sm-5 cell-xs-10 wow fadeInUp" data-wow-delay=".3s">
+                <h4>Tags</h4>
+                <ul class="list-tags">
+                  <li><a href="#">Downhill</a></li>
+                  <li><a href="#">Mountain bike</a></li>
+                  <li><a href="#">Equipment</a></li>
+                  <li><a href="#">Reviews</a></li>
+                  <li><a href="#">Bike gear</a></li>
+                  <li><a href="#">National champs</a></li>
+                  <li><a href="#">Adult</a></li>
+                  <li><a href="#">Teen</a></li>
+                </ul>
+                <h4>Links</h4>
+                <ul class="list-marked-2 list-bold list-primary-sec list-xs-inline-block">
+                  <li><a href="#">Lizard Skins</a></li>
+                  <li><a href="#">6D Helmets</a></li>
+                  <li><a href="#">7iDP</a></li>
+                  <li><a href="#">Magura</a></li>
+                  <li><a href="#">Airborne</a></li>
+                  <li><a href="#">Mammoth Mountain</a></li>
+                </ul>
+              </div>
+              <div class="cell-md-4 cell-sm-11 wow fadeInUp" data-wow-delay=".4s">
+                <h4>Partners:</h4>
+                <div class="footer-partners group-lg"><a href="#"><img src="images/partners-1-161x49.jpg" alt="" width="161" height="49"/></a><a href="#"><img src="images/partners-2-54x55.jpg" alt="" width="54" height="55"/></a><a href="#"><img src="images/partners-3-105x43.jpg" alt="" width="105" height="43"/></a><a href="#"><img src="images/partners-4-52x55.jpg" alt="" width="52" height="55"/></a><a href="#"><img src="images/partners-5-177x60.jpg" alt="" width="177" height="60"/></a></div>
+                <h4>Newsletter</h4>
+                <p>Keep up with the latest news and events.</p>
+                <p>Enter your e-mail and subscribe to our newsletter.</p>
+                <form class="rd-mailform form-gray-outline form-button-within-1" data-form-output="form-output-global" data-form-type="subscribe" method="post" action="bat/rd-mailform.php">
+                  <div class="form-wrap">
+                    <input class="form-input" type="email" name="email" data-constraints="@Email @Required">
+                    <button class="button button-transparent" type="submit">Subscribe</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="footer-bottom-panel">
+          <div class="shell">
+            <div class="wrap-bottom-panel">
+              <p>Downhill &#169; <span id="copyright-year"></span>. <a href="privacy-policy.html">Privacy Policy</a>
+              </p>
+                    <ul class="list-inline">
+                      <li><a class="icon fa fa-facebook icon-xxs" href="#"></a></li>
+                      <li><a class="icon fa fa-google-plus icon-xxs" href="#"></a></li>
+                      <li><a class="icon fa fa-linkedin icon-xxs" href="#"></a></li>
+                      <li><a class="icon fa fa-twitter icon-xxs" href="#"></a></li>
+                    </ul>
+            </div>
+          </div>
+        </section>
+      </footer>
+    </div>
+    <!-- END PANEL-->
+    <!-- Global Mailform Output-->
+    <div class="snackbars" id="form-output-global"></div>
+    <!-- PhotoSwipe Gallery-->
+    <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="pswp__bg"></div>
+      <div class="pswp__scroll-wrap">
+        <div class="pswp__container">
+          <div class="pswp__item"></div>
+          <div class="pswp__item"></div>
+          <div class="pswp__item"></div>
+        </div>
+        <div class="pswp__ui pswp__ui--hidden">
+          <div class="pswp__top-bar">
+            <div class="pswp__counter"></div>
+            <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+            <button class="pswp__button pswp__button--share" title="Share"></button>
+            <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+            <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+            <div class="pswp__preloader">
+              <div class="pswp__preloader__icn">
+                <div class="pswp__preloader__cut">
+                  <div class="pswp__preloader__donut"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+            <div class="pswp__share-tooltip"></div>
+          </div>
+          <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+          <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+          <div class="pswp__caption">
+            <div class="pswp__caption__cent"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Javascript-->
+    <script src="js/core.min.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>

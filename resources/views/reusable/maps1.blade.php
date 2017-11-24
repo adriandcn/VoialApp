@@ -1,13 +1,8 @@
 
 <style>
-
     #map {
-
         width:100%;height:344px
-
-
     }
-
     .pac-container {
         background-color: #FFF;
         z-index: 2000;
@@ -18,10 +13,9 @@
 </style>
 
 <div class='form-group'>
-    <label for='searchmap'>Ubicación: </label>
-    <input type="text" id='searchmap' style="height: 27px; width: 100%;margin-bottom: 1%" class="input-text">
+    <!-- <label for='searchmap'>Ubicación: </label> -->
+    <input type="text" id='searchmap' style="height: 27px; width: 100%;margin-bottom: 1%" class="form-input">
     <div id="map"></div>
-
 </div>
 <div class="form-group">
     <input type="hidden" class='form-control input-sm' name='latitud_servicio' value="{!!$latitud_servicio!!}" id='latitud_servicio'/>
@@ -29,8 +23,6 @@
 <div class="form-group">
     <input type="hidden" class='form-control input-sm' name='longitud_servicio' value="{!!$longitud_servicio!!}" id='longitud_servicio'/>
 </div>
-
-
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDor7F0iN5YavbFiLRA7pY7L8-Rgl89GT8&signed_in=true&libraries=places&callback=initMap" async defer></script>
 
@@ -82,15 +74,8 @@
             $('#longitud_servicio').val(lng);
         })
     }
-
-
 </script>
-
 </head>
-
-
-
-
 
 {!!HTML::script('js/jquery_.js') !!}
 {!! HTML::script('/js/jsModal/jquery.simplemodal.js') !!}

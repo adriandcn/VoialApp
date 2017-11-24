@@ -1,6 +1,4 @@
 <?php
-
-
 //Registro
 Route::get('catalogos', 'CatalogoServicioController@index');
 
@@ -268,8 +266,6 @@ Route::get('InvitacionOperadores',function()
 });
 
 
-
-
 Route::get('registerMobile', ['as' => 'registerMobile', 'uses' => 'ServicioController@registerMobile'] );
 
 
@@ -525,5 +521,40 @@ Route::post('contactosNew', ['as' => 'postContactos', 'uses' =>'HomePublicContro
 
 
 
+Route::get('/detallePromocion/{nombre_servicioservicio}/{nombre_promocion}/{id_promocion}', ['as' => 'detallePromo', 'uses' => 'HomePublicController@detallePromo']);
+Route::get('/detalleEvento/{nombre_servicioservicio}/{nombre_evento}/{id_evento}', ['as' => 'detalleEvento', 'uses' => 'HomePublicController@detalleEvento']);
 
-Route::get('/distributivo', ['as' => 'distributivo', 'uses' => 'HomePublicController@getDistributivo']);
+
+//*******************************************************************************************************//
+Route::get('/errorAdmin', ['uses'=>'UsuarioServiciosController@errorAdmin','middleware' => 'notAuth']);
+
+Route::get('vistaPreviaPromocion/{id_promo}', ['uses' => 'UsuarioServiciosController@vistaPreviaPromocion','middleware' => 'notAuth'] );
+Route::get('/previewPromocion', ['uses' => 'UsuarioServiciosController@getPreviewPromocion','middleware' => 'notAuth']);
+Route::get('/promocionPreview/{id}', ['uses'=>'UsuarioServiciosController@edicionPromocion2','middleware' => 'notAuth']);
+
+Route::get('vistaPreviaEvento/{id_evento}', ['uses' => 'UsuarioServiciosController@vistaPreviaEvento','middleware' => 'notAuth'] );
+Route::get('/previewEvento', ['uses' => 'UsuarioServiciosController@getPreviewEvento','middleware' => 'notAuth']);
+Route::get('/eventoPreview/{id}', ['uses'=>'UsuarioServiciosController@edicionEvento2','middleware' => 'notAuth']);
+
+Route::get('/updateEstadoError/{id}', ['uses'=>'HomePublicController@updateEstadoError','middleware' => 'notAuth']);
+
+Route::get('/tour/{nombre_agrupamiento}/{id_usuario_servicio}/{id_agrupamiento}', ['uses'=>'HomePublicController@agrupamientos']);
+
+
+
+
+//RUTA PARA CONFIRMACION DE PAGO CON TARJETA DE CREDITO
+
+//envio de pago medios cambiar a POST
+//Route::get('/confirmacion', ['uses'=>'HomePublicController@confirmacion']);
+Route::post('/confirmacion', ['uses'=>'HomePublicController@confirmacion']);
+//consulta reserva
+Route::get('/consultareservacion/{token}', ['uses'=>'HomePublicController@consultareservacion']);
+//cuando la solicitud de pago medios devuelve status 0
+Route::get('/errorsolicitudpago/{token}/{mensaje}', ['uses'=>'HomePublicController@errorSolicitudpagoTarjetaCredito']);
+
+//RUTA PARA CONFIRMACION CON EFECTIVO
+Route::get('/confirmacionEfectivo/{token}', ['as' => 'confirmacionefectivo', 'uses' => 'HomePublicController@getConfirmacionCash']);
+Route::get('/reservaCash', ['uses' =>'HomePublicController@getReservaCash']);
+
+

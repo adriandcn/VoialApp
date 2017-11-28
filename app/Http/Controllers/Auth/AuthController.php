@@ -339,12 +339,13 @@ class AuthController extends Controller {
             if ($listServicios) {
                 $data['id_usuario_op'] = $listServicios[0]->id_usuario_op;
                 // $request->session()->put('operador_id', $data['id_usuario_op']);
-                $request->session()->put('operador_id', 1);
+                $request->session()->put('operador_id', $data['id_usuario_op']);
                 //        $view = view('Registro.catalogoServicio', compact('data', 'listServicios'));
                 $request->session()->put('tip_oper', $listServicios[0]->id_tipo_operador);
 
 
                 // return redirect('/serviciosres')->with('user', $user->id);
+                // return $data['id_usuario_op'];
                 return response()->json(['error' => false , 'redirectto' => 'serviciosres']);
                 //return redirect('/detalleServiciosRes')->with('user', $user->id);
                 // return ($view);
@@ -458,11 +459,11 @@ class AuthController extends Controller {
                 $data['id_usuario_op'] = $listServicios[0]->id_usuario_op;
                 $request->session()->put('operador_id', $data['id_usuario_op']);
                 $request->session()->put('tip_oper', $listServicios[0]->id_tipo_operador);
-                return redirect('/serviciosres')->with('user', $user->id);
+                return redirect('/createOperador')->with('user', $user->id);
 
             } else {
 
-                      $returnHTML = ('serviciosres');//->with('user', $user->id);
+                      $returnHTML = ('createOperador');//->with('user', $user->id);
               return response()->json(array('success' => true, 'redirectto' => $returnHTML));
           
             }

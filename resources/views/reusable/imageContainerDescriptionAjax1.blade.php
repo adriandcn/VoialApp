@@ -27,7 +27,7 @@
                     <img src="{{asset($url)}}" href='#' class="img-res"/>
                     
             
-                    <input type="text" value="{!!$imagen->descripcion_fotografia!!}" name="descripcion_fotografia_{!!$imagen->id!!}" 
+                    <input type="text" class="form-input" value="{!!$imagen->descripcion_fotografia!!}" name="descripcion_fotografia_{!!$imagen->id!!}" 
                            style='height: 25px;width: 100%;' placeholder='Descripcion' 
                            onchange="AjaxSaveDetailsFotografia1('deleteImage','{!!$imagen->id!!}')">
                     

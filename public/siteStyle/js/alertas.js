@@ -10,7 +10,8 @@ var showAlert = function(title,text,redirect,type,typebtn){
       },
       function(){
       	if (redirect != null) {
-      		window.location.href = window.location.href + redirect
+          var url = 'http://' + window.location.hostname + "/voialApp/public/"+ redirect;
+      		window.location.href = url;
       	}
       });
 }

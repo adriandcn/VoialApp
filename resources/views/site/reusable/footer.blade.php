@@ -36,7 +36,7 @@
                 <h4>Tags</h4>
                 <ul class="list-tags">
                   @foreach($headerCategories as $category)
-                    <li><a href="#">{{$category->nombre_servicio}}</a></li>
+                    <li><a href="{!!asset('/catalogoServ')!!}/{{$category->id_catalogo_servicios}}">{{$category->nombre_servicio}}</a></li>
                   @endforeach
                 </ul>
                 <h4>Links</h4>
@@ -120,11 +120,7 @@
     <script src="{{ asset('/siteStyle/js/script.js')}}"></script>
     <script src="{{ asset('/siteStyle/sweetalert/sweetalert.js')}}"></script>
     <script src="{{ asset('/siteStyle/js/alertas.js')}}"></script>
-    <script src="{{ asset('/siteStyle/js/Compartido.js')}}"></script>
-    {!! HTML::style('/packages/dropzone/dropzone.css') !!}
-    <!-- End Dropzone Preview Template -->
-    {!! HTML::script('/packages/dropzone/dropzone.js') !!}
-    {!! HTML::script('/assets/js/dropzone-config.js') !!}  
+    <script src="{{ asset('/siteStyle/js/Compartido.js')}}"></script> 
 
       <script type="text/javascript">
           $('.error').html('');
@@ -176,6 +172,7 @@
                       $('.rowerror1').html("@include('partials/error', ['type' => 'danger','message'=>'" + errorString + "'])");
                   }
                   if (data.success) {
+                      $('.rowerror1').hide();
                       $('.register').fadeOut(); //hiding Reg form
                       var successContent = '' + data.message + '';
                       $('.rowerror1').html("@include('partials/error', ['type' => 'danger','message'=>'Success'])");

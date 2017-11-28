@@ -58,15 +58,14 @@
                   <!-- RD Navbar Toggle-->
                   <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
                   <!-- RD Navbar Brand-->
-                  <div class="rd-navbar-brand"><a class="brand-name" href="./"><img class="logo-long" src="{{asset('/siteStyle/images/logo-white-209x19.png')}}" alt="" width="209" height="19"/><img class="logo-short" src="{{asset('/siteStyle/images/logo-white-209x19.png')}}" alt="" width="123" height="34"/></a></div>
+                  <div class="rd-navbar-brand"><a class="brand-name" href="{{asset('/')}}"><img class="logo-long" src="{{asset('/siteStyle/images/logo-white-209x19.png')}}" alt="" width="209" height="19"/><img class="logo-short" src="{{asset('/siteStyle/images/logo-white-209x19.png')}}" alt="" width="123" height="34"/></a></div>
                 </div>
                 <div class="rd-navbar-aside-right">
                   <div class="rd-navbar-nav-wrap">
                     <ul class="rd-navbar-nav">
-                      <li><a href="index.html">Home<span class="overlay-skew"></span></a>
+                      <li><a href="{{asset('/')}}">Home<span class="overlay-skew"></span></a>
                       </li>
-                      <li><a href="#">Products<span class="overlay-skew"></span></a>
-                        <!-- RD Navbar Dropdown-->
+                      <!-- <li><a href="#">Products<span class="overlay-skew"></span></a>
                         <ul class="rd-navbar-dropdown">
                           <li><a href="products.html">Categorias<span class="overlay-skew"></span></a>
                           </li>
@@ -79,19 +78,18 @@
                           <li><a href="checkout.html">Categorias D<span class="overlay-skew"></span></a>
                           </li>
                         </ul>
-                      </li>
-                      <li><a href="#">Eventos<span class="overlay-skew"></span></a>
-                        <!-- RD Navbar Dropdown-->
+                      </li> -->
+                      <!-- <li><a href="#">Eventos<span class="overlay-skew"></span></a>
                         <ul class="rd-navbar-dropdown">
                           <li><a href="events.html">Eventos A<span class="overlay-skew"></span></a>
                           </li>
                           <li><a href="single-event.html">Eventos B<span class="overlay-skew"></span></a>
                           </li>
                         </ul>
+                      </li> -->
+                      <li><a href="">Contactos<span class="overlay-skew"></span></a>
                       </li>
-                      <li><a href="contacts.html">Contacts<span class="overlay-skew"></span></a>
-                      </li>
-                      <li class="active"><a href="#">Categorias<span class="overlay-skew"></span></a>
+                      <li class="active"><a href="">Categorias<span class="overlay-skew"></span></a>
                         <ul class="rd-navbar-megamenu">
                           @foreach($headerCategories as $category)
                           <li>
@@ -99,7 +97,7 @@
                             <ul class="rd-megamenu-list">
                               @if(count($headerCategories)>0)
                                 @foreach($category->child as $childCat)
-                                  <li><a href="#">{{$childCat->nombre_servicio}}<span class="overlay-skew"></span></a></li>
+                                  <li><a href="{!!asset('/catalogoServ')!!}/{{$childCat->id_catalogo_servicios}}">{{$childCat->nombre_servicio}}<span class="overlay-skew"></span></a></li>
                                 @endforeach
                               @endif
                             </ul>
@@ -122,7 +120,7 @@
                       <h5>{{ trans('publico/labels.label148')}}</h5>
                     </div>
                     <div class="modal-body">
-                      <form class="rd-mailform" id="formLogin" action="http://localhost/VoialApp/public/auth/loginr" method="POST">
+                      <form class="rd-mailform" id="formLogin" action="{{$serverDir}}voialApp/public/auth/loginr" method="POST">
                         <div class="form-wrap">
                           <label class="form-label-outside" for="log">
                             <i class="fa fa-user"></i>&nbsp;&nbsp;{{ trans('publico/labels.labelUser')}}
@@ -152,7 +150,7 @@
                       <h5>{{ trans('publico/labels.label149')}}</h5>
                     </div>
                     <div class="modal-body">
-                      <form class="rd-mailform" id="formRegister" action="http://localhost/VoialApp/public/auth/registerr">
+                      <form class="rd-mailform" id="formRegister" action="{{$serverDir}}voialApp/public/auth/registerr">
                         <div class="form-wrap">
                           <label class="form-label-outside" for="login-name-4">{{ trans('publico/labels.labelName')}}</label>
                           <input class="form-input" id="login-name-4" type="text" name="name" data-constraints="@Required">

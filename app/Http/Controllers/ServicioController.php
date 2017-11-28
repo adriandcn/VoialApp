@@ -12,6 +12,7 @@ use Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Contracts\Auth\Guard;
 use App\Repositories\ServiciosOperadorRepository;
+use App\Repositories\catalogoServiciosRepository;
 use Illuminate\Support\Facades\Session;
 use App\Repositories\PublicServiceRepository;
 use Illuminate\Support\Facades\DB;
@@ -21,7 +22,7 @@ use Illuminate\Support\Facades\DB;
 class ServicioController extends Controller {
 
     protected $validationRules = [
-        //'nombre_empresa_operador' => 'required|max:255',
+        'nombre_empresa_operador' => 'required|max:255',
         'nombre_contacto_operador_1' => 'required|max:255',
         'direccion_empresa_operador' => 'required|max:255',
         'email_contacto_operador' => 'required|max:255',
@@ -477,17 +478,17 @@ class ServicioController extends Controller {
     
     public function step2res(Guard $auth, OperadorRepository $operador_gestion) {
         if ($auth->check()) {
-            $operador = $operador_gestion->getOperadorTipo($auth->user()->id, session('tip_oper'));
-            $data['tipoOperador'] = session('tip_oper');
-            //$view = view('responsive.operadores', compact('data', 'operador')); // revisar debe redirecccionar a otro lado
-            $view = view('responsive.myInfo', compact('data', 'operador')); // revisar debe redirecccionar a otro lado
-            //$view = view('responsive.operadores', compact('data', 'operador')); // revisar debe redirecccionar a otro lado
+            $operador = $operador_gestion->getOperador($auth->user()->id);
+            if ($operador[0]['direccion_empresa_operador'] != '') {
+                return redirect('/serviciosres');
+            }else{
+                $view = view('site.blades.create-operador',compact('operador'));
+                return $view;
+            }
         } else {
-            $view = view('responsive.completeRegister');
+            $view = view('site.blades.home-default');
+            return $view;
         }
-
-
-        return $view;
     }
     
     public function step2pru(Guard $auth, OperadorRepository $operador_gestion) {
@@ -527,14 +528,14 @@ class ServicioController extends Controller {
         parse_str($inputData, $formFields);
         
         $operadorData = array(
-            //'nombre_empresa_operador' => $formFields['nombre_empresa_operador'],
+            'nombre_empresa_operador' => $formFields['nombre_empresa_operador'],
             'nombre_contacto_operador_1' => $formFields['nombre_contacto_operador_1'],
             'telf_contacto_operador_1' => $formFields['telf_contacto_operador_1'],
             'ip_registro_operador' => $this->getIp(),
             'email_contacto_operador' => $formFields['email_contacto_operador'],
             'direccion_empresa_operador' => $formFields['direccion_empresa_operador'],
             'id_usuario' => $auth->user()->id,
-            'id_tipo_operador' => $formFields['id_tipo_operador'],
+            // 'id_tipo_operador' => $formFields['id_tipo_operador'],
             'estado_contacto_operador' => 1,
             'id_usuario_op' => $formFields['id_usuario_op']
         );
@@ -562,7 +563,7 @@ class ServicioController extends Controller {
                     
             }
         }
-        $returnHTML = ('/serviciosres');
+        $returnHTML = ('serviciosres');
         return response()->json(array('success' => true, 'redirectto' => $returnHTML));
         
         
@@ -735,17 +736,17 @@ class ServicioController extends Controller {
         );
         
         $usuarioServicio = $usuarioSevicio_gestion->storageUsuarioServiciosMini($usuarioServicioData);
-        if($formFields['id_catalogo_servicio'] == 1){
-           $contadorControl = $usuarioSevicio_gestion->verificarSiExiste($formFields['id_catalogo_servicio'],$formFields['id_usuario_operador'] );
-        }elseif($formFields['id_catalogo_servicio'] == 2){
-           $contadorControl = $usuarioSevicio_gestion->verificarSiExiste($formFields['id_catalogo_servicio'],$formFields['id_usuario_operador'] );
-        }elseif($formFields['id_catalogo_servicio'] == 3){
-           $contadorControl = $usuarioSevicio_gestion->verificarSiExiste($formFields['id_catalogo_servicio'],$formFields['id_usuario_operador'] );
-        }
+        // if($formFields['id_catalogo_servicio'] == 1){
+        //    $contadorControl = $usuarioSevicio_gestion->verificarSiExiste($formFields['id_catalogo_servicio'],$formFields['id_usuario_operador'] );
+        // }elseif($formFields['id_catalogo_servicio'] == 2){
+        //    $contadorControl = $usuarioSevicio_gestion->verificarSiExiste($formFields['id_catalogo_servicio'],$formFields['id_usuario_operador'] );
+        // }elseif($formFields['id_catalogo_servicio'] == 3){
+        //    $contadorControl = $usuarioSevicio_gestion->verificarSiExiste($formFields['id_catalogo_servicio'],$formFields['id_usuario_operador'] );
+        // }
         
-        if($contadorControl[0]->contador == 0){
-            $controlDashboard = $usuarioSevicio_gestion->storageControlDashboardMini($usuarioServicioData);
-        }
+        // if($contadorControl[0]->contador == 0){
+        //     $controlDashboard = $usuarioSevicio_gestion->storageControlDashboardMini($usuarioServicioData);
+        // }
         
         
 		//new       
@@ -1153,19 +1154,15 @@ public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $aut
 		}
              
         }
-        $returnHTML = ('/serviciosres');
+        $returnHTML = ('serviciosres');
         return response()->json(array('success' => true, 'redirectto' => $returnHTML));
     } 
    
 
     
     
-       public function uploadServiciosActivo($id_usuario_servicio, OperadorRepository $usuarioSevicio_gestion , ServiciosOperadorRepository $gestion) {
-        
-        
+    public function uploadServiciosActivo($id_usuario_servicio, OperadorRepository $usuarioSevicio_gestion , ServiciosOperadorRepository $gestion) {
         $usuarioServicio = $usuarioSevicio_gestion->getUsuarioServicio($id_usuario_servicio);
-        
-       
         $estado_servicio = $usuarioServicio[0]->estado_servicio_usuario;
         if($estado_servicio == 1){
             $estado_servicio = 0;
@@ -1174,9 +1171,48 @@ public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $aut
             $estado_servicio = 1;
             $estado = $usuarioSevicio_gestion->updateEstadoUsuarioServicios($id_usuario_servicio,$estado_servicio);
         }
-            
         return response()->json(array('success' => true, 'redirectto' => $estado));
     } 
+
+    public function getServiciosByCatalogo($idCatalogo,catalogoServiciosRepository $catalogoServicios) {
+        $campos = ['id_catalogo_servicios','nombre_servicio','nombre_servicio_eng'];
+        $campos_serv = ['id','nombre_servicio','detalle_servicio'];
+        $padresList = DB::table('catalogo_servicios')
+                            ->select($campos)
+                            ->where('id_padre',$idCatalogo)
+                            ->get();
+        $findedServ = [];
+        $catalogoServicios =  $catalogoServicios->recursiveListInArray($padresList,null);
+        foreach ($catalogoServicios as $catalogo) {
+            $qServ = DB::table('usuario_servicios')
+                            ->select($campos_serv)
+                            ->where('id_catalogo_servicio',$catalogo->id_catalogo_servicios)
+                            ->get();
+            foreach ($qServ as $serv) {
+                array_push($findedServ, $serv);
+            }
+            
+        }
+        return view('site.blades.servicios-list', compact('findedServ'));
+        // return response()->json(array('success' => true, 'redirectto' => $catalogoServicios));
+    }
+
+    public function getServiciosByOperador($idOperador) {
+        $campos_serv = ['id','nombre_servicio','detalle_servicio'];
+        $campos_operador = ['id_usuario_op', 'nombre_empresa_operador'];
+        $dataOperador = DB::table('usuario_operadores')
+                            ->select($campos_operador)
+                            ->where('id_usuario_op',$idOperador)
+                            ->first();
+        $findedServ = DB::table('usuario_servicios')
+                            ->select($campos_serv)
+                            ->where('id_usuario_operador',$idOperador)
+                            ->get();
+        return view('site.blades.servicios-operador', compact('findedServ','dataOperador'));
+        // return response()->json(array('success' => true, 'redirectto' => $findedServ));
+    }
+
+    
 
     
 }

@@ -55,7 +55,7 @@ class HomePublicController extends Controller {
         $padresList = DB::table('catalogo_servicios')
                             ->select($campos)
                             ->where('estado_catalogo_servicios',1)
-                            ->where('id_padre',0)
+                            ->where('nivel',1)
                             ->get();
         $headerCategories = $catalogoServicios->recursiveList($padresList,2);
 
@@ -614,8 +614,8 @@ class HomePublicController extends Controller {
         $itinerarios = $gestion->getItinerAtraccion($id_atraccion);
         $related = $gestion->getHijosAtraccion($id_atraccion);
         $servicios = $gestion->getServicios($atraccion->id_provincia);
-$trips = $gestion->getTrips($atraccion->id_provincia);
-$operadores = $gestion->getOperadores($atraccion->id_provincia);
+        $trips = $gestion->getTrips($atraccion->id_provincia);
+        $operadores = $gestion->getOperadores($atraccion->id_provincia);
 
         if ($atraccion->id_provincia != 0)
             $provincia = $gestion->getUbicacionAtraccion($atraccion->id_provincia);
@@ -802,34 +802,15 @@ $operadores = $gestion->getOperadores($atraccion->id_provincia);
     //Obtiene las descripcion de la atraccion elegida
     public function getSearchHomeCatalogo(PublicServiceRepository $gestion, $id_catalogo) {
 
-        $agent = new Agent();
-
-        $desk = $device = $agent->isMobile();
-        if ($desk == 1)
-            $desk = "mobile";
-        else {
-            $desk = "desk";
-        }
-        Session::put('device', $desk);
-
-
-        $catalogo = $gestion->getCatalogoDetail($id_catalogo);
-        if ($catalogo != null) {
-            $actividades = $gestion->getExplorerbyCatalogo($id_catalogo);
-            $servicios = $gestion->getServiciosAll();
-            $precio_minimo = $gestion->getMinPrice($id_catalogo);
-
-            $precio_max = $gestion->getMaxPrice($id_catalogo);
-
-            return view('public_page.front.searchByHome')
-                            ->with('actividades', $actividades)
-                            ->with('servicios', $servicios)
-                            ->with('precio_minimo', $precio_minimo)
-                            ->with('precio_max', $precio_max)
-                            ->with('catalogo', $catalogo);
+        $detalles = $gestion->obtenerDetallesServicio($id_catalogo);
+        // return response()->json(['a' => $detalles]);
+        if ($detalles != null) {
+            return view('site.blades.detail-service')
+                            ->with('detalles', $detalles);
         } else {
-            return $this->getHome($gestion);
+            return redirect('/');
         }
+
     }
 
     //Obtiene las descripcion de la atraccion elegida

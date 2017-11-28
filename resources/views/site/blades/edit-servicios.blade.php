@@ -136,7 +136,6 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                 <div class="author-name">
                   <h6><i class="fa fa-calendar-o"></i>&nbsp;&nbsp;Promociones y Eventos</h6>
                   <hr>
-                  <!-- <span>(leading editor)</span> -->
                 </div>
                       <!-- <ul class="list-inline">
                         <li><a class="icon fa fa-sm fa-facebook icon-xxs" href="#"></a></li>
@@ -144,33 +143,137 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                         <li><a class="icon fa fa-sm fa-linkedin icon-xxs" href="#"></a></li>
                         <li><a class="icon fa fa-sm fa-twitter icon-xxs" href="#"></a></li>
                       </ul> -->
-              </div><a class="button button-primary" href="">Promociones y Eventos<span></span></a>
+              </div>
+              <a class="button button-primary" href="">
+                Promociones y Eventos<span></span>
+              </a>
             </div>
             <div class="cell-md-8">
               <div class="post-single">
-                <form class="rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="bat/rd-mailform.php">
+                <form class="rd-mailform" id="form-update-serv">
+                  <input type="hidden" value="{!!$usuarioServicio->id!!}" name="id" id="id">
+ <input type="hidden" value="{!!$id_catalogo!!}" name="id_catalogo" id="id_catalogo">
                     <div class="range range-15">
+                      <div class="cell-sm-8">
+                        <div class="form-wrap">
+                          <label class="form-label-outside" for="contact-first-name"><i class="fa fa-font "></i>&nbsp;&nbsp;Nombre Servicio</label>
+                          <input class="form-input" id="contact-first-name" type="text" name="nombre_servicio" value="{{$usuarioServicio[0]->nombre_servicio}}" data-constraints="@Required">
+                        </div>
+                      </div>
+                      <div class="cell-sm-4">
+                        <div class="form-wrap">
+                          <label class="form-label-outside" for="contact-first-name"><i class="fa fa-lightbulb-o "></i>&nbsp;&nbsp;Servicio activo</label>
+                          <input type="checkbox" id='estado_servicio_usuario' 
+                                   name="estado_servicio_usuario" value="{!!$usuarioServicio->estado_servicio_usuario!!}"
+                                   onchange="UpdateServicioActivo('{!!asset('/updateServicioActivo')!!}/{!!$usuarioServicio->id!!}')">
+                        </div>
+                      </div>
+                      <div class="cell-xs-6">
+                        <div class="form-wrap">
+                          <label class="form-label-outside" for="contact-message">
+                            <i class="fa fa-list"></i>&nbsp;&nbsp;Descripción del Servicio</label>
+                          <textarea class="form-input" id="contact-message" name="detalle_servicio" data-constraints="@Required" >{{$usuarioServicio[0]->detalle_servicio}}</textarea>
+                        </div>
+                      </div>
+                      <div class="cell-xs-6">
+                        <div class="form-wrap">
+                          <label class="form-label-outside" for="contact-message">
+                            <i class="fa fa-list"></i>&nbsp;&nbsp;Descripción del Servicio (Ingles)</label>
+                          <textarea class="form-input" id="contact-message" name="detalle_servicio_eng" data-constraints="@Required" >{{$usuarioServicio[0]->detalle_servicio_eng}}</textarea>
+                        </div>
+                      </div>
                       <div class="cell-sm-12">
                         <div class="form-wrap">
-                          <label class="form-label-outside" for="contact-first-name"><i class="fa fa-font"></i>&nbsp;&nbsp;Nombre Servicio</label>
-                          <input class="form-input" id="contact-first-name" type="text" name="name" value="{{$usuarioServicio[0]->nombre_servicio}}" data-constraints="@Required">
+                          <label class="form-label-outside" for="contact-first-name"><i class="fa fa-picture-o"></i>&nbsp;&nbsp;Imagenes del servicio</label>
+                          <input type="hidden" value="0" id="flag_image">
+                          <div id="renderPartialImagenes">
+                                        @section('contentImagenes')
+                                        @show
+                            </div> 
                         </div>
                       </div>
                       <div class="cell-xs-12">
                         <div class="form-wrap">
                           <label class="form-label-outside" for="contact-message">
-                            <i class="fa fa-list"></i>&nbsp;&nbsp;Información del Servicio</label>
-                          <textarea class="form-input" id="contact-message" name="message" data-constraints="@Required" >{{$usuarioServicio[0]->detalle_servicio}}</textarea>
+                            <i class="fa fa-info"></i>&nbsp;&nbsp;Información del Servicio</label>
                         </div>
+                      </div>
+                      <div class="cell-sm-6">
+                        <div class="form-wrap">
+                          <label class="form-label-outside" for="contact-first-name"><i class="fa fa-money"></i>&nbsp;&nbsp;Precio desde</label>
+                          <input type="text" name="precio_desde" value="{!!$usuarioServicio->precio_desde!!}" class="form-input" title="Para realizar una segmentación adecuada de interesados, sería bueno que nos des el rango de precios de tu servicio. El valor es en dólares americanos" placeholder="Precio Desde">
+                        </div>
+                      </div>
+                      <div class="cell-sm-6">
+                        <div class="form-wrap">
+                          <label class="form-label-outside" for="contact-first-name"><i class="fa fa-money"></i>&nbsp;&nbsp;Precio hasta</label>
+                          <input type="text" name="precio_hasta" value="{!!$usuarioServicio->precio_hasta!!}" class="form-input" placeholder="Precio Hasta">
+                        </div>
+                      </div>
+                      <div class="cell-sm-12">
+                          <div class="form-wrap">
+                          <label class="form-label-outside" for="contact-first-name"><i class="fa fa-map-marker"></i>&nbsp;&nbsp;Direccion Servicio</label>
+                          <input type="text" name="direccion_servicio" value="{!!$usuarioServicio->direccion_servicio!!}" class="form-input" placeholder="Dirección del Servicio">
+                          </div>
+                      </div>
+                      <div class="cell-sm-6">
+                          <div class="form-wrap">
+                          <label class="form-label-outside" for="contact-first-name"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Horario atención</label>
+                          <input type="text" name="horario" value="{!!$usuarioServicio->horario!!}" class="form-input" placeholder="Lunes a Viernes de 7AM a 8PM" title="Horario de atención">
+                          </div>
+                      </div>
+                      <div class="cell-sm-6">
+                          <div class="form-wrap">
+                          <label class="form-label-outside" for="contact-first-name"><i class="fa fa-phone"></i>&nbsp;&nbsp;Telefono</label>
+                          <input type="text" name="telefono" value="{!!$usuarioServicio->telefono!!}" class="form-input" placeholder="Telefono del Servicio" title="El turista podrá comunicarse directamente contigo si así lo deseas">
+                          </div>
+                      </div>
+                      <div class="cell-sm-6">
+                          <div class="form-wrap">
+                          <label class="form-label-outside" for="contact-first-name"><i class="fa fa-envelope"></i>&nbsp;&nbsp;Correo del contacto</label>
+                          <input type="text" name="correo_contacto" value="{!!$usuarioServicio->correo_contacto!!}" class="form-input" placeholder="Correo Contacto" title="Siempre es bueno tener un correo electrónico en el cual puedan pedirte más información sobre tu servicio">
+                          </div>
+                      </div>
+                      <div class="cell-sm-6">
+                          <div class="form-wrap">
+                          <label class="form-label-outside" for="contact-first-name"><i class="fa fa-globe"></i>&nbsp;&nbsp;Pagina Web</label>
+                          <input type="text" name="pagina_web" value="{!!$usuarioServicio->pagina_web!!}" class="form-input" placeholder="URL" title="Si tienes una página web servirá mucho para tu credibilidad.">
+                          </div>
+                      </div>
+                      <div class="cell-sm-12">
+                          <div class="form-wrap">
+                          <label class="form-label-outside" for="contact-first-name"><i class="fa fa-hashtag"></i>&nbsp;&nbsp;Tag</label>
+                          <input type="text" name="tags" value="{!!$usuarioServicio->tags!!}" class="form-input" placeholder="Palabras clave o referencias separadas por comas" title="#ruta del sol, #museos">
+                          </div>
                       </div>
                       <div class="cell-xs-12">
                         <div class="form-wrap">
                           <label class="form-label-outside" for="contact-message">
-                            <i class="fa fa-list"></i>&nbsp;&nbsp;Detalle del Servicio y Como LLegar</label>
+                            <i class="fa fa-map-marker"></i>&nbsp;&nbsp;Detalle del Servicio y Como LLegar</label>
                           <h4 class="section-title">{{trans('front/responsive.ubicacion')}}</h4>
                                 <div class="tab-container full-width style2">
                                      @include('reusable.maps1', ['longitud_servicio' => $usuarioServicio->longitud_servicio,'latitud_servicio'=>$usuarioServicio->latitud_servicio])  
                                 </div>
+                        </div>
+                      </div>
+                      <div class="cell-xs-6">
+                        <div class="form-wrap">
+                          <div class="form-group">
+                              {!!Form::label('como_llegar1', 'Como llegar desde', array('class'=>'control-label-2'))!!}
+                              <input type="text" name="como_llegar1_1" value="{!!$usuarioServicio->como_llegar1_1!!}" class="form-input"
+                                     title="Como llegar" placeholder="Quito, GYE, Parque central ,etc">
+                              <textarea class="form-input" id="como_llegar1" name="como_llegar1" class="input-text chng" placeholder="Detalle de como llegar a tu servicio" title="Ingresa un detalle de como llegar a tu local o servicio desde algún lugar conocido." rows="50">{!!trim($usuarioServicio->como_llegar1)!!}</textarea>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="cell-xs-6">
+                        <div class="form-wrap">
+                          <div class="form-group">
+                              {!!Form::label('como_llegar2', 'Como llegar desde', array('class'=>'control-label-2'))!!}
+                              <input type="text" name="como_llegar2_2" value="{!!$usuarioServicio->como_llegar2_2!!}" class="form-input"
+                                     title="Como llegar" placeholder="Cuenca, Manta, Parque central ,etc">
+                              <textarea class="form-input" id="como_llegar2_2" name="como_llegar2" class="input-text chng" placeholder="Detalle de como llegar a tu servicio" rows="50">{!!trim($usuarioServicio->como_llegar2)!!}</textarea>
+                          </div>
                         </div>
                       </div>
                       <div class="cell-sm-6">
@@ -180,17 +283,16 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                           <div id="provincias"></div>
                       </div>
                       </div>
+
+
+
                       <div class="cell-sm-12">
                         <div class="form-inline form-inline-custom">
                           <div class="form-wrap">
                             <label class="form-label-outside" for="contact-email"><i class="fa fa-font"></i>&nbsp;&nbsp;Servicio de Alimentacion & bebidas:</label>
-                            <!-- <input class="form-input" id="contact-email" type="email" name="email" data-constraints="@Email @Required"> -->
                             @if($id_catalogo==1)
                             <h4 class="section-title">Servicio de Alimentacion & bebidas:</h4>
-                            
                             @elseif($id_catalogo==2)
-                            <!-- <h4 class="section-title">El hospedaje incluye:</h4> -->
-                            
                             @else
                             <h4 class="section-title">El servicio incluye:</h4>
                             @endif
@@ -209,13 +311,13 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                         </div>
                         </div>
                       </div>
-                      <!-- <div class="cell-sm-12">
+                      <div class="cell-sm-12" id="ErrorDiv">
                         <div class="form-inline form-inline-custom">
                           <div class="form-wrap">
-                            <label class="form-label-outside" for="contact-email"><i class="fa fa-font"></i>Promociones y Eventos</label>
+                            <div class="rowerror"></div>
                           </div>
                         </div>
-                      </div> -->
+                      </div>
                       <div class="cell-sm-6">
                         <div class="form-inline form-inline-custom">
                           <div class="form-wrap">
@@ -226,7 +328,7 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                       <div class="cell-sm-6">
                         <div class="form-inline form-inline-custom">
                           <div class="form-wrap">
-                            <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-floppy-o" href="#">Guardar<span></span></a>
+                            <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-floppy-o" onclick="UpdateServicioInfo1('form-update-serv', 'optional');" href="">Guardar<span></span></a>
                           </div>
                         </div>
                       </div>
@@ -238,8 +340,8 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
         </div>
       </section>
       <!-- Modal FOTOGRAFIA-->
-      <div class="modal fade" id="foto" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
+      <div class="modal modal-custom fade" id="foto" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document" style="width: 80%;">
           <div class="modal-content">
               <div id="testboxForm" class="foto">
                         <div class="modal-header">
@@ -289,6 +391,34 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
 <!--       <section class="bg-image-1 bg-image">
         <div style="min-height: 160px; padding-bottom: 37.9%;"></div>
       </section> -->
+      <script type="text/javascript">
+        $(document).ready(function () {
+          $("#nextbtn").click(function() {
+            $("#flag_image").val('1');
+            
+          });
+          GetDataAjaxImagenesRes("{!!asset('/imagenesAjaxDescription1')!!}/1/{!!$usuarioServicio->id!!}");
+          var check = $("#estado_servicio_usuario").val();
+          if(check == 1){
+              $( "#estado_servicio_usuario" ).prop( "checked", true );
+          }
+
+          ///Script para actualizar el container una vez que se hayan subido las imagenes
+            setInterval( function() {
+              if ($('#flag_image').val() == 1) {
+                  // Save the new value
+                 GetDataAjaxImagenesRes("{!!asset('/imagenesAjaxDescription1')!!}/1/{!!$usuarioServicio->id!!}");
+                 $("#flag_image").val('0');
+              }
+              
+              if ($('#flag_image_preview').val() == 0) {
+                  //alert("Entro aqui");
+                  $("#mostrarJS").show();
+              }
+            }, 100); 
+
+        });
+      </script>
       @if($usuarioServicio->id_provincia=='' )
       <script>
           $(document).ready(function () {
@@ -303,6 +433,10 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
       @endif    
       <!-- Page Footer-->
       @include('site.reusable.footer')
+      {!! HTML::style('/packages/dropzone/dropzone.css') !!}
+      <!-- End Dropzone Preview Template -->
+      {!! HTML::script('/packages/dropzone/dropzone.js') !!}
+      {!! HTML::script('/assets/js/dropzone-config.js') !!} 
     </div>
     <!-- END PANEL-->
   </body>

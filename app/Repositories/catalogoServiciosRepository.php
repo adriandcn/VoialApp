@@ -24,6 +24,8 @@ class catalogoServiciosRepository extends BaseRepository
 	public function __construct()
 	{
 		$this->level = 0;
+		$this->campos = ['id_catalogo_servicios','nombre_servicio','nombre_servicio_eng'];
+		$this->arrayList = [];
 	}
 
 	/**
@@ -41,11 +43,14 @@ class catalogoServiciosRepository extends BaseRepository
 
 	public function recursiveList($padresList,$level)
 	{	
+		if ($level == null) {
+			$maxLevel = DB::table('catalogo_servicios')->max('nivel');
+			$level = $maxLevel;
+		}
 		if ($this->level < $level) {
-			$campos = ['id_catalogo_servicios','nombre_servicio','nombre_servicio_eng'];
 			foreach ($padresList as $value) {
 		        $childList = DB::table('catalogo_servicios')
-	                            ->select($campos)
+	                            ->select($this->campos)
 	                            ->where('estado_catalogo_servicios',1)
 	                            ->where('id_padre',$value->id_catalogo_servicios)
 	                            ->get();
@@ -55,5 +60,37 @@ class catalogoServiciosRepository extends BaseRepository
 			}
 		}
 		return $padresList;
+	}
+
+	public function recursiveListInArray($padresList,$level)
+	{	
+		if ($level == null) {
+			$maxLevel = DB::table('catalogo_servicios')->max('nivel');
+			$level = $maxLevel;
+		}
+		if ($this->level < $level) {
+			foreach ($padresList as $child) {
+	            	array_push($this->arrayList, $child);
+	            }
+			foreach ($padresList as $value) {
+		        $childList = DB::table('catalogo_servicios')
+	                            ->select($this->campos)
+	                            ->where('estado_catalogo_servicios',1)
+	                            ->where('id_padre',$value->id_catalogo_servicios)
+	                            ->get();
+				$this->level++;
+				$this->recursiveListInArray($childList,$level);
+			}
+		}
+		return $this->arrayList;
+	}
+
+	public function getDifferentThan($differentThan)
+	{	
+		$lista = DB::table('catalogo_servicios')
+	                            ->select($this->campos)
+	                            ->where('id_padre','!=',$differentThan)
+	                            ->get();
+		return $lista;
 	}
 }

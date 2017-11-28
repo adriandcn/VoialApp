@@ -1063,7 +1063,7 @@ function AjaxContainerEdicionServicios($id_usuario_servicio,$id_catalogo) {
     $("#spinnerSave").show();
 
     event.preventDefault();
-    var url = "http://localhost/VoialApp/public/servicios/serviciooperador1/"+$id_usuario_servicio+"/"+$id_catalogo;
+    var url = 'http://' + window.location.hostname + "/voialApp/public/servicios/serviciooperador1/"+$id_usuario_servicio+"/"+$id_catalogo;
     var id = $id_usuario_servicio;
     //alert(id);
     //alert(url);      
@@ -1073,7 +1073,7 @@ function AjaxContainerEdicionServicios($id_usuario_servicio,$id_catalogo) {
         data:"",
         success: function (data) {
             //alert(data.redirectto);
-            window.location.href = 'http://localhost/VoialApp/public/' + data.redirectto;
+            window.location.href = 'http://' + window.location.hostname + '/voialApp/public/' + data.redirectto;
         },
         error: function (data) {
             var errors = data.responseJSON;
@@ -1119,28 +1119,32 @@ function AjaxContainerInfoOperador(){
     
 }
 
-function AjaxContainerRegistroWithLoad1($formulario, $loadScreen) {
+function setIdCatalogo($catalogoId){
+    $('.id_catalogo_servicio').val($catalogoId);
+}
+
+function AjaxContainerRegistroWithLoad1($formulario, $idCreate) {
     $.ajaxSetup({
         headers: {
             'X-CSRF-Token': $('meta[name=_token]').attr('content')}
     });
-    
-    switch($loadScreen){
-        case 'restaurant':
-          $("#spinnerSave").show();
-        break;
-        case 'trip':
+
+    // return;
+    // switch($loadScreen){
+    //     case 'restaurant':
+    //       $("#spinnerSave").show();
+    //     break;
+    //     case 'trip':
           $("#spinnerSaveTrip").show();
-        break;
-        case 'hotel':
-          $("#spinnerSaveHotel").show();
-        break;
-    }
+    //     break;
+    //     case 'hotel':
+    //       $("#spinnerSaveHotel").show();
+    //     break;
+    // }
     $("#spinnerSave").show();
     var $form = $('#' + $formulario),
             data = $form.serialize(),
             url = $form.attr("action");
-    
     //alert(data);
     //alert(url);
     var posting = $.post(url, {formData: data});
@@ -1152,32 +1156,32 @@ function AjaxContainerRegistroWithLoad1($formulario, $loadScreen) {
                 errorString += '<li>' + value + '</li>';
             });
             errorString += '</ul>';
-            switch($loadScreen){
-                case 'restaurant':
-                  $("#spinnerSave").hide();
-                break;
-                case 'trip':
+            // switch($loadScreen){
+            //     case 'restaurant':
+            //       $("#spinnerSave").hide();
+            //     break;
+            //     case 'trip':
                   $("#spinnerSaveTrip").hide();
-                break;
-                case 'hotel':
-                  $("#spinnerSaveHotel").hide();
-                break;
-            }
+            //     break;
+            //     case 'hotel':
+            //       $("#spinnerSaveHotel").hide();
+            //     break;
+            // }
             $('.rowerrorM').html(errorString);
         }
         if (data.success) {
-            switch($loadScreen){
-                case 'restaurant':
-                  $("#spinnerSave").hide();
-                break;
-                case 'trip':
+            // switch($loadScreen){
+            //     case 'restaurant':
+            //       $("#spinnerSave").hide();
+            //     break;
+            //     case 'trip':
                   $("#spinnerSaveTrip").hide();
-                break;
-                case 'hotel':
-                  $("#spinnerSaveHotel").hide();
-                break;
-            }
-            window.location.href = 'http://localhost/VoialApp/public/' + data.redirectto;
+            //     break;
+            //     case 'hotel':
+            //       $("#spinnerSaveHotel").hide();
+            //     break;
+            // }
+            window.location.href = 'http://' + window.location.hostname + '/voialApp/public/' + data.redirectto;
 
         } //success
     });
@@ -1268,43 +1272,32 @@ function UpdateServicioInfo($formulario, $id) {
 
 function UpdateServicioInfo1($formulario, $id) {
     
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-Token': $('meta[name=_token]').attr('content')}
-    });
-    
-    $('.error').html('');
-
+    // $.ajaxSetup({
+    //     headers: {
+    //         'X-CSRF-Token': $('meta[name=_token]').attr('content')}
+    // });
+    event.preventDefault();
+    $('#ErrorDiv').hide();
+    $('.rowerror').html('');
     $("#spinnerSave").show();
-   
     var $form = $('#' + $formulario),
             data = $form.serialize();
-            //url = $form.attr("action");
-    var url = "/uploadServiciosRes1";
-            //alert(data);
-            //alert(url);
-        
+    var url = 'http://' + window.location.hostname + "/voialApp/public/uploadServiciosRes1";
     var posting = $.post(url, {formData: data});
     posting.done(function (data) {
         if (data.fail) {
-            //alert("Fail");
             var errorString = '<ul>';
             $.each(data.errors, function (key, value) {
                 errorString += '<li>' + value + '</li>';
             });
             errorString += '</ul>';
-            $("#target").LoadingOverlay("hide", true);
-            //$('#error').html(errorString);
-            //$('.rowerror').html(errorString);
-
+            $('.rowerror').html(errorString);
+            $('#ErrorDiv').fadeIn();
         }
         if (data.success) {
-            $("#target").LoadingOverlay("hide", true);
-            //alert(data.redirectto);
-            window.location.href = data.redirectto;
-            //$('.register').fadeOut(); //hiding Reg form
-            //var successContent = '' + data.message + '';
-            
+            $('#ErrorDiv').hide();
+            $('.rowerror').html('');
+            window.location.href = 'http://' + window.location.hostname + "/voialApp/public/" + data.redirectto;
         } //success
     }); //done
 }
@@ -1795,5 +1788,4 @@ function GetDataAjaxImagenes2(url) {
     });
     
 }
-
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\ServiciosOperadorRepository;
+use App\Repositories\catalogoServiciosRepository;
 use App\Repositories\OperadorRepository;
 use Validator;
 use Input;
@@ -103,11 +104,10 @@ class UsuarioServiciosController extends Controller
         return view('Admin.canton');
         }
     public function getParroquiaDescipcion(Request $request)
-
         {
-        //
-        $request->session()->put('parroquia_admin', 1);
-        return view('Admin.parroquia');
+            //
+            $request->session()->put('parroquia_admin', 1);
+            return view('Admin.parroquia');
         }
     /**
      * Despliega los servicios por operador
@@ -1110,16 +1110,17 @@ class UsuarioServiciosController extends Controller
         $view = view('responsive.dashboard', compact('data', 'listServicios'));
         return ($view);
         }
-    public function tablaServiciosRes(Guard $auth, ServiciosOperadorRepository $gestion, OperadorRepository $operador_gestion)
+    public function tablaServiciosRes(Guard $auth, ServiciosOperadorRepository $gestion, OperadorRepository $operador_gestion, catalogoServiciosRepository $catalogoRepo)
 
         {
         //
         $operador = $operador_gestion->getOperadorTipo($auth->user()->id, session('tip_oper'));
         $data['tipoOperador'] = session('tip_oper');
         $listServiciosUnicos = $gestion->getServiciosOperadorUnicos(session('operador_id'));
+        $catalogoServicios = $catalogoRepo->getDifferentThan(0);
         $controlDashboard = $gestion->getControlDashboard(session('operador_id'));
         $listServiciosAll = $gestion->getServiciosOperadorAll(session('operador_id'));
-        return view('site.blades.dashboard', compact('listServiciosUnicos', 'listServiciosAll', 'data', "operador", 'controlDashboard'));
+        return view('site.blades.dashboard', compact('listServiciosUnicos', 'listServiciosAll', 'data', "operador", 'controlDashboard','catalogoServicios'));
         }
     public function getAllServicios1($id_usuario_servicio, Request $request, ServiciosOperadorRepository $gestion)
 
@@ -1145,10 +1146,24 @@ class UsuarioServiciosController extends Controller
             }
         }
     public function getImagesDescription1(Request $request, $tipo, $idtipo, ServiciosOperadorRepository $gestion)
-
         {
         $ImgPromociones = $gestion->getGenericImagePromocionesOperador($tipo, $idtipo);
         $view = View::make('reusable.imageContainerDescriptionAjax1')->with('ImgPromociones', $ImgPromociones);
+        if ($request->ajax())
+            {
+            $sections = $view->rendersections();
+            return Response::json($sections);
+            // return  Response::json($sections['contentPanel']);
+            }
+          else
+            {
+            return $view;
+            }
+        }
+    public function getImagesServicio(Request $request, $tipo, $idtipo, ServiciosOperadorRepository $gestion)
+        {
+        $ImgPromociones = $gestion->getGenericImagePromocionesOperador($tipo, $idtipo);
+        $view = View::make('reusable.imageContainerDescriptionAjax2')->with('ImgPromociones', $ImgPromociones);
         if ($request->ajax())
             {
             $sections = $view->rendersections();

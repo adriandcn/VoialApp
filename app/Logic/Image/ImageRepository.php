@@ -196,4 +196,14 @@ class ImageRepository {
                 $clean;
     }
 
+     public function storeProfileFoto($inputs, $usuario_servicio,$id) {
+        DB::table('images')
+                ->where('id_usuario_servicio', '=', $usuario_servicio)
+                ->update(['profile_pic' => "0"]);
+           DB::table('images')
+                ->where('id', '=', $inputs['ids'])
+                ->update(['profile_pic' => 1]);
+        return true;
+    }
+
 }

@@ -490,6 +490,12 @@ class PublicServiceRepository extends BaseRepository {
     
      
        //Obtiene los operadores que viajan a esas provincias
+
+    public function getOperadoresList() {
+        $operadoresList = DB::table('usuario_operadores')
+                        ->where('estado_contacto_operador',1)->get();
+        return $operadoresList;
+    }
     public function getOperadores($id_provincia) {
 
 
@@ -2753,18 +2759,19 @@ class PublicServiceRepository extends BaseRepository {
     }
 
     //Entrega el detalle de los servicios
+    public function obtenerDetallesServicio($idServicio) {
+        $servicios = DB::table('usuario_servicios')
+                        ->where('id',$idServicio)
+                        ->first();
+        return $servicios;
+    }
+
+    //Entrega el detalle de los servicios
     public function getServiciosAll() {
-
-
-
         $servicios = DB::table('catalogo_servicios')
                         ->join('usuario_servicios', 'id_catalogo_servicios', '=', 'usuario_servicios.id_catalogo_servicio')
                         ->select('catalogo_servicios.nombre_servicio', 'catalogo_servicios.id_catalogo_servicios', 'catalogo_servicios.nombre_servicio_eng')
                         ->distinct()->get();
-
-
-
-
         return $servicios;
     }
 

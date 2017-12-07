@@ -5,7 +5,6 @@
             <div class="rd-navbar-collapse-toggle" data-rd-navbar-toggle=".rd-navbar-collapse"><span></span></div>
             <div class="rd-navbar-top-panel">
               <div class="rd-navbar-top-panel-inner">
-                <!--RD Navbar Search-->
                 <div class="rd-navbar-search">
                   <a class="rd-navbar-search-toggle" data-rd-navbar-toggle=".rd-navbar-search" href="#">
                     <div class="search-content">
@@ -13,11 +12,10 @@
                     </div>
                     <span></span>
                   </a>
-                  <form class="rd-search" action="search-results.html" data-search-live="rd-search-results-live" method="GET">
+                  <form class="rd-search" action="{!!asset('/Search')!!}" data-search-live="rd-search-results-live" method="GET">
                     <div class="form-wrap">
                       <label class="form-label form-label" for="rd-navbar-search-form-input">{{ trans('publico/labels.label147')}}</label>
-                      <input class="rd-navbar-search-form-input form-input" id="rd-navbar-search-form-input" type="text" name="s" autocomplete="off">
-                      <div class="rd-search-results-live" id="rd-search-results-live"></div>
+                      <input class="rd-navbar-search-form-input form-input" id="rd-navbar-search-form-input" type="text" name="s" autocomplete="on">
                     </div>
                     <button class="rd-search-form-submit fa-search"></button>
                   </form>
@@ -40,7 +38,6 @@
                   <ul class="list-inline">
                     @if(session('statut') == 'user')
                       <li><a class="icon fa fa-tachometer text-white" href="{!!asset('/serviciosres')!!}"> Dashboard</a></li>
-                      <!-- <li><a class="icon fa fa-user text-white" href="{!!asset('/serviciosres')!!}"> Perfil</a></li> -->
                       <li><a class="icon fa fa-sign-out  text-white" href="{!!asset('/auth/logout')!!}"> Salir</a></li>
                     @endif
                     <li><a class="icon fa fa-facebook text-white" href="#"></a></li>
@@ -53,11 +50,8 @@
             </div>
             <div class="rd-navbar-inner">
               <div class="rd-navbar-aside-wrap">
-                <!-- RD Navbar Panel-->
                 <div class="rd-navbar-panel">
-                  <!-- RD Navbar Toggle-->
                   <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
-                  <!-- RD Navbar Brand-->
                   <div class="rd-navbar-brand"><a class="brand-name" href="{{asset('/')}}"><img class="logo-long" src="{{asset('/siteStyle/images/logo-white-209x19.png')}}" alt="" width="209" height="19"/><img class="logo-short" src="{{asset('/siteStyle/images/logo-white-209x19.png')}}" alt="" width="123" height="34"/></a></div>
                 </div>
                 <div class="rd-navbar-aside-right">
@@ -65,28 +59,6 @@
                     <ul class="rd-navbar-nav">
                       <li><a href="{{asset('/')}}">Home<span class="overlay-skew"></span></a>
                       </li>
-                      <!-- <li><a href="#">Products<span class="overlay-skew"></span></a>
-                        <ul class="rd-navbar-dropdown">
-                          <li><a href="products.html">Categorias<span class="overlay-skew"></span></a>
-                          </li>
-                          <li><a href="product-families.html">Categorias A<span class="overlay-skew"></span></a>
-                          </li>
-                          <li><a href="product-page.html">Categorias B<span class="overlay-skew"></span></a>
-                          </li>
-                          <li><a href="shopping-cart.html">Categorias C<span class="overlay-skew"></span></a>
-                          </li>
-                          <li><a href="checkout.html">Categorias D<span class="overlay-skew"></span></a>
-                          </li>
-                        </ul>
-                      </li> -->
-                      <!-- <li><a href="#">Eventos<span class="overlay-skew"></span></a>
-                        <ul class="rd-navbar-dropdown">
-                          <li><a href="events.html">Eventos A<span class="overlay-skew"></span></a>
-                          </li>
-                          <li><a href="single-event.html">Eventos B<span class="overlay-skew"></span></a>
-                          </li>
-                        </ul>
-                      </li> -->
                       <li><a href="">Contactos<span class="overlay-skew"></span></a>
                       </li>
                       <li class="active"><a href="">Categorias<span class="overlay-skew"></span></a>
@@ -141,7 +113,6 @@
                   </div>
                 </div>
               </div>
-              <!-- Modal-->
               <div class="modal modal-custom fade" id="form-modal-2" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">

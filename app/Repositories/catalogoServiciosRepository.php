@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\User, App\Models\Role ,DB;
+use App\Models\Usuario_Servicio;
 
 class catalogoServiciosRepository extends BaseRepository
 {
@@ -24,8 +25,9 @@ class catalogoServiciosRepository extends BaseRepository
 	public function __construct()
 	{
 		$this->level = 0;
-		$this->campos = ['id_catalogo_servicios','nombre_servicio','nombre_servicio_eng'];
+		$this->campos = ['id_catalogo_servicios','nombre_servicio','nombre_servicio_eng','nivel'];
 		$this->arrayList = [];
+		$this->arrayForAcordion = [];
 	}
 
 	/**
@@ -93,4 +95,35 @@ class catalogoServiciosRepository extends BaseRepository
 	                            ->get();
 		return $lista;
 	}
+
+	public function recursiveListForAcordion($padresList)
+	{	
+
+		foreach ($padresList as $value) {
+	        $childList = DB::table('catalogo_servicios')
+                            ->select($this->campos)
+                            ->where('estado_catalogo_servicios',1)
+                            ->where('id_padre',$value->id_catalogo_servicios)
+                            ->get();
+        	if($value->nivel == 3){
+            	array_push($this->arrayForAcordion,$value);
+            }else{
+            	$this->recursiveListForAcordion($childList);
+            }
+            if ($value->nivel == 0) {
+            	$value->children = $this->arrayForAcordion;
+				$this->arrayForAcordion = [];
+            }
+		}
+		return $padresList;
+	}
+
+	public function getByCatalogoArray($array)
+	{	
+		$usuario_Servicio = new Usuario_Servicio();
+		$finded = $usuario_Servicio->whereIn('id_catalogo_servicio', $array)->get();
+		return $finded;
+	}
+
+
 }

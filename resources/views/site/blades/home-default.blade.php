@@ -62,20 +62,20 @@
           </div>
           <div class="isotope grid-masonry text-left column-offset-30" data-isotope-layout="masonry">
             <div class="row">
-            <!--   <div class="col-xs-12 col-sm-6 col-md-4 isotope-item">
+              <div class="col-xs-12 col-sm-6 col-md-4 isotope-item">
                 <div class="post-masonry post-masonry-long post-content-dark bg-post-1 bg-image box-skew post-skew-right-bottom post-skew-var-1">
                   <div class="post-masonry-content">
                     <h4><a href="single-post.html">Cliente 1 <span class='text-regular'> Categoria A – <span class='text-primary'> Nombre Local </span></span></a></h4>
                     <time datetime="2017-08-20">August 20, 2017</time>
                   </div><a class="link-position link-dark link-right post-link" href="single-post.html">+</a>
                 </div>
-              </div> -->
-             <!--  <div class="col-xs-12 col-sm-6 col-md-4 isotope-item">
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-4 isotope-item">
                 <div class="post-masonry post-masonry-short post-content-white bg-post-primary box-skew post-skew-left-top post-skew-var-2">
                   <div class="post-masonry-content">
                     <h4><a href="single-post.html">Cliente 2</a></h4>
                     <time datetime="2017-08-20">August 20, 2017</time>
-                  </div><a class="link-dark post-link" href="single-post.html">+</a>
+                  </div><a class="link-position link-dark link-right post-link" href="single-post.html">+</a>
                 </div>
               </div>
               <div class="col-xs-12 col-sm-6 col-md-4 isotope-item">
@@ -85,8 +85,8 @@
                     <time datetime="2017-08-20">August 20, 2017</time>
                   </div><a class="link-position link-primary-sec-2 link-right post-link" href="single-post.html">+</a>
                 </div>
-              </div> -->
-              @foreach ($operadores as $operador)
+              </div>
+              <!-- @foreach ($operadores as $operador)
               <div class="col-xs-12 col-sm-6 col-md-4 isotope-item">
                 <div class="post-masonry post-masonry-short post-content-white bg-post-2 bg-image box-skew post-skew-right-top post-skew-var-4">
                   <div class="post-masonry-content">
@@ -99,7 +99,7 @@
                   <a class="link-position link-primary-sec-2 link-right post-link" href="{!!asset('/servicesOf')!!}/{{$operador->id_usuario_op}}"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
                 </div>
               </div>
-              @endforeach
+              @endforeach -->
             </div>
           </div>
           <div class="wrap-button text-center text-md-right"><a class="button button-sm button-primary" href="blog.html">Ver más recomendados<span></span></a></div>

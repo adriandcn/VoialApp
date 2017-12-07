@@ -27,13 +27,19 @@ Route::post('/delete/image1/{id}', ['as' => 'delete-image1', 'uses' => 'ImageCon
 // --Operadores--
 Route::post('/nuevoOperador', ['as' => 'upload-postoperador1', 'uses' => 'ServicioController@postOperadores1', 'middleware' => 'notAuth']);
 Route::get('createOperador', ['as' => 'createOperador', 'uses' => 'ServicioController@step2res', 'middleware' => 'notAuth']);
-Route::get('/catalogoServ/{idCatalogo}', ['as' => 'getcatalogoServ', 'uses' => 'ServicioController@getServiciosByCatalogo', 'middleware' => 'notAuth']);
+Route::get('/catalogoServ/{idCatalogo}', ['as' => 'getcatalogoServ', 'uses' => 'ServicioController@getServiciosByCatalogo']);
+Route::get('/catalogoServ/{idCatalogo}/{idSubCatalogo}', ['as' => 'getcatalogoServ', 'uses' => 'ServicioController@getServiciosByChildcatalogo']);
 Route::get('/tokenDz$rip/{id_catalogo}', ['as' => 'searchCat', 'uses' => 'HomePublicController@getSearchHomeCatalogo']);
 Route::post('filterParameters', ['as' => 'filtersCategoria', 'uses' => 'HomePublicController@postFiltersCategoria']);
-Route::get('servicesOf/{id_operador}', ['as' => 'getServiciosByOperador', 'uses' => 'ServicioController@getServiciosByOperador', 'middleware' => 'notAuth']);
+Route::get('servicesOf/{id_operador}', ['as' => 'getServiciosByOperador', 'uses' => 'ServicioController@getServiciosByOperador']);
+Route::post('/filterService', ['as' => 'filterService', 'uses' => 'ServicioController@applyServicesFilter']);
 // ********************************************************//
 //    PARA LAS PROVINCIAS, CANTONES Y PARROQUIAS          //
 // ********************************************************//
 Route::get('/getProvincias1/{id_provincia}/{id_canton}/{id_parroquia}', ['as' => 'provincia1', 'uses' => 'UsuarioServiciosController@getProvincias1']);
 Route::get('/getCantones1/{id}/{id_canton}/{id_parroquia}', ['as' => 'cantones1', 'uses' => 'UsuarioServiciosController@getCantones1']);
 Route::get('/getParroquias1/{id}/{id_parroquia}', ['as' => 'parroquias1', 'uses' => 'UsuarioServiciosController@getParroquias1']);
+// -- Busqueda--
+Route::get('/Search', ['as' => 'SearchIndex', 'uses' => 'SearchController@getTotalSearchInside']);
+
+// Route::get('/getSearchTotalPartial/{term}', ['as' => 'SearchTotalPartial', 'uses' => 'SearchController@getTotalSearchInside']);

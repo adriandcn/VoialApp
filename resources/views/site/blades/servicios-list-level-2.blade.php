@@ -27,8 +27,8 @@
       <section class="page-title breadcrumbs-elements page-title-inset-1">
         <div class="shell">
           <div class="page-title__overlay box-skew box-skew-var-1"><span class="box-skew__item"></span>
-            <div class="page-title-text">Catalogo de servicios</div>
-            <p class="big text-width-medium">En esta seccion usted puede visualizar los servicios disponibles de una categoria específica</p>
+            <div class="page-title-text">{{$dataCatalogo->nombre_servicio}}</div>
+            <p class="big text-width-medium">En esta seccion usted puede visualizar los servicios disponibles para la categoria {{$dataCatalogo->nombre_servicio}}</p>
           </div>
         </div>
       </section>
@@ -41,19 +41,18 @@
           </div> -->
           <div class="isotope grid-masonry text-left column-offset-30" data-isotope-layout="masonry">
             <div class="row">
-              @if(count($findedServ) == 0)
+              @if(count($catalogoServicios) == 0)
                 <div class="col-xs-12" style="text-align: center;">
                   <h4><a href="single-post.html"><i class="fa fa-frown-o "></i> &nbsp;&nbsp;Ups!! No se han encontrado servicios para esta categoria</a></h4>
                 </div>
               @else
-                @foreach($findedServ as $servicio)
+                @foreach($catalogoServicios as $servicio)
                   <div class="col-xs-12 col-sm-6 col-md-4 isotope-item">
                     <div class="post-masonry post-masonry-short post-content-white bg-post-2 bg-image box-skew post-skew-right-top post-skew-var-4">
                       <div class="post-masonry-content">
-                        <h4><a href="single-post.html">{{$servicio->nombre_servicio}}</a></h4>
-                        <p>{{$servicio->detalle_servicio}}</p>
+                        <h4><a href="{!!asset('/catalogoServ')!!}/{{$idCatalogo}}/{{$servicio->id_catalogo_servicios}}">{{$servicio->nombre_servicio}}</a></h4>
                       </div>
-                      <a class="link-position link-primary-sec-2 link-right post-link" href="{!!asset('/tokenDz$rip')!!}/{{$servicio->id}}"><i class="fa fa-info-circle" aria-hidden="true"></i>
+                      <a class="link-position link-primary-sec-2 link-right post-link" href="{!!asset('/catalogoServ')!!}/{{$idCatalogo}}/{{$servicio->id_catalogo_servicios}}"><i class="fa fa-info-circle" aria-hidden="true"></i>
                       </a>
                     </div>
                   </div>

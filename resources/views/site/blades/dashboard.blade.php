@@ -53,6 +53,9 @@
                               {{ $servicio->nombre_servicio }}
                             </a>
                           </h4>
+                          <div>
+                          {{str_limit($servicio->detalle_servicio, $limit = 500, $end = '...')}}
+                          </div>
                       </div>
                       <a class="link-position link-primary-sec-2 link-right post-link" href="" onclick="AjaxContainerEdicionServicios({!!$servicio->id!!}, {!!$servicio->id_catalogo_servicios!!});"><i class="fa fa-edit" style="color: white"></i></a>
                   </div>
@@ -69,9 +72,44 @@
             <h1><i class="fa fa-list"></i> &nbsp;&nbsp;Catalogo de Servicios</h1>
             <h6 class="text-regular">Puedes crear servicio de las categorias que se muestran a continuación:</h6>
           </div>
-          <div class="isotope grid-masonry text-left column-offset-30" data-isotope-layout="masonry">
-            <div class="row">
-              @foreach($catalogoServicios as $servicio)
+          <section class="section-xs bg-white">
+            <div class="shell">
+              <div class="panel-custom-group-wrap">
+                <!-- Bootstrap collapse-->
+                <div class="panel-custom-group text-left" id="accordion1" role="tablist">
+                  @foreach($catalogoServicios as $servicio)
+                  <!-- Bootstrap panel-->
+                  <div class="panel panel-custom panel-custom-default">
+                    <div class="panel-custom-heading" id="accordion1Heading{{$servicio->id_catalogo_servicios}}" role="tab">
+                      <p class="panel-custom-title"><a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="#accordion1Collapse{{$servicio->id_catalogo_servicios}}" aria-controls="accordion1Collapse{{$servicio->id_catalogo_servicios}}"><strong>{{$servicio->nombre_servicio}} ({{count($servicio->children)}})</strong></a>
+                      </p>
+                    </div>
+                    <div class="panel-custom-collapse collapse" id="accordion1Collapse{{$servicio->id_catalogo_servicios}}" role="tabpanel" aria-labelledby="accordion1Heading{{$servicio->id_catalogo_servicios}}">
+                      <div class="panel-custom-body">
+                         <!-- <div class="isotope grid-masonry text-left column-offset-30" data-isotope-layout="masonry"> -->
+                          <div class="row">
+                            @foreach($servicio->children as $servChild)
+                              <div class="col-xs-12 col-sm-6 col-md-4 isotope-item" style="margin-bottom: 20px;">
+                                <div class="post-masonry post-masonry-short post-content-white bg-post-2 bg-image box-skew post-skew-right-top post-skew-var-4">
+                                  <div class="post-masonry-content">
+                                    <h4><a href="#">{{$servChild->nombre_servicio}}</a></h4>
+                                  </div><a class="link-position link-primary-sec-2 link-right post-link" onclick="setIdCatalogo('{{$servChild->id_catalogo_servicios}}')" href="#" data-toggle="modal" data-target="#form-modal-add-trip"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+                                </div>
+                              </div>
+                            @endforeach
+                          </div>
+                        <!-- </div> -->
+                      </div>
+                    </div>
+                  </div>
+                  @endforeach
+                </div>
+              </div>
+            </div>
+          </section>
+         <!--  <div class="isotope grid-masonry text-left column-offset-30" data-isotope-layout="masonry">
+            <div class="row"> -->
+              <!-- @foreach($catalogoServicios as $servicio)
                 <div class="col-xs-12 col-sm-6 col-md-4 isotope-item">
                   <div class="post-masonry post-masonry-short post-content-white bg-post-2 bg-image box-skew post-skew-right-top post-skew-var-4">
                     <div class="post-masonry-content">
@@ -79,9 +117,9 @@
                     </div><a class="link-position link-primary-sec-2 link-right post-link" onclick="setIdCatalogo('{{$servicio->id_catalogo_servicios}}')" href="#" data-toggle="modal" data-target="#form-modal-add-trip"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
                   </div>
                 </div>
-              @endforeach
-            </div>
-          </div>
+              @endforeach -->
+           <!--  </div>
+          </div> -->
  <!--          <div class="wrap-button text-center text-md-right"><a class="button button-sm button-primary" href="blog.html">Ver más recomendados<span></span></a></div> -->
         </div>
       </section>

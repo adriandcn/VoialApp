@@ -182,14 +182,21 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                           <textarea class="form-input" id="contact-message" name="detalle_servicio_eng" data-constraints="@Required" >{{$usuarioServicio[0]->detalle_servicio_eng}}</textarea>
                         </div>
                       </div>
+                      <div class="cell-sm-6">
+                        <div class="form-wrap">
+                            <!--Select 2-->
+                            <p class="text-label"><i class="fa fa-map-marker"></i>&nbsp;&nbsp;Provincia, Canton y Parroquia del lugar</p>
+                            <div id="provincias"></div>
+                        </div>
+                      </div>
                       <div class="cell-sm-12">
                         <div class="form-wrap">
                           <label class="form-label-outside" for="contact-first-name"><i class="fa fa-picture-o"></i>&nbsp;&nbsp;Imagenes del servicio</label>
                           <input type="hidden" value="0" id="flag_image">
                           <div id="renderPartialImagenes">
-                                        @section('contentImagenes')
-                                        @show
-                            </div> 
+                                @section('contentImagenes')
+                                @show
+                          </div> 
                         </div>
                       </div>
                       <div class="cell-xs-12">
@@ -276,16 +283,6 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                           </div>
                         </div>
                       </div>
-                      <div class="cell-sm-6">
-                        <div class="form-wrap">
-                          <!--Select 2-->
-                          <p class="text-label"><i class="fa fa-map-marker"></i>&nbsp;&nbsp;Provincia, Canton y Parroquia del lugar</p>
-                          <div id="provincias"></div>
-                      </div>
-                      </div>
-
-
-
                       <div class="cell-sm-12">
                         <div class="form-inline form-inline-custom">
                           <div class="form-wrap">
@@ -420,16 +417,16 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
         });
       </script>
       @if($usuarioServicio->id_provincia=='' )
-      <script>
-          $(document).ready(function () {
-              GetDataAjaxProvincias1("{!!asset('/getProvincias1')!!}/0/0/0");
-          });
-      </script>
+        <script>
+            $(document).ready(function () {
+                GetDataAjaxProvincias1("{!!asset('/getProvincias1')!!}/0/0/0");
+            });
+        </script>
       @else
-      <script>
-        $(document).ready(function () {GetDataAjaxProvincias1("{!!asset('/getProvincias1')!!}/{!!$usuarioServicio->id_provincia!!}/{!!$usuarioServicio->id_canton!!}/{!!$usuarioServicio->id_parroquia!!}");
-          });
-      </script>
+        <script>
+          $(document).ready(function () {GetDataAjaxProvincias1("{!!asset('/getProvincias1')!!}/{!!$usuarioServicio->id_provincia!!}/{!!$usuarioServicio->id_canton!!}/{!!$usuarioServicio->id_parroquia!!}");
+            });
+        </script>
       @endif    
       <!-- Page Footer-->
       @include('site.reusable.footer')

@@ -2201,8 +2201,6 @@ class PublicServiceRepository extends BaseRepository {
     //Motor de busqueda
     public function getSearchTotal($term) {
 
-
-
         $query = DB::table('searchengine')
                 ->whereRaw("match(search) against ('" . $term . "')")
                 ->orWhere('searchengine.search', 'like', "%" . $term)
@@ -2210,25 +2208,17 @@ class PublicServiceRepository extends BaseRepository {
                 ->orWhere('searchengine.search', 'like', "%" . $term . "%")
                 ->select('searchengine.id_usuario_servicio', 'searchengine.tipo_busqueda')
                 ->get();
-
-
         return $query;
     }
 
     public function getDespliegueBusqueda($codigos, $pagination, $tipoBusqueda) {
-
         /* Se despliegan las imagenes de los codigos encontrados en las busquedas
-         *          */
-
+         **/
         $array1 = array();
-
         foreach ($codigos as $to) {
-
             if ($to->tipo_busqueda == $tipoBusqueda)
                 $array[] = $to->id_usuario_servicio;
         }
-
-
         $servicio = DB::table('usuario_servicios')
                 ->where('usuario_servicios.estado_servicio', '=', '1')
                 ->where('usuario_servicios.estado_servicio_usuario', '=', '1')
@@ -2236,11 +2226,9 @@ class PublicServiceRepository extends BaseRepository {
                 ->select('usuario_servicios.id')
                 ->orderBy('usuario_servicios.num_visitas', 'desc')
                 ->get();
-
         if ($servicio != null) {
             $array = array();
             $array1 = array();
-
             foreach ($servicio as $to) {
                 $imagenes = DB::table('images')
                         ->where('images.id_auxiliar', '=', $to->id)
@@ -2248,12 +2236,9 @@ class PublicServiceRepository extends BaseRepository {
                         ->where('id_catalogo_fotografia', '=', '1')
                         ->select('images.id')
                         ->first();
-
                 if ($imagenes != null)
                     $array1[] = $imagenes->id;
             }
-
-  
             $imagenes = DB::table('images')
                 ->join('usuario_servicios', 'usuario_servicios.id', '=', 'images.id_usuario_servicio')
                 ->join('ubicacion_geografica', 'usuario_servicios.id_canton', '=', 'ubicacion_geografica.id')
@@ -2264,15 +2249,23 @@ class PublicServiceRepository extends BaseRepository {
                 ->orderBy('usuario_servicios.num_visitas', 'desc')
                 //->orderByRaw('RAND()')
                 ->paginate($pagination);
-
-
-
-
-
-
             return $imagenes;
         }
         return null;
+    }
+
+    public function paginateSearch ($data,$pagination){
+        $arrayId = [];
+        if (count($data) > 0) {
+            foreach ($data as $item) {
+                array_push($arrayId, $item->id_usuario_servicio);
+            }
+            $paginated = $this->usuario_servicio->whereIn('id',$arrayId)->paginate($pagination);
+            return $paginated;
+        }else{
+            return null;
+        }
+        
     }
 
     
@@ -2582,11 +2575,8 @@ class PublicServiceRepository extends BaseRepository {
 //4:Galapagos
 
 
-
         $id_imagenes = array();
         $final_imagen = array();
-
-
 
         $provincias = DB::table('ubicacion_geografica')
                 ->join('usuario_servicios', 'usuario_servicios.id_provincia', '=', 'ubicacion_geografica.id')
@@ -2594,10 +2584,6 @@ class PublicServiceRepository extends BaseRepository {
                 ->select('usuario_servicios.id')
                 ->take(50)
                 ->get();
-
-
-
-
 
         foreach ($provincias as $provincia) {
             $id_imagenes = DB::table('images')

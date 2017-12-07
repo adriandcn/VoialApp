@@ -1,90 +1,23 @@
 @section('SearchTotalPartial')	
-@if(count($despliegue)>0 || $despliegue!=null)
-   @foreach ($despliegue as $cat)
-                       
-                            
-   
-          <?php
-                        $nombre = str_replace(' ', '-', $cat->nombre_servicio);
-                        $nombre = str_replace('/', '-', $nombre);
-                        ?>
-   
-   
-                    
-   <div class="TopPlace">
-      
-             <div class="iso-item filter-all filter-website ">
-                                <article class="post">
-                                    @if($cat->id_catalogo_servicio==11)
-                                        <a href="{!!asset('/trip')!!}/{!!$nombre!!}/{!!$cat->id_usr_serv!!}"  onclick="$('.SearchTotalPartial1').LoadingOverlay('show');" class="product-image">
-                                            
-                                        <img src="{{ asset('images/icon/'.$cat->filename)}}" alt="{!!$cat->nombre_servicio!!}">
-                                        
-                                        <span class="image-extras"></span>
-                                    </a>
-                                    <div class="portfolio-content">
-
-                                        <h5 class="portfolio-title"><a href="{!!asset('/trip')!!}/{!!$nombre!!}/{!!$cat->id_usr_serv!!}"  onclick="$('.container').LoadingOverlay('show');">{!!$cat->nombre_servicio!!}</a></h3>
-                                        @else
-                                        <a href="{!!asset('/detalle')!!}/{!!$nombre!!}/{!!$cat->id_usr_serv!!}"  onclick="$('.SearchTotalPartial1').LoadingOverlay('show');" class="product-image">
-                                            
-                                        <img src="{{ asset('images/icon/'.$cat->filename)}}" alt="{!!$cat->nombre_servicio!!}">
-                                        
-                                        <span class="image-extras"></span>
-                                    </a>
-                                    <div class="portfolio-content">
-
-                                        <h5 class="portfolio-title"><a href="{!!asset('/detalle')!!}/{!!$nombre!!}/{!!$cat->id_usr_serv!!}"  onclick="$('.container').LoadingOverlay('show');">{!!$cat->nombre_servicio!!}</a></h3>
-                                        
-                                        @endif
-                                          @if($cat->precio_desde==0)
-                                    <span class="product-price" style=" color: #eb3b50;
-    float: left;
-    font-size: 1.3333em;
-    font-weight: 600;
-    margin-right: 8px;" ><span class="currency-symbol"></span>FREE</span>
-                                    @else
-                                    <span class="product-price " style=" color: #eb3b50;
-    float: left;
-    font-size: 1.3333em;
-    font-weight: 600;
-    margin-right: 8px;" ><span class="currency-symbol">{{ trans('publico/labels.label59')}} $</span>{!!$cat->precio_desde!!}</span>
-                                    @endif
-                                        
-                                    <br/>
-                                    <br/>
-                                    @if(isset($cat->nombreUbicacion))
-                                        <span class="product-price" ><span class="currency-symbol"></span>{!!$cat->nombreUbicacion!!}</span>
-                                    @endif
-                                     
-                                </div>
-                                    
-                                    
-                                    
-                                  
-                            
-                                    
-                                    
-                                    
-                                </article>
-                            </div>
-   
-                            
-   </div>
-   
-   
-                            @endforeach  
-                            @endif
-                            
-            
-                            
-                  
-                                @endsection
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                  
+    @if(count($despliegue) > 0 || $despliegue != null)
+        @foreach ($despliegue as $cat)
+        <?php
+                $nombre = str_replace(' ', '-', $cat->nombre_servicio);
+                $nombre = str_replace('/', '-', $nombre);
+        ?>
+           <div class="col-xs-12 col-sm-6 col-md-4 isotope-item">
+            <div class="post-masonry post-masonry-short post-content-white bg-post-2 bg-image box-skew post-skew-right-top post-skew-var-4">
+              <div class="post-masonry-content">
+                <h4><a href="single-post.html">{{$cat->nombre_servicio}}</a></h4>
+                <p>{{$cat->detalle_servicio}}</p>
+              </div><a class="link-position link-primary-sec-2 link-right post-link" onclick="setIdCatalogo('{{$cat->id_usuario_servicio}}')" href="#" data-toggle="modal" data-target="#form-modal-add-trip"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+            </div>
+          </div>   
+        @endforeach  
+    <?php echo $despliegue->render(); ?>
+    @else
+     <div class="col-xs-12" style="text-align: center;">
+      <h4><a href=""><i class="fa fa-frown-o "></i> &nbsp;&nbsp;Ups!! No se han encontrado resultados</a></h4>
+    </div>
+    @endif
+@endsection

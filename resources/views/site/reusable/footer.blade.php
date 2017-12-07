@@ -78,9 +78,7 @@
           </div>
         </section>
     </footer>
-<!-- Global Mailform Output-->
     <div class="snackbars" id="form-output-global"></div>
-    <!-- PhotoSwipe Gallery-->
     <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="pswp__bg"></div>
       <div class="pswp__scroll-wrap">
@@ -115,12 +113,13 @@
         </div>
       </div>
     </div>
-    <!-- Javascript-->
     <script src="{{ asset('/siteStyle/js/core.min.js')}}"></script>
     <script src="{{ asset('/siteStyle/js/script.js')}}"></script>
     <script src="{{ asset('/siteStyle/sweetalert/sweetalert.js')}}"></script>
     <script src="{{ asset('/siteStyle/js/alertas.js')}}"></script>
     <script src="{{ asset('/siteStyle/js/Compartido.js')}}"></script> 
+    <script src="{{ asset('/siteStyle/js/bootstrap-switch.js')}}"></script> 
+    <script src="{{ asset('/siteStyle/js/underscore.js')}}"></script> 
 
       <script type="text/javascript">
           $('.error').html('');
@@ -130,7 +129,6 @@
           $.ajaxSetup({
               headers: {'X-CSRF-Token': $('meta[name=_token]').attr('content')}
           });
-          //Formulario Login
           $("#formLogin").submit(function (event) {
               event.preventDefault();
               var $form = $(this),
@@ -168,7 +166,6 @@
                           errorString += '<li>' + value + '</li><br>';
                       });
                       errorString += '</ul>';
-                      //$('#error').html(errorString);
                       $('.rowerror1').html("@include('partials/error', ['type' => 'danger','message'=>'" + errorString + "'])");
                   }
                   if (data.success) {
@@ -177,7 +174,7 @@
                       var successContent = '' + data.message + '';
                       $('.rowerror1').html("@include('partials/error', ['type' => 'danger','message'=>'Success'])");
                       showAlert('Registro correcto!','ya puedes utilizar tu cuenta',data.redirectto,'success','success');
-                  } //success
-              }); //done
+                  }
+              }); 
           });
       </script>

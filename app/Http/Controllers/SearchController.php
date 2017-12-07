@@ -15,90 +15,73 @@ use App\Jobs\VerifyReview;
 use Illuminate\Support\Facades\Session;
 use App\Models\Review_Usuario_Servicio;
 
-class SearchController extends Controller {
-
-  
-
-    
-    //Obtiene los top places paginados
-    public function getSearchTotal(Request $request, PublicServiceRepository $gestion) {
-         $servicios = $gestion->getServiciosAll();
-       
-        
-        $view = View::make('public_page.front.searchTotal', array(
-            
-            'servicios'=> $servicios
-            
-                
-                
-                ));
-        if ($request->ajax()) {
-            $sections = $view->rendersections();
-            return Response::json($sections);
+class SearchController extends Controller
+    {
+    // Obtiene los top places paginados
+    public function getSearchTotal(Request $request, PublicServiceRepository $gestion)
+        {
+            $servicios = $gestion->getServiciosAll();
+            $view = View::make('public_page.front.searchTotal', array(
+                'servicios' => $servicios
+            ));
+            if ($request->ajax())
+                {
+                    $sections = $view->rendersections();
+                    return Response::json($sections);
+                }
+              else
+                {
+                    return $view;
+                }
         }
-        else{
-            
-            
-        return $view;}
-        
-    }
-    
-    //Obtiene los terminos y condiciones
-    public function getTermsConditions() {
-        $view = View::make('public_page.general.termsConditions');
-        return $view;
-    }
+    // Obtiene los terminos y condiciones
+    public function getTermsConditions()
+        {
+            $view = View::make('public_page.general.termsConditions');
+            return $view;
+        }
+    public function getAboutUs()
+        {
+            $view = View::make('public_page.general.aboutUs');
+            return $view;
+        }
+    public function getMision()
+        {
+            $view = View::make('public_page.general.misionVision');
+            return $view;
+        }
+    public function getServiciosOperadores()
+        {
+            $view = View::make('public_page.general.servicios_op');
+            return $view;
+        }
+    public function getInvitacionOperadores()
+        {
+            $view = View::make('public_page.general.servicios_inv');
+            return $view;
+        }
+    public function getSearch()
 
-        
-    public function getAboutUs() {
-        $view = View::make('public_page.general.aboutUs');
-        return $view;
-    }
-    
-      public function getMision() {
-        $view = View::make('public_page.general.misionVision');
-        return $view;
-    }
-    public function getServiciosOperadores() {
-        $view = View::make('public_page.general.servicios_op');
-        return $view;
-    }
+        {
+            $view = View::make('site.blades.search');
+            return $view;
+        }
+    public function getTotalSearchInside(Request $request, PublicServiceRepository $gestion)
+        {
+            $term = $request->s;
+            $busquedaTotal = $gestion->getSearchTotal($term);
+            $despliegue = null;
+            if ($busquedaTotal != null)
+            {
+                $despliegue = $gestion->paginateSearch($busquedaTotal,6);
+            }
+            return View('site.blades.search', compact(
+                'despliegue'
+            ));
+        }
+    public function postSearch(Request $request, PublicServiceRepository $gestion)
 
-      public function getInvitacionOperadores() {
-        $view = View::make('public_page.general.servicios_inv');
-        return $view;
-    }
-    public function getTotalSearchInside(Request $request, PublicServiceRepository $gestion, $term) {
-        //
-
-         $busquedaTotal = $gestion->getSearchTotal($term);
-     
-        $despliegue=null;
-         if($busquedaTotal!=null)
-         {
-             
-             $despliegue = $gestion->getDespliegueBusqueda($busquedaTotal,6,4);
-         }
-        
-        
-
-        $view = View::make('public_page.partials.searchTotalPartial', 
-                array('despliegue' => $despliegue));
-
-        if ($request->ajax()) {
-            //return Response::json(View::make('public_page.partials.AllTopPlaces', array('topPlacesEcuador' => $topPlacesEcuador))->rendersections());
-            $sections = $view->rendersections();
-            return Response::json($sections);
-            //return  Response::json($sections['contentPanel']); 
+        {
+        $this->getSearchTotal($request, $gestion);
         }
     }
-
-    
-    
-
-    public function postSearch(Request $request, PublicServiceRepository $gestion) {
-
-
-    $this->getSearchTotal($request, $gestion);}
-
-}

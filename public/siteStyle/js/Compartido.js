@@ -1460,6 +1460,25 @@ function GetDataAjaxCantones1(url) {
     });
 }
 
+function sendSearch(s) {
+    event.preventDefault();
+    // var s = $('#txtQuery').value();
+    var url = 'http://' + window.location.hostname + '/voialApp/public/Search?s=' + s;
+    window.location = url;
+    // $.ajax({
+    //     type: 'GET',
+    //     url: url,
+    //     dataType: 'json',
+    //     success: function (data) {
+    //         console.log(data);
+    //         $('#searchResult').html(data.SearchTotalPartial);
+    //     },
+    //     error: function (data) {
+    //         console.log(data);
+    //     }
+    // });
+}
+
 function GetDataAjaxParroquias1(url) {
 
     $.ajax({
@@ -1787,5 +1806,42 @@ function GetDataAjaxImagenes2(url) {
         }
     });
     
+}
+
+var filtersServ = [];
+function applyFilterServ(item){
+    if (!_.contains(filtersServ, item)) {
+        filtersServ.push(item);
+    }else{
+        filtersServ = _.without(filtersServ,item);
+    }
+}
+
+$('.checkboxServ').on('switchChange.bootstrapSwitch', function (event, state) {
+    applyFilterServ(event.currentTarget.id);
+}); 
+
+function searchServ($idCatalogo,$idSubCatalogo){
+    event.preventDefault();
+    // console.log(filtersServ);
+    // console.log($idCatalogo);
+    // console.log($idSubCatalogo);
+    var data = {filter:filtersServ,idCatalogo:$idCatalogo,idSubCatalogo:$idSubCatalogo};
+    var url = 'http://' + window.location.hostname + '/voialApp/public/filterService';
+
+    $.ajax({
+        type: 'POST',
+        url: url,
+        dataType: 'json',
+        data:data,
+        success: function (r) {
+         $('#findedFilter').html(r.SearchServ);
+         $('#initialRows').hide();
+         $('#filter').modal('hide')
+        },
+        error: function (e) {
+            console.log(e)
+        }
+    });
 }
 

@@ -20,7 +20,7 @@ use App\Models\Invitaciones_Amigos;
 use App\Jobs\InviteFriendsMail;
 use Illuminate\Contracts\Auth\Guard;
 use \Crypt;
-
+use DB;
 class UsuarioServiciosController extends Controller
 
     {
@@ -1117,7 +1117,15 @@ class UsuarioServiciosController extends Controller
         $operador = $operador_gestion->getOperadorTipo($auth->user()->id, session('tip_oper'));
         $data['tipoOperador'] = session('tip_oper');
         $listServiciosUnicos = $gestion->getServiciosOperadorUnicos(session('operador_id'));
-        $catalogoServicios = $catalogoRepo->getDifferentThan(0);
+        //listado de arcordion
+        $campos = ['id_catalogo_servicios','nombre_servicio','nombre_servicio_eng','nivel'];
+        $padresList = DB::table('catalogo_servicios')
+                            ->select($campos)
+                            ->where('id_padre',0)
+                            ->get();
+        $catalogoServicios = $catalogoRepo->recursiveListForAcordion($padresList);
+
+        // return response()->json(['abc' => $catalogoServicios]);
         $controlDashboard = $gestion->getControlDashboard(session('operador_id'));
         $listServiciosAll = $gestion->getServiciosOperadorAll(session('operador_id'));
         return view('site.blades.dashboard', compact('listServiciosUnicos', 'listServiciosAll', 'data', "operador", 'controlDashboard','catalogoServicios'));

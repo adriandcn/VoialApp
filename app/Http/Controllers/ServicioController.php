@@ -16,7 +16,7 @@ use App\Repositories\catalogoServiciosRepository;
 use Illuminate\Support\Facades\Session;
 use App\Repositories\PublicServiceRepository;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\View;
 //use App\Models\Catalogo_Servicio;
 
 class ServicioController extends Controller {
@@ -1177,9 +1177,26 @@ public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $aut
     public function getServiciosByCatalogo($idCatalogo,catalogoServiciosRepository $catalogoServicios) {
         $campos = ['id_catalogo_servicios','nombre_servicio','nombre_servicio_eng'];
         $campos_serv = ['id','nombre_servicio','detalle_servicio'];
+        $dataCatalogo = DB::table('catalogo_servicios')
+                            ->select($campos)
+                            ->where('id_catalogo_servicios',$idCatalogo)
+                            ->first();
         $padresList = DB::table('catalogo_servicios')
                             ->select($campos)
                             ->where('id_padre',$idCatalogo)
+                            ->get();
+        $findedServ = [];
+        $catalogoServicios =  $catalogoServicios->recursiveList($padresList,1);
+        return view('site.blades.servicios-list-level-2', compact('catalogoServicios','idCatalogo','dataCatalogo'));
+        // return response()->json(array('success' => true, 'redirectto' => $catalogoServicios));
+    }
+
+    public function getServiciosByChildcatalogo($idCatalogo,$idSubCatalogo,catalogoServiciosRepository $catalogoServicios) {
+        $campos = ['id_catalogo_servicios','nombre_servicio','nombre_servicio_eng'];
+        $campos_serv = ['id','nombre_servicio','detalle_servicio'];
+        $padresList = DB::table('catalogo_servicios')
+                            ->select($campos)
+                            ->where('id_padre',$idSubCatalogo)
                             ->get();
         $findedServ = [];
         $catalogoServicios =  $catalogoServicios->recursiveListInArray($padresList,null);
@@ -1191,10 +1208,9 @@ public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $aut
             foreach ($qServ as $serv) {
                 array_push($findedServ, $serv);
             }
-            
         }
-        return view('site.blades.servicios-list', compact('findedServ'));
-        // return response()->json(array('success' => true, 'redirectto' => $catalogoServicios));
+        return view('site.blades.servicios-list-level-3', compact('findedServ','padresList'));
+        // return response()->json(array('success' => true, 'redirectto' => $padresList));
     }
 
     public function getServiciosByOperador($idOperador) {
@@ -1212,7 +1228,31 @@ public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $aut
         // return response()->json(array('success' => true, 'redirectto' => $findedServ));
     }
 
-    
-
+    public function applyServicesFilter(Request $request,catalogoServiciosRepository $catalogoServicios){
+        $campos = ['id_catalogo_servicios','nombre_servicio','nombre_servicio_eng'];
+        // $campos_serv = ['id','nombre_servicio','detalle_servicio'];
+        $padresList = DB::table('catalogo_servicios')
+                            ->select($campos)
+                            ->where('id_padre',$request->idSubCatalogo)
+                            ->get();
+        // $findedServ = [];
+        // $catalogoServicios =  $catalogoServicios->recursiveListInArray($padresList,null);
+        $inCatalogo = $catalogoServicios->getByCatalogoArray($request->filter);
+        // foreach ($catalogoServicios as $catalogo) {
+        //     $qServ = DB::table('usuario_servicios')
+        //                     ->select($campos_serv)
+        //                     ->where('id_catalogo_servicio',$catalogo->id_catalogo_servicios)
+        //                     ->get();
+        //     foreach ($qServ as $serv) {
+        //         array_push($findedServ, $serv);
+        //     }
+        // }
+        $view = View::make('site.partial.filterCatalogoServ',['inCatalogo' => $inCatalogo,'padresList' => $padresList]);
+        if ($request->ajax()) {
+            $sections = $view->rendersections();
+            return response()->json($sections);
+        }
+        // return response()->json(array('success' => true, 'data' => $inCatalogo));
+    }
     
 }

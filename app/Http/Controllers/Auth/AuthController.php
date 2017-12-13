@@ -17,7 +17,8 @@ use Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Cookie;
 use Input;
-
+use Mail;
+use DB;
 class AuthController extends Controller {
 
     protected $validationRules = [
@@ -256,11 +257,19 @@ class AuthController extends Controller {
      * @param  string  $confirmation_code
      * @return Response
      */
-    public function getConfirm(
-    UserRepository $user_gestion, $confirmation_code) {
-        $user = $user_gestion->confirm($confirmation_code);
-
-        return redirect('/login')->with('ok', trans('front/verify.success'));
+    public function getConfirm($confirmation_code) {
+        $user = DB::table('users')->where('confirmation_code',$confirmation_code)->get();
+        if (count($user) > 0) {
+            $user = DB::table('users')
+            ->where('confirmation_code',$confirmation_code)
+            ->where('confirmed',false)
+            ->update(['confirmation_code' => '','confirmed'=> true]);
+            // return $user;
+            return redirect('/')->with('okConfirm', trans('front/verify.okConfirmation'));
+        }else{
+            return redirect('/');
+        }
+        
     }
 
     /**
@@ -270,18 +279,16 @@ class AuthController extends Controller {
      * @param  Illuminate\Http\Request $request
      * @return Response
      */
-    public function getResend(
-    UserRepository $user_gestion, Request $request) {
-        if ($request->session()->has('user_id')) {
-            $user = $user_gestion->getById($request->session()->get('user_id'));
+    // public function getResend(
+    // UserRepository $user_gestion, Request $request) {
+    //     if ($request->session()->has('user_id')) {
+    //         $user = $user_gestion->getById($request->session()->get('user_id'));
 
-            // $this->dispatch(new SendMail($user));
+    //         return redirect('/')->with('ok', trans('front/verify.resend'));
+    //     }
 
-            return redirect('/login')->with('ok', trans('front/verify.resend'));
-        }
-
-        return redirect('/login');
-    }
+    //     return redirect('/');
+    // }
     
     
     public function postLoginr(
@@ -365,6 +372,16 @@ class AuthController extends Controller {
         
     }
     
+    public function sendActivationEmail($data){
+        $correo_enviar = $data['email'];
+        $nombre = $data['nombre'];
+        Mail::send('emails.auth.verify', $data, function($message) use ($correo_enviar,$nombre)
+        {
+            $message->from("avoilap@gmail.com",'VoilApp');
+            $message->to($correo_enviar,$nombre)->subject('Verifica tu cuenta');
+        });
+    }
+
     public function postRegisterr(Guard $auth, Request $request, UserRepository $user_gestion, OperadorRepository $operador_gestion, ServiciosOperadorRepository $gestion) {
 
 
@@ -443,13 +460,17 @@ class AuthController extends Controller {
               
             $email = $auth->user()->email;
             $nombre = $auth->user()->email;
-            // try{
-            //     // $this->dispatch(new SendMail($user));}
-            //     catch( Exception $e)
-            //     {
-                    
-            //     }
-            /* Busca si ya tiene servicios activos o no */
+            // Dateos de email de activacion
+            $data = [
+                        'email' => $formFields['email'],
+                        'nombre' => $formFields['name'],
+                        'confirmation_code' => $confirmation_code,
+                        // 'link' => config('global.serverDir') . 'activate?c='.$confirmation_code,
+                        'title'  => trans('front/verify.ReviewEmail'),
+                        'intro'  => trans('front/verify.email-intro'),
+                        'link'   => trans('front/verify.email-link')
+                    ];
+            $this->sendActivationEmail($data);
 
             //logica que comprueba si el usuario tiene servicios para ser modificados
             //caso contrario ingresa nuevos serviciosS
@@ -470,6 +491,8 @@ class AuthController extends Controller {
 
         }
     }
+
+
 
 
 }

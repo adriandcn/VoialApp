@@ -141,7 +141,8 @@
               </div>
               <div class="form-wrap">
                 <label class="form-label-outside" for="register-password-4"><i class="fa fa-list"></i>&nbsp;&nbsp;Detalle</label>
-                <input class="form-input" id="detalle_servicio" type="text" name="detalle_servicio" data-constraints="@Required">
+               <!--  <input class="form-input" id="detalle_servicio" type="text" name="detalle_servicio" data-constraints="@Required"> -->
+               <textarea class="form-input tooltip" rows="5" id="detalle_servicio" data-constraints="@Required" title="Ingresa una descripción breve y que capte la atención del usuario lector."></textarea>
               </div>
               <div class="button-wrap text-right">
                 <button class="button-primary button" type="button" onclick="AjaxContainerRegistroWithLoad1('form-add-trip','trip')">

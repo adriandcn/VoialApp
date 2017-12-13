@@ -5,6 +5,7 @@ Route::get('/', ['as' => 'publico', 'uses' => 'HomePublicController@getHome']);
 Route::get('Search', ['as' => 'min-search', 'uses' => 'SearchController@getSearchTotal']);
 // Auth
 Route::controllers(['auth' => 'Auth\AuthController', 'password' => 'Auth\PasswordController', ]);
+Route::get('/auth/confirm/{confirmation_code}', ['auth' => 'Auth\AuthController', 'uses' => 'Auth\AuthController@getConfirm']);
 // --Imagenes--
 Route::get('/image', ['as' => 'upload', 'uses' => 'ImageController@getUpload']);
 Route::post('upload', ['as' => 'upload-post', 'uses' => 'ImageController@postUpload']);

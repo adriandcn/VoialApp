@@ -124,23 +124,23 @@
                       <form class="rd-mailform" id="formRegister" action="{{$serverDir}}voialApp/public/auth/registerr">
                         <div class="form-wrap">
                           <label class="form-label-outside" for="login-name-4">{{ trans('publico/labels.labelName')}}</label>
-                          <input class="form-input" id="login-name-4" type="text" name="name" data-constraints="@Required">
+                          <input class="form-input tooltip" id="login-name-4" type="text" name="name" data-constraints="@Required" title="Ingresa tu nombre Ej: Juan">
                         </div>
                         <div class="form-wrap">
                           <label class="form-label-outside" for="login-username-4">{{ trans('publico/labels.labelUsername')}}</label>
-                          <input class="form-input" id="login-username-4" type="text" name="username" data-constraints="@Required">
+                          <input class="form-input tooltip" id="login-username-4" type="text" name="username" data-constraints="@Required" title="Ingresa tu nombre de usuario con el que ingresaras al sistema Ej: juan18">
                         </div>
                         <div class="form-wrap">
                           <label class="form-label-outside" for="login-email-4">{{ trans('publico/labels.labelEmail')}}</label>
-                          <input class="form-input" id="login-email-4" type="email" name="email" data-constraints="@Email">
+                          <input class="form-input tooltip" id="login-email-4" type="email" name="email" data-constraints="@Email" title="Ingresa tu email, recuerda que enviaremos un email de confirmación Ej: juan18@midominio.com">
                         </div>
                         <div class="form-wrap">
                           <label class="form-label-outside" for="login-email-4">{{ trans('publico/labels.labelEmailConfirmation')}}</label>
-                          <input class="form-input" id="login-email-4" type="email" name="email_confirmation" data-constraints="@Email">
+                          <input class="form-input tooltip" id="login-email-4" type="email" name="email_confirmation" data-constraints="@Email" title="Repite tu email, procura que coicida con el anterior email Ej: juan18@midominio.com">
                         </div>
                         <div class="form-wrap">
                           <label class="form-label-outside" for="login-password-4">{{ trans('publico/labels.labelPassword')}}</label>
-                          <input class="form-input" id="login-password-4" type="password" name="password" data-constraints="@Required">
+                          <input class="form-input tooltip" id="login-password-4" type="password" name="password" data-constraints="@Required" title="Ingresa tu contraseña, recuerda que debe ser mayor a 6 caracteres Ej: 123Abc18@XYZ">
                           <input class="form-input" id="system" type="hidden" name="system" value="VOILAPP">
                         </div>
                         <div class="rowerror1"></div>
@@ -153,3 +153,14 @@
                 </div>
               </div>
       </header>
+      <script>
+      $(document).ready(function() {
+        new jBox('Tooltip', {
+          attach: '.tooltip',
+          // content: 'You can move your mouse here<br>and interact with this tooltip',
+          closeOnMouseleave: true,
+          closeButton: true
+          // position:{x: 'right', y: 'center'}
+        });
+      });
+    </script>

@@ -8,7 +8,12 @@
     <link rel="stylesheet" href="{{ asset('/siteStyle/css/style.css')}}">
     <link rel="stylesheet" href="{{ asset('/siteStyle/css/animate.css')}}">
     <link rel="stylesheet" href="{{ asset('/siteStyle/sweetalert/sweetalert.css')}}">
+    <link rel="stylesheet" href="{{ asset('/siteStyle/tooltips/jBox.css')}}">
     <link rel="stylesheet" href="{{ asset('/siteStyle/css/bootstrap-switch.css')}}">
-    {!! HTML::script('/siteStyle/js/jquery.js') !!}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://code.jboxcdn.com/0.4.9/jBox.js"></script>
+    <link href="https://code.jboxcdn.com/0.4.9/jBox.css" rel="stylesheet">
     <script type="text/javascript" src="{{ asset('public_components/components/owl-carousel/owl.carousel.min.js')}}"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDor7F0iN5YavbFiLRA7pY7L8-Rgl89GT8&signed_in=true&libraries=places&callback=initMap" async defer></script>
+    scri

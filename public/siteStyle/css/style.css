@@ -15987,6 +15987,7 @@ html.rd-navbar-fixed-linked .page {
 .rd-navbar-variant-3 .rd-navbar-fixed .forms-modal a,
 .rd-navbar-default .rd-navbar-fixed .forms-modal a {
   color: #1b1b1b;
+  padding-bottom: 5px; border-bottom: 1px solid #ccc;
 }
 
 .rd-navbar-variant-3 .rd-navbar-fixed .forms-modal a:hover,

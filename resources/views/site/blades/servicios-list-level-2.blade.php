@@ -43,7 +43,7 @@
             <div class="row">
               @if(count($catalogoServicios) == 0)
                 <div class="col-xs-12" style="text-align: center;">
-                  <h4><a href="single-post.html"><i class="fa fa-frown-o "></i> &nbsp;&nbsp;Ups!! No se han encontrado servicios para esta categoria</a></h4>
+                  <h4><a href="single-post.html"><i class="fa fa-frown-o "></i> &nbsp;&nbsp;Ups!! No se han encontrado subcategorias</a></h4>
                 </div>
               @else
                 @foreach($catalogoServicios as $servicio)

@@ -16,7 +16,7 @@
             <div class="center" id="bike-wrapper">
               <div class="centerBike" id="bike"></div>
             </div>
-            <h1>Voilapp</h1>
+            <h1>{{trans('publico/labels.tittleLoaderCategoSons')}}</h1>
           </div>
         </div>
       </div>
@@ -28,7 +28,7 @@
         <div class="shell">
           <div class="page-title__overlay box-skew box-skew-var-1"><span class="box-skew__item"></span>
             <div class="page-title-text">{{$dataCatalogo->nombre_servicio}}</div>
-            <p class="big text-width-medium">En esta seccion usted puede visualizar los servicios disponibles para la categoria {{$dataCatalogo->nombre_servicio}}</p>
+            <p class="big text-width-medium">{{trans('publico/labels.categoDescription')}} {{$dataCatalogo->nombre_servicio}}</p>
           </div>
         </div>
       </section>
@@ -43,7 +43,7 @@
             <div class="row">
               @if(count($catalogoServicios) == 0)
                 <div class="col-xs-12" style="text-align: center;">
-                  <h4><a href="single-post.html"><i class="fa fa-frown-o "></i> &nbsp;&nbsp;Ups!! No se han encontrado subcategorias</a></h4>
+                  <h4><a href="single-post.html"><i class="fa fa-frown-o "></i> &nbsp;&nbsp;{{trans('publico/labels.noResult')}}</a></h4>
                 </div>
               @else
                 @foreach($catalogoServicios as $servicio)

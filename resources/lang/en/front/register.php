@@ -2,19 +2,18 @@
 
 return [
 	'title' => 'Inscription',
-    'register' => 'Registration',
-	'infos' => "It's completely free",
+    'register' => 'Registro',
+	'infos' => "Es completamente gratis",
 	'email' => 'Email',
-	'pseudo' => 'Name',
+	'pseudo' => 'Nombre',
 	'password' => 'Password',
-	'confirm-password' => 'Confirm your password',
+	'confirm-password' => 'Confirma tu password',
 	'warning' => 'Attention',
 	'warning-name' => '30 characters maximum',
 	'warning-password' => 'At least 8 characters',
-	'ok' => 'You have been registered !',
+	'ok' => 'Has sido registrado! !',
 	'error'=> 'These credentials do not match our records.',
-    'confirm-email'=> 'Confirm email.',
+    'confirm-email'=> 'Confirma tu email.',
     'usertypepersona'=> 'Personal',
-    'usertypecompany'=> 'Company'
-    
+    'usertypecompany'=> 'Empresa'
 ];

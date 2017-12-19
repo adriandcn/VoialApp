@@ -2,12 +2,12 @@
 
 return [
 	'title' => 'Iguana Trip',
-	'sub-title' => 'Stop being a Tourist..Become a traveler',
-	'home' => 'Home',
-	'contact' => 'Contact',
+	'sub-title' => 'Dejemos de ser turistas cinvirtamonos en viajeros',
+	'home' => 'Inicio',
+	'contact' => 'Contacto',
 	'blog' => 'Blog',
-	'register' => 'Register',
-	'forget-password' => 'Forgotten password',
+	'register' => 'Registro',
+	'forget-password' => 'Olvido password',
 	'connection' => 'Connection',
 	'administration' => 'Administration',
 	'redaction' => 'Redaction',

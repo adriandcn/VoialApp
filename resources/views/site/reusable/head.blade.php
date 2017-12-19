@@ -15,5 +15,6 @@
     <script src="https://code.jboxcdn.com/0.4.9/jBox.js"></script>
     <link href="https://code.jboxcdn.com/0.4.9/jBox.css" rel="stylesheet">
     <script type="text/javascript" src="{{ asset('public_components/components/owl-carousel/owl.carousel.min.js')}}"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDor7F0iN5YavbFiLRA7pY7L8-Rgl89GT8&signed_in=true&libraries=places&callback=initMap" async defer></script>
-    scri
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDor7F0iN5YavbFiLRA7pY7L8-Rgl89GT8&signed_in=true&libraries=places&callback=initMap" async defer></script> -->
+     <script type="text/javascript" src="{{ asset('/siteStyle/js/gmap3.js')}}"></script>
+     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

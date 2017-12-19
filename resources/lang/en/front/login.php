@@ -1,18 +1,17 @@
 <?php
 
 return [
-	'connection' => 'Connection',
+	'connection' => 'Conexión',
 	'text' => 'To log on this site you must fill this form :',
-	'email' => 'Your email',
-	'password' => 'Your password',
+	'email' => 'Tu email',
+	'password' => 'Tu password',
 	'remind' => 'Remember me',
-	'forget' => 'Forgot your password?',
-	'register' => 'Not registered ?',
+	'forget' => 'Olvide mi contraseña!',
+	'register' => 'No estás registrado ?',
 	'register-info' => 'To register quickly just click on the button !',
 	'registering' => 'I subscribe',
 	'credentials' => 'These credentials do not match our records.',
-	'log' => 'Your email or your user name',
+	'log' => 'Tu email o usuario',
 	'maxattempt' => 'You have reached the maximum number of login attempts. Try again in one minute.',
-    	'logbtn' => 'LogIn'
-    
+        'logbtn' => 'Ingresar'
 ];

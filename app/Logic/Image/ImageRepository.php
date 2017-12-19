@@ -15,66 +15,51 @@ class ImageRepository {
 
     public function upload($form_data) {
 
-        $validator = Validator::make($form_data, Image::$rules, Image::$messages);
-
-
-        if ($validator->fails()) {
-
+        $numImages = DB::table('images')->where('id_usuario_servicio',$form_data['id_usuario_servicio'])->where('estado_fotografia',1)->get();
+        echo count($numImages);
+        if (count($numImages) > (config('global.freeImageLimit') - 1)) {
             return Response::json([
-                        'error' => true,
-                        'message' => $validator->messages()->first(),
-                        'code' => 400
-                            ], 400);
-        }
-
-        $photo = $form_data['file'];
-
-
-        $originalName = $photo->getClientOriginalName();
-
-        $originalNameWithoutExt = substr($originalName, 0, strlen($originalName) - 4);
-
-
-        $filename = $this->sanitize($originalNameWithoutExt);
-
-        $allowed_filename = $this->createUniqueFilename($filename);
-
-
-        $filenameExt = $form_data['id_auxiliar'] . $allowed_filename . '.jpg';
-
-
-
-        $uploadSuccess1 = $this->original($photo, $filenameExt);
-
-
-        $uploadSuccess2 = $this->icon($photo, $filenameExt);
-
-
-        if (!$uploadSuccess1 || !$uploadSuccess2) {
-
+                        'error' => 'Unicamente esta permitido ' . config('global.freeImageLimit') . ' imagenes por servicio en la version free.' ,
+                        'name' => 'imageLimit',
+                        'code' => 507
+                            ], 507);
+        }else{
+            $validator = Validator::make($form_data, Image::$rules, Image::$messages);
+            if ($validator->fails()) {
+                return Response::json([
+                            'error' => true,
+                            'message' => $validator->messages()->first(),
+                            'code' => 400
+                                ], 400);
+            }
+            $photo = $form_data['file'];
+            $originalName = $photo->getClientOriginalName();
+            $originalNameWithoutExt = substr($originalName, 0, strlen($originalName) - 4);
+            $filename = $this->sanitize($originalNameWithoutExt);
+            $allowed_filename = $this->createUniqueFilename($filename);
+            $filenameExt = $form_data['id_auxiliar'] . $allowed_filename . '.jpg';
+            $uploadSuccess1 = $this->original($photo, $filenameExt);
+            $uploadSuccess2 = $this->icon($photo, $filenameExt);
+            if (!$uploadSuccess1 || !$uploadSuccess2) {
+                return Response::json([
+                            'error' => true,
+                            'message' => 'Server error while uploading',
+                            'code' => 500
+                                ], 500);
+            }
+            $sessionImage = new Image;
+            $sessionImage->filename = $form_data['id_auxiliar'] . $allowed_filename . '.jpg';
+            $sessionImage->original_name = $originalName;
+            $sessionImage->id_catalogo_fotografia = $form_data['id_catalogo_fotografia'];
+            $sessionImage->id_usuario_servicio = $form_data['id_usuario_servicio'];
+            $sessionImage->id_auxiliar = $form_data['id_auxiliar'];
+            $sessionImage->estado_fotografia = 1;
+            $sessionImage->save();
             return Response::json([
-                        'error' => true,
-                        'message' => 'Server error while uploading',
-                        'code' => 500
-                            ], 500);
+                        'error' => false,
+                        'code' => 200
+                            ], 200);
         }
-
-        $sessionImage = new Image;
-        $sessionImage->filename = $form_data['id_auxiliar'] . $allowed_filename . '.jpg';
-        $sessionImage->original_name = $originalName;
-        $sessionImage->id_catalogo_fotografia = $form_data['id_catalogo_fotografia'];
-        $sessionImage->id_usuario_servicio = $form_data['id_usuario_servicio'];
-        $sessionImage->id_auxiliar = $form_data['id_auxiliar'];
-        $sessionImage->estado_fotografia = 1;
-
-
-
-        $sessionImage->save();
-
-        return Response::json([
-                    'error' => false,
-                    'code' => 200
-                        ], 200);
     }
 
     public function createUniqueFilename($filename) {

@@ -24,7 +24,6 @@ class ImageController extends Controller
         $photo = Input::all();
         $response = $this->image->upload($photo);
         return $response;
-
     }
 
     public function deleteUpload()
@@ -76,16 +75,10 @@ $returnHTML = ('/IguanaTrip/public/');
     }
     
     
-       public function postDeleteImage1(ImageRepository $gestion) {
-
+    public function postDeleteImage1(ImageRepository $gestion) {
         $inputData = Input::get('formData');
-
         parse_str($inputData, $formFields);
-        //Arreglo de servicios prestados que vienen del formulario
-        //Arreglo de servicios prestados que vienen del formulario
-        
         foreach ($formFields as $key => $value) {
-            //verifica si el arreglo de parametros es un catalogo
             if($value!="")
             $root_array[$key] = $value;
         }
@@ -94,23 +87,15 @@ $returnHTML = ('/IguanaTrip/public/');
         if(isset($root_array['actionImage']))
         {
             $gestion->storeDescrFoto($root_array, $Servicio,$idImage);
-            
         }
-        
           if(isset($root_array['actionImageProfile']))
         {
-            //print_r($Servicio);
             $gestion->storeProfileFoto($root_array, $Servicio[0]->id_usuario_servicio,$idImage);
-            
         }
         else{
-        
         $gestion->storeUpdateEstado($root_array, $Servicio);}
-
         $returnHTML = ('/edicionServicios');
         return response()->json(array('success' => true, 'redirectto' => $returnHTML));
-        
-        
     }
 
 }

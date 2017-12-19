@@ -11,16 +11,16 @@
 <br><br>
         <div class="product-images col-sm-12 box-lg">
             <div id="owl-demo" class="owl-carousel">
-                @foreach ($ImgPromociones as $imagen)
+                @for ($i = 0; $i < count($ImgPromociones); $i++)
                 <?php
-                $url = "images/icon/" . $imagen->filename                
+                $url = "images/fullsize/" . $ImgPromociones[$i]->filename                
                 ?>
                 <div class="item-1" style="padding: 5%;">
-                    <a href="#" onclick="setFullImage('{{asset($url)}}')" data-toggle="modal" data-target="#form-img-full">
+                    <a href="#" onclick="setFullImage({{$i}},'{{asset($url)}}')" data-toggle="modal" data-target="#form-img-full">
                         <img src="{{asset($url)}}" href='#' class="img-res"/>
                     </a>
                 </div>
-                @endforeach 
+                @endfor 
             </div>
         </div>
 {!! Form::close() !!}
@@ -28,7 +28,32 @@
 
 <script type="text/javascript" src="{{ asset('public_components/components/owl-carousel/owl.carousel.min.js')}}"></script>
 <script>
-    function setFullImage($url) {
+    var arrayImg = {!!$ImgPromociones !!};
+    var currentImage = 0;
+    var urlBack = '';
+    var urlNext = '';
+    function backImage(){
+        event.preventDefault();
+        if (currentImage >= 1) {
+            currentImage --;
+        }else{
+            currentImage = arrayImg.length -1;
+        }
+        urlBack = window.location.protocol + '//' + window.location.hostname + '/voialApp/public/images/fullsize/' + arrayImg[currentImage].filename;
+        setFullImage(currentImage,urlBack);
+    }
+    function nextImage(){
+        event.preventDefault();
+        if (currentImage < (arrayImg.length -1)) {
+            currentImage ++;
+        }else{
+            currentImage = 0;
+        }
+        urlNext = window.location.protocol + '//' + window.location.hostname + '/voialApp/public/images/fullsize/' + arrayImg[currentImage].filename;
+        setFullImage(currentImage,urlNext);
+    }
+    function setFullImage($index,$url) {
+        currentImage = $index;
         console.log($url);
        // $("#imgFull").attr("src",$url);
        $("#imgFull").css("background", 'url(' + $url + ')');

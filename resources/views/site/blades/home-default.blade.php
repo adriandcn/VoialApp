@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html class="wide wow-animation" lang="en">
+<html class="wide wow-animation" lang="es">
   <head>
     <!-- Site Title-->
-    <title>Home default</title>
+    <title>VoialApp | Inicio </title>
     @include('site.reusable.head')
 
    <!--  <script>
@@ -52,8 +52,8 @@
                     <div class="cell-lg-6 cell-md-7 cell-sm-8" data-caption-animate="fadeInUp" data-caption-delay="100">
                       <div class="swiper__overlay swiper-overlay-end box-skew box-skew-var-2"><span class="box-skew__item"></span>
                         <div class="swiper-overlay-item-1">
-                          <h1>Bienvenido a Voilapp.city</h1>
-                          <h6>Somos una guia de todos los clientes que se puedan dar en la ciudad para poder agradar a los clientes</h6>
+                          <h1>{{trans('publico/labels.saludo')}}</h1>
+                          <h6>{{trans('publico/labels.appDescription')}}</h6>
                         </div>
                       </div>
                     </div>
@@ -116,7 +116,7 @@
               @endforeach -->
             </div>
           </div>
-          <div class="wrap-button text-center text-md-right"><a class="button button-sm button-primary" href="blog.html">Ver más recomendados<span></span></a></div>
+          <div class="wrap-button text-center text-md-right"><a class="button button-sm button-primary" href="blog.html">{{trans('publico/labels.moreRelated')}}<span></span></a></div>
         </div>
       </section>
     @foreach ($serviciosList as $servicio)

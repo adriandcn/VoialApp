@@ -22,10 +22,10 @@ class pruebasCtrl extends Controller
         $padresList = DB::table('catalogo_servicios')
                             ->select($campos)
                             ->where('estado_catalogo_servicios',1)
-                            ->where('id_padre',0)
+                            ->where('nivel',0)
                             ->get();
-        $result = $catalogoServicios->recursiveList($padresList,2);
+        $headerCategories = $catalogoServicios->recursiveList($padresList,2);
 
-        return response()->json(['data' => $result]);
+        return response()->json(['data' => $headerCategories]);
     }
 }

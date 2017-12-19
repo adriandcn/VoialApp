@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\Guard;
 use App\Jobs\ChangeLocale;
 use Jenssegers\Agent\Agent;
 use Illuminate\Support\Facades\Session;
+use Lang,App,Language;
 
 class HomeController extends Controller {
 
@@ -42,7 +43,8 @@ class HomeController extends Controller {
      */
     public function language(
     ChangeLocale $changeLocale) {
-        $this->dispatch($changeLocale);
+        $changeLocale->handle();
+        App::setLocale(session('locale'));
         return redirect()->back();
     }
     

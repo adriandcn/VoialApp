@@ -10,6 +10,7 @@ use App\Models\Usuario_Servicio;
 use App\Models\Servicio_Establecimiento_Usuario;
 use App\Models\Catalogo_Servicio;
 use App\Models\Control_dahsboard;
+use App\Models\redesSociales;
 use Illuminate\Support\Facades\DB;
 
 class OperadorRepository extends BaseRepository
@@ -43,6 +44,7 @@ class OperadorRepository extends BaseRepository
 		$this->servicioEstablecimientoUsuario = new Servicio_Establecimiento_Usuario();
                 $this->Servicio = new Catalogo_Servicio();
                 $this->controlDashboard = new Control_dahsboard();
+        $this->redesSociales = new redesSociales();
 	}
 
 	/**
@@ -111,6 +113,8 @@ class OperadorRepository extends BaseRepository
             								'nombre_empresa_operador'=>$inputs['nombre_empresa_operador'],
 											'nombre_contacto_operador_1'=>$inputs['nombre_contacto_operador_1'],
 											'telf_contacto_operador_1'=>$inputs['telf_contacto_operador_1'],
+											'nombre_contacto_operador_2'=>$inputs['nombre_contacto_operador_2'],
+											'telf_contacto_operador_2'=>$inputs['telf_contacto_operador_2'],
 											'email_contacto_operador'=>$inputs['email_contacto_operador'],
 											'ip_registro_operador'=>$inputs['ip_registro_operador'],
 											'direccion_empresa_operador'=>$inputs['direccion_empresa_operador']
@@ -205,7 +209,8 @@ class OperadorRepository extends BaseRepository
 	}
 
 	public function saveUsuarioServicios($usuarioServicio, $inputs)
-	{
+	{	
+
 		$usuarioServicio->nombre_servicio = $inputs['nombre_servicio'];
 		$usuarioServicio->detalle_servicio = $inputs['detalle_servicio'];
  		$usuarioServicio->estado_servicio_usuario = 1;
@@ -236,34 +241,36 @@ class OperadorRepository extends BaseRepository
 	public function updateUsuarioServicios($usuarioServicio, $inputs)
 	{
 		return  $usuarioServicio::where('id',$inputs['id_usuario_servicio'])
-									->update(['nombre_servicio'=>$inputs['nombre_servicio'],
-											'detalle_servicio'=>$inputs['detalle_servicio'],
-                                                                            'detalle_servicio_eng'=>$inputs['detalle_servicio_eng'],
-											'precio_desde'=>$inputs['precio_desde'],
-											'precio_hasta'=>$inputs['precio_hasta'],
-//											'precio_anterior'=>$inputs['precio_anterior'],
-//											'precio_actual'=>$inputs['precio_actual'],
-//											'descuento_servico'=>$inputs['descuento_servico'],
-											'direccion_servicio'=>$inputs['direccion_servicio'],
-											'correo_contacto'=>$inputs['correo_contacto'],
-											'pagina_web'=>$inputs['pagina_web'],
-//											'nombre_comercial'=>$inputs['nombre_comercial'],
-											'tags'=>$inputs['tags'],
-											'horario'=>$inputs['horario'],
-//											'tags_servicio'=>$inputs['tags_servicio'],
-//											'observaciones'=>$inputs['observaciones'],
-											'telefono'=>$inputs['telefono'],
-											'latitud_servicio'=>$inputs['latitud_servicio'],
-											'longitud_servicio'=>$inputs['longitud_servicio'],
-                                                                            'id_provincia'=>$inputs['id_provincia'],
-                                                                            'id_canton'=>$inputs['id_canton'],
-                                                                            'como_llegar1'=>$inputs['como_llegar1'],
-                                                                            'como_llegar2'=>$inputs['como_llegar2'],
-                                                                            'fecha_ingreso' => $inputs['fecha_ingreso'],
-                                                                             'fecha_fin' => $inputs['fecha_fin'],
-                                                                            'id_parroquia'=>$inputs['id_parroquia'],
-                                                                            'updated_at'=>\Carbon\Carbon::now()->toDateTimeString()
-									]);
+				->update(['nombre_servicio'=>$inputs['nombre_servicio'],
+							'detalle_servicio'=>$inputs['detalle_servicio'],
+                            'detalle_servicio_eng'=>$inputs['detalle_servicio_eng'],
+							'precio_desde'=>$inputs['precio_desde'],
+							'precio_hasta'=>$inputs['precio_hasta'],
+//'precio_anterior'=>$inputs['precio_anterior'],
+//'precio_actual'=>$inputs['precio_actual'],
+//'descuento_servico'=>$inputs['descuento_servico'],
+							'direccion_servicio'=>$inputs['direccion_servicio'],
+							'correo_contacto'=>$inputs['correo_contacto'],
+							'pagina_web'=>$inputs['pagina_web'],
+//'nombre_comercial'=>$inputs['nombre_comercial'],
+							'tags'=>$inputs['tags'],
+							// 'horario'=>$inputs['horario'],
+//'tags_servicio'=>$inputs['tags_servicio'],
+//'observaciones'=>$inputs['observaciones'],
+							'telefono'=>$inputs['telefono'],
+							'latitud_servicio'=>$inputs['latitud_servicio'],
+							'longitud_servicio'=>$inputs['longitud_servicio'],
+                            'id_provincia'=>$inputs['id_provincia'],
+                            'id_canton'=>$inputs['id_canton'],
+                            'como_llegar1'=>$inputs['como_llegar1'],
+                            'como_llegar1_1'=>$inputs['como_llegar1_1'],
+                            'como_llegar2'=>$inputs['como_llegar2'],
+                            'como_llegar2_2'=>$inputs['como_llegar2_2'],
+                            'fecha_ingreso' => $inputs['fecha_ingreso'],
+                            'fecha_fin' => $inputs['fecha_fin'],
+                            'id_parroquia'=>$inputs['id_parroquia'],
+                            'updated_at'=>\Carbon\Carbon::now()->toDateTimeString()
+					]);
 	}
 	
 	public function storageUsuarioServiciosMini($inputs)

@@ -535,10 +535,10 @@ Actualizar tabla de busqueda
     }
 
     //Entrega el arreglo de Imagenes por promocion por operador
-    public function getImagePromocionesOperador($id_promocion) {
+    public function getImagePromocionesOperador($tipo,$id_promocion) {
         $promociones = new $this->image;
         return $promociones::where('id_auxiliar', $id_promocion)
-                        ->where('id_catalogo_fotografia', '=', 2)
+                        ->where('id_catalogo_fotografia', '=', $tipo)
                         ->where('estado_fotografia', '=', 1)->get();
     }
     
@@ -617,10 +617,14 @@ Actualizar tabla de busqueda
     public function getServiciosOperadorAll($id_usuario_operador) {
         return DB::table('usuario_servicios')
                         ->join('catalogo_servicios', 'usuario_servicios.id_catalogo_servicio', '=', 'catalogo_servicios.id_catalogo_servicios')
+                        ->join('images', 'usuario_servicios.id', '=', 'images.id_usuario_servicio')
                         ->where('id_usuario_operador', $id_usuario_operador)
                         ->where('estado_servicio', '=', 1)
+                        ->where('images.profile_pic', '=', 1)
                         ->select('usuario_servicios.nombre_servicio','usuario_servicios.detalle_servicio', 
-                            'catalogo_servicios.id_catalogo_servicios', 'usuario_servicios.id', 'usuario_servicios.estado_servicio_usuario', 'usuario_servicios.id_usuario_operador')
+                            'catalogo_servicios.id_catalogo_servicios', 'usuario_servicios.id', 'usuario_servicios.estado_servicio_usuario', 'usuario_servicios.id_usuario_operador',
+                            'images.filename',
+                            'images.original_name')
                         ->get();
     }
 

@@ -10,8 +10,8 @@
 @if(isset($ImgPromociones) && count($ImgPromociones)>0)
 {!! Form::open(['url' => route('delete-image1'),  'id'=>'deleteImage']) !!}
 <br><br>
-        <div class="product-images col-sm-12 box-lg">
-            <div id="owl-demo" class="owl-carousel">
+        <div class="product-images col-sm-12 box-lg" style="padding-left: 0px;">
+            <div id="owl-demo" class="owl-carousel" style="border: 1px solid #c269337a; margin-bottom: 15px;">
                 
                 @foreach ($ImgPromociones as $imagen)
 
@@ -24,7 +24,7 @@
                 <!--<div class="item-1" style="border: 1px solid black;width: 180px;padding: 5%;margin-right: 20px;"> -->
                 <div class="item-1" style="padding: 5%;">
                     <img src="{!! asset('img/x.png')!!}" onclick='alertaConfirm({!!$imagen->id!!})' style=" width:35px; height:32px; position:absolute; top:2px; right:0px; cursor:pointer;" alt='' />
-                    <img src="{{asset($url)}}" href='#' class="img-res"/>
+                    <img src="{{asset($url)}}" href='#' class="img-res"/ width="200" style="    margin-left: 21%;">
                     
             
                     <input type="text" class="form-input" value="{!!$imagen->descripcion_fotografia!!}" name="descripcion_fotografia_{!!$imagen->id!!}" 
@@ -33,36 +33,13 @@
                     
                       <br>
                     @if($imagen->profile_pic==1)       
-                    Profile pic: <input type='radio' id='ch_{!!$imagen->id!!}' name='ch' checked="checked"  onchange="AjaxSaveDetailsFotografiaProfile('deleteImage','{!!$imagen->id!!}')" value= "{!!$imagen->profile_pic!!}"/>
- @else
- Profile pic: <input type='radio' id='ch_{!!$imagen->id!!}' name='ch' onchange="AjaxSaveDetailsFotografiaProfile('deleteImage','{!!$imagen->id!!}')" value= "{!!$imagen->profile_pic!!}"/>
- @endif
+                    Imagen de perfil: <input type='radio' id='ch_{!!$imagen->id!!}' name='ch' checked="checked"  onchange="AjaxSaveDetailsFotografiaProfile('deleteImage','{!!$imagen->id!!}')" value= "{!!$imagen->profile_pic!!}"/>
+                     @else
+                     Ver en miñatura: <input type='radio' id='ch_{!!$imagen->id!!}' name='ch' onchange="AjaxSaveDetailsFotografiaProfile('deleteImage','{!!$imagen->id!!}')" value= "{!!$imagen->profile_pic!!}"/>
+                     @endif
                 </div>
                 @endforeach 
-
             </div>
-
-           <!--         <div id="sync1" class="owl-carousel images">
-                        <div class="post-slider style3 owl-carousel box">
-                               @foreach ($ImgPromociones as $imagen)
-                                <?php
-                                $url = "images/icon/" . $imagen->filename
-                                ?>
-                                <a href="{{ asset('images/fullsize/'.$imagen->filename)}}" class="soap-mfp-popup">
-                                    <img src="{!! asset('img/x.png')!!}" onclick='alertaConfirm({!!$imagen->id!!})' style=" width:50px; height:50px; position:absolute;top:2px; right:8px; cursor:pointer;" alt='' />
-                                    <img src="{{asset($url)}}" href='#' style="80% !important;"/>
-
-                                    @if($imagen->descripcion_fotografia!="")
-                                    <div class="slide-text caption-animated" data-animation-type="slideInLeft" data-animation-duration="2">
-                                        <h4 class="slide-title">{!!$imagen->descripcion_fotografia!!}</h4>
-
-                                    </div>
-                                    @endif
-                                </a>
-                                @endforeach
-                        </div>
-                    </div>-->
-
         </div>
 {!! Form::close() !!}
 @endif

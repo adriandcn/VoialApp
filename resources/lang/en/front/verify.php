@@ -1,16 +1,16 @@
 <?php
 
 return [
-	'email-title' => 'VoilApp Email verification',
-	'email-intro'=> 'To validate your email ',
-	'email-link' => 'click on this link',
-	'message' => 'Thanks for signing up! Please check your email.',
-	'success' => 'You have successfully verified your account! You can now login.',
-	'again' => 'You must verify your email before you can access the site. ' .
-                '<br>If you have not received the confirmation email check your spam folder.'.
-                '<br>To get a new confirmation email please <a href="' . url('auth/resend') . '" class="alert-link">clic here</a>.', 
-    
-    'ReviewEmail' => 'VoilApp Review verification',
-    'resend' => 'A confirmation message has been sent. Please check your email.'
+	'email-title' => 'VoilApp verificación de registro',
+	'email-intro'=> 'Para validar tu cuenta ',
+	'email-link' => 'haz click en este link',
+	'message' => 'Gracias por registrarte! Por favor revisa tu correo electrónico.',
+	'success' => 'Su cuenta ha sido verificada exitosamente. Ahora puede loguearse',
+    'ReviewEmail' => 'VoilApp Correo de verificación',
+	'again' => 'Debe verificar su correo electrónico antes de ingresar. ' .
+                '<br>Si no ha recibido ninguna confirmación, revise la carpeta de correo no deseado.'.
+                '<br>Para obtener un nuevo email de confirmación por favor <a href="' . url('auth/resend') . '" class="alert-link">click aquí</a>.', 
+    'resend' => 'Un mensaje de confirmación ha sido enviado.Por favor revise su email.',
+    'okConfirmation' => 'Tu cuenta ha sido confirmada correctamente.'
 ];
 

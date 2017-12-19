@@ -1128,6 +1128,7 @@ class UsuarioServiciosController extends Controller
         // return response()->json(['abc' => $catalogoServicios]);
         $controlDashboard = $gestion->getControlDashboard(session('operador_id'));
         $listServiciosAll = $gestion->getServiciosOperadorAll(session('operador_id'));
+        // return response()->json(['abc' => $listServiciosAll]);
         return view('site.blades.dashboard', compact('listServiciosUnicos', 'listServiciosAll', 'data', "operador", 'controlDashboard','catalogoServicios'));
         }
     public function getAllServicios1($id_usuario_servicio, Request $request, ServiciosOperadorRepository $gestion)
@@ -1184,7 +1185,6 @@ class UsuarioServiciosController extends Controller
             }
         }
     public function getProvincias1(Request $request, ServiciosOperadorRepository $gestion, $id_provincia, $id_canton, $id_parroquia)
-
         {
         $listProvincias = $gestion->getProvincias();
         $view = View::make('reusable.provincia1')->with('provincias', $listProvincias)->with('id_provincia', $id_provincia)->with('id_canton', $id_canton)->with('id_parroquia', $id_parroquia);

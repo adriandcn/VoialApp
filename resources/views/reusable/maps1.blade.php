@@ -14,8 +14,8 @@
 
 <div class='form-group'>
     <!-- <label for='searchmap'>Ubicación: </label> -->
-    <input type="text" id='searchmap' style="height: 27px; width: 100%;margin-bottom: 1%" class="form-input">
-    <div id="map"></div>
+    <input type="text" id='searchmap' style="height: 27px; width: 100%;margin-bottom: 1%" class="form-input tooltip" title="Puedes buscar un sitio escribiendolo directamente Ej: Guayaquil">
+    <div id="map" class="tooltip" title="Haz clic sobre el mapa para marcar la ubicación de tu servicio"></div>
 </div>
 <div class="form-group">
     <input type="hidden" class='form-control input-sm' name='latitud_servicio' value="{!!$latitud_servicio!!}" id='latitud_servicio'/>
@@ -66,8 +66,15 @@
             map.setZoom(15);
 
         });
+        google.maps.event.addListener(map, 'click', function(e) {
+            var position = e.latLng;
+            var lat = e.latLng.lat();
+            var lng = e.latLng.lng();
+            marker.setPosition(position);
+            $('#latitud_servicio').val(lat);
+            $('#longitud_servicio').val(lng);
+        });
         google.maps.event.addListener(marker, 'position_changed', function () {
-
             var lat = marker.getPosition().lat();
             var lng = marker.getPosition().lng;
             $('#latitud_servicio').val(lat);

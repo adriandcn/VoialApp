@@ -16,7 +16,7 @@
             <div class="center" id="bike-wrapper">
               <div class="centerBike" id="bike"></div>
             </div>
-            <h1>Voilapp</h1>
+            <h1>{{ trans('back/admin.loaderPageServicios')}}</h1>
           </div>
         </div>
       </div>
@@ -27,8 +27,8 @@
       <section class="page-title breadcrumbs-elements page-title-inset-1">
         <div class="shell">
           <div class="page-title__overlay box-skew box-skew-var-1"><span class="box-skew__item"></span>
-            <div class="page-title-text">Hola, {!!session('user_name')!!}</div>
-            <p class="big text-width-medium">Desde el panel de control de Mi cuenta tiene la capacidad de ver una instantánea de la actividad de su cuenta reciente y actualizar la información de su cuenta. Seleccione un enlace para ver o editar información.</p>
+            <div class="page-title-text">{{ trans('back/admin.saludo')}}, {!!session('user_name')!!}</div>
+            <p class="big text-width-medium">{{ trans('back/admin.dashboardDescription')}}</p>
           </div>
         </div>
       </section>
@@ -129,169 +129,167 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
         <div class="shell">
           <div class="range range-50 range-center">
             <div class="cell-md-4 cell-sm-6 cell-xs-8">
-              <a href="" data-toggle="modal" data-target="#foto">
-                <img src="{{asset('/siteStyle/images/add-image.png')}}" alt="" width="200" height="340"/>
+              <a class="button button-primary tooltip button-icon button-icon-sm button-icon-right fa-plus" title="{{ trans('back/admin.altAddImage')}}" href="" data-toggle="modal" data-target="#foto">
+                {{ trans('back/admin.lblAddImage')}}<span></span>
               </a>
+              <div id="renderPartialImagenes">
+                  @section('contentImagenes')
+                  @show
+              </div> 
               <div class="post post-autor-wrap group-sm group-top">
                 <div class="author-name">
-                  <h6><i class="fa fa-calendar-o"></i>&nbsp;&nbsp;Promociones y Eventos</h6>
+                  <h6><i class="fa fa-calendar-o"></i>&nbsp;&nbsp;{{ trans('back/admin.lblEvents')}}</h6>
                   <hr>
                 </div>
-                      <!-- <ul class="list-inline">
-                        <li><a class="icon fa fa-sm fa-facebook icon-xxs" href="#"></a></li>
-                        <li><a class="icon fa fa-sm fa-google-plus icon-xxs" href="#"></a></li>
-                        <li><a class="icon fa fa-sm fa-linkedin icon-xxs" href="#"></a></li>
-                        <li><a class="icon fa fa-sm fa-twitter icon-xxs" href="#"></a></li>
-                      </ul> -->
               </div>
-              <a class="button button-primary" href="">
-                Promociones y Eventos<span></span>
+              <a class="button button-primary" href="">{{ trans('back/admin.lblEvents')}}<span></span>
               </a>
             </div>
             <div class="cell-md-8">
               <div class="post-single">
                 <form class="rd-mailform" id="form-update-serv">
                   <input type="hidden" value="{!!$usuarioServicio->id!!}" name="id" id="id">
- <input type="hidden" value="{!!$id_catalogo!!}" name="id_catalogo" id="id_catalogo">
+                    <input type="hidden" value="{!!$id_catalogo!!}" name="id_catalogo" id="id_catalogo">
                     <div class="range range-15">
                       <div class="cell-sm-8">
                         <div class="form-wrap">
-                          <label class="form-label-outside" for="contact-first-name"><i class="fa fa-font "></i>&nbsp;&nbsp;Nombre Servicio</label>
-                          <input class="form-input" id="contact-first-name" type="text" name="nombre_servicio" value="{{$usuarioServicio[0]->nombre_servicio}}" data-constraints="@Required">
+                          <label class="form-label-outside" for="contact-first-name"><i class="fa fa-font "></i>&nbsp;&nbsp;{{ trans('back/admin.lblServiceName')}}</label>
+                          <input class="form-input tooltip" id="contact-first-name" type="text" name="nombre_servicio" value="{{$usuarioServicio[0]->nombre_servicio}}" data-constraints="@Required" title="{{ trans('back/admin.altServiceName')}}">
                         </div>
                       </div>
                       <div class="cell-sm-4">
                         <div class="form-wrap">
-                          <label class="form-label-outside" for="contact-first-name"><i class="fa fa-lightbulb-o "></i>&nbsp;&nbsp;Servicio activo</label>
-                          <input type="checkbox" id='estado_servicio_usuario' 
+                          <label class="form-label-outside" for="contact-first-name"><i class="fa fa-lightbulb-o "></i>&nbsp;&nbsp;{{ trans('back/admin.lblestadoServicio')}}</label>
+                          <input  class="tooltip" type="checkbox" id='estado_servicio_usuario' 
                                    name="estado_servicio_usuario" value="{!!$usuarioServicio->estado_servicio_usuario!!}"
-                                   onchange="UpdateServicioActivo('{!!asset('/updateServicioActivo')!!}/{!!$usuarioServicio->id!!}')">
+                                   onchange="UpdateServicioActivo('{!!asset('/updateServicioActivo')!!}/{!!$usuarioServicio->id!!}')" title="{{ trans('back/admin.altestadoServicio')}}">
                         </div>
                       </div>
                       <div class="cell-xs-6">
                         <div class="form-wrap">
                           <label class="form-label-outside" for="contact-message">
-                            <i class="fa fa-list"></i>&nbsp;&nbsp;Descripción del Servicio</label>
-                          <textarea class="form-input" id="contact-message" name="detalle_servicio" data-constraints="@Required" >{{$usuarioServicio[0]->detalle_servicio}}</textarea>
+                            <i class="fa fa-list"></i>&nbsp;&nbsp;{{ trans('back/admin.lblServDescription')}}</label>
+                          <textarea class="form-input tooltip" id="contact-message" name="detalle_servicio" data-constraints="@Required" title="{{ trans('back/admin.altServDescription')}}">{{$usuarioServicio[0]->detalle_servicio}}</textarea>
                         </div>
                       </div>
                       <div class="cell-xs-6">
                         <div class="form-wrap">
-                          <label class="form-label-outside" for="contact-message">
-                            <i class="fa fa-list"></i>&nbsp;&nbsp;Descripción del Servicio (Ingles)</label>
-                          <textarea class="form-input" id="contact-message" name="detalle_servicio_eng" data-constraints="@Required" >{{$usuarioServicio[0]->detalle_servicio_eng}}</textarea>
+                          <label class="form-label-outside" for="descriptionEn">
+                            <i class="fa fa-list"></i>&nbsp;&nbsp;{{ trans('back/admin.lblServDescriptionEng')}}</label>
+                          <textarea class="form-input tooltip" id="descriptionEn" name="detalle_servicio_eng" data-constraints="@Required" title="{{ trans('back/admin.altServDescriptionEng')}}">{{$usuarioServicio[0]->detalle_servicio_eng}}</textarea>
                         </div>
                       </div>
                       <div class="cell-sm-6">
                         <div class="form-wrap">
                             <!--Select 2-->
-                            <p class="text-label"><i class="fa fa-map-marker"></i>&nbsp;&nbsp;Provincia, Canton y Parroquia del lugar</p>
+                            <p class="text-label"><i class="fa fa-map-marker"></i>&nbsp;&nbsp;{{ trans('back/admin.tittleProvCiud')}}</p>
                             <div id="provincias"></div>
                         </div>
                       </div>
+                      <div class="cell-xs-12">
+                        <div class="form-wrap">
+                          <label class="form-label-outside" for="contact-message">
+                            <i class="fa fa-info"></i>&nbsp;&nbsp;{{ trans('back/admin.tittleServiceInfo')}}</label>
+                        </div>
+                      </div>
+                      <div class="cell-sm-6">
+                        <div class="form-wrap">
+                          <label class="form-label-outside" for="contact-first-name"><i class="fa fa-money"></i>&nbsp;&nbsp;{{ trans('back/admin.lblPrecioDesde')}}</label>
+                          <input type="text" name="precio_desde" value="{!!$usuarioServicio->precio_desde!!}" class="form-input tooltip" title="{{ trans('back/admin.altPrecioDesde')}}" placeholder="{{ trans('back/admin.placeHolderPDesde')}}">
+                        </div>
+                      </div>
+                      <div class="cell-sm-6">
+                        <div class="form-wrap">
+                          <label class="form-label-outside" for="contact-first-name"><i class="fa fa-money"></i>&nbsp;&nbsp;{{ trans('back/admin.lblPrecioHasta')}}</label>
+                          <input type="text" name="precio_hasta" value="{!!$usuarioServicio->precio_hasta!!}" class="form-input tooltip" placeholder="{{ trans('back/admin.placeHolderPHasta')}}" title="{{ trans('back/admin.altPrecioHasta')}}">
+                        </div>
+                      </div>
+                      <div class="cell-sm-12">
+                          <div class="form-wrap">
+                          <label class="form-label-outside" for="contact-first-name"><i class="fa fa-map-marker"></i>&nbsp;&nbsp;{{ trans('back/admin.lblDirServicio')}}</label>
+                          <input type="text" name="direccion_servicio" value="{!!$usuarioServicio->direccion_servicio!!}" class="form-input tooltip" placeholder="Dirección del Servicio" title="{{ trans('back/admin.altDirServicio')}}">
+                          </div>
+                      </div>
+                      <div class="cell-sm-6">
+                          <div class="form-wrap">
+                          <label class="form-label-outside" for="contact-first-name"><i class="fa fa-calendar"></i>&nbsp;&nbsp;{{ trans('back/admin.tittleHorario')}}</label>
+                          <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-calendar" data-toggle="modal" data-target="#form-modal-horario" href="" style="margin-top: 0;">{{ trans('back/admin.btnAddHorario')}}<span></span></a>
+                          </div>
+                      </div>
+                      <div class="cell-sm-6">
+                          <div class="form-wrap">
+                          <label class="form-label-outside" for="contact-first-name"><i class="fa fa-phone"></i>&nbsp;&nbsp;{{ trans('back/admin.lblTelefonoServ')}}</label>
+                          <input type="text" name="telefono" value="{!!$usuarioServicio->telefono!!}" class="form-input tooltip" placeholder="{{ trans('back/admin.altTelefonoServ')}}">
+                          </div>
+                      </div>
+                      <div class="cell-sm-6">
+                          <div class="form-wrap">
+                          <label class="form-label-outside" for="contact-first-name"><i class="fa fa-envelope"></i>&nbsp;&nbsp;{{ trans('back/admin.lblEmailServ')}}</label>
+                          <input type="text" name="correo_contacto" value="{!!$usuarioServicio->correo_contacto!!}" class="form-input tooltip" placeholder="{{trans('back/admin.placeHolderEmailServ')}}" title="{{ trans('back/admin.altEmailServ')}}">
+                          </div>
+                      </div>
+                      <div class="cell-sm-6">
+                          <div class="form-wrap">
+                          <label class="form-label-outside" for="contact-first-name"><i class="fa fa-globe"></i>&nbsp;&nbsp;{{ trans('back/admin.lblWebPageServ')}}</label>
+                          <input type="text" name="pagina_web" value="{!!$usuarioServicio->pagina_web!!}" class="form-input tooltip" placeholder="URL" title="{{ trans('back/admin.altWebPageServ')}}">
+                          </div>
+                      </div>
                       <div class="cell-sm-12">
                         <div class="form-wrap">
-                          <label class="form-label-outside" for="contact-first-name"><i class="fa fa-picture-o"></i>&nbsp;&nbsp;Imagenes del servicio</label>
-                          <input type="hidden" value="0" id="flag_image">
-                          <div id="renderPartialImagenes">
-                                @section('contentImagenes')
-                                @show
-                          </div> 
+                            <p class="text-label"><i class="fa fa-users"></i>&nbsp;&nbsp;{{ trans('back/admin.titleSocialRed')}}</p>
                         </div>
+                      </div>
+                      @foreach($redesServicio as $red)
+                        <div class="cell-sm-6">
+                            <div class="form-wrap">
+                            <label class="form-label-outside" for="contact-first-name"><i class="fa fa-{{$red->icon}}"></i>&nbsp;&nbsp;{{$red->nombre_red}}</label>
+                            <input type="text" name="redes[{{$red->idservicio_redes_sociales}}]" value="{!!$red->url!!}" class="form-input tooltip" placeholder="URL" title="{{ trans('back/admin.altSocialRed')}} {{$red->nombre_red}}">
+                            </div>
+                        </div>
+                      @endforeach
+                      <div class="cell-sm-12">
+                          <div class="form-wrap">
+                          <label class="form-label-outside" for="contact-first-name"><i class="fa fa-hashtag"></i>&nbsp;&nbsp;{{ trans('back/admin.lblTagServ')}}</label>
+                          <input type="text" name="tags" value="{!!$usuarioServicio->tags!!}" class="form-input tooltip" placeholder="{{ trans('back/admin.placeHolderTagServ')}}" title="{{trans('back/admin.altTagServ')}}">
+                          </div>
                       </div>
                       <div class="cell-xs-12">
                         <div class="form-wrap">
                           <label class="form-label-outside" for="contact-message">
-                            <i class="fa fa-info"></i>&nbsp;&nbsp;Información del Servicio</label>
-                        </div>
-                      </div>
-                      <div class="cell-sm-6">
-                        <div class="form-wrap">
-                          <label class="form-label-outside" for="contact-first-name"><i class="fa fa-money"></i>&nbsp;&nbsp;Precio desde</label>
-                          <input type="text" name="precio_desde" value="{!!$usuarioServicio->precio_desde!!}" class="form-input" title="Para realizar una segmentación adecuada de interesados, sería bueno que nos des el rango de precios de tu servicio. El valor es en dólares americanos" placeholder="Precio Desde">
-                        </div>
-                      </div>
-                      <div class="cell-sm-6">
-                        <div class="form-wrap">
-                          <label class="form-label-outside" for="contact-first-name"><i class="fa fa-money"></i>&nbsp;&nbsp;Precio hasta</label>
-                          <input type="text" name="precio_hasta" value="{!!$usuarioServicio->precio_hasta!!}" class="form-input" placeholder="Precio Hasta">
-                        </div>
-                      </div>
-                      <div class="cell-sm-12">
-                          <div class="form-wrap">
-                          <label class="form-label-outside" for="contact-first-name"><i class="fa fa-map-marker"></i>&nbsp;&nbsp;Direccion Servicio</label>
-                          <input type="text" name="direccion_servicio" value="{!!$usuarioServicio->direccion_servicio!!}" class="form-input" placeholder="Dirección del Servicio">
-                          </div>
-                      </div>
-                      <div class="cell-sm-6">
-                          <div class="form-wrap">
-                          <label class="form-label-outside" for="contact-first-name"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Horario atención</label>
-                          <input type="text" name="horario" value="{!!$usuarioServicio->horario!!}" class="form-input" placeholder="Lunes a Viernes de 7AM a 8PM" title="Horario de atención">
-                          </div>
-                      </div>
-                      <div class="cell-sm-6">
-                          <div class="form-wrap">
-                          <label class="form-label-outside" for="contact-first-name"><i class="fa fa-phone"></i>&nbsp;&nbsp;Telefono</label>
-                          <input type="text" name="telefono" value="{!!$usuarioServicio->telefono!!}" class="form-input" placeholder="Telefono del Servicio" title="El turista podrá comunicarse directamente contigo si así lo deseas">
-                          </div>
-                      </div>
-                      <div class="cell-sm-6">
-                          <div class="form-wrap">
-                          <label class="form-label-outside" for="contact-first-name"><i class="fa fa-envelope"></i>&nbsp;&nbsp;Correo del contacto</label>
-                          <input type="text" name="correo_contacto" value="{!!$usuarioServicio->correo_contacto!!}" class="form-input" placeholder="Correo Contacto" title="Siempre es bueno tener un correo electrónico en el cual puedan pedirte más información sobre tu servicio">
-                          </div>
-                      </div>
-                      <div class="cell-sm-6">
-                          <div class="form-wrap">
-                          <label class="form-label-outside" for="contact-first-name"><i class="fa fa-globe"></i>&nbsp;&nbsp;Pagina Web</label>
-                          <input type="text" name="pagina_web" value="{!!$usuarioServicio->pagina_web!!}" class="form-input" placeholder="URL" title="Si tienes una página web servirá mucho para tu credibilidad.">
-                          </div>
-                      </div>
-                      <div class="cell-sm-12">
-                          <div class="form-wrap">
-                          <label class="form-label-outside" for="contact-first-name"><i class="fa fa-hashtag"></i>&nbsp;&nbsp;Tag</label>
-                          <input type="text" name="tags" value="{!!$usuarioServicio->tags!!}" class="form-input" placeholder="Palabras clave o referencias separadas por comas" title="#ruta del sol, #museos">
-                          </div>
-                      </div>
-                      <div class="cell-xs-12">
-                        <div class="form-wrap">
-                          <label class="form-label-outside" for="contact-message">
-                            <i class="fa fa-map-marker"></i>&nbsp;&nbsp;Detalle del Servicio y Como LLegar</label>
+                            <i class="fa fa-map-marker"></i>&nbsp;&nbsp;{{ trans('back/admin.titleComoLlegarServ')}}</label>
                           <h4 class="section-title">{{trans('front/responsive.ubicacion')}}</h4>
-                                <div class="tab-container full-width style2">
-                                     @include('reusable.maps1', ['longitud_servicio' => $usuarioServicio->longitud_servicio,'latitud_servicio'=>$usuarioServicio->latitud_servicio])  
-                                </div>
+                              <div class="tab-container full-width style2">
+                                   @include('reusable.maps1', ['longitud_servicio' => $usuarioServicio->longitud_servicio,'latitud_servicio'=>$usuarioServicio->latitud_servicio])  
+                              </div>
                         </div>
                       </div>
                       <div class="cell-xs-6">
                         <div class="form-wrap">
                           <div class="form-group">
-                              {!!Form::label('como_llegar1', 'Como llegar desde', array('class'=>'control-label-2'))!!}
-                              <input type="text" name="como_llegar1_1" value="{!!$usuarioServicio->como_llegar1_1!!}" class="form-input"
-                                     title="Como llegar" placeholder="Quito, GYE, Parque central ,etc">
-                              <textarea class="form-input" id="como_llegar1" name="como_llegar1" class="input-text chng" placeholder="Detalle de como llegar a tu servicio" title="Ingresa un detalle de como llegar a tu local o servicio desde algún lugar conocido." rows="50">{!!trim($usuarioServicio->como_llegar1)!!}</textarea>
+                              {!!Form::label('como_llegar1', trans('back/admin.titleComoLlegarDesdeForm'), array('class'=>'control-label-2'))!!}
+                              <input type="text" name="como_llegar1_1" value="{!!$usuarioServicio->como_llegar1_1!!}" class="form-input tooltip" title="{{ trans('back/admin.titleComoLlegarDesde')}}" placeholder="{{ trans('back/admin.placeHolderComoLlegarDesde')}}">
+                              <textarea class="form-input tooltip" id="como_llegar1" name="como_llegar1" class="input-text chng" placeholder="{{ trans('back/admin.placeHolderDestalleComoLlegarDesde')}}" title="{{ trans('back/admin.altDestalleComoLlegarDesde')}}" rows="50">{!!trim($usuarioServicio->como_llegar1)!!}</textarea>
                           </div>
                         </div>
                       </div>
                       <div class="cell-xs-6">
                         <div class="form-wrap">
                           <div class="form-group">
-                              {!!Form::label('como_llegar2', 'Como llegar desde', array('class'=>'control-label-2'))!!}
-                              <input type="text" name="como_llegar2_2" value="{!!$usuarioServicio->como_llegar2_2!!}" class="form-input"
-                                     title="Como llegar" placeholder="Cuenca, Manta, Parque central ,etc">
-                              <textarea class="form-input" id="como_llegar2_2" name="como_llegar2" class="input-text chng" placeholder="Detalle de como llegar a tu servicio" rows="50">{!!trim($usuarioServicio->como_llegar2)!!}</textarea>
+                              {!!Form::label('como_llegar2', trans('back/admin.titleComoLlegarDesdeForm'), array('class'=>'control-label-2'))!!}
+                              <input type="text" name="como_llegar2_2" value="{!!$usuarioServicio->como_llegar2_2!!}" class="form-input tooltip" title="{{ trans('back/admin.titleComoLlegarDesde')}}" placeholder="{{ trans('back/admin.placeHolderComoLlegarDesde')}}">
+                              <textarea class="form-input tooltip" id="como_llegar2_2" name="como_llegar2" class="input-text chng" placeholder="{{ trans('back/admin.placeHolderDestalleComoLlegarDesde')}}" title="{{ trans('back/admin.altDestalleComoLlegarDesde')}}" rows="50">{!!trim($usuarioServicio->como_llegar2)!!}</textarea>
                           </div>
                         </div>
                       </div>
                       <div class="cell-sm-12">
                         <div class="form-inline form-inline-custom">
                           <div class="form-wrap">
-                            <label class="form-label-outside" for="contact-email"><i class="fa fa-font"></i>&nbsp;&nbsp;Servicio de Alimentacion & bebidas:</label>
+                            <label class="form-label-outside" for="contact-email"><i class="fa fa-font"></i>&nbsp;&nbsp;{{ trans('back/admin.titleServIcludes')}}</label>
                             @if($id_catalogo==1)
                             <h4 class="section-title">Servicio de Alimentacion & bebidas:</h4>
                             @elseif($id_catalogo==2)
                             @else
-                            <h4 class="section-title">El servicio incluye:</h4>
+                            <h4 class="section-title">{{ trans('back/admin.titleServIcludesList')}}</h4>
                             @endif
                             <div class="tab-container full-width style2">
                                     <ul style="list-style: none">
@@ -318,14 +316,14 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                       <div class="cell-sm-6">
                         <div class="form-inline form-inline-custom">
                           <div class="form-wrap">
-                            <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-back" href="{{asset('/serviciosres')}}">Atras<span></span></a>
+                            <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-arrow-left" href="{{asset('/serviciosres')}}">{{ trans('back/admin.lblBtnBack')}}<span></span></a>
                           </div>
                         </div>
                       </div>
                       <div class="cell-sm-6">
                         <div class="form-inline form-inline-custom">
                           <div class="form-wrap">
-                            <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-floppy-o" onclick="UpdateServicioInfo1('form-update-serv', 'optional');" href="">Guardar<span></span></a>
+                            <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-floppy-o" onclick="UpdateServicioInfo1('form-update-serv', 'optional');" href="">{{ trans('back/admin.lblBtnSave')}}<span></span></a>
                           </div>
                         </div>
                       </div>
@@ -348,46 +346,104 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
               </button>-->
             </div>
             <div class="modal-body">
-                <div class="rowerrorM"> </div>
+              <h4 style="text-align: center;color:#428bca;">{{trans('back/admin.descriptionAddImageModal')}}
+                <span class="glyphicon glyphicon-hand-down"></span>
+              </h4>
+              <br>
+              <div class="rowerrorM"> </div>
           {!! Form::open(['url' => route('upload-post'), 'class' => 'dropzone', 'files'=>true, 'id'=>'real-dropzone']) !!}      
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <input type="hidden" id="id_catalogo_fotografia" name="id_catalogo_fotografia" value="1">
                 <input type="hidden" id="id_usuario_servicio" name="id_usuario_servicio" value="{!!$usuarioServicio->id!!}">
                 <input type="hidden" id="id_auxiliar" name="id_auxiliar" value="{!!$usuarioServicio->id!!}">
-                
                 <div class="form-group">
                      <div class="dz-message">
-
                       </div>
-
                       <div class="fallback">
                           <input name="file" type="file" multiple />
                       </div>
-
                       <div class="dropzone-previews" id="dropzonePreview"></div>
-
-                      <h4 style="text-align: center;color:#428bca;">Arrastra las imágenes aquí (Formato: jpg, tamaño max: 6Mb)  
-                          <span class="glyphicon glyphicon-hand-down"></span></h4>
                 </div>
-             
             </div>
             {!! Form::close() !!}       
             <div class="modal-footer">
-                <button type="button" id="nextbtn" class="btn btn-secondary" data-dismiss="modal" >{{trans('front/responsive.finalizar')}}</button>
+                <button type="button" id="nextbtn" class="btn button-primary" data-dismiss="modal" >{{trans('front/responsive.finalizar')}}</button>
                 <!--<button type="button" id="nextbtn" class="btn btn-secondary" data-dismiss="modal"
                         onclick="GetDataAjaxImagenesRes('{!!$usuarioServicio->id!!}');" >{{trans('front/responsive.finalizar')}}</button>-->
                <!--<a class="btn btn-secondary" id="nextbtn"  href="#">Finalizar</a> -->
             </div>
-                  
-              </div>  
-
+              </div>
           </div>
         </div>
       </div>
+      <!-- MODAL horario -->
+      <?php 
+        $diasList = [
+                      ['id' => '0' , 'nombre' => 'Lunes'],
+                      ['id' => '1' , 'nombre' => 'Martes'],
+                      ['id' => '2' , 'nombre' => 'Miercoles'],
+                      ['id' => '3' , 'nombre' => 'Jueves'],
+                      ['id' => '4' , 'nombre' => 'Viernes'],
+                      ['id' => '5' , 'nombre' => 'Sabado'],
+                      ['id' => '6' , 'nombre' => 'Domingo']
+                    ]
+      ?>
+      <div class="modal modal-custom fade" id="form-modal-horario" tabindex="-1" role="dialog">
+          @if(session('device') == 'desk')
+          <div class="modal-dialog" role="document" style="width: 80%; margin-top: 8%">
+          @else
+          <div class="modal-dialog" role="document" style="width: 80%; margin-top: 20%">
+          @endif
+            <div class="modal-content">
+              <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+              <div class="modal-header">
+                <h5>Seleciona los dias y el horario de atención de tu servicio</h5>
+              </div>
+              <div class="modal-body">
+                <form class="rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="bat/rd-mailform.php">
+                  <div class="range range-15">
+                    @foreach($diasList as $dia)
+                    <div class="cell-sm-4">
+                      <div class="form-wrap" style="border: 1px solid #c26933ba; padding: 10px;">
+                        <label class="form-label-outside" for="contact-first-name-2" style="color: #c26933ba;">{{$dia['nombre']}}</label>
+                        <span class="badge" style="background-color: transparent;"><input type="checkbox" name="my-checkbox" id="{{$dia['id']}}" data-size="mini" data-on-color="success" data-on-text="Si" data-off-text="No" class="checkboxDays"></span><br>
+                        <div style="color: #2f6890;">Desde:</div>
+                        <input class="form-input" id="from_time{{$dia['id']}}" type="time" name="name" disabled>
+                        <div style="color: #2f6890;">Hasta:</div>
+                        <input class="form-input" id="to_time{{$dia['id']}}" type="time" name="name" disabled>
+                      </div>
+                    </div>
+                    @endforeach 
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                  <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-floppy-o" style="float: right;" href="#" onclick="saveHorario({{$usuarioServicio->id}})">
+                      Guardar
+                      <span></span>
+                  </a>
+              </div>
+            </div>
+          </div>
+      </div>
+    <style type="text/css">
+      .sweet-alert{
+        z-index: 99999999;
+      }
+    </style>
       <!-- RD Parallax-->
 <!--       <section class="bg-image-1 bg-image">
         <div style="min-height: 160px; padding-bottom: 37.9%;"></div>
       </section> -->
+      <script>
+      $(document).ready(function() {
+        new jBox('Tooltip', {
+          attach: '.tooltip',
+          closeOnMouseleave: true,
+          closeButton: true
+        });
+      });
+    </script>
       <script type="text/javascript">
         $(document).ready(function () {
           $("#nextbtn").click(function() {
@@ -399,7 +455,6 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
           if(check == 1){
               $( "#estado_servicio_usuario" ).prop( "checked", true );
           }
-
           ///Script para actualizar el container una vez que se hayan subido las imagenes
             setInterval( function() {
               if ($('#flag_image').val() == 1) {
@@ -407,9 +462,7 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                  GetDataAjaxImagenesRes("{!!asset('/imagenesAjaxDescription1')!!}/1/{!!$usuarioServicio->id!!}");
                  $("#flag_image").val('0');
               }
-              
               if ($('#flag_image_preview').val() == 0) {
-                  //alert("Entro aqui");
                   $("#mostrarJS").show();
               }
             }, 100); 
@@ -435,6 +488,9 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
       {!! HTML::script('/packages/dropzone/dropzone.js') !!}
       {!! HTML::script('/assets/js/dropzone-config.js') !!} 
     </div>
+      <script type="text/javascript">
+        $("[name='my-checkbox']").bootstrapSwitch();
+      </script>
     <!-- END PANEL-->
   </body>
 </html>

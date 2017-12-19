@@ -1,6 +1,6 @@
 @section('parroquias')	               
 
-<div class="form-group-1">
+<div class="form-group-1 tooltip" title="Parroquia donde esta ubicado tu servicio, seleciona una opción">
                     {!!Form::label('parroquia_1', 'Parroquia', array('class'=>'control-label','id'=>'iconFormulario-step4'))!!}
                     
                 
@@ -24,7 +24,15 @@
                         
                 </div>
 
-
+<script>
+      $(document).ready(function() {
+        new jBox('Tooltip', {
+          attach: '.tooltip',
+          closeOnMouseleave: true,
+          closeButton: true
+        });
+      });
+</script>
 @if (session('parroquia_admin'))
 <script>
 $('#id_parroquia').on('change', function() {

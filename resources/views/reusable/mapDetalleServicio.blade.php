@@ -14,7 +14,10 @@
 
 <div class='form-group'>
     <input type="hidden" id='searchmap' style="height: 27px; width: 100%;margin-bottom: 1%" class="form-input">
-    <div id="map"></div>
+    <a href="" target="_blank" onclick="openMap()" class="tooltip" title="Haz click sobre el mapa para ver mas detalles de ubicación">
+        <div id="map" "></div>
+    </a>
+    
 </div>
 <div class="form-group">
     <input type="hidden" class='form-control input-sm' name='latitud_servicio' value="{!!$latitud_servicio!!}" id='latitud_servicio'/>
@@ -38,9 +41,10 @@
             center: {
                 lat: latitud,
                 lng: longitud
-
             },
-            zoom: 15
+            zoom: 15,
+            disableDefaultUI: true,
+            draggable: false
         });
 
         var marker = new google.maps.Marker({
@@ -66,12 +70,20 @@
 
         });
         google.maps.event.addListener(marker, 'position_changed', function () {
-
             var lat = marker.getPosition().lat();
             var lng = marker.getPosition().lng;
             $('#latitud_servicio').val(lat);
             $('#longitud_servicio').val(lng);
-        })
+        });
+        
+        google.maps.event.trigger(map, "resize");
+    }
+
+    function openMap(){
+        event.preventDefault();
+        var url = 'https://www.google.com/maps/search/?api=1&query=' + latitud + ',' + longitud
+            var win = window.open(url, '_blank');
+            win.focus();
     }
 </script>
 </head>

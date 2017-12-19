@@ -21,8 +21,8 @@
       <section class="page-title breadcrumbs-elements page-title-inset-1">
         <div class="shell">
           <div class="page-title__overlay box-skew box-skew-var-1"><span class="box-skew__item"></span>
-            <div class="page-title-text">Catálogo de servicios</div>
-            <p class="big text-width-medium">En esta seccion usted puede visualizar los servicios disponibles de una categoria específica</p>
+            <div class="page-title-text">{{trans('publico/labels.catalogoServTitle')}}</div>
+            <p class="big text-width-medium">{{trans('publico/labels.catalogoServDescription')}}</p>
           </div>
         </div>
       </section>
@@ -35,7 +35,7 @@
                     <div class="range range-15">
                       <div class="cell-sm-12">
                         <div class="form-inline form-inline-custom">
-                          <button class="button button-facebook button-icon button-icon-sm button-icon-right fa-filter" data-toggle="modal" data-target="#filter">Aplicar filtros<span></span></button>
+                          <button class="button button-facebook button-icon button-icon-sm button-icon-right fa-filter" data-toggle="modal" data-target="#filter">{{trans('publico/labels.btnFilter')}}<span></span></button>
                         </div>
                       </div>
                     </div>
@@ -51,17 +51,22 @@
             <div class="row">
               @if(count($findedServ) == 0)
                 <div class="col-xs-12" style="text-align: center;">
-                  <h4><a href="single-post.html"><i class="fa fa-frown-o "></i> &nbsp;&nbsp;Ups!! No se han encontrado servicios para esta categoria</a></h4>
+                  <h4><a href="single-post.html"><i class="fa fa-frown-o "></i> &nbsp;&nbsp;{{trans('publico/labels.noResult')}}</a></h4>
                 </div>
               @else
                 @foreach($findedServ as $servicio)
                   <div class="col-xs-12 col-sm-6 col-md-4 isotope-item">
-                    <div class="post-masonry post-masonry-short post-content-white bg-post-2 bg-image box-skew post-skew-right-top post-skew-var-4">
+                    <div class="post-masonry post-masonry-short post-content-white bg-post-2 bg-image box-skew post-skew-right-top post-skew-var-4" style="background: url('{!!asset('/images/icon/')!!}/{{$servicio->filename}}');
+                          background-size: cover;
+                          background-repeat: no-repeat;
+                          min-height: 200px;">
                       <div class="post-masonry-content">
                         <h4><a href="{!!asset('/tokenDz$rip')!!}/{{$servicio->id}}">{{$servicio->nombre_servicio}}</a></h4>
-                        <p>{{$servicio->detalle_servicio}}</p>
+                        <div style="overflow-x: hidden;">
+                          {{str_limit($servicio->detalle_servicio, $limit = 500, $end = '...')}}
+                        </div>
                       </div>
-                      <a class="link-position link-primary-sec-2 link-right post-link" href="{!!asset('/tokenDz$rip')!!}/{{$servicio->id}}"><i class="fa fa-info-circle" aria-hidden="true"></i>
+                      <a class="link-position link-primary-sec-2 link-right post-link" href="{!!asset('/tokenDz$rip')!!}/{{$servicio->id}}"><i class="fa fa-info-circle" aria-hidden="true" style="color: #2f6890;"></i>
                       </a>
                     </div>
                   </div>
@@ -75,16 +80,27 @@
         <div class="shell">
           <div class="isotope grid-masonry text-left column-offset-30" data-isotope-layout="masonry">
              <div id="findedFilter"></div>
+             <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
           </div>
         </div>
       </section>
+
       <div class="modal modal-custom fade" id="filter" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document" style="width: 80%;">
           <div class="modal-content">
             <div id="testboxForm">
               <div class="modal-header">
               <h3 class="modal-title">
-                Aplicar filtros
+                {{trans('publico/labels.btnFilter')}}
               </h3>
               </div>
             <div class="modal-body">
@@ -94,7 +110,7 @@
                         <div class="form-inline form-inline-custom">
                           <div class="form-wrap">
                             <label class="form-label-outside" for="contact-email">
-                              Tipos de establecimientos
+                              {{trans('publico/labels.servTypes')}}
                             </label>
                           </div>
                         </div>

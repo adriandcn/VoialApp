@@ -18,11 +18,11 @@ class AppServiceProvider extends ServiceProvider {
 	{
 		// compartir datos con todas las vistas
 	    $serviciosList = $catalogoServicios->getList();
-        $campos = ['id_catalogo_servicios','nombre_servicio','nombre_servicio_eng'];
+        $campos = ['id_catalogo_servicios','nombre_servicio','nombre_servicio_eng','id_padre'];
         $padresList = DB::table('catalogo_servicios')
                             ->select($campos)
                             ->where('estado_catalogo_servicios',1)
-                            ->where('nivel',1)
+                            ->where('nivel',0)
                             ->get();
         $headerCategories = $catalogoServicios->recursiveList($padresList,2);
         $operadores = $gestion->getOperadoresList();

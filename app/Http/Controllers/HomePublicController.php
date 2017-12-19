@@ -34,13 +34,13 @@ class HomePublicController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function getHome(catalogoServiciosRepository $catalogoServicios) {
-        try {
-            $ipUser = $this->getIp();
-            //$location = json_decode(file_get_contents("http://ipinfo.io/" . $ipUser));
-            $location = json_decode(file_get_contents("http://ipinfo.io/186.47.240.232"));
-        } catch (Exception $e) {
-            $location = json_decode(file_get_contents("http://ipinfo.io/186.47.240.232"));
-        }
+        // try {
+        //     $ipUser = $this->getIp();
+        //     //$location = json_decode(file_get_contents("http://ipinfo.io/" . $ipUser));
+        //     $location = json_decode(file_get_contents("http://ipinfo.io/186.47.240.232"));
+        // } catch (Exception $e) {
+        //     $location = json_decode(file_get_contents("http://ipinfo.io/186.47.240.232"));
+        // }
         $agent = new Agent();
 
         $desk = $device = $agent->isMobile();
@@ -51,13 +51,13 @@ class HomePublicController extends Controller {
         }
         Session::put('device', $desk);
         $serviciosList = $catalogoServicios->getList();
-        $campos = ['id_catalogo_servicios','nombre_servicio','nombre_servicio_eng'];
-        $padresList = DB::table('catalogo_servicios')
-                            ->select($campos)
-                            ->where('estado_catalogo_servicios',1)
-                            ->where('nivel',1)
-                            ->get();
-        $headerCategories = $catalogoServicios->recursiveList($padresList,2);
+        // $campos = ['id_catalogo_servicios','nombre_servicio','nombre_servicio_eng'];
+        // $padresList = DB::table('catalogo_servicios')
+        //                     ->select($campos)
+        //                     ->where('estado_catalogo_servicios',1)
+        //                     ->where('nivel',0)
+        //                     ->get();
+        // $headerCategories = $catalogoServicios->recursiveList($padresList,2);
 
         return view('site.blades.home-default',compact('serviciosList','headerCategories'));
         ;

@@ -1,4 +1,8 @@
 <?php
+//pruebas
+Route::get('/test', ['as' => 'publico', 'uses' => 'pruebasCtrl@test']);
+//Lenguaje
+Route::get('language', 'HomeController@language');
 //--Home--
 Route::get('/', ['as' => 'publico', 'uses' => 'HomePublicController@getHome']);
 //--Search--
@@ -24,6 +28,7 @@ Route::post('/uploadServiciosRes1', ['as' => 'upload-serviciosres1', 'uses' => '
 // --Imagenes--
 Route::get('/imagenesAjaxDescription1/{tipo}/{idtipo}', ['as' => 'getimages', 'uses' => 'UsuarioServiciosController@getImagesDescription1', 'middleware' => 'notAuth']);
 Route::get('/getImagesServicio/{tipo}/{idtipo}', ['as' => 'getimages', 'uses' => 'UsuarioServiciosController@getImagesServicio', 'middleware' => 'notAuth']);
+Route::post('/delete/image/{id}', ['as' => 'delete-image', 'uses' => 'ImageController@postDeleteImage']);
 Route::post('/delete/image1/{id}', ['as' => 'delete-image1', 'uses' => 'ImageController@postDeleteImage1']);
 // --Operadores--
 Route::post('/nuevoOperador', ['as' => 'upload-postoperador1', 'uses' => 'ServicioController@postOperadores1', 'middleware' => 'notAuth']);
@@ -43,4 +48,5 @@ Route::get('/getParroquias1/{id}/{id_parroquia}', ['as' => 'parroquias1', 'uses'
 // -- Busqueda--
 Route::get('/Search', ['as' => 'SearchIndex', 'uses' => 'SearchController@getTotalSearchInside']);
 
-// Route::get('/getSearchTotalPartial/{term}', ['as' => 'SearchTotalPartial', 'uses' => 'SearchController@getTotalSearchInside']);
+// Save Historial
+Route::post('/saveHorario', ['as' => 'SearchIndex', 'uses' => 'horarioController@store', 'middleware' => 'notAuth']);

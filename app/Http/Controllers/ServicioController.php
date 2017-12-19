@@ -15,6 +15,7 @@ use App\Repositories\ServiciosOperadorRepository;
 use App\Repositories\catalogoServiciosRepository;
 use Illuminate\Support\Facades\Session;
 use App\Repositories\PublicServiceRepository;
+use App\Repositories\redesSocialesRepository;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 //use App\Models\Catalogo_Servicio;
@@ -28,13 +29,20 @@ class ServicioController extends Controller {
         'email_contacto_operador' => 'required|max:255',
         'telf_contacto_operador_1' => 'required|max:255'
     ];
+
+    protected $validationRulesServicios = [
+        'detalle_servicio' => 'required|max:255',
+        'nombre_servicio' => 'required|max:255'
+    ];
     
       protected  $messages = [
         
         'nombre_contacto_operador_1.required' => 'El nombre del contacto es requerido',
           'direccion_empresa_operador.required' => 'La dirección del contacto es requerido',
           'email_contacto_operador.required' => 'El email del contacto es requerido',
-          'telf_contacto_operador_1.required' => 'El teléfono del contacto es requerido'
+          'telf_contacto_operador_1.required' => 'El teléfono del contacto es requerido',
+          'detalle_servicio.required' => 'El detalle del servicio es requerido',
+          'nombre_servicio.required' => 'El nombre del servicio es requerido'
     ];
     protected $validationUsuarioServicios = [
         'nombre_servicio' => 'required|max:255|',
@@ -479,12 +487,12 @@ class ServicioController extends Controller {
     public function step2res(Guard $auth, OperadorRepository $operador_gestion) {
         if ($auth->check()) {
             $operador = $operador_gestion->getOperador($auth->user()->id);
-            if ($operador[0]['direccion_empresa_operador'] != '') {
-                return redirect('/serviciosres');
-            }else{
+            // if ($operador[0]['direccion_empresa_operador'] != '') {
+            //     return redirect('/serviciosres');
+            // }else{
                 $view = view('site.blades.create-operador',compact('operador'));
                 return $view;
-            }
+            // }
         } else {
             $view = view('site.blades.home-default');
             return $view;
@@ -531,6 +539,8 @@ class ServicioController extends Controller {
             'nombre_empresa_operador' => $formFields['nombre_empresa_operador'],
             'nombre_contacto_operador_1' => $formFields['nombre_contacto_operador_1'],
             'telf_contacto_operador_1' => $formFields['telf_contacto_operador_1'],
+            'nombre_contacto_operador_2' => $formFields['nombre_contacto_operador_2'],
+            'telf_contacto_operador_2' => $formFields['telf_contacto_operador_2'],
             'ip_registro_operador' => $this->getIp(),
             'email_contacto_operador' => $formFields['email_contacto_operador'],
             'direccion_empresa_operador' => $formFields['direccion_empresa_operador'],
@@ -546,24 +556,20 @@ class ServicioController extends Controller {
                         'errors' => $validator->getMessageBag()->toArray()
             ));
         } else {
-
             if ($formFields['id_usuario_op'] > 0) {
                 $id_usuario_op = $formFields['id_usuario_op'];
                 $request->session()->put('operador_id', $formFields['id_usuario_op']);
-
                 $operador = $operador_gestion->update($operadorData);
+                $returnHTML = ('serviciosres');
             }
-            
             else {
                 $operador = $operador_gestion->store($operadorData);
                 $request->session()->put('operador_id', $operador->id);
                 $operadores = $operador_gestion->getLastIdInsert($operadorData);
-                //foreach ($operadores as $operador)
-                    $id_usuario_op = $operador->id_usuario_op;
-                    
+                $id_usuario_op = $operador->id_usuario_op;
+                $returnHTML = ('serviciosres');
             }
         }
-        $returnHTML = ('serviciosres');
         return response()->json(array('success' => true, 'redirectto' => $returnHTML));
         
         
@@ -722,11 +728,23 @@ class ServicioController extends Controller {
 
     }
     
-    public function postUsuarioServiciosMini1(Request $request, OperadorRepository $usuarioSevicio_gestion, 
-                                        ServiciosOperadorRepository $gestion) {
+    public function postUsuarioServiciosMini1(Request $request, OperadorRepository $usuarioSevicio_gestion, ServiciosOperadorRepository $gestion, redesSocialesRepository $redesSociales) {
 
         $inputData = Input::get('formData');
         parse_str($inputData, $formFields);
+
+        $operadorData = array(
+            'nombre_servicio' => $formFields['nombre_servicio'],
+            'detalle_servicio' => $formFields['detalle_servicio']
+        );
+
+        $validator = Validator::make($operadorData, $this->validationRulesServicios, $this->messages);
+        if ($validator->fails()) {
+            return response()->json(array(
+                        'fail' => true,
+                        'errors' => $validator->getMessageBag()->toArray()
+            ));
+        }
 
         $usuarioServicioData = array(
             'nombre_servicio' => $formFields['nombre_servicio'],
@@ -736,29 +754,24 @@ class ServicioController extends Controller {
         );
         
         $usuarioServicio = $usuarioSevicio_gestion->storageUsuarioServiciosMini($usuarioServicioData);
-        // if($formFields['id_catalogo_servicio'] == 1){
-        //    $contadorControl = $usuarioSevicio_gestion->verificarSiExiste($formFields['id_catalogo_servicio'],$formFields['id_usuario_operador'] );
-        // }elseif($formFields['id_catalogo_servicio'] == 2){
-        //    $contadorControl = $usuarioSevicio_gestion->verificarSiExiste($formFields['id_catalogo_servicio'],$formFields['id_usuario_operador'] );
-        // }elseif($formFields['id_catalogo_servicio'] == 3){
-        //    $contadorControl = $usuarioSevicio_gestion->verificarSiExiste($formFields['id_catalogo_servicio'],$formFields['id_usuario_operador'] );
-        // }
-        
-        // if($contadorControl[0]->contador == 0){
-        //     $controlDashboard = $usuarioSevicio_gestion->storageControlDashboardMini($usuarioServicioData);
-        // }
-        
-        
-		//new       
-            $search=$formFields['nombre_servicio']." ".$formFields['detalle_servicio'];            
-            $gestion->storeSearchEngine($usuarioServicio, $search,4,$usuarioServicio);
-            
+        $redeList = $redesSociales->getRedes();
+        $redesServicioTemp = [];
+        foreach ($redeList as $value) {
+            $dataRedes = [
+                    'id_usuario_servicio' => $usuarioServicio,
+                    'idredes_sociales' => $value->idredes_sociales,
+                    'url' => ''
+                ];
+            $idRedInserted = $redesSociales->storeRedes($dataRedes);
+            $value->idRedServicio =  $idRedInserted;
+            array_push($redesServicioTemp, $value);
+        }
+		//new  
+        $search = $formFields['nombre_servicio']." ".$formFields['detalle_servicio'];
+        $gestion->storeSearchEngine($usuarioServicio, $search,4,$usuarioServicio);
 	    $request->session()->put('usu_serviciocrear', $usuarioServicio);
         $request->session()->put('catalogocrear', $formFields['id_catalogo_servicio']);
-        
-        //$returnHTML = ('/servicios/serviciooperador1/' . $usuarioServicio . '/' . $formFields['id_catalogo_servicio']);
-        //return response()->json(array('success' => true, 'redirectto' => $returnHTML));
-         $returnHTML = ('edicionServicios');
+        $returnHTML = ('edicionServicios');
         return response()->json(array('success' => true, 'redirectto' => $returnHTML));
     }
     
@@ -771,23 +784,15 @@ class ServicioController extends Controller {
     
     
 
-public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $auth,PublicServiceRepository $gestion1){
-       
-       // return view('site.blades.edit-servicios'); 
+public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $auth,PublicServiceRepository $gestion1, redesSocialesRepository $redesSociales){
         $id =  session('usu_serviciocrear');
         $id_catalogo = session('catalogocrear');
         session()->forget('parroquia_admin');
         //permisssion
         $permiso = $gestion->getPermiso($id);
-
-        // return response()->json($id);
-        // if (!isset($permiso) || $permiso->id_usuario != $auth->user()->id) {
-        //     return view('errors.404');
-        // }
-
         $operador_gestion = new OperadorRepository();
-
         $usuarioServicio = $operador_gestion->getUsuarioServicio($id);
+        $redesServicio = $redesSociales->getRedesServicio($id);
         $Servicio = $operador_gestion->getServicio($id_catalogo);
         $catalogoServicioEstablecimiento = $operador_gestion->getCatalogoServicioEstablecimientoExistente($id_catalogo, $id);
         if (count($catalogoServicioEstablecimiento) == 0)
@@ -821,7 +826,7 @@ public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $aut
             
             $arrayId = array();
             
-            for($i=0; $i < $contadorCalendario[0]->contador; $i++){
+            for($i = 0; $i < $contadorCalendario[0]->contador; $i ++){
                 $arrayId[] .= $calendarios[$i]->id;
             }
 
@@ -855,18 +860,17 @@ public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $aut
             //             'contadorCalendario','arrayDeIds','calendarioConNombre','reservacionesConNombre',
             //             'imagenes','atraccion','promociones','eventos'));
                          
-            return view('site.blades.edit-servicios', compact('usuarioServicio', 'catalogoServicioEstablecimiento', 
+            return view('site.blades.edit-servicios', compact('redesServicio','usuarioServicio', 'catalogoServicioEstablecimiento', 
                         'id_catalogo', 'ImgPromociones', 'Servicio' ,'calendarios', 
                         'contadorCalendario','arrayDeIds','calendarioConNombre','reservacionesConNombre',
                         'imagenes','atraccion','promociones','eventos'));
             
         }else{
-            // return view('responsive.registroStep4', compact('usuarioServicio', 'catalogoServicioEstablecimiento', 
+            // return view('responsive.registroStep4', compact('redesServicio','usuarioServicio', 'catalogoServicioEstablecimiento', 
             //             'id_catalogo', 'ImgPromociones', 'Servicio','calendarios','imagenes',
             //             'atraccion','promociones','eventos'));
-            return view('site.blades.edit-servicios', compact('usuarioServicio', 'catalogoServicioEstablecimiento', 
-                        'id_catalogo', 'ImgPromociones', 'Servicio','calendarios','imagenes',
-                        'atraccion','promociones','eventos'));
+            // return $redesServicio;
+            return view('site.blades.edit-servicios', compact('redesServicio','usuarioServicio', 'catalogoServicioEstablecimiento', 'id_catalogo', 'ImgPromociones', 'Servicio','calendarios','imagenes', 'atraccion','promociones','eventos'));
             
         }
     }
@@ -1067,10 +1071,10 @@ public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $aut
 
 
     
-    public function uploadServiciosRes1(Request $request, OperadorRepository $usuarioSevicio_gestion , ServiciosOperadorRepository $gestion) {
+    public function uploadServiciosRes1(Request $request, OperadorRepository $usuarioSevicio_gestion , ServiciosOperadorRepository $gestion, redesSocialesRepository $redesSociales) {
         
-            $inputData = Input::get('formData');
-            parse_str($inputData, $formFields);
+        $inputData = Input::get('formData');
+        parse_str($inputData, $formFields);
         
         
         if (isset($formFields['id_servicio_est'])) {
@@ -1121,11 +1125,13 @@ public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $aut
                     'como_llegar2_2' => $formFields['como_llegar2_2'],
                     'como_llegar2' => $formFields['como_llegar2'],
                     'fecha_ingreso' => $formFields['fecha_ingreso'],
-            'horario' => $formFields['horario'],
+                    // 'horario' => $formFields['horario'],
                     'fecha_fin' => $formFields['fecha_fin']
-                
         );
-        
+        // Actualizar redes sociales
+        foreach ($formFields['redes'] as $key => $value) {
+            $result = $redesSociales->updateRed($key,$value);
+        }
         
         //VALIDACION DE LOS CAMPOS DE LA DATA
         $validator = Validator::make($usuarioServicioData, $this->validationUsuarioServicios);
@@ -1143,14 +1149,14 @@ public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $aut
             
             if ($formFields['id'] == 0)
 		{
-		//new       
-                $search=$formFields['nombre_servicio']." ".$formFields['detalle_servicio'];            
+		      //new       
+            $search = $formFields['nombre_servicio']." ".$formFields['detalle_servicio'];            
             $gestion->storeSearchEngine($formFields['id'], $search,4,$usuarioServicio->id);
             
 		} else {
-                 //update
-                    $search=$formFields['nombre_servicio']." ".$formFields['detalle_servicio']." ".$formFields['tags'];            
-                    $gestion->storeUpdateSerchEngine( $usuarioServicio,4,$formFields['id'],$search);
+            //update
+            $search = $formFields['nombre_servicio']." ".$formFields['detalle_servicio']." ".$formFields['tags'];            
+            $gestion->storeUpdateSerchEngine( $usuarioServicio,4,$formFields['id'],$search);
 		}
              
         }
@@ -1193,7 +1199,7 @@ public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $aut
 
     public function getServiciosByChildcatalogo($idCatalogo,$idSubCatalogo,catalogoServiciosRepository $catalogoServicios) {
         $campos = ['id_catalogo_servicios','nombre_servicio','nombre_servicio_eng'];
-        $campos_serv = ['id','nombre_servicio','detalle_servicio'];
+        $campos_serv = ['usuario_servicios.id','nombre_servicio','detalle_servicio','images.filename'];
         $padresList = DB::table('catalogo_servicios')
                             ->select($campos)
                             ->where('id_padre',$idSubCatalogo)
@@ -1202,8 +1208,10 @@ public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $aut
         $catalogoServicios =  $catalogoServicios->recursiveListInArray($padresList,null);
         foreach ($catalogoServicios as $catalogo) {
             $qServ = DB::table('usuario_servicios')
+                            ->join('images', 'usuario_servicios.id', '=', 'images.id_usuario_servicio')
                             ->select($campos_serv)
                             ->where('id_catalogo_servicio',$catalogo->id_catalogo_servicios)
+                            ->where('images.profile_pic', '=', 1)
                             ->get();
             foreach ($qServ as $serv) {
                 array_push($findedServ, $serv);
@@ -1228,6 +1236,28 @@ public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $aut
         // return response()->json(array('success' => true, 'redirectto' => $findedServ));
     }
 
+    public function cleanFilterServicios($catalogo,$idSubCatalogo, catalogoServiciosRepository $catalogoServicios){
+        $campos = ['id_catalogo_servicios','nombre_servicio','nombre_servicio_eng'];
+        $campos_serv = ['usuario_servicios.id','nombre_servicio','detalle_servicio','images.filename'];
+        $padresList = DB::table('catalogo_servicios')
+                            ->select($campos)
+                            ->where('id_padre',$idSubCatalogo)
+                            ->get();
+        $findedServ = [];
+        $catalogoServicios =  $catalogoServicios->recursiveListInArray($padresList,null);
+        foreach ($catalogoServicios as $catalogo) {
+            $qServ = DB::table('usuario_servicios')
+                            ->join('images', 'usuario_servicios.id', '=', 'images.id_usuario_servicio')
+                            ->select($campos_serv)
+                            ->where('id_catalogo_servicio',$catalogo->id_catalogo_servicios)
+                            ->where('images.profile_pic', '=', 1)
+                            ->get();
+            foreach ($qServ as $serv) {
+                array_push($findedServ, $serv);
+            }
+        }
+        return $findedServ;
+    }
     public function applyServicesFilter(Request $request,catalogoServiciosRepository $catalogoServicios){
         $campos = ['id_catalogo_servicios','nombre_servicio','nombre_servicio_eng'];
         // $campos_serv = ['id','nombre_servicio','detalle_servicio'];
@@ -1237,7 +1267,11 @@ public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $aut
                             ->get();
         // $findedServ = [];
         // $catalogoServicios =  $catalogoServicios->recursiveListInArray($padresList,null);
-        $inCatalogo = $catalogoServicios->getByCatalogoArray($request->filter);
+        if ($request->has('filter')) {
+            $inCatalogo = $catalogoServicios->getByCatalogoArray($request->filter);
+        }else{
+            $inCatalogo = $this->cleanFilterServicios($request->idCatalogo,$request->idSubCatalogo,$catalogoServicios);
+        }
         // foreach ($catalogoServicios as $catalogo) {
         //     $qServ = DB::table('usuario_servicios')
         //                     ->select($campos_serv)
@@ -1247,12 +1281,13 @@ public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $aut
         //         array_push($findedServ, $serv);
         //     }
         // }
-        $view = View::make('site.partial.filterCatalogoServ',['inCatalogo' => $inCatalogo,'padresList' => $padresList]);
-        if ($request->ajax()) {
-            $sections = $view->rendersections();
-            return response()->json($sections);
-        }
-        // return response()->json(array('success' => true, 'data' => $inCatalogo));
+         return response()->json(array('success' => true, 'data' => $inCatalogo));
+        // $view = View::make('site.partial.filterCatalogoServ',['inCatalogo' => $inCatalogo,'padresList' => $padresList]);
+        // if ($request->ajax()) {
+        //     $sections = $view->rendersections();
+        //     return response()->json($sections);
+        // }
+       
     }
     
 }

@@ -1,7 +1,7 @@
 @section('cantones')	
  
 
-<div class="form-group-1">
+<div class="form-group-1 tooltip" title="Canton donde esta ubicado tu servicio, seleciona una opción">
                     {!!Form::label('canton_1', 'Canton', array('class'=>'control-label','id'=>'iconFormulario-step4'))!!}
                     
                     
@@ -25,7 +25,15 @@
                     @show
                     
                 </div>
-
+<script>
+  $(document).ready(function() {
+    new jBox('Tooltip', {
+      attach: '.tooltip',
+      closeOnMouseleave: true,
+      closeButton: true
+    });
+  });
+</script>
 @if($id_parroquia!='0') 
  <script>
   

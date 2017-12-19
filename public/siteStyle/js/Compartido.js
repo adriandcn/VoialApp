@@ -1128,61 +1128,26 @@ function AjaxContainerRegistroWithLoad1($formulario, $idCreate) {
         headers: {
             'X-CSRF-Token': $('meta[name=_token]').attr('content')}
     });
-
-    // return;
-    // switch($loadScreen){
-    //     case 'restaurant':
-    //       $("#spinnerSave").show();
-    //     break;
-    //     case 'trip':
-          $("#spinnerSaveTrip").show();
-    //     break;
-    //     case 'hotel':
-    //       $("#spinnerSaveHotel").show();
-    //     break;
-    // }
+    $("#spinnerSaveTrip").show();
     $("#spinnerSave").show();
+    $('.rowerrorM').html('');
     var $form = $('#' + $formulario),
             data = $form.serialize(),
             url = $form.attr("action");
-    //alert(data);
-    //alert(url);
     var posting = $.post(url, {formData: data});
     posting.done(function (data) {
-        //console.log(data);
         if (data.fail) {
-            var errorString = '<ul>';
+            var errorString = '<div class="alert alert-danger animated shake"><ul>';
             $.each(data.errors, function (key, value) {
                 errorString += '<li>' + value + '</li>';
             });
-            errorString += '</ul>';
-            // switch($loadScreen){
-            //     case 'restaurant':
-            //       $("#spinnerSave").hide();
-            //     break;
-            //     case 'trip':
-                  $("#spinnerSaveTrip").hide();
-            //     break;
-            //     case 'hotel':
-            //       $("#spinnerSaveHotel").hide();
-            //     break;
-            // }
-            $('.rowerrorM').html(errorString);
+            errorString += '</ul><div>';
+            $("#spinnerSaveTrip").hide();
+            $('.rowErrorServStep1').html(errorString);
         }
         if (data.success) {
-            // switch($loadScreen){
-            //     case 'restaurant':
-            //       $("#spinnerSave").hide();
-            //     break;
-            //     case 'trip':
-                  $("#spinnerSaveTrip").hide();
-            //     break;
-            //     case 'hotel':
-            //       $("#spinnerSaveHotel").hide();
-            //     break;
-            // }
+            $("#spinnerSaveTrip").hide();
             window.location.href = 'http://' + window.location.hostname + '/voialApp/public/' + data.redirectto;
-
         } //success
     });
 }
@@ -1458,6 +1423,121 @@ function GetDataAjaxCantones1(url) {
             }
         }
     });
+}
+
+$('.checkboxDays').on('switchChange.bootstrapSwitch', function (event, state) {
+    applyFilterDays(event.currentTarget.id);
+}); 
+
+var filtersDays = [];
+var filtersH = [];
+function applyFilterDays(item){
+    if (!_.contains(filtersDays, item)) {
+        filtersDays.push(item);
+        $('#from_time' + item).removeAttr('disabled');
+        $('#to_time' + item).removeAttr('disabled');
+        $('#from_time' + item).change(function() {
+            var index = _.where(filtersH, {'d':item});
+            if (index.length == 0) {
+                var obj = {d:item,desde:$('#from_time' + item).val()};
+                filtersH.push(obj);
+            }else{
+                filtersH.forEach(function(val,key){
+                    if (val.d == item) {
+                        filtersH[key].desde = $('#from_time' + item).val();
+                    }
+                });
+
+            }
+        });
+         $('#to_time' + item).change(function() {
+            var index = _.where(filtersH, {'d':item});
+            if (index.length == 0) {
+                var obj = {d:item,hasta:$('#to_time' + item).val()};
+                filtersH.push(obj);
+            }else{
+                filtersH.forEach(function(val,key){
+                    if (val.d == item) {
+                        filtersH[key].hasta = $('#to_time' + item).val();
+                    }
+                });
+
+            }
+        });
+        
+    }else{
+        filtersDays = _.without(filtersDays,item);
+        $('#from_time' + item).attr('disabled','disabled');
+        $('#from_time' + item).value = null;
+        $('#to_time' + item).attr('disabled','disabled');
+        $('#to_time' + item).value = null;
+        filtersH.splice(item,1);
+    }
+}
+
+function saveHorario(idServicio) {
+    event.preventDefault();
+    var day = '';
+    var errorDays = [];
+    filtersH.forEach(function(obj,key){
+        var jdt1 = new Date(Date.parse('20 Aug 2000 ' + obj.desde + ':00')).getTime();
+        var jdt2 = new Date(Date.parse('20 Aug 2000 ' + obj.hasta + ':00')).getTime();
+        if (jdt1 > jdt2)
+        {
+            switch(obj.d){
+                case '0':
+                    day = 'Lunes';
+                break;
+                case '1':
+                    day = 'Martes';
+                break;
+                case '2':
+                    day = 'Miercoles';
+                break;
+                case '3':
+                    day = 'Jueves';
+                break;
+                case '4':
+                    day = 'Viernes';
+                break;
+                case '5':
+                    day = 'Sabado';
+                break;
+                case '6':
+                    day = 'Domingo';
+                break;
+            }
+            errorDays.push(day);
+        }
+    });
+    if (errorDays.length > 0) {
+        showAlert('Error! en los siguientes dias :' + errorDays.toString(),'La hora "HASTA" no puede ser menor a la hora "DESDE"',null,'warning','danger');
+    }else{
+        if (filtersDays.length != filtersH.length ) {
+             showAlert('Error!, Algunas horas no han sido asignadas',null,null,'warning','danger');
+         }else{
+            var url = 'http://' + window.location.hostname + '/voialApp/public/saveHorario';
+            $.ajax({
+                type: 'POST',
+                url: url,
+                dataType: 'json',
+                data:{
+                    dias:filtersDays,
+                    horas:filtersH,
+                    idServicio:idServicio
+                },
+                success: function (data) {
+                    if (data.resul) {
+                        showAlert('Horario guardado correctamente!','',null,'success','success');
+                    }
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+         }
+    }
+    
 }
 
 function sendSearch(s) {
@@ -1835,7 +1915,32 @@ function searchServ($idCatalogo,$idSubCatalogo){
         dataType: 'json',
         data:data,
         success: function (r) {
-         $('#findedFilter').html(r.SearchServ);
+        var htmlResult = '';
+        var array = r.data;
+        for (var i = 0; i < array.length; i++) {
+            var url = window.location.protocol + '//' +window.location.hostname + '/voialApp/public/';
+            var urlImg = url + 'images/fullsize/' +array[i].filename;
+            var urlDetail = url + 'tokenDz$rip/' +array[i].id_usuario_servicio;
+            console.log(urlImg);
+            var htmlString = '<div class="col-xs-12 col-sm-6 col-md-4 isotope-item">\
+                    <div class="post-masonry post-masonry-short post-content-white bg-post-2 bg-image box-skew post-skew-right-top post-skew-var-4" style="background: url(' + urlImg + ');\
+                          background-size: cover;\
+                          background-repeat: no-repeat;\
+                          min-height: 200px;">\
+                      <div class="post-masonry-content">\
+                        <h4><a href="' + urlDetail + '">' + array[i].nombre_servicio + '</a></h4>\
+                        <div style="overflow-x: hidden;">\
+                          ' + array[i].detalle_servicio + '\
+                        </div>\
+                      </div>\
+                      <a class="link-position link-primary-sec-2 link-right post-link" href="' + urlDetail + '"><i class="fa fa-info-circle" aria-hidden="true" style="color: #2f6890;"></i>\
+                      </a>\
+                    </div>\
+                  </div>';
+            htmlResult = htmlResult + htmlString;
+        }
+         $('#findedFilter').html(htmlResult);
+         console.log(r.data);
          $('#initialRows').hide();
          $('#filter').modal('hide')
         },

@@ -2260,7 +2260,10 @@ class PublicServiceRepository extends BaseRepository {
             foreach ($data as $item) {
                 array_push($arrayId, $item->id_usuario_servicio);
             }
-            $paginated = $this->usuario_servicio->whereIn('id',$arrayId)->paginate($pagination);
+            $paginated = $this->usuario_servicio
+            ->join('images','images.id_usuario_servicio','=','usuario_servicios.id')
+            ->where('profile_pic',1)
+            ->whereIn('usuario_servicios.id',$arrayId)->paginate($pagination);
             return $paginated;
         }else{
             return null;
@@ -2747,8 +2750,30 @@ class PublicServiceRepository extends BaseRepository {
     //Entrega el detalle de los servicios
     public function obtenerDetallesServicio($idServicio) {
         $servicios = DB::table('usuario_servicios')
+                        ->join('catalogo_servicios','id_catalogo_servicios','=','id_catalogo_servicio')
                         ->where('id',$idServicio)
                         ->first();
+        $datosCatalogo = DB::table('catalogo_servicios')
+                        ->where('id_catalogo_servicios',$servicios->id_catalogo_servicio)
+                        ->select('nombre_servicio','id_padre')
+                        ->first();
+        $datosPadreCatalogo = DB::table('catalogo_servicios')
+                        ->where('id_catalogo_servicios',$datosCatalogo->id_padre)
+                        ->select('nombre_servicio')
+                        ->first();
+        $redesSociales = DB::table('servicio_redes_sociales')
+                        ->join('redes_sociales','redes_sociales.idredes_sociales','=','servicio_redes_sociales.idredes_sociales')
+                        ->select('nombre_red','url','icon')
+                        ->where('id_usuario_servicio',$idServicio)
+                        ->get();
+        $servicios->redes = $redesSociales;
+        $servicios->catPadre = $datosPadreCatalogo->nombre_servicio;
+        $servicios->catHijo = $datosCatalogo->nombre_servicio;
+        $dataHorario = DB::table('horarios')
+                        ->where('id_usuario_servicio',$idServicio)
+                        ->where('estado',1)
+                        ->get();
+        $servicios->horario = $dataHorario;
         return $servicios;
     }
 

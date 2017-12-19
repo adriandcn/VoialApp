@@ -264,7 +264,6 @@ class AuthController extends Controller {
             ->where('confirmation_code',$confirmation_code)
             ->where('confirmed',false)
             ->update(['confirmation_code' => '','confirmed'=> true]);
-            // return $user;
             return redirect('/')->with('okConfirm', trans('front/verify.okConfirmation'));
         }else{
             return redirect('/');

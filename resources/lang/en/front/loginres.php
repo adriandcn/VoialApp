@@ -1,21 +1,20 @@
 <?php
 
 return [
-	'connection' => 'Connection',
-	'text' => 'To log on this site you must fill this form :',
-	'email' => 'Your email',
-	'password' => 'Your password',
-	'remind' => 'Remember me',
-	'forget' => 'Forgot your password?',
-	'register' => 'Not registered ?',
-	'register-info' => 'To register quickly just click on the button !',
+	'connection' => 'Conexión',
+	'text' => 'Para iniciar sesión en este sitio debe rellenar este formulario:',
+	'email' => 'Tu email',
+	'password' => 'Tu password',
+	'remind' => 'Recordarme',
+	'forget' => 'Olvide mi contraseña!',
+	'register' => 'No estás registrado ?',
+	'register-info' => 'Para registrarse rápidamente, basta con hacer clic en el botón!',
 	'registering' => 'I subscribe',
-	'credentials' => 'These credentials do not match our records.',
-	'log' => 'Your email or your user name',
-	'maxattempt' => 'You have reached the maximum number of login attempts. Try again in one minute.',
-    	'logbtn' => 'LogIn',
-        'title' => 'Stop being a tourist, become a traveler.',
-        'breadcumbs' => "Login / Register",
-        'ingresocuenta' => "Login to your account"
-    
+	'credentials' => 'Estas credenciales no coinciden con nuestros registros.',
+	'log' => 'Tu email o usuario',
+	'maxattempt' => 'Ha alcanzado el número máximo de intentos de inicio de sesión. Vuelve a intentarlo en un minuto.',
+        'logbtn' => 'Ingresar',
+        'title' => 'Deja de ser un turista, conviertete en viajero.',
+        'breadcumbs' => "Inicio de Sesion / Registro",
+        'ingresocuenta' => "Ingresar a tu Cuenta"
 ];

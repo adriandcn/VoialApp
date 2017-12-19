@@ -25,7 +25,7 @@ class catalogoServiciosRepository extends BaseRepository
 	public function __construct()
 	{
 		$this->level = 0;
-		$this->campos = ['id_catalogo_servicios','nombre_servicio','nombre_servicio_eng','nivel'];
+		$this->campos = ['id_catalogo_servicios','nombre_servicio','nombre_servicio_eng','nivel','id_padre'];
 		$this->arrayList = [];
 		$this->arrayForAcordion = [];
 	}
@@ -121,7 +121,10 @@ class catalogoServiciosRepository extends BaseRepository
 	public function getByCatalogoArray($array)
 	{	
 		$usuario_Servicio = new Usuario_Servicio();
-		$finded = $usuario_Servicio->whereIn('id_catalogo_servicio', $array)->get();
+		$campos_serv = ['usuario_servicios.id','nombre_servicio','detalle_servicio','images.filename'];
+		$finded = $usuario_Servicio->join('images', 'usuario_servicios.id', '=', 'images.id_usuario_servicio')
+			->where('images.profile_pic', '=', 1)
+			->whereIn('id_catalogo_servicio', $array)->get();
 		return $finded;
 	}
 

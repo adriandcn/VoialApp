@@ -1,5 +1,5 @@
 @section('provincias')
-<div class="form-group-1">
+<div class="form-group-1 tooltip" title="Provincia donde esta ubicado tu servicio, seleciona una opción" >
     {!!Form::label('provincia_1', 'Provincia', array('id'=>'iconFormulario-step4'))!!}
     <select name="id_provincia" id="id_provincia" class="input-text chng" style="height: 40px;width: 100%;">
         <option value="0">Seleccionar</option>
@@ -10,8 +10,19 @@
         @endif @endforeach
     </select>
 </div>
+<script>
+  $(document).ready(function() {
+    new jBox('Tooltip', {
+      attach: '.tooltip',
+      closeOnMouseleave: true,
+      closeButton: true
+    });
+  });
+</script>
 <div id='canton'>
-    @section('cantones') @show
+    <div>
+        @section('cantones') @show
+    </div>
 </div>
 @if($id_canton!='0')
 <script>

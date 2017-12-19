@@ -1116,7 +1116,9 @@ class UsuarioServiciosController extends Controller
         //
         $operador = $operador_gestion->getOperadorTipo($auth->user()->id, session('tip_oper'));
         $data['tipoOperador'] = session('tip_oper');
+
         $listServiciosUnicos = $gestion->getServiciosOperadorUnicos(session('operador_id'));
+        
         //listado de arcordion
         $campos = ['id_catalogo_servicios','nombre_servicio','nombre_servicio_eng','nivel'];
         $padresList = DB::table('catalogo_servicios')

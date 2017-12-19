@@ -615,17 +615,28 @@ Actualizar tabla de busqueda
     }
 
     public function getServiciosOperadorAll($id_usuario_operador) {
-        return DB::table('usuario_servicios')
+        $list = DB::table('usuario_servicios')
                         ->join('catalogo_servicios', 'usuario_servicios.id_catalogo_servicio', '=', 'catalogo_servicios.id_catalogo_servicios')
-                        ->join('images', 'usuario_servicios.id', '=', 'images.id_usuario_servicio')
                         ->where('id_usuario_operador', $id_usuario_operador)
                         ->where('estado_servicio', '=', 1)
-                        ->where('images.profile_pic', '=', 1)
                         ->select('usuario_servicios.nombre_servicio','usuario_servicios.detalle_servicio', 
-                            'catalogo_servicios.id_catalogo_servicios', 'usuario_servicios.id', 'usuario_servicios.estado_servicio_usuario', 'usuario_servicios.id_usuario_operador',
-                            'images.filename',
-                            'images.original_name')
+                            'catalogo_servicios.id_catalogo_servicios', 'usuario_servicios.id', 'usuario_servicios.estado_servicio_usuario', 'usuario_servicios.id_usuario_operador')
                         ->get();
+        foreach ($list as $value) {
+            $dataImage = DB::table('images')
+                    ->where('id_usuario_servicio', '=', $value->id)
+                    ->where('profile_pic', '=', 1)
+                    ->select('filename')
+                    ->get();
+            if (count($dataImage) > 0) {
+                $value->filename = $dataImage[0]->filename;
+            }else{
+                $value->filename = 'default_service.png';
+            }
+            
+        }
+
+        return $list;
     }
 
     public function getEventosporId($id) {

@@ -146,7 +146,8 @@ return [
 		App\Providers\RouteServiceProvider::class,
 		App\Services\Html\HtmlServiceProvider::class,
         Bestmomo\Filemanager\FilemanagerServiceProvider::class,
-        Greggilbert\Recaptcha\RecaptchaServiceProvider::class
+        Greggilbert\Recaptcha\RecaptchaServiceProvider::class,
+        'Laravel\Socialite\SocialiteServiceProvider'
         
 	],
 
@@ -201,11 +202,8 @@ return [
         'DNS1D' => Milon\Barcode\Facades\DNS1DFacade::class,
     	'DNS2D' => Milon\Barcode\Facades\DNS2DFacade::class,
         'Image'     => Intervention\Image\Facades\Image::class,
-        'Recaptcha' => Greggilbert\Recaptcha\Facades\Recaptcha::class
-            
-
-             
-
-	],
+        'Recaptcha' => Greggilbert\Recaptcha\Facades\Recaptcha::class,
+        'Socialize' => 'Laravel\Socialite\Facades\Socialite',
+    ],
 
 ];

@@ -3,13 +3,19 @@
 Route::get('/test', ['as' => 'publico', 'uses' => 'pruebasCtrl@test']);
 //Lenguaje
 Route::get('language', 'HomeController@language');
+//Login
+Route::get('auth/loginr', 'Auth\AuthController@postLoginr');
+//login Facebook
+Route::get('/redirect/{typeAction}', 'SocialAuthFacebookController@redirect');
+Route::get('/callback', 'SocialAuthFacebookController@callback');
 //--Home--
 Route::get('/', ['as' => 'publico', 'uses' => 'HomePublicController@getHome']);
+Route::get('/getLastServicesCreated', ['as' => 'publico', 'uses' => 'HomePublicController@getLastServicesCreated']);
 //--Search--
 Route::get('Search', ['as' => 'min-search', 'uses' => 'SearchController@getSearchTotal']);
 // Auth
 Route::controllers(['auth' => 'Auth\AuthController', 'password' => 'Auth\PasswordController', ]);
-Route::get('/auth/confirm/{confirmation_code}', ['auth' => 'Auth\AuthController', 'uses' => 'Auth\AuthController@getConfirm']);
+Route::get('/confirm/{confirmation_code}', ['uses' => 'HomeController@getConfirm']);
 // --Imagenes--
 Route::get('/image', ['as' => 'upload', 'uses' => 'ImageController@getUpload']);
 Route::post('upload', ['as' => 'upload-post', 'uses' => 'ImageController@postUpload']);
@@ -27,7 +33,7 @@ Route::get('/updateServicioActivo/{id_usuario_servicio}', ['uses' => 'ServicioCo
 Route::post('/uploadServiciosRes1', ['as' => 'upload-serviciosres1', 'uses' => 'ServicioController@uploadServiciosRes1', 'middleware' => 'notAuth']);
 // --Imagenes--
 Route::get('/imagenesAjaxDescription1/{tipo}/{idtipo}', ['as' => 'getimages', 'uses' => 'UsuarioServiciosController@getImagesDescription1', 'middleware' => 'notAuth']);
-Route::get('/getImagesServicio/{tipo}/{idtipo}', ['as' => 'getimages', 'uses' => 'UsuarioServiciosController@getImagesServicio', 'middleware' => 'notAuth']);
+Route::get('/getImagesServicio/{tipo}/{idtipo}', ['as' => 'getimages', 'uses' => 'UsuarioServiciosController@getImagesServicio']);
 Route::post('/delete/image/{id}', ['as' => 'delete-image', 'uses' => 'ImageController@postDeleteImage']);
 Route::post('/delete/image1/{id}', ['as' => 'delete-image1', 'uses' => 'ImageController@postDeleteImage1']);
 // --Operadores--

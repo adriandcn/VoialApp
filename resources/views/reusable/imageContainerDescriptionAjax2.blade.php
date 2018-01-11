@@ -29,6 +29,8 @@
 <script type="text/javascript" src="{{ asset('public_components/components/owl-carousel/owl.carousel.min.js')}}"></script>
 <script>
     var arrayImg = {!!$ImgPromociones !!};
+    var dirServ = '{!!$serverDir !!}';
+    console.log(dirServ);
     var currentImage = 0;
     var urlBack = '';
     var urlNext = '';
@@ -39,7 +41,7 @@
         }else{
             currentImage = arrayImg.length -1;
         }
-        urlBack = window.location.protocol + '//' + window.location.hostname + '/voialApp/public/images/fullsize/' + arrayImg[currentImage].filename;
+        urlBack = dirServ + 'public/images/fullsize/' + arrayImg[currentImage].filename;
         setFullImage(currentImage,urlBack);
     }
     function nextImage(){
@@ -49,12 +51,11 @@
         }else{
             currentImage = 0;
         }
-        urlNext = window.location.protocol + '//' + window.location.hostname + '/voialApp/public/images/fullsize/' + arrayImg[currentImage].filename;
+        urlNext = dirServ + 'public/images/fullsize/' + arrayImg[currentImage].filename;
         setFullImage(currentImage,urlNext);
     }
     function setFullImage($index,$url) {
         currentImage = $index;
-        console.log($url);
        // $("#imgFull").attr("src",$url);
        $("#imgFull").css("background", 'url(' + $url + ')');
        $("#imgFull").css("background-repeat", 'no-repeat');

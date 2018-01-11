@@ -23,7 +23,7 @@ return [
     'noResult' => 'Oops! No results found',
     'servTypes' => 'Types of services',
     //Detalles de Servicio
-    'tittleLoaderDetails' => 'Loading details ...',
+    'tittleLoaderDetails' => 'Loading ...',
     'saludoDetails' => 'Welcome to',
     'destriptionDetails' => 'Below are more important aspects of the service',
     'lblUbicacion' => 'Location',
@@ -48,5 +48,23 @@ return [
     'titleResults' => 'Results',
     //Categorias Page
     'categoDescription' => 'In this section, you can view the services available for the category',
-    'tittleLoaderCategoSons' => 'Loading subcategories ...',
+    'tittleLoaderCategoSons' => 'Loading ...',
+    'lblDash' => 'Dashboard',
+    'lblLogOut' => 'Log out',
+    //Menu superior
+    'lblHome' => 'Home',
+    'lblCate' => 'Categories',
+    'lblContact' => 'Contact',
+    // path lbls
+    'lblPathCreateOperador' => 'Operator data',
+    'lblPathMyServices' => 'My Services',
+    'lblPathDetailService' => 'Service details',
+    'lblPathEditServ' => 'Service edition',
+    'lblPathSearch' => 'Search result',
+    'lblPathServicioList' => 'Service catalog',
+    'alertFacebookLogIn' => 'No user found with the email: :email',
+    'alertFacebookRegister' => 'User registered correctly \nUsuario: :username, \nPassword: :passwdr',
+    'btnLogInFacebook' => 'Login with Facebook',
+    'latestCreated' => 'Last services created',
+    'btnRegisterFacebook' => 'Register with Facebook'
 ];

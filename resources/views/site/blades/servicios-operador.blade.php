@@ -16,7 +16,7 @@
             <div class="center" id="bike-wrapper">
               <div class="centerBike" id="bike"></div>
             </div>
-            <h1>Voilapp</h1>
+            <h1>{{ trans('back/admin.loaderPageServicios')}}</h1>
           </div>
         </div>
       </div>

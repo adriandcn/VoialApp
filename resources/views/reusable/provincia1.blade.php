@@ -26,13 +26,10 @@
 </div>
 @if($id_canton!='0')
 <script>
-    GetDataAjaxCantones1("{!!asset('/getCantones1')!!}" + "/" + {
-        !!$id_provincia!!
-    } + "/" + {
-        !!$id_canton!!
-    } + "/" + {
-        !!$id_parroquia!!
-    });
+    var idProv = {!!$id_provincia!!};
+    var idCanton = {!!$id_canton!!};
+    var idParro = {!!$id_parroquia!!};
+    GetDataAjaxCantones1("{!!asset('/getCantones1')!!}" + "/" + idProv + "/" +idCanton + "/" + idParro);
 </script>
 @endif
 <script>

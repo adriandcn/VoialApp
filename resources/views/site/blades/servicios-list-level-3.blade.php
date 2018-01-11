@@ -13,7 +13,7 @@
             <div class="center" id="bike-wrapper">
               <div class="centerBike" id="bike"></div>
             </div>
-            <h1>Voilapp</h1>
+            <h1>{{ trans('back/admin.loaderPageServicios')}}</h1>
           </div>
         </div>
       </div>
@@ -23,6 +23,18 @@
           <div class="page-title__overlay box-skew box-skew-var-1"><span class="box-skew__item"></span>
             <div class="page-title-text">{{trans('publico/labels.catalogoServTitle')}}</div>
             <p class="big text-width-medium">{{trans('publico/labels.catalogoServDescription')}}</p>
+            <!-- path sistema -->
+            <br>
+            <hr>
+            <div>
+              <span class="box-skew__item"></span>
+              <ul class="breadcrumbs-custom">
+                <li><a href="{{asset('/')}}">{{ trans('publico/labels.lblHome')}}</a></li>
+                <li><a href="{{asset('/')}}catalogoServ/{{$dataCatalogo->id_catalogo_servicios}}">{{$dataCatalogo->nombre_servicio}}</a></li>
+                <li>{{$dataSubCatalogo->nombre_servicio}}</li>
+                <!-- <li>{{ trans('publico/labels.lblPathServicioList')}}</li> -->
+              </ul>
+            </div>
           </div>
         </div>
       </section>
@@ -59,7 +71,8 @@
                     <div class="post-masonry post-masonry-short post-content-white bg-post-2 bg-image box-skew post-skew-right-top post-skew-var-4" style="background: url('{!!asset('/images/icon/')!!}/{{$servicio->filename}}');
                           background-size: cover;
                           background-repeat: no-repeat;
-                          min-height: 200px;">
+                          min-height: 200px;
+                          cursor: pointer;" onclick="openDetailOnClick({{$servicio->id}})">
                       <div class="post-masonry-content">
                         <h4><a href="{!!asset('/tokenDz$rip')!!}/{{$servicio->id}}">{{$servicio->nombre_servicio}}</a></h4>
                         <div style="overflow-x: hidden;">
@@ -94,8 +107,8 @@
         </div>
       </section>
 
-      <div class="modal modal-custom fade" id="filter" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document" style="width: 80%;">
+      <div class="modal fade" id="filter" tabindex="-1" role="dialog" style="z-index: 99999; background: #00000099;">
+        <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div id="testboxForm">
               <div class="modal-header">

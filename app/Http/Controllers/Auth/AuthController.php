@@ -330,7 +330,8 @@ class AuthController extends Controller {
                 $request->session()->forget('user_id');
             }
 
-           
+            $request->session()->put('user_id',$user->id);
+
             $request->session()->put('user_name', $user->username);
            
             $email = $auth->user()->email;
@@ -376,7 +377,7 @@ class AuthController extends Controller {
         $nombre = $data['nombre'];
         Mail::send('emails.auth.verify', $data, function($message) use ($correo_enviar,$nombre)
         {
-            $message->from("avoilap@gmail.com",'VoilApp');
+            $message->from("info@voilappbeta.com",'VoilApp');
             $message->to($correo_enviar,$nombre)->subject('Verifica tu cuenta');
         });
     }
@@ -455,11 +456,12 @@ class AuthController extends Controller {
 
             //Se realiza el login y redireccion
             $request->session()->put('user_name', $user->email);
+            $request->session()->put('user_id', $user->id);
             $auth->login($user);
               
             $email = $auth->user()->email;
             $nombre = $auth->user()->email;
-            // Dateos de email de activacion
+            // Datos de email de activacion
             $data = [
                         'email' => $formFields['email'],
                         'nombre' => $formFields['name'],
@@ -476,14 +478,13 @@ class AuthController extends Controller {
             $listServicios = $gestion->getServiciosidUsuario($user->id);
             if ($listServicios) {
 
-                $data['id_usuario_op'] = $listServicios[0]->id_usuario_op;
-                $request->session()->put('operador_id', $data['id_usuario_op']);
+                $request->session()->put('operador_id', $operador->id);
                 $request->session()->put('tip_oper', $listServicios[0]->id_tipo_operador);
                 return redirect('/createOperador')->with('user', $user->id);
 
             } else {
 
-                      $returnHTML = ('createOperador');//->with('user', $user->id);
+              $returnHTML = ('createOperador');//->with('user', $user->id);
               return response()->json(array('success' => true, 'redirectto' => $returnHTML));
           
             }

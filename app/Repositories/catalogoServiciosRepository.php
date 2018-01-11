@@ -39,7 +39,7 @@ class catalogoServiciosRepository extends BaseRepository
 	 */
   	public function getList()
 	{		
-		$serviciosList = DB::table('catalogo_servicios')->where('estado_catalogo_servicios',1)->where('id_padre',0)->get();
+		$serviciosList = DB::table('catalogo_servicios')->where('estado_catalogo_servicios',1)->where('nivel',1)->get();
 		return $serviciosList;
 	}
 
@@ -105,12 +105,25 @@ class catalogoServiciosRepository extends BaseRepository
                             ->where('estado_catalogo_servicios',1)
                             ->where('id_padre',$value->id_catalogo_servicios)
                             ->get();
-        	if($value->nivel == 3){
+            // Cargar mensaje                
+        	$message_catalogo = DB::table('mensajes_catalogo')
+                        ->select('mensaje')
+                        ->where('estado',1)
+                        ->where('id_catalogo',$value->id_catalogo_servicios)
+                        ->get();
+            if (count($message_catalogo) > 0) {
+                $value->showMesage = true;
+                $value->mensaje = $message_catalogo[0]->mensaje;
+            }else{
+            	$value->showMesage = false;
+                $value->mensaje = null;
+            }
+        	if($value->nivel == 2){
             	array_push($this->arrayForAcordion,$value);
             }else{
             	$this->recursiveListForAcordion($childList);
             }
-            if ($value->nivel == 0) {
+            if ($value->nivel == 1) {
             	$value->children = $this->arrayForAcordion;
 				$this->arrayForAcordion = [];
             }

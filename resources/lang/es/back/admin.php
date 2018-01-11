@@ -2,7 +2,7 @@
 
 return [
     //Dasboard
-    'tittlePage' => 'Administración',
+    'tittlePage' => 'Cargando ...',
     'saludo' => 'Hola',
     'dashboardDescription' => 'Desde el panel de control de Mi cuenta tiene la capacidad de ver una instantánea de la actividad de su cuenta reciente y actualizar la información de su cuenta. Seleccione un enlace para ver o editar información.',
     'lblMyServices' => 'Tus Servicios creados',
@@ -15,7 +15,7 @@ return [
     'btnSiguiente' => 'Siguiente',
     'altNombre' => 'Ingresa el nombre con el cual identificarán tu servicio',
     'altDescription' => 'Ingresa una descripción breve y que capte la atención del usuario lector.',
-    'loaderPageServicios' => 'Editar/Crear Servicios',
+    'loaderPageServicios' => 'Cargando ...',
     //formulario de registro de servicios
     'lblEvents' => 'Promociones y Eventos',
     'lblAddImage' => 'A&ntilde;adir imagenes al servicio',
@@ -41,7 +41,8 @@ return [
     'tittleHorario' => 'Horario atención',
     'btnAddHorario' => 'Ingresar Horario',
     'lblTelefonoServ' => 'Telefono',
-    'altTelefonoServ' => 'Telefono del Servicio" title="El turista podrá comunicarse directamente contigo si así lo deseas',
+    'altTelefonoServ' => 'El turista podrá comunicarse directamente contigo si así lo deseas',
+    'placeHolderPhoneEdit' => 'Teléfono del servicio',
     'lblEmailServ' => 'Correo de contacto',
     'altEmailServ' => 'Siempre es bueno tener un correo electrónico en el cual puedan pedirte más información sobre tu servicio',
     'placeHolderEmailServ' => 'Correo Contacto',
@@ -63,8 +64,9 @@ return [
     'lblBtnSave' => 'Guardar',
     'lblBtnBack' => 'Atras',
     'descriptionAddImageModal' => 'Arrastra o haz click aqui para añadir imágenes  (Formato: jpg, tamaño max: 6Mb)',
+    'lblHorarioInput' => 'Seleciona los dias y el horario de atención de tu servicio',
     //Form Create operador
-    'lblLoaderCreateOperador' => 'Crear/Editar Operador',
+    'lblLoaderCreateOperador' => 'Cargando ...',
     'titleResposableInfo' => 'Información de los responsables',
     'lblFullNamePerson1' => 'Nombres completos responsable 1',
     'placeHolderFullNamePerson1' => 'Nahuel Jaguar',
@@ -85,7 +87,7 @@ return [
     'placeHolderDirEmpresa' => 'Av xyx & mlklkn 8997',
     'altDirEmpresa' => 'Ingresa la direción  de tu empresa.',
     'titleOperadorHeaderPage' => 'Datos de operador',
-    'altPage' => 'Dasboard',
+    'lblBtnCancel' => 'Cancelar',
     'altPage' => 'Dasboard',
     'altPage' => 'Dasboard',
     'altPage' => 'Dasboard',

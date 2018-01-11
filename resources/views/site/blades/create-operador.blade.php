@@ -29,6 +29,16 @@
           <div class="page-title__overlay box-skew box-skew-var-1"><span class="box-skew__item"></span>
             <div class="page-title-text">{{trans('back/admin.titleOperadorHeaderPage')}}</div>
             <!-- <p class="big text-width-medium">Completa los siguientes datos de operador</p> -->
+            <!-- path sistema -->
+            <br>
+            <hr>
+            <div>
+              <span class="box-skew__item"></span>
+              <ul class="breadcrumbs-custom">
+                <li><a href="{{asset('/')}}">{{ trans('publico/labels.lblHome')}}</a></li>
+                <li>{{ trans('publico/labels.lblPathCreateOperador')}}</li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
@@ -41,7 +51,7 @@
             <div class="cell-md-8">
               <h6><i class="fa fa-user"></i>&nbsp;&nbsp;{{trans('back/admin.titleResposableInfo')}}</h6>
               <!-- RD Mailform-->
-              <form class="rd-mailform" id="form-add-operador" action="{{$serverDir}}/voialApp/public/nuevoOperador">
+              <form class="rd-mailform" id="form-add-operador" action="{{$serverDir}}public/nuevoOperador">
                 <div class="range range-15">
                   <div class="cell-sm-7">
                     <div class="form-wrap">
@@ -59,7 +69,7 @@
                   <div class="cell-sm-7">
                     <div class="form-wrap">
                       <label class="form-label-outside" for="contact-first-name-3">{{trans('back/admin.lblFullNamePerson2')}}</label>
-                      <input class="form-input tooltip" id="contact-first-name-3" type="text" name="nombre_contacto_operador_2" placeholder="{{trans('back/admin.placeHolderFullNamePerson1')}}" title="{{trans('back/admin.altFullNamePerson1')}}" value="{{$operador[0]->nombre_contacto_operador_1}}" value="{{$operador[0]->nombre_contacto_operador_2}}">
+                      <input class="form-input tooltip" id="contact-first-name-3" type="text" name="nombre_contacto_operador_2" placeholder="{{trans('back/admin.placeHolderFullNamePerson1')}}" title="{{trans('back/admin.altFullNamePerson1')}}"  value="{{$operador[0]->nombre_contacto_operador_2}}">
                     </div>
                   </div>
                   <div class="cell-sm-5">

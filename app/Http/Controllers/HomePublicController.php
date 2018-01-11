@@ -1110,7 +1110,12 @@ class HomePublicController extends Controller {
         ;
     }
 
+    public function getLastServicesCreated(PublicServiceRepository $gestion)
+    {
+     
+        $lastServices = $gestion->getLastServicesCreated();
 
-
+        return response()->json(['data' => $lastServices]);
+    }
 
 }

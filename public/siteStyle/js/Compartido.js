@@ -4,6 +4,7 @@ $.ajaxSetup({
         'X-CSRF-Token': $('meta[name=_token]').attr('content')}
 });
 
+var dirServer = $('#serverDir').val();
 //hace la logica del controller, recibe los datos del formulario y hace un redirect a la pagina enviada desde
 //el controller
 function AjaxContainerRegistro($formulario) {
@@ -1063,7 +1064,8 @@ function AjaxContainerEdicionServicios($id_usuario_servicio,$id_catalogo) {
     $("#spinnerSave").show();
 
     event.preventDefault();
-    var url = 'http://' + window.location.hostname + "/voialApp/public/servicios/serviciooperador1/"+$id_usuario_servicio+"/"+$id_catalogo;
+    var url = dirServer + "public/servicios/serviciooperador1/"+$id_usuario_servicio+"/"+$id_catalogo;
+    console.log();
     var id = $id_usuario_servicio;
     //alert(id);
     //alert(url);      
@@ -1073,7 +1075,7 @@ function AjaxContainerEdicionServicios($id_usuario_servicio,$id_catalogo) {
         data:"",
         success: function (data) {
             //alert(data.redirectto);
-            window.location.href = 'http://' + window.location.hostname + '/voialApp/public/' + data.redirectto;
+            window.location.href = dirServer + 'public/' + data.redirectto;
         },
         error: function (data) {
             var errors = data.responseJSON;
@@ -1121,6 +1123,7 @@ function AjaxContainerInfoOperador(){
 
 function setIdCatalogo($catalogoId){
     $('.id_catalogo_servicio').val($catalogoId);
+    $("#form-modal-add-trip").show();
 }
 
 function AjaxContainerRegistroWithLoad1($formulario, $idCreate) {
@@ -1136,6 +1139,16 @@ function AjaxContainerRegistroWithLoad1($formulario, $idCreate) {
             url = $form.attr("action");
     var posting = $.post(url, {formData: data});
     posting.done(function (data) {
+        if (data.limitServices) {
+            showAlert('Error!','Únicamente puedes crear ' + data.limit + ' servicios',null,'warning','danger');
+            $("#form-modal-add-trip").hide();
+            $("#spinnerSaveTrip").hide();
+        };
+        if (data.serviceExist) {
+            showAlert('Error!','Ya existe un servicio con el nombre ingresado',null,'warning','danger');
+            $("#form-modal-add-trip").hide();
+            $("#spinnerSaveTrip").hide();
+        };
         if (data.fail) {
             var errorString = '<div class="alert alert-danger animated shake"><ul>';
             $.each(data.errors, function (key, value) {
@@ -1147,7 +1160,7 @@ function AjaxContainerRegistroWithLoad1($formulario, $idCreate) {
         }
         if (data.success) {
             $("#spinnerSaveTrip").hide();
-            window.location.href = 'http://' + window.location.hostname + '/voialApp/public/' + data.redirectto;
+            window.location.href = dirServer + 'public/' + data.redirectto;
         } //success
     });
 }
@@ -1235,7 +1248,7 @@ function UpdateServicioInfo($formulario, $id) {
     }); //done
 }
 
-function UpdateServicioInfo1($formulario, $id) {
+function UpdateServicioInfo1($formulario, $id, redirect) {
     
     // $.ajaxSetup({
     //     headers: {
@@ -1247,7 +1260,7 @@ function UpdateServicioInfo1($formulario, $id) {
     $("#spinnerSave").show();
     var $form = $('#' + $formulario),
             data = $form.serialize();
-    var url = 'http://' + window.location.hostname + "/voialApp/public/uploadServiciosRes1";
+    var url = dirServer + "public/uploadServiciosRes1";
     var posting = $.post(url, {formData: data});
     posting.done(function (data) {
         if (data.fail) {
@@ -1262,7 +1275,9 @@ function UpdateServicioInfo1($formulario, $id) {
         if (data.success) {
             $('#ErrorDiv').hide();
             $('.rowerror').html('');
-            window.location.href = 'http://' + window.location.hostname + "/voialApp/public/" + data.redirectto;
+            if (redirect) {
+                window.location.href = dirServer + "public/" + data.redirectto;
+            }
         } //success
     }); //done
 }
@@ -1516,25 +1531,30 @@ function saveHorario(idServicio) {
         if (filtersDays.length != filtersH.length ) {
              showAlert('Error!, Algunas horas no han sido asignadas',null,null,'warning','danger');
          }else{
-            var url = 'http://' + window.location.hostname + '/voialApp/public/saveHorario';
-            $.ajax({
-                type: 'POST',
-                url: url,
-                dataType: 'json',
-                data:{
-                    dias:filtersDays,
-                    horas:filtersH,
-                    idServicio:idServicio
-                },
-                success: function (data) {
-                    if (data.resul) {
-                        showAlert('Horario guardado correctamente!','',null,'success','success');
+            if (filtersDays.length == 0 && filtersH.length == 0) {
+                 showAlert('Error!, No se puede guardar un horario vacío',null,null,'warning','danger');
+            }else{
+                var url = dirServer + 'public/saveHorario';
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    dataType: 'json',
+                    data:{
+                        dias:filtersDays,
+                        horas:filtersH,
+                        idServicio:idServicio
+                    },
+                    success: function (data) {
+                        if (data.resul) {
+                            showAlert('Horario guardado correctamente!','',null,'success','success');
+                            $('#form-modal-horario').hide();
+                        }
+                    },
+                    error: function (e) {
+                        console.log(e);
                     }
-                },
-                error: function (e) {
-                    console.log(e);
-                }
-            });
+                });
+            }
          }
     }
     
@@ -1543,7 +1563,7 @@ function saveHorario(idServicio) {
 function sendSearch(s) {
     event.preventDefault();
     // var s = $('#txtQuery').value();
-    var url = 'http://' + window.location.hostname + '/voialApp/public/Search?s=' + s;
+    var url = dirServer + 'public/Search?s=' + s;
     window.location = url;
     // $.ajax({
     //     type: 'GET',
@@ -1845,8 +1865,6 @@ function UpdateServicioActivo(url) {
             //alert(data.redirectto);
             //window.location.href = "/edicionServicios";
             $("#target").LoadingOverlay("hide", true);
-                 
-
         },
         error: function (data) {
             var errors = data.responseJSON;
@@ -1869,12 +1887,8 @@ function GetDataAjaxImagenes2(url) {
         url: url,
         dataType: 'json',
         success: function (data) {
-            
-            
             $("#renderPartialImagenes").html(data.contentImagenes);
             //window.location.href = "/edicionServicios";
-                 
-
         },
         error: function (data) {
             var errors = data.responseJSON;
@@ -1907,7 +1921,7 @@ function searchServ($idCatalogo,$idSubCatalogo){
     // console.log($idCatalogo);
     // console.log($idSubCatalogo);
     var data = {filter:filtersServ,idCatalogo:$idCatalogo,idSubCatalogo:$idSubCatalogo};
-    var url = 'http://' + window.location.hostname + '/voialApp/public/filterService';
+    var url = dirServer + 'public/filterService';
 
     $.ajax({
         type: 'POST',
@@ -1918,15 +1932,21 @@ function searchServ($idCatalogo,$idSubCatalogo){
         var htmlResult = '';
         var array = r.data;
         for (var i = 0; i < array.length; i++) {
-            var url = window.location.protocol + '//' +window.location.hostname + '/voialApp/public/';
-            var urlImg = url + 'images/fullsize/' +array[i].filename;
-            var urlDetail = url + 'tokenDz$rip/' +array[i].id_usuario_servicio;
-            console.log(urlImg);
-            var htmlString = '<div class="col-xs-12 col-sm-6 col-md-4 isotope-item">\
+            var id;
+            if (array[i].id_usuario_servicio) {
+                id = array[i].id_usuario_servicio;
+            }else{
+                id = array[i].id;
+            }
+            var url = dirServer + 'public/';
+            var urlImg = url + 'images/fullsize/' + array[i].filename;
+            var urlDetail = url + 'tokenDz$rip/' + id;
+            var htmlString = '<div class="col-xs-12 col-sm-6 col-md-4 isotope-item" style=" padding-bottom: 25px;">\
                     <div class="post-masonry post-masonry-short post-content-white bg-post-2 bg-image box-skew post-skew-right-top post-skew-var-4" style="background: url(' + urlImg + ');\
                           background-size: cover;\
                           background-repeat: no-repeat;\
-                          min-height: 200px;">\
+                          min-height: 200px;\
+                          cursor: pointer;" onclick="openDetailOnClick(' + id + ')">\
                       <div class="post-masonry-content">\
                         <h4><a href="' + urlDetail + '">' + array[i].nombre_servicio + '</a></h4>\
                         <div style="overflow-x: hidden;">\
@@ -1940,9 +1960,55 @@ function searchServ($idCatalogo,$idSubCatalogo){
             htmlResult = htmlResult + htmlString;
         }
          $('#findedFilter').html(htmlResult);
-         console.log(r.data);
          $('#initialRows').hide();
          $('#filter').modal('hide')
+        },
+        error: function (e) {
+            console.log(e)
+        }
+    });
+}
+
+function openDetailOnClick(idServ){
+    var url = dirServer + 'public/tokenDz$rip/' + idServ;
+    window.location.href = url;
+}
+
+function getLastServicesCreated(){
+    var url = dirServer + 'public/getLastServicesCreated';
+    $.ajax({
+        type: 'GET',
+        url: url,
+        dataType: 'json',
+        data:{},
+        success: function (r) {
+            var htmlResult = '';
+            var array = r.data;
+            for (var i = 0; i < array.length; i++) {
+                var id;
+                if (array[i].id_usuario_servicio) {
+                    id = array[i].id_usuario_servicio;
+                }else{
+                    id = array[i].id;
+                }
+                var url = dirServer + 'public/';
+                var urlImg = url + 'images/fullsize/' + array[i].filename;
+                var urlDetail = url + 'tokenDz$rip/' + id;
+                var htmlString = '<div class="post-mini post-footer">\
+                        <div class="unit unit-horizontal unit-spacing-xs">\
+                          <div class="unit__left">\
+                          <a href="' + urlDetail +'" ><img src="' + urlImg + '" alt="" width="70" height="70"/></a></div>\
+                          <div class="unit__body">\
+                            <a href="' + urlDetail +'" ><p>' + array[i].nombre_servicio  +'</p></a>\
+                            <p>' + array[i].detalle_servicio.substring(0,20) + '...'  +'</p>\
+                          </div>\
+                        </div>\
+                      </div>';
+                htmlResult = htmlResult + htmlString;
+            }
+             $('#lastServicesCreated').html(htmlResult);
+            //  $('#initialRows').hide();
+            //  $('#filter').modal('hide')
         },
         error: function (e) {
             console.log(e)

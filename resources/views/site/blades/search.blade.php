@@ -41,6 +41,16 @@
                : <strong style="color: #c26933">{{ app('request')->input('s') }}</strong>
               </p>
              @endif
+             <!-- path sistema -->
+            <br>
+            <hr>
+            <div>
+              <span class="box-skew__item"></span>
+              <ul class="breadcrumbs-custom">
+                <li><a href="{{asset('/')}}">{{ trans('publico/labels.lblHome')}}</a></li>
+                <li>{{ trans('publico/labels.lblPathSearch')}}</li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
@@ -76,7 +86,9 @@
                              <div class="col-xs-12 col-sm-6 col-md-4 isotope-item">
                               <div class="post-masonry post-masonry-short post-content-white bg-post-2 bg-image box-skew post-skew-right-top post-skew-var-4" style="background: url(images/icon/{{$serv->filename}});
                           background-size: cover;
-                          background-repeat: no-repeat;">
+                          background-repeat: no-repeat;
+                          min-height: 200px;
+                          cursor: pointer;" onclick="openDetailOnClick({{$serv->id_usuario_servicio}})">
                                 <div class="post-masonry-content">
                                   <h4><a href="{!!asset('/tokenDz$rip')!!}/{{$serv->id_usuario_servicio}}">{{$serv->nombre_servicio}}</a></h4>
                                   <div>

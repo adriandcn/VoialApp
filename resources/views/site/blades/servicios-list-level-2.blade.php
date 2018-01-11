@@ -29,6 +29,16 @@
           <div class="page-title__overlay box-skew box-skew-var-1"><span class="box-skew__item"></span>
             <div class="page-title-text">{{$dataCatalogo->nombre_servicio}}</div>
             <p class="big text-width-medium">{{trans('publico/labels.categoDescription')}} {{$dataCatalogo->nombre_servicio}}</p>
+            <!-- path sistema -->
+            <br>
+            <hr>
+            <div>
+              <span class="box-skew__item"></span>
+              <ul class="breadcrumbs-custom">
+                <li><a href="{{asset('/')}}">{{ trans('publico/labels.lblHome')}}</a></li>
+                <li>{{$dataCatalogo->nombre_servicio}}</li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>

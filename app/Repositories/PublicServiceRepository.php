@@ -2254,11 +2254,42 @@ class PublicServiceRepository extends BaseRepository {
         return null;
     }
 
+    // private function searchPadre($idBuscar,$idPadreEnd){
+    //     $dataCatalogo = DB::table('catalogo_servicios')
+    //             ->where('id_catalogo_servicios',$idBuscar)
+    //             ->select('id_padre')
+    //             ->first();
+    //             if ($dataCatalogo->id_padre == $idPadreEnd) {
+    //                 $result = 'ok';
+    //                 echo $result;
+    //             }else{
+    //                 if ($dataCatalogo->id_padre == 0) {
+    //                     $result = 'false';
+    //                     return $result;
+    //                 }else{
+    //                     $this->searchPadre($dataCatalogo->id_padre,$idPadreEnd);
+    //                 }
+    //             }
+    // }
     public function paginateSearch ($data,$pagination){
         $arrayId = [];
         if (count($data) > 0) {
             foreach ($data as $item) {
-                array_push($arrayId, $item->id_usuario_servicio);
+                $dataServ = DB::table('usuario_servicios')
+                ->where('id',$item->id_usuario_servicio)
+                ->select('id_catalogo_servicio')
+                ->first();
+                $dataCatalogoPadre = DB::table('catalogo_servicios')
+                ->where('id_catalogo_servicios',$dataServ->id_catalogo_servicio)
+                ->select('id_padre')
+                ->first();
+                $dataCatalogoRaiz = DB::table('catalogo_servicios')
+                ->where('id_catalogo_servicios',$dataCatalogoPadre->id_padre)
+                ->select('id_padre')
+                ->first();
+                if ($dataCatalogoRaiz->id_padre == 5) {
+                    array_push($arrayId, $item->id_usuario_servicio);
+                }
             }
             $paginated = $this->usuario_servicio
             ->join('images','images.id_usuario_servicio','=','usuario_servicios.id')
@@ -2755,11 +2786,11 @@ class PublicServiceRepository extends BaseRepository {
                         ->first();
         $datosCatalogo = DB::table('catalogo_servicios')
                         ->where('id_catalogo_servicios',$servicios->id_catalogo_servicio)
-                        ->select('nombre_servicio','id_padre')
+                        ->select('nombre_servicio','id_padre','id_catalogo_servicios')
                         ->first();
         $datosPadreCatalogo = DB::table('catalogo_servicios')
                         ->where('id_catalogo_servicios',$datosCatalogo->id_padre)
-                        ->select('nombre_servicio')
+                        ->select('nombre_servicio','id_catalogo_servicios')
                         ->first();
         $redesSociales = DB::table('servicio_redes_sociales')
                         ->join('redes_sociales','redes_sociales.idredes_sociales','=','servicio_redes_sociales.idredes_sociales')
@@ -2768,7 +2799,9 @@ class PublicServiceRepository extends BaseRepository {
                         ->get();
         $servicios->redes = $redesSociales;
         $servicios->catPadre = $datosPadreCatalogo->nombre_servicio;
+        $servicios->idcatPadre = $datosPadreCatalogo->id_catalogo_servicios;
         $servicios->catHijo = $datosCatalogo->nombre_servicio;
+        $servicios->idcatHijo = $datosCatalogo->id_catalogo_servicios;
         $dataHorario = DB::table('horarios')
                         ->where('id_usuario_servicio',$idServicio)
                         ->where('estado',1)
@@ -3453,6 +3486,32 @@ class PublicServiceRepository extends BaseRepository {
 
 
         return $itiner;
+    }
+
+    public function getLastServicesCreated() {
+        $campos = ['id','detalle_servicio','nombre_servicio'];
+        $rows = DB::table('usuario_servicios')
+                ->where('estado_servicio_usuario',1)
+                ->select($campos)
+                ->orderBy('usuario_servicios.id', 'DESC')
+                ->limit(3)
+                ->get();
+        foreach ($rows as $value) {
+            $value->filename = null;
+            $image = DB::table('images')
+                ->where('id_usuario_servicio',$value->id)
+                ->where('estado_fotografia',1)
+                ->where('profile_pic',1)
+                ->select('filename')
+                ->get();
+            if (count($image) == 0) {
+               $value->filename = 'default_service.png';
+            }else{
+                $value->filename = $image[0]->filename;
+            }
+        }
+
+        return $rows;
     }
 
 }

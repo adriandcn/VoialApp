@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="wide wow-animation" lang="en">
+<html class="wide wow-animation" lang="es">
   <head>
     <!-- Site Title-->
     <title>Servicios</title>
@@ -30,6 +30,30 @@
             <div class="page-title-text">{{trans('publico/labels.saludoDetails')}} {{$detalles->nombre_servicio}}</div>
             <p class="big text-width-medium">{{trans('publico/labels.destriptionDetails')}}
             </p>
+            <!-- path sistema -->
+            <br>
+            <hr>
+            <div>
+              <span class="box-skew__item"></span>
+              <ul class="breadcrumbs-custom">
+                <li>
+                  <a href="{{asset('/')}}">
+                    {{ trans('publico/labels.lblHome')}}
+                  </a>
+                </li>
+                <li>
+                  <a href="{{asset('/catalogoServ')}}/{{$detalles->idcatPadre}}">
+                    {{$detalles->catPadre}}
+                  </a>
+                </li>
+                <li>
+                  <a href="{{asset('/catalogoServ')}}/{{$detalles->idcatPadre}}/{{$detalles->idcatHijo}}">
+                    {{$detalles->catHijo}}
+                  </a>
+                </li>
+                <li>{{ $detalles->nombre_servicio}}</li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
@@ -69,10 +93,10 @@
                     <span class="mdi mdi-md icon-primary mdi-comment-multiple-outline"></span>
                     <span>141</span>
                   </a> -->
-                  <a class="icon-link" href="#">
+                  <!-- <a class="icon-link" href="#">
                     <span class="mdi mdi-md icon-primary mdi-heart-outline"></span>
                     <span>0</span>
-                  </a>
+                  </a> -->
                   <!-- <a class="icon-link" href="#">
                     <span class="mdi mdi-md icon-primary mdi-share"></span>
                     <span>42</span>
@@ -170,17 +194,43 @@
           </div>
         </div>
       </section>
+      <style type="text/css">
+        .btn-full-image{
+          cursor: pointer;
+          position: absolute;
+          top: 50%;
+          color: white;
+        }
+        .btn-right{
+          left: 0;
+        }
+        .btn-left{
+          right: 0;
+        }
+        .btn-full-image:hover{
+          color: #f7701e;
+        }
+        .modal-custom .modal-content{
+          padding: 20px 40px 40px 30px;
+          border: 0;
+          border-radius: 0;
+          box-shadow: 0 0 24px rgba(127, 131, 154, 0);
+        }
+      </style>
       <!-- Modal full image-->
               <div class="modal modal-custom fade" id="form-img-full" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document" style="width: 80%">
                   <div class="modal-content" id="imgFull" >
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close" style="color: white;"><span aria-hidden="true"></span></button>
-                    <a class="button button-facebook" href="#" onclick="backImage()">
-                      <i class="fa fa-angle-left"></i>&nbsp;&nbsp;{{trans('back/admin.lblBtnBack')}}<span></span>
-                    </a>
-                   <a class="button button-facebook" href="#" onclick="nextImage()">
-                      <i class="fa fa-angle-right"></i>&nbsp;&nbsp;{{trans('back/admin.btnSiguiente')}}<span></span>
-                    </a>
+                    <!-- <a class="button" href="#" onclick="backImage()" style="position: absolute;
+                    bottom: 43%;"> -->
+                      <i class="fa fa-angle-left fa-5x btn-full-image btn-right" onclick="backImage()"></i><span></span>
+                    <!-- </a> -->
+                   <!-- <a class="button" href="#" onclick="nextImage()" style="position: absolute;
+                    bottom: 43%;
+                    right: -14%;"> -->
+                      <i class="fa fa-angle-right fa-5x btn-full-image btn-left" onclick="nextImage()"></i><span></span>
+                    <!-- </a> -->
                   </div>
                 </div>
               </div>

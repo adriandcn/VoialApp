@@ -934,7 +934,7 @@ tr.border td {
                           <tbody><tr>
                             <td style="padding: 0;vertical-align: top;padding-left: 32px;padding-right: 32px;word-break: break-word;word-wrap: break-word;" class="padded">
                               
-            <h2 style="font-style: normal;font-weight: 700;Margin-bottom: 0;Margin-top: 0;font-size: 24px;line-height: 32px;font-family: &quot;Open Sans&quot;,sans-serif;color: #f05a22;text-align: center;">Bienvenido a iWaNaTrip.com</h2><p style="font-style: normal;font-weight: 400;Margin-bottom: 24px;Margin-top: 16px;font-size: 15px;line-height: 24px;font-family: &quot;Open Sans&quot;,sans-serif;color: #60666d;text-align: center;">Gracias por registrarte y convertirte en nuestro aliado estratégico. Juntos daremos a conocer el potencial turístico del Ecuador a nivel mundial. {!! $intro . link_to('auth/confirm/' . $confirmation_code, $link) !!}</p>
+            <h2 style="font-style: normal;font-weight: 700;Margin-bottom: 0;Margin-top: 0;font-size: 24px;line-height: 32px;font-family: &quot;Open Sans&quot;,sans-serif;color: #f05a22;text-align: center;">Bienvenido a iWaNaTrip.com</h2><p style="font-style: normal;font-weight: 400;Margin-bottom: 24px;Margin-top: 16px;font-size: 15px;line-height: 24px;font-family: &quot;Open Sans&quot;,sans-serif;color: #60666d;text-align: center;">Gracias por registrarte y convertirte en nuestro aliado estratégico. Juntos daremos a conocer el potencial turístico del Ecuador a nivel mundial. {!! $intro . link_to('/confirm/' . $confirmation_code, $link) !!}</p>
           
                             </td>
                           </tr>

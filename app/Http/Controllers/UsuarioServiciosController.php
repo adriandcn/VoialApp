@@ -1111,7 +1111,6 @@ class UsuarioServiciosController extends Controller
         return ($view);
         }
     public function tablaServiciosRes(Guard $auth, ServiciosOperadorRepository $gestion, OperadorRepository $operador_gestion, catalogoServiciosRepository $catalogoRepo)
-
         {
         //
         $operador = $operador_gestion->getOperadorTipo($auth->user()->id, session('tip_oper'));
@@ -1123,7 +1122,7 @@ class UsuarioServiciosController extends Controller
         $campos = ['id_catalogo_servicios','nombre_servicio','nombre_servicio_eng','nivel'];
         $padresList = DB::table('catalogo_servicios')
                             ->select($campos)
-                            ->where('id_padre',0)
+                            ->where('nivel',1)
                             ->get();
         $catalogoServicios = $catalogoRepo->recursiveListForAcordion($padresList);
 
@@ -1159,7 +1158,9 @@ class UsuarioServiciosController extends Controller
     public function getImagesDescription1(Request $request, $tipo, $idtipo, ServiciosOperadorRepository $gestion)
         {
         $ImgPromociones = $gestion->getGenericImagePromocionesOperador($tipo, $idtipo);
-        $view = View::make('reusable.imageContainerDescriptionAjax1')->with('ImgPromociones', $ImgPromociones);
+        $view = View::make('reusable.imageContainerDescriptionAjax1')
+            ->with('serverDir', config('global.serverDir'))
+            ->with('ImgPromociones', $ImgPromociones);
         if ($request->ajax())
             {
             $sections = $view->rendersections();

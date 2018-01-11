@@ -29,6 +29,16 @@
           <div class="page-title__overlay box-skew box-skew-var-1"><span class="box-skew__item"></span>
             <div class="page-title-text">{{ trans('back/admin.saludo')}}, {!!session('user_name')!!}</div>
             <p class="big text-width-medium">{{ trans('back/admin.dashboardDescription')}}</p>
+            <!-- path sistema -->
+            <br>
+            <hr>
+            <div>
+              <span class="box-skew__item"></span>
+              <ul class="breadcrumbs-custom">
+                <li><a href="{{asset('/')}}">{{ trans('publico/labels.lblHome')}}</a></li>
+                <li>{{ trans('publico/labels.lblPathMyServices')}}</li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
@@ -89,6 +99,14 @@
                     <div class="panel-custom-collapse collapse" id="accordion1Collapse{{$servicio->id_catalogo_servicios}}" role="tabpanel" aria-labelledby="accordion1Heading{{$servicio->id_catalogo_servicios}}">
                       <div class="panel-custom-body">
                           <div class="row">
+                            @if($servicio->showMesage == true)
+                            <div class="col-md-12" style="margin-bottom: 20px;">
+                              <div class="alert alert-info" role="alert">
+                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                {{$servicio->mensaje}}
+                              </div>
+                            </div>
+                            @endif
                             @foreach($servicio->children as $servChild)
                             <div class="col-sm-4" style="    margin-bottom: 10px;">
                               <button class="button-primary button" type="button" onclick="setIdCatalogo('{{$servChild->id_catalogo_servicios}}')" data-toggle="modal" data-target="#form-modal-add-trip">

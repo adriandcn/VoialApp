@@ -75,6 +75,7 @@ class SearchController extends Controller
             {
                 $despliegue = $gestion->paginateSearch($busquedaTotal,6);
             }
+            // return response()->json(['data' => $despliegue]);
             return View('site.blades.search', compact(
                 'despliegue'
             ));

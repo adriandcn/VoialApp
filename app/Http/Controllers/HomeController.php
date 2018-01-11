@@ -6,7 +6,7 @@ use Illuminate\Contracts\Auth\Guard;
 use App\Jobs\ChangeLocale;
 use Jenssegers\Agent\Agent;
 use Illuminate\Support\Facades\Session;
-use Lang,App,Language;
+use Lang,App,Language,DB;
 
 class HomeController extends Controller {
 
@@ -68,5 +68,28 @@ class HomeController extends Controller {
             $view = view('responsive.completeRegister');
         }
         return $view;
+    }
+
+    
+     public function getConfirm($confirmation_code) {
+
+        $user = DB::table('users')->where('confirmation_code',$confirmation_code)->get();
+        if (count($user) > 0) {
+
+            $user = DB::table('users')
+
+            ->where('confirmation_code',$confirmation_code)
+
+            ->where('confirmed',false)
+
+            ->update(['confirmation_code' => '','confirmed'=> true]);
+
+            return redirect('/')->with('okConfirm', trans('front/verify.okConfirmation'));
+
+        }else{
+
+            return redirect('/');
+
+        }
     }
 }

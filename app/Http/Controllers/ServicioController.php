@@ -728,10 +728,28 @@ class ServicioController extends Controller {
 
     }
     
-    public function postUsuarioServiciosMini1(Request $request, OperadorRepository $usuarioSevicio_gestion, ServiciosOperadorRepository $gestion, redesSocialesRepository $redesSociales) {
+    public function postUsuarioServiciosMini1(Request $request, OperadorRepository $usuarioSevicio_gestion, ServiciosOperadorRepository $gestion, redesSocialesRepository $redesSociales,PublicServiceRepository $gestion_search) {
+
+        $limit_services = DB::table('users')
+                            ->where('id',session('user_id'))
+                            ->select('limit_services')
+                            ->first();
+        $count_services = DB::table('usuario_servicios')
+                            ->where('id_usuario_operador',session('operador_id'))
+                            ->select('id')
+                            ->get();
+        if (count($count_services) >= $limit_services->limit_services) {
+            return response()->json(['limitServices' => true, 'limit' => $limit_services->limit_services]);
+        }
 
         $inputData = Input::get('formData');
         parse_str($inputData, $formFields);
+
+        //Verificar si existe servicio
+        $exist_servicios = $gestion_search->getSearchTotal($formFields['nombre_servicio']);
+        if (count($exist_servicios) > 0) {
+            return response()->json(['serviceExist' => true]);
+        }
 
         $operadorData = array(
             'nombre_servicio' => $formFields['nombre_servicio'],
@@ -1200,25 +1218,33 @@ public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $aut
     public function getServiciosByChildcatalogo($idCatalogo,$idSubCatalogo,catalogoServiciosRepository $catalogoServicios) {
         $campos = ['id_catalogo_servicios','nombre_servicio','nombre_servicio_eng'];
         $campos_serv = ['usuario_servicios.id','nombre_servicio','detalle_servicio','images.filename'];
+        $dataCatalogo = DB::table('catalogo_servicios')
+                            ->select($campos)
+                            ->where('id_catalogo_servicios',$idCatalogo)
+                            ->first();
+        $dataSubCatalogo = DB::table('catalogo_servicios')
+                            ->select($campos)
+                            ->where('id_catalogo_servicios',$idSubCatalogo)
+                            ->first();
         $padresList = DB::table('catalogo_servicios')
                             ->select($campos)
                             ->where('id_padre',$idSubCatalogo)
                             ->get();
         $findedServ = [];
-        $catalogoServicios =  $catalogoServicios->recursiveListInArray($padresList,null);
-        foreach ($catalogoServicios as $catalogo) {
+        // $catalogoServicios =  $catalogoServicios->recursiveListInArray($padresList,null);
+        // foreach ($catalogoServicios as $catalogo) {
             $qServ = DB::table('usuario_servicios')
                             ->join('images', 'usuario_servicios.id', '=', 'images.id_usuario_servicio')
                             ->select($campos_serv)
-                            ->where('id_catalogo_servicio',$catalogo->id_catalogo_servicios)
+                            ->where('id_catalogo_servicio',$idSubCatalogo)
                             ->where('images.profile_pic', '=', 1)
                             ->get();
             foreach ($qServ as $serv) {
                 array_push($findedServ, $serv);
             }
-        }
-        return view('site.blades.servicios-list-level-3', compact('findedServ','padresList'));
-        // return response()->json(array('success' => true, 'redirectto' => $padresList));
+        // }
+        return view('site.blades.servicios-list-level-3', compact('findedServ','padresList','dataCatalogo','dataSubCatalogo'));
+        // return response()->json(array('success' => true, 'redirectto' => $findedServ));
     }
 
     public function getServiciosByOperador($idOperador) {

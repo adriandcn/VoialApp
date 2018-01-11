@@ -30,7 +30,11 @@
                         {{ trans('publico/labels.lblRegister')}}
                       </a>
                       <a href="{!!asset('/language')!!}">
-                        {{ trans('publico/labels.lblLanguage')}}
+                        @if(session('locale') == 'es')
+                          <img src="{{asset('/siteStyle/images/english-flag.png')}}" alt=""/>
+                        @else
+                          <img src="{{asset('/siteStyle/images/espanol-flag.png')}}" alt=""/>
+                        @endif
                       </a>
                     @else
                       <a href="{!!asset('/createOperador')!!}" data-toggle="modal">
@@ -49,12 +53,12 @@
                     @if(session('statut') == 'user')
                       <li>
                         <a class="icon fa fa-tachometer text-white" href="{!!asset('/serviciosres')!!}"> 
-                          Dashboard
+                          {{ trans('publico/labels.lblDash')}}
                         </a>
                       </li>
                       <li>
                         <a class="icon fa fa-sign-out  text-white" href="{!!asset('/auth/logout')!!}">
-                          Salir
+                          {{ trans('publico/labels.lblLogOut')}}
                         </a>
                       </li>
                     @endif
@@ -78,12 +82,12 @@
                 <div class="rd-navbar-aside-right">
                   <div class="rd-navbar-nav-wrap">
                     <ul class="rd-navbar-nav">
-                      <li><a href="{{asset('/')}}">Home<span class="overlay-skew"></span></a>
+                      <li><a href="{{asset('/')}}">{{ trans('publico/labels.lblHome')}}<span class="overlay-skew"></span></a>
                       </li>
-                      <li><a href="">Contactos<span class="overlay-skew"></span></a>
+                      <li><a href="">{{ trans('publico/labels.lblContact')}}<span class="overlay-skew"></span></a>
                       </li>
                       @if(session('device') == 'mobile')
-                        <li class="active"><a href="#">Categorias<span class="overlay-skew"></span></a>
+                        <li class="active"><a href="#">{{ trans('publico/labels.lblCate')}}<span class="overlay-skew"></span></a>
                           <ul class="rd-navbar-megamenu">
                             @foreach($headerCategories as $category)
                             <li>
@@ -93,7 +97,7 @@
                               <ul class="rd-navbar-megamenu">
                                 @if(count($headerCategories) > 0)
                                   @foreach($category->child as $childCat)
-                                    <li><a href="{!!asset('/catalogoServ')!!}/{{$childCat->id_padre}}/{{$childCat->id_catalogo_servicios}}">{{$childCat->nombre_servicio}}<span class="overlay-skew"></span></a></li>
+                                    <li><a href="{!!asset('/catalogoServ')!!}{{$childCat->id_catalogo_servicios}}">{{$childCat->nombre_servicio}}<span class="overlay-skew"></span></a></li>
                                   @endforeach
                                 @endif
                               </ul>
@@ -102,7 +106,7 @@
                           </ul>
                         </li>
                       @else
-                        <li class="active"><a href="#">Categorias<span class="overlay-skew"></span></a>
+                        <li class="active"><a href="#">{{ trans('publico/labels.lblCate')}}<span class="overlay-skew"></span></a>
                           <ul class="rd-navbar-megamenu">
                             @foreach($headerCategories as $category)
                             <li>
@@ -112,7 +116,7 @@
                               <ul class="rd-megamenu-list">
                                 @if(count($headerCategories) > 0)
                                   @foreach($category->child as $childCat)
-                                    <li><a href="{!!asset('/catalogoServ')!!}/{{$childCat->id_padre}}/{{$childCat->id_catalogo_servicios}}">{{$childCat->nombre_servicio}}<span class="overlay-skew"></span></a></li>
+                                    <li><a href="{!!asset('/catalogoServ')!!}/{{$childCat->id_catalogo_servicios}}">{{$childCat->nombre_servicio}}<span class="overlay-skew"></span></a></li>
                                   @endforeach
                                 @endif
                               </ul>
@@ -128,7 +132,7 @@
             </div>
           </nav>
         </div>
-              <div class="modal modal-custom fade" id="form-modal-1" tabindex="-1" role="dialog">
+              <div class="modal fade" id="form-modal-1" tabindex="-1" role="dialog" style="z-index: 99999; background: #00000099;">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
@@ -136,7 +140,7 @@
                       <h5>{{ trans('publico/labels.lblLogIn')}}</h5>
                     </div>
                     <div class="modal-body">
-                      <form class="rd-mailform" id="formLogin" action="{{$serverDir}}/voialApp/public/auth/loginr" method="POST">
+                      <form class="rd-mailform" id="formLogin" action="{{$serverDir}}public/auth/loginr" method="POST">
                         <div class="form-wrap">
                           <label class="form-label-outside" for="log">
                             <i class="fa fa-user"></i>&nbsp;&nbsp;{{ trans('publico/labels.lblUser')}}
@@ -150,14 +154,23 @@
                         </div>
                         <div class="rowerror1"></div>
                         <div class="button-wrap text-right">
-                          <button class="button-primary button" type="submit">{{ trans('publico/labels.lblLogIn')}}<span></span></button>
+                          <button class="button-primary button" type="submit">
+                            <div style="display: inline;" id="spinnerLogin">
+                              <i class="fa fa-spinner fa-spin"></i>
+                            </div>
+                            {{ trans('publico/labels.lblLogIn')}}
+                            <span></span></button>
+                          <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-facebook" href="{{url('/redirect/L')}}" target="_blank">
+                            {{ trans('publico/labels.btnLogInFacebook')}}
+                            <span></span>
+                          </a>
                         </div>
                       </form>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="modal modal-custom fade" id="form-modal-2" tabindex="-1" role="dialog">
+              <div class="modal fade" id="form-modal-2" tabindex="-1" role="dialog" style="z-index: 99999; background: #00000099;">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
@@ -165,7 +178,7 @@
                       <h5>{{ trans('publico/labels.lblRegister')}}</h5>
                     </div>
                     <div class="modal-body">
-                      <form class="rd-mailform" id="formRegister" action="{{$serverDir}}/voialApp/public/auth/registerr">
+                      <form class="rd-mailform" id="formRegister" action="{{$serverDir}}public/auth/registerr">
                         <div class="form-wrap">
                           <label class="form-label-outside" for="login-name-4">{{ trans('publico/labels.lblName')}}</label>
                           <input class="form-input tooltip" id="login-name-4" type="text" name="name" data-constraints="@Required" title="Ingresa tu nombre Ej: Juan">
@@ -187,17 +200,35 @@
                           <input class="form-input tooltip" id="login-password-4" type="password" name="password" data-constraints="@Required" title="Ingresa tu contraseña, recuerda que debe ser mayor a 6 caracteres Ej: 123Abc18@XYZ">
                           <input class="form-input" id="system" type="hidden" name="system" value="VOILAPP">
                         </div>
-                        <div class="rowerror1"></div>
+                        <!-- <div class="rowerror1"></div>
                         <div class="button-wrap text-right">
-                          <button class="button-primary button" type="submit">{{ trans('publico/labels.lblRegister')}}<span></span></button>
-                        </div>
-                      </form>
+                          
+                        </div> -->
                     </div>
+                    <div class="modal-footer">
+                      <div class="col-md-6">
+                        <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-facebook" href="{{url('/redirect/R')}}" target="_blank">
+                            {{ trans('publico/labels.btnRegisterFacebook')}}
+                            <span></span>
+                        </a>
+                      </div>
+                      <div class="col-md-6">
+                        <button class="button-primary button" type="submit">
+                            <div style="display: inline;" id="spinnerRegister">
+                              <i class="fa fa-spinner fa-spin"></i>
+                            </div>
+                            {{ trans('publico/labels.lblRegister')}}
+                            <span></span>
+                        </button>
+                      </div>
+                    </div>
+                    </form>
                   </div>
                 </div>
               </div>
-      </header>
-      <script>
+</header>
+<input type="hidden" id="serverDir" value="{{$serverDir}}">
+<script>
       $(document).ready(function() {
         new jBox('Tooltip', {
           attach: '.tooltip',
@@ -205,4 +236,4 @@
           closeButton: true
         });
       });
-    </script>
+</script>

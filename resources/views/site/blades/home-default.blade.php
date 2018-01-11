@@ -32,12 +32,10 @@
             <div class="center" id="bike-wrapper">
               <div class="centerBike" id="bike"></div>
             </div>
-            <h1>Voilapp</h1>
+            <h1>{{trans('publico/labels.tittleLoaderDetails')}}</h1>
           </div>
         </div>
       </div>
-
-
       <!-- Page Header-->
       <!-- Modal-->
       @include('site.reusable.header')
@@ -196,7 +194,24 @@
       @if (session()->has('okConfirm'))
         <script type="text/javascript">
           $(document).ready(function () {
-            showAlert('Gracias!!','{{ session()->get("okConfirm") }}',null,'success','success');
+            var mesage = '{!! session()->get("okConfirm") !!}';
+            showAlert('Gracias!!',mesage,null,'success','success');
+          });
+        </script>
+      @endif
+      @if (session()->has('userNotFoundFacebook'))
+        <script type="text/javascript">
+          $(document).ready(function () {
+            var mesage = '{!! session()->get("userNotFoundFacebook") !!}';
+            showAlert('Error!!' + mesage,null,null,'warning','danger');
+          });
+        </script>
+      @endif
+      @if (session()->has('userRegisterOkFacebook'))
+        <script type="text/javascript">
+          $(document).ready(function () {
+            var mesage = '{!! session()->get("userRegisterOkFacebook") !!}';
+            showAlert('Correcto!!' + mesage,null,null,'success','success');
           });
         </script>
       @endif

@@ -1373,7 +1373,7 @@ input:-webkit-autofill ~ .form-validation {
   border-radius: 0;
   -webkit-appearance: none;
   transition: .3s ease-in-out;
-  border: 1px solid #f3f3f3;
+  border: 1px solid #ccc;
 }
 
 .form-input:focus {

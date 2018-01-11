@@ -35,7 +35,7 @@
                     @if($imagen->profile_pic==1)       
                     Imagen de perfil: <input type='radio' id='ch_{!!$imagen->id!!}' name='ch' checked="checked"  onchange="AjaxSaveDetailsFotografiaProfile('deleteImage','{!!$imagen->id!!}')" value= "{!!$imagen->profile_pic!!}"/>
                      @else
-                     Ver en miñatura: <input type='radio' id='ch_{!!$imagen->id!!}' name='ch' onchange="AjaxSaveDetailsFotografiaProfile('deleteImage','{!!$imagen->id!!}')" value= "{!!$imagen->profile_pic!!}"/>
+                     Imagen de perfil: <input type='radio' id='ch_{!!$imagen->id!!}' name='ch' onchange="AjaxSaveDetailsFotografiaProfile('deleteImage','{!!$imagen->id!!}')" value= "{!!$imagen->profile_pic!!}"/>
                      @endif
                 </div>
                 @endforeach 

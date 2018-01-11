@@ -24,7 +24,7 @@ return [
     'noResult' => 'Ups!! No se han encontrado resultados',
     'servTypes' => 'Tipos de establecimientos',
     //Detalles de Servicio
-    'tittleLoaderDetails' => 'Cargando detalles ...',
+    'tittleLoaderDetails' => 'Cargando ...',
     'saludoDetails' => 'Bienvenido a',
     'destriptionDetails' => 'A continuacion se detallan aspectos más importantes del servicio ',
     'lblUbicacion' => 'Ubicación',
@@ -49,5 +49,23 @@ return [
     'titleResults' => 'Resultados',
     //Categorias Page
     'categoDescription' => 'En esta seccion usted puede visualizar los servicios disponibles para la categoria',
-    'tittleLoaderCategoSons' => 'Cargando subcategorias ...',
+    'tittleLoaderCategoSons' => 'Cargando ...',
+    'lblDash' => 'Dashboard',
+    'lblLogOut' => 'Salir',
+    //Menu superior
+    'lblHome' => 'Inicio',
+    'lblCate' => 'Categorías',
+    'lblContact' => 'Contactos',
+    //path lbls
+    'lblPathCreateOperador' => 'Datos de operador',
+    'lblPathMyServices' => 'Mis Servicios',
+    'lblPathDetailService' => 'Detalles de servicio',
+    'lblPathEditServ' => 'Edición de servicio',
+    'lblPathSearch' => 'Resultado de búsqueda',
+    'lblPathServicioList' => 'Catálogo de servicio',
+    'alertFacebookLogIn' => 'No se ha encontrado ningun usuario con el correo: :email',
+    'alertFacebookRegister' => 'Cuenta creada correctamente \nUsuario: :username, \nContraseña: :passwdr',
+    'btnLogInFacebook' => 'Ingresar con Facebook',
+    'latestCreated' => 'Últimos servicios creados',
+    'btnRegisterFacebook' => 'Registrarse con Facebook'
 ];

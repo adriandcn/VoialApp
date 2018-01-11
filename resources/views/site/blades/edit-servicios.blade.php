@@ -29,6 +29,17 @@
           <div class="page-title__overlay box-skew box-skew-var-1"><span class="box-skew__item"></span>
             <div class="page-title-text">{{ trans('back/admin.saludo')}}, {!!session('user_name')!!}</div>
             <p class="big text-width-medium">{{ trans('back/admin.dashboardDescription')}}</p>
+            <!-- path sistema -->
+            <br>
+            <hr>
+            <div>
+              <span class="box-skew__item"></span>
+              <ul class="breadcrumbs-custom">
+                <li><a href="{{asset('/')}}">{{ trans('publico/labels.lblHome')}}</a></li>
+                <li><a href="{{asset('/serviciosres')}}">{{ trans('publico/labels.lblPathMyServices')}}</a></li>
+                <li>{{ trans('publico/labels.lblPathEditServ')}}</li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
@@ -219,7 +230,8 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                       <div class="cell-sm-6">
                           <div class="form-wrap">
                           <label class="form-label-outside" for="contact-first-name"><i class="fa fa-phone"></i>&nbsp;&nbsp;{{ trans('back/admin.lblTelefonoServ')}}</label>
-                          <input type="text" name="telefono" value="{!!$usuarioServicio->telefono!!}" class="form-input tooltip" placeholder="{{ trans('back/admin.altTelefonoServ')}}">
+                          <input type="text tooltip" name="telefono" value="{!!$usuarioServicio->telefono!!}" class="form-input tooltip" title="{{ trans('back/admin.altTelefonoServ')}}" placeholder="{{ trans('back/admin.placeHolderPhoneEdit')}}">
+                          <input type="hidden" name="flag_image" id="flag_image">
                           </div>
                       </div>
                       <div class="cell-sm-6">
@@ -323,7 +335,7 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                       <div class="cell-sm-6">
                         <div class="form-inline form-inline-custom">
                           <div class="form-wrap">
-                            <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-floppy-o" onclick="UpdateServicioInfo1('form-update-serv', 'optional');" href="">{{ trans('back/admin.lblBtnSave')}}<span></span></a>
+                            <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-floppy-o" onclick="UpdateServicioInfo1('form-update-serv', 'optional',true);" href="">{{ trans('back/admin.lblBtnSave')}}<span></span></a>
                           </div>
                         </div>
                       </div>
@@ -335,15 +347,15 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
         </div>
       </section>
       <!-- Modal FOTOGRAFIA-->
-      <div class="modal modal-custom fade" id="foto" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document" style="width: 80%;">
+      <div class="modal fade" id="foto" tabindex="-1" role="dialog" style="z-index: 99999; background: #00000099;">
+        <div class="modal-dialog" role="document" >
           <div class="modal-content">
               <div id="testboxForm" class="foto">
                         <div class="modal-header">
               <h3 class="modal-title" id="exampleModalLabel">{{trans('front/responsive.agregarfoto')}}</h3>
-              <!--<button type="button" class="close" data-dismiss="modal" aria-label="{{trans('front/responsive.cerrar')}}">
+              <button type="button" class="close" data-dismiss="modal" aria-label="{{trans('front/responsive.cerrar')}}">
                 <span aria-hidden="true">&times;</span>
-              </button>-->
+              </button>
             </div>
             <div class="modal-body">
               <h4 style="text-align: center;color:#428bca;">{{trans('back/admin.descriptionAddImageModal')}}
@@ -367,10 +379,11 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
             </div>
             {!! Form::close() !!}       
             <div class="modal-footer">
-                <button type="button" id="nextbtn" class="btn button-primary" data-dismiss="modal" >{{trans('front/responsive.finalizar')}}</button>
+                <!-- <button type="button" id="nextbtn" class="btn button-primary" data-dismiss="modal" >{{trans('front/responsive.finalizar')}}</button> -->
                 <!--<button type="button" id="nextbtn" class="btn btn-secondary" data-dismiss="modal"
                         onclick="GetDataAjaxImagenesRes('{!!$usuarioServicio->id!!}');" >{{trans('front/responsive.finalizar')}}</button>-->
                <!--<a class="btn btn-secondary" id="nextbtn"  href="#">Finalizar</a> -->
+               <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-check" href="" data-dismiss="modal" id="nextbtn">{{trans('front/responsive.finalizar')}}<span></span></a>
             </div>
               </div>
           </div>
@@ -388,16 +401,16 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                       ['id' => '6' , 'nombre' => 'Domingo']
                     ]
       ?>
-      <div class="modal modal-custom fade" id="form-modal-horario" tabindex="-1" role="dialog">
-          @if(session('device') == 'desk')
-          <div class="modal-dialog" role="document" style="width: 80%; margin-top: 8%">
-          @else
-          <div class="modal-dialog" role="document" style="width: 80%; margin-top: 20%">
-          @endif
+      <div class="modal fade" id="form-modal-horario" tabindex="-1" role="dialog" style="z-index: 99999; background: #00000099;">
+
+          <div class="modal-dialog" role="document">
             <div class="modal-content">
               <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
               <div class="modal-header">
-                <h5>Seleciona los dias y el horario de atención de tu servicio</h5>
+                <h5>{{trans('back/admin.lblHorarioInput')}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="{{trans('front/responsive.cerrar')}}">
+                  <span aria-hidden="true">&times;</span>
+                </button>
               </div>
               <div class="modal-body">
                 <form class="rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="bat/rd-mailform.php">
@@ -408,9 +421,9 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                         <label class="form-label-outside" for="contact-first-name-2" style="color: #c26933ba;">{{$dia['nombre']}}</label>
                         <span class="badge" style="background-color: transparent;"><input type="checkbox" name="my-checkbox" id="{{$dia['id']}}" data-size="mini" data-on-color="success" data-on-text="Si" data-off-text="No" class="checkboxDays"></span><br>
                         <div style="color: #2f6890;">Desde:</div>
-                        <input class="form-input" id="from_time{{$dia['id']}}" type="time" name="name" disabled>
+                        <input class="form-input" id="from_time{{$dia['id']}}" type="time" step="900" disabled>
                         <div style="color: #2f6890;">Hasta:</div>
-                        <input class="form-input" id="to_time{{$dia['id']}}" type="time" name="name" disabled>
+                        <input class="form-input" id="to_time{{$dia['id']}}" type="time" step="900" disabled>
                       </div>
                     </div>
                     @endforeach 
@@ -418,10 +431,18 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                 </form>
               </div>
               <div class="modal-footer">
-                  <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-floppy-o" style="float: right;" href="#" onclick="saveHorario({{$usuarioServicio->id}})">
-                      Guardar
+                <div class="col-md-6">
+                  <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-close" href="#" data-dismiss="modal">
+                      {{trans('front/responsive.cerrar')}}
                       <span></span>
                   </a>
+                </div>
+                <div class="col-md-6">
+                  <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-floppy-o" href="#" onclick="saveHorario({{$usuarioServicio->id}})">
+                      {{trans('back/admin.lblBtnSave')}}
+                      <span></span>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -446,9 +467,21 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
     </script>
       <script type="text/javascript">
         $(document).ready(function () {
+
+           $("#form-update-serv").on("focusout", "input", function(e){
+              if ( e.type == "focusout" ) {
+                  UpdateServicioInfo1('form-update-serv', 'optional',false);
+              }
+          });
+
+          $("#form-update-serv").on("focusout", "textarea", function(e){
+              if ( e.type == "focusout" ) {
+                  UpdateServicioInfo1('form-update-serv', 'optional',false);
+              }
+          });
+
           $("#nextbtn").click(function() {
             $("#flag_image").val('1');
-            
           });
           GetDataAjaxImagenesRes("{!!asset('/imagenesAjaxDescription1')!!}/1/{!!$usuarioServicio->id!!}");
           var check = $("#estado_servicio_usuario").val();

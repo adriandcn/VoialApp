@@ -1,3 +1,5 @@
+var dirServer = $('#serverDir').val();
+
 var showAlert = function(title,text,redirect,type,typebtn){
 	swal({
         title: title,
@@ -10,7 +12,7 @@ var showAlert = function(title,text,redirect,type,typebtn){
       },
       function(){
       	if (redirect != null) {
-          var url = 'http://' + window.location.hostname + "/voialApp/public/"+ redirect;
+          var url = dirServer + "public/"+ redirect;
       		window.location.href = url;
       	}
       });

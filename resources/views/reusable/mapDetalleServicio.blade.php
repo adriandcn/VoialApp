@@ -79,6 +79,8 @@
         google.maps.event.trigger(map, "resize");
     }
 
+    initMap();
+    
     function openMap(){
         event.preventDefault();
         var url = 'https://www.google.com/maps/search/?api=1&query=' + latitud + ',' + longitud

@@ -3,34 +3,8 @@
           <div class="shell">
             <div class="range range-30 range-around box-border-md-right">
               <div class="cell-md-4 cell-sm-5 cell-xs-10 wow fadeInUp" data-wow-delay=".2s">
-                <h4>Post Recientes</h4>
-                      <div class="post-mini post-footer">
-                        <div class="unit unit-horizontal unit-spacing-xs">
-                          <div class="unit__left"><a href="#"><img src="{{asset('/siteStyle/images/user-01-70x70.jpg')}}" alt="" width="70" height="70"/></a></div>
-                          <div class="unit__body">
-                            <time datetime="2017-08-25">August 25, 2017</time>
-                            <p><a href="single-post.html">Post 1</a></p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="post-mini post-footer">
-                        <div class="unit unit-horizontal unit-spacing-xs">
-                          <div class="unit__left"><a href="#"><img src="{{asset('/siteStyle/images/user-02-70x70.jpg')}}" alt="" width="70" height="70"/></a></div>
-                          <div class="unit__body">
-                            <time datetime="2017-08-20">August 20, 2017</time>
-                            <p><a href="single-post.html">Post 2</a></p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="post-mini post-footer">
-                        <div class="unit unit-horizontal unit-spacing-xs">
-                          <div class="unit__left"><a href="#"><img src="{{asset('/siteStyle/images/user-03-70x70.jpg')}}" alt="" width="70" height="70"/></a></div>
-                          <div class="unit__body">
-                            <time datetime="2017-08-15">August 15, 2017</time>
-                            <p><a href="single-post.html">Post 3</a></p>
-                          </div>
-                        </div>
-                      </div>
+                <h4>{{trans('publico/labels.latestCreated')}}</h4>
+                      <div id="lastServicesCreated"></div>
               </div>
               <div class="cell-md-4 cell-sm-5 cell-xs-10 wow fadeInUp" data-wow-delay=".3s">
                 <h4>Tags</h4>
@@ -126,10 +100,13 @@
           $("#spinnerSave").hide();
           $("#spinnerSaveTrip").hide();
           $("#spinnerSaveHotel").hide();
+          $('#spinnerLogin').hide();
+          $('#spinnerRegister').hide();
           $.ajaxSetup({
               headers: {'X-CSRF-Token': $('meta[name=_token]').attr('content')}
           });
           $("#formLogin").submit(function (event) {
+              $('#spinnerLogin').show();
               event.preventDefault();
               var $form = $(this),
                   data = $form.serialize(),
@@ -150,10 +127,12 @@
                                 showAlert('Email no verificado!','verifica tu cuenta para poder continuar',null,'info','info');
                               }
                             }
+                            $('#spinnerLogin').hide();
                         }
                     });
           });
           $("#formRegister").submit(function (event) {
+              $('#spinnerRegister').show();
               event.preventDefault();
               var $form = $(this),
                   data = $form.serialize(),
@@ -175,7 +154,17 @@
                       $('.rowerror1').html("@include('partials/error', ['type' => 'danger','message'=>'Success'])");
                       showAlert('Registro correcto!','ya puedes utilizar tu cuenta',data.redirectto,'success','success');
                   }
+                  $('#spinnerRegister').hide();
               }); 
           });
 
+      </script>
+
+      <script type="text/javascript">
+        $(document).ready(function () {
+          getLastServicesCreated();
+          setInterval(function(){
+            getLastServicesCreated();
+          },10000)
+        });
       </script>

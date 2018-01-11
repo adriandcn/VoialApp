@@ -2,7 +2,7 @@
 
 return [
     //Dasboard
-    'tittlePage' => 'Administration',
+    'tittlePage' => 'Loading ...',
     'saludo' => 'Hi',
     'dashboardDescription' => 'From the My Account control panel you have the ability to view a snapshot of your recent account activity and update your account information. Select a link to view or edit information.',
     'lblMyServices' => 'Your Services created.',
@@ -15,7 +15,7 @@ return [
     'btnSiguiente' => 'Next',
     'altNombre' => 'Enter the name with which you will identify your service',
     'altDescription' => 'Enter a short description that captures the reader`s attention',
-    'loaderPageServicios' => 'Edit / Create Services',
+    'loaderPageServicios' => 'Loading ...',
     //formulario de registro de servicios
     'lblEvents' => 'Promotions and Events',
     'lblAddImage' => 'Add images to the service',
@@ -41,7 +41,8 @@ return [
     'tittleHorario' => 'Schedule attention',
     'btnAddHorario' => 'Enter Timetable',
     'lblTelefonoServ' => 'Phone',
-    'altTelefonoServ' => 'Telephone Service "title =" The tourist can communicate directly with you if you wish',
+    'altTelefonoServ' => 'The tourist can communicate directly with you if you wish',
+    'placeHolderPhoneEdit' => 'Service phone',
     'lblEmailServ' => 'Contact email',
     'altEmailServ' => 'It is always good to have an email in which you can ask for more information about your service',
     'placeHolderEmailServ' => 'Contact email',
@@ -63,8 +64,9 @@ return [
     'lblBtnSave' => 'Save',
     'lblBtnBack' => 'Back',
     'descriptionAddImageModal' => 'Drag or click here to add images (Format: jpg, size max: 6Mb)',
+    'lblHorarioInput' => 'Select the days and hours of service for your service',
     //Form Create operador
-    'lblLoaderCreateOperador' => 'Create / Edit Operator',
+    'lblLoaderCreateOperador' => 'Loading ...',
     'titleResposableInfo' => 'Information of those responsible',
     'lblFullNamePerson1' => 'Full names responsible 1',
     'placeHolderFullNamePerson1' => 'Nahuel Jaguar',
@@ -86,4 +88,5 @@ return [
     'altDirEmpresa' => 'Enter the address of your company',
     'titleOperadorHeaderPage' => 'Operator data',
     'altPage' => 'Dasboard',
+    'lblBtnCancel' => 'Cancel',
 ];

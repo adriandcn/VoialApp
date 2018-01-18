@@ -15774,7 +15774,7 @@ html.rd-navbar-fixed-linked .page {
   max-width: 100%;
   padding-left: 15px;
   padding-right: 15px;
-  background: #c26933;
+  background: #162849;
 }
 
 @media (min-width: 1400px) {
@@ -15823,7 +15823,7 @@ html.rd-navbar-fixed-linked .page {
 .rd-navbar-default .rd-navbar-static.rd-navbar--is-stuck .rd-navbar-inner, .rd-navbar-default .rd-navbar-static.rd-navbar--is-clone .rd-navbar-inner,
 .rd-navbar-default .rd-navbar-fullwidth.rd-navbar--is-stuck .rd-navbar-inner,
 .rd-navbar-default .rd-navbar-fullwidth.rd-navbar--is-clone .rd-navbar-inner {
-  background: #c26933;
+  background: #162849;
 }
 
 .rd-navbar-default .rd-navbar-static .rd-navbar-search .rd-navbar-search-toggle,

@@ -106,6 +106,8 @@
               headers: {'X-CSRF-Token': $('meta[name=_token]').attr('content')}
           });
           $("#formLogin").submit(function (event) {
+              $('.rowerrorRegister').hide();
+              $('.rowerrorRegister').html('');
               $('#spinnerLogin').show();
               event.preventDefault();
               var $form = $(this),
@@ -133,6 +135,7 @@
           });
           $("#formRegister").submit(function (event) {
               $('#spinnerRegister').show();
+              $('.rowerrorRegister').html('');
               event.preventDefault();
               var $form = $(this),
                   data = $form.serialize(),
@@ -145,13 +148,13 @@
                           errorString += '<li>' + value + '</li><br>';
                       });
                       errorString += '</ul>';
-                      $('.rowerror1').html("@include('partials/error', ['type' => 'danger','message'=>'" + errorString + "'])");
+                      $('.rowerrorRegister').html("@include('partials/error', ['type' => 'danger','message'=>'" + errorString + "'])");
                   }
                   if (data.success) {
-                      $('.rowerror1').hide();
+                      $('.rowerrorRegister').hide();
                       $('.register').fadeOut(); //hiding Reg form
                       var successContent = '' + data.message + '';
-                      $('.rowerror1').html("@include('partials/error', ['type' => 'danger','message'=>'Success'])");
+                      $('.rowerrorRegister').html("@include('partials/error', ['type' => 'danger','message'=>'Success'])");
                       showAlert('Registro correcto!','ya puedes utilizar tu cuenta',data.redirectto,'success','success');
                   }
                   $('#spinnerRegister').hide();
@@ -162,9 +165,9 @@
 
       <script type="text/javascript">
         $(document).ready(function () {
-          getLastServicesCreated();
-          setInterval(function(){
+          // getLastServicesCreated();
+          // setInterval(function(){
             getLastServicesCreated();
-          },10000)
+          // },10000)
         });
       </script>

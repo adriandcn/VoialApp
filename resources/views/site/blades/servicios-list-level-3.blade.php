@@ -132,8 +132,8 @@
                         <ul class="list-group">
                           @foreach($padresList as $item)
                           <li class="list-group-item">
-                            <span class="badge" style="background-color: transparent;"><input type="checkbox" name="my-checkbox" id="{{$item->id_catalogo_servicios}}" data-size="mini" data-on-color="success" data-on-text="Si" data-off-text="No" class="checkboxServ"></span>
-                          {{$item->nombre_servicio}}
+                            <span class="badge" style="background-color: transparent;"><input type="checkbox" name="my-checkbox" id="{{$item->id}}" data-size="mini" data-on-color="success" data-on-text="Si" data-off-text="No" class="checkboxServ"></span>
+                          {{$item->nombre_servicio_est}}
                           </li>
                           @endforeach 
                         </ul>

@@ -825,14 +825,14 @@ public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $aut
         //***********************************************************************//        
         $promociones = $gestion->getPromocionesUsuarioServicio($id);
         $eventos = $gestion->getEventosUsuarioServicio($id);
-        
+        // return response()->json(['data' => $id]);
         $calendarios = DB::table('booking_abcalendar_calendars')->where('id_usuario_servicio', '=', $usuarioServicio[0]['id'] )->get();
         
         //$calendarios1 = DB::table('booking_abcalendar_calendars')->where('id_usuario_servicio', '=', '57' )->get();
         
         //$contadorCalendario = DB::select('SELECT COUNT(id_usuario_servicio) AS contador FROM booking_abcalendar_calendars WHERE id_usuario_servicio ='.$usuarioServicio[0]['id'])->get();
         //$contadorCalendario = DB::table('booking_abcalendar_calendars')->where('id_usuario_servicio', '=', $usuarioServicio[0]['id'] )->count();
-        
+        // return response()->json(['d' => $catalogoServicioEstablecimiento]);
         if($calendarios != Array()){
         //if($contadorCalendario[0]->contador != ""){ 
             
@@ -1199,7 +1199,7 @@ public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $aut
     } 
 
     public function getServiciosByCatalogo($idCatalogo,catalogoServiciosRepository $catalogoServicios) {
-        $campos = ['id_catalogo_servicios','nombre_servicio','nombre_servicio_eng'];
+        $campos = ['id_catalogo_servicios','nombre_servicio','nombre_servicio_eng','descripcion'];
         $campos_serv = ['id','nombre_servicio','detalle_servicio'];
         $dataCatalogo = DB::table('catalogo_servicios')
                             ->select($campos)
@@ -1226,9 +1226,9 @@ public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $aut
                             ->select($campos)
                             ->where('id_catalogo_servicios',$idSubCatalogo)
                             ->first();
-        $padresList = DB::table('catalogo_servicios')
-                            ->select($campos)
-                            ->where('id_padre',$idSubCatalogo)
+        $padresList = DB::table('catalogo_servicio_establecimiento')
+                            ->select('nombre_servicio_est','id')
+                            ->where('id_catalogo_servicio',$idCatalogo)
                             ->get();
         $findedServ = [];
         // $catalogoServicios =  $catalogoServicios->recursiveListInArray($padresList,null);
@@ -1244,7 +1244,7 @@ public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $aut
             }
         // }
         return view('site.blades.servicios-list-level-3', compact('findedServ','padresList','dataCatalogo','dataSubCatalogo'));
-        // return response()->json(array('success' => true, 'redirectto' => $findedServ));
+        // return response()->json(array('success' => true, 'redirectto' => $padresList));
     }
 
     public function getServiciosByOperador($idOperador) {
@@ -1263,34 +1263,34 @@ public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $aut
     }
 
     public function cleanFilterServicios($catalogo,$idSubCatalogo, catalogoServiciosRepository $catalogoServicios){
-        $campos = ['id_catalogo_servicios','nombre_servicio','nombre_servicio_eng'];
+        // $campos = ['id_catalogo_servicios','nombre_servicio','nombre_servicio_eng'];
         $campos_serv = ['usuario_servicios.id','nombre_servicio','detalle_servicio','images.filename'];
-        $padresList = DB::table('catalogo_servicios')
-                            ->select($campos)
-                            ->where('id_padre',$idSubCatalogo)
-                            ->get();
-        $findedServ = [];
-        $catalogoServicios =  $catalogoServicios->recursiveListInArray($padresList,null);
-        foreach ($catalogoServicios as $catalogo) {
+        // $padresList = DB::table('catalogo_servicios')
+        //                     ->select($campos)
+        //                     ->where('id_padre',$idSubCatalogo)
+        //                     ->get();
+        // $findedServ = [];
+        // $catalogoServicios =  $catalogoServicios->recursiveListInArray($padresList,null);
+        // foreach ($catalogoServicios as $catalogo) {
             $qServ = DB::table('usuario_servicios')
                             ->join('images', 'usuario_servicios.id', '=', 'images.id_usuario_servicio')
                             ->select($campos_serv)
-                            ->where('id_catalogo_servicio',$catalogo->id_catalogo_servicios)
+                            ->where('id_catalogo_servicio',$idSubCatalogo)
                             ->where('images.profile_pic', '=', 1)
                             ->get();
-            foreach ($qServ as $serv) {
-                array_push($findedServ, $serv);
-            }
-        }
-        return $findedServ;
+        //     foreach ($qServ as $serv) {
+        //         array_push($findedServ, $serv);
+        //     }
+        // }
+        return $qServ;
     }
     public function applyServicesFilter(Request $request,catalogoServiciosRepository $catalogoServicios){
-        $campos = ['id_catalogo_servicios','nombre_servicio','nombre_servicio_eng'];
+        // $campos = ['id_usuario_servicio', 'id_servicio_est'];
         // $campos_serv = ['id','nombre_servicio','detalle_servicio'];
-        $padresList = DB::table('catalogo_servicios')
-                            ->select($campos)
-                            ->where('id_padre',$request->idSubCatalogo)
-                            ->get();
+        // $padresList = DB::table('servicio_establecimiento_usuario')
+        //                     ->select($campos)
+        //                     ->where('id_padre',$request->idSubCatalogo)
+        //                     ->get();
         // $findedServ = [];
         // $catalogoServicios =  $catalogoServicios->recursiveListInArray($padresList,null);
         if ($request->has('filter')) {

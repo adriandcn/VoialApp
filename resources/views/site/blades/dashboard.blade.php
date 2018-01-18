@@ -61,7 +61,7 @@
                           background-repeat: no-repeat;">
                       <div class="post-masonry-content">
                           <h4>
-                            <a class="text-white" href="" onclick="AjaxContainerEdicionServicios({!!$servicio->id!!}, {!!$servicio->id_catalogo_servicios!!});"> 
+                            <a class="text-white" href="" onclick="AjaxContainerEdicionServicios(event,{!!$servicio->id!!}, {!!$servicio->id_catalogo_servicios!!});"> 
                               {{ $servicio->nombre_servicio }}
                             </a>
                           </h4>
@@ -69,7 +69,7 @@
                           {{str_limit($servicio->detalle_servicio, $limit = 500, $end = '...')}}
                           </div>
                       </div>
-                      <a class="link-position link-primary-sec-2 link-right post-link" href="" onclick="AjaxContainerEdicionServicios({!!$servicio->id!!}, {!!$servicio->id_catalogo_servicios!!});"><i class="fa fa-edit" style="color: white"></i></a>
+                      <a class="link-position link-primary-sec-2 link-right post-link" href="" onclick="AjaxContainerEdicionServicios(event,{!!$servicio->id!!}, {!!$servicio->id_catalogo_servicios!!});"><i class="fa fa-edit" style="color: white"></i></a>
                   </div>
               </div>
               @endforeach
@@ -148,7 +148,7 @@
               <br>
               <div class="rowErrorServStep1"></div>
               <div class="button-wrap text-right">
-                <button class="button-primary button" type="button" onclick="AjaxContainerRegistroWithLoad1('form-add-trip','trip')">
+                <button class="button-primary button" type="button" onclick="AjaxContainerRegistroWithLoad1(event,'form-add-trip','trip')">
                   <div style="display: inline;" id="spinnerSaveTrip"><i class="fa fa-spinner fa-spin"></i></div>
                   {{trans('back/admin.btnSiguiente')}}<span></span>
                 </button>

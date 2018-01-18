@@ -438,7 +438,7 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                   </a>
                 </div>
                 <div class="col-md-6">
-                  <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-floppy-o" href="#" onclick="saveHorario({{$usuarioServicio->id}})">
+                  <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-floppy-o" href="#" onclick="saveHorario(event,{{$usuarioServicio->id}})">
                       {{trans('back/admin.lblBtnSave')}}
                       <span></span>
                   </a>

@@ -152,7 +152,7 @@
                             <i class="fa fa-key"></i>&nbsp;&nbsp;{{ trans('publico/labels.lblPass')}}</label>
                           <input class="form-input" id="pass" type="password" name="password" data-constraints="@Required">
                         </div>
-                        <div class="rowerror1"></div>
+                        <div class="rowerrorLogin"></div>
                         <div class="button-wrap text-right">
                           <button class="button-primary button" type="submit">
                             <div style="display: inline;" id="spinnerLogin">
@@ -200,10 +200,10 @@
                           <input class="form-input tooltip" id="login-password-4" type="password" name="password" data-constraints="@Required" title="Ingresa tu contraseña, recuerda que debe ser mayor a 6 caracteres Ej: 123Abc18@XYZ">
                           <input class="form-input" id="system" type="hidden" name="system" value="VOILAPP">
                         </div>
-                        <!-- <div class="rowerror1"></div>
+                        <div class="rowerrorRegister"></div>
                         <div class="button-wrap text-right">
                           
-                        </div> -->
+                        </div>
                     </div>
                     <div class="modal-footer">
                       <div class="col-md-6">

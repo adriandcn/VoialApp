@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\User, App\Models\Role ,DB;
 use App\Models\Usuario_Servicio;
+use App\Models\Servicio_Establecimiento_Usuario;
 
 class catalogoServiciosRepository extends BaseRepository
 {
@@ -135,9 +136,20 @@ class catalogoServiciosRepository extends BaseRepository
 	{	
 		$usuario_Servicio = new Usuario_Servicio();
 		$campos_serv = ['usuario_servicios.id','nombre_servicio','detalle_servicio','images.filename'];
+		// $finded = $usuario_Servicio->join('images', 'usuario_servicios.id', '=', 'images.id_usuario_servicio')
+		// 	->where('images.profile_pic', '=', 1)
+		// 	->whereIn('id_catalogo_servicio', $array)->get();
+		$servicio_establecimiento_usuario = new Servicio_Establecimiento_Usuario();
+		$findedEstablesimientos = $servicio_establecimiento_usuario
+			->select('id_usuario_servicio')
+			->whereIn('id_servicio_est', $array)->get();
+		$arrayEstServ = [];
+		foreach ($findedEstablesimientos as $value) {
+			array_push($arrayEstServ, $value->id_usuario_servicio);
+		}
 		$finded = $usuario_Servicio->join('images', 'usuario_servicios.id', '=', 'images.id_usuario_servicio')
 			->where('images.profile_pic', '=', 1)
-			->whereIn('id_catalogo_servicio', $array)->get();
+			->whereIn('usuario_servicios.id', $arrayEstServ)->get();
 		return $finded;
 	}
 

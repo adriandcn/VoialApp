@@ -353,11 +353,13 @@ class OperadorRepository extends BaseRepository
 	public function getCatalogoServicioEstablecimientoExistente($id_catalogo,$id_usuario_servicio)
 	{
 		$servicio_establecimiento_usuario = new $this->servicioEstablecimientoUsuario;
-
+		$servicio_ctalogo = new Catalogo_Servicio();
+		$dataCatalogo = $servicio_ctalogo->where('id_catalogo_servicios',$id_catalogo)
+			->select('id_padre')->first();
 		return $servicio_establecimiento_usuario::rightJoin('catalogo_servicio_establecimiento', function($join) use($id_usuario_servicio){
 					$join->on('catalogo_servicio_establecimiento.id', '=', 'servicio_establecimiento_usuario.id_servicio_est')
 					->where('servicio_establecimiento_usuario.id_usuario_servicio', '=', $id_usuario_servicio);
-				})->where('catalogo_servicio_establecimiento.id_catalogo_servicio',$id_catalogo)
+				})->where('catalogo_servicio_establecimiento.id_catalogo_servicio',$dataCatalogo->id_padre)
 				->orderBy('catalogo_servicio_establecimiento.id', 'ASC')
 				->get(['catalogo_servicio_establecimiento.id',
 						'catalogo_servicio_establecimiento.nombre_servicio_est',
@@ -370,8 +372,10 @@ class OperadorRepository extends BaseRepository
 	
 	public function getCatalogoServicioEstablecimiento($id_catalogo){
 		$catalogoServicioEstablecimiento = new $this->catalogoServicioEstablecimiento;
-		
-		return $catalogoServicioEstablecimiento::where('id_catalogo_servicio',$id_catalogo)->get();
+		$servicio_ctalogo = new Catalogo_Servicio();
+		$dataCatalogo = $servicio_ctalogo->where('id_catalogo_servicios',$id_catalogo)
+			->select('id_padre')->first();
+		return $catalogoServicioEstablecimiento::where('id_catalogo_servicio',$dataCatalogo->id_padre)->get();
 	}
 	
 	public function getUsuarioServicio($id)

@@ -1059,13 +1059,13 @@ function AjaxContainerCambioDashboard() {
     $("#target").LoadingOverlay("hide", true);
 }
 
-function AjaxContainerEdicionServicios($id_usuario_servicio,$id_catalogo) {
+function AjaxContainerEdicionServicios(event,$id_usuario_servicio,$id_catalogo) {
     
     $("#spinnerSave").show();
 
     event.preventDefault();
     var url = dirServer + "public/servicios/serviciooperador1/"+$id_usuario_servicio+"/"+$id_catalogo;
-    console.log();
+    console.log($id_usuario_servicio);
     var id = $id_usuario_servicio;
     //alert(id);
     //alert(url);      
@@ -1126,7 +1126,8 @@ function setIdCatalogo($catalogoId){
     $("#form-modal-add-trip").show();
 }
 
-function AjaxContainerRegistroWithLoad1($formulario, $idCreate) {
+function AjaxContainerRegistroWithLoad1(event,$formulario, $idCreate) {
+    event.preventDefault();
     $.ajaxSetup({
         headers: {
             'X-CSRF-Token': $('meta[name=_token]').attr('content')}
@@ -1490,7 +1491,7 @@ function applyFilterDays(item){
     }
 }
 
-function saveHorario(idServicio) {
+function saveHorario(event,idServicio) {
     event.preventDefault();
     var day = '';
     var errorDays = [];

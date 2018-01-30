@@ -47,7 +47,7 @@
                     <div class="range range-15">
                       <div class="cell-sm-12">
                         <div class="form-inline form-inline-custom">
-                          <button class="button button-facebook button-icon button-icon-sm button-icon-right fa-filter" data-toggle="modal" data-target="#filter">{{trans('publico/labels.btnFilter')}}<span></span></button>
+                          <button class="button button-facebook button-icon button-icon-sm button-icon-right fa-filter" onclick="openFilterModal(event)">{{trans('publico/labels.btnFilter')}}<span></span></button>
                         </div>
                       </div>
                     </div>
@@ -57,7 +57,7 @@
           </div>
         </div>
       </section>
-      <section class="section-xs bg-white" id="initialRows">
+      <!-- <section class="section-xs bg-white" id="initialRows">
         <div class="shell">
           <div class="isotope grid-masonry text-left column-offset-30" data-isotope-layout="masonry">
             <div class="row">
@@ -88,21 +88,21 @@
             </div>
           </div>
         </div>
-      </section>
+      </section> -->
       <section class="section-xs bg-white">
         <div class="shell">
           <div class="isotope grid-masonry text-left column-offset-30" data-isotope-layout="masonry">
              <div id="findedFilter"></div>
              <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
           </div>
         </div>
       </section>
@@ -110,7 +110,7 @@
       <div class="modal fade" id="filter" tabindex="-1" role="dialog" style="z-index: 99999; background: #00000099;">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
-            <div id="testboxForm">
+            <!-- <div id="testboxForm"> -->
               <div class="modal-header">
               <h3 class="modal-title">
                 {{trans('publico/labels.btnFilter')}}
@@ -147,7 +147,7 @@
                   <span></span>
               </a>
             </div>
-            </div>
+            <!-- </div> -->
           </div>
         </div>
       </div>
@@ -160,8 +160,11 @@
       <script src="{{ asset('/siteStyle/js/underscore.js')}}"></script>
       <script type="text/javascript">
         $("[name='my-checkbox']").bootstrapSwitch();
+        var idRouteCatalogo = {!!request()->route('idCatalogo')!!};
+        var idRouteSubCatalogo = {!!request()->route('idSubCatalogo')!!};
+        searchServIni(idRouteCatalogo,idRouteSubCatalogo);
       </script>
-      <!-- @include('site.reusable.footer') -->
+      @include('site.reusable.footer')
     </div>
   </body>
 </html>

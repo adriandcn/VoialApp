@@ -2287,7 +2287,7 @@ class PublicServiceRepository extends BaseRepository {
                 ->where('id_catalogo_servicios',$dataCatalogoPadre->id_padre)
                 ->select('id_padre')
                 ->first();
-                if ($dataCatalogoRaiz->id_padre == 5) {
+                if ($dataCatalogoRaiz->id_padre == 1) {
                     array_push($arrayId, $item->id_usuario_servicio);
                 }
             }

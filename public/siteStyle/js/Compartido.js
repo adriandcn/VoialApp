@@ -1916,6 +1916,11 @@ $('.checkboxServ').on('switchChange.bootstrapSwitch', function (event, state) {
     applyFilterServ(event.currentTarget.id);
 }); 
 
+var openFilterModal = function(event){
+    event.preventDefault();
+    $('#filter').modal('show');
+}
+
 function searchServ($idCatalogo,$idSubCatalogo){
     event.preventDefault();
     // console.log(filtersServ);
@@ -1960,9 +1965,58 @@ function searchServ($idCatalogo,$idSubCatalogo){
                   </div>';
             htmlResult = htmlResult + htmlString;
         }
-         $('#findedFilter').html(htmlResult);
-         $('#initialRows').hide();
-         $('#filter').modal('hide')
+        $('#findedFilter').html(htmlResult);
+        $('#initialRows').hide();
+        $('#filter').modal('hide');
+        },
+        error: function (e) {
+            console.log(e)
+        }
+    });
+}
+
+function searchServIni($idCatalogo,$idSubCatalogo){
+    var data = {filter:filtersServ,idCatalogo:$idCatalogo,idSubCatalogo:$idSubCatalogo};
+    var url = dirServer + 'public/filterService';
+
+    $.ajax({
+        type: 'POST',
+        url: url,
+        dataType: 'json',
+        data:data,
+        success: function (r) {
+        var htmlResult = '';
+        var array = r.data;
+        for (var i = 0; i < array.length; i++) {
+            var id;
+            if (array[i].id_usuario_servicio) {
+                id = array[i].id_usuario_servicio;
+            }else{
+                id = array[i].id;
+            }
+            var url = dirServer + 'public/';
+            var urlImg = url + 'images/fullsize/' + array[i].filename;
+            var urlDetail = url + 'tokenDz$rip/' + id;
+            var htmlString = '<div class="col-xs-12 col-sm-6 col-md-4 isotope-item" style=" padding-bottom: 25px;">\
+                    <div class="post-masonry post-masonry-short post-content-white bg-post-2 bg-image box-skew post-skew-right-top post-skew-var-4" style="background: url(' + urlImg + ');\
+                          background-size: cover;\
+                          background-repeat: no-repeat;\
+                          min-height: 200px;\
+                          cursor: pointer;" onclick="openDetailOnClick(' + id + ')">\
+                      <div class="post-masonry-content">\
+                        <h4><a href="' + urlDetail + '">' + array[i].nombre_servicio + '</a></h4>\
+                        <div style="overflow-x: hidden;">\
+                          ' + array[i].detalle_servicio + '\
+                        </div>\
+                      </div>\
+                      <a class="link-position link-primary-sec-2 link-right post-link" href="' + urlDetail + '"><i class="fa fa-info-circle" aria-hidden="true" style="color: #2f6890;"></i>\
+                      </a>\
+                    </div>\
+                  </div>';
+            htmlResult = htmlResult + htmlString;
+        }
+        $('#findedFilter').html(htmlResult);
+        $('#initialRows').hide();
         },
         error: function (e) {
             console.log(e)
@@ -2008,8 +2062,6 @@ function getLastServicesCreated(){
                 htmlResult = htmlResult + htmlString;
             }
              $('#lastServicesCreated').html(htmlResult);
-            //  $('#initialRows').hide();
-            //  $('#filter').modal('hide')
         },
         error: function (e) {
             console.log(e)

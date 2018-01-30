@@ -68,14 +68,23 @@ class SearchController extends Controller
         }
     public function getTotalSearchInside(Request $request, PublicServiceRepository $gestion)
         {
-            $term = $request->s;
-            $busquedaTotal = $gestion->getSearchTotal($term);
-            $despliegue = null;
-            if ($busquedaTotal != null)
-            {
-                $despliegue = $gestion->paginateSearch($busquedaTotal,6);
+            if ($request->has('s')) {
+                if ($request->s != '') {
+                    $term = $request->s;
+                    $busquedaTotal = $gestion->getSearchTotal($term);
+                    $despliegue = null;
+                    if ($busquedaTotal != null)
+                    {
+                        $despliegue = $gestion->paginateSearch($busquedaTotal,6);
+                    }
+                }else{
+                    $despliegue = [];
+                }
+                
+            }else{
+                $despliegue = [];
             }
-            // return response()->json(['data' => $despliegue]);
+            // return response()->json(['data' => $busquedaTotal]);
             return View('site.blades.search', compact(
                 'despliegue'
             ));

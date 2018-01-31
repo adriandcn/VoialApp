@@ -27,12 +27,6 @@
       <section class="page-title breadcrumbs-elements page-title-inset-1">
         <div class="shell">
           <div class="page-title__overlay box-skew box-skew-var-1"><span class="box-skew__item"></span>
-            <div class="page-title-text">{{trans('publico/labels.saludoDetails')}} {{$detalles->nombre_servicio}}</div>
-            <p class="big text-width-medium">{{trans('publico/labels.destriptionDetails')}}
-            </p>
-            <!-- path sistema -->
-            <br>
-            <hr>
             <div>
               <span class="box-skew__item"></span>
               <ul class="breadcrumbs-custom">
@@ -51,9 +45,16 @@
                     {{$detalles->catHijo}}
                   </a>
                 </li>
-                <li>{{ $detalles->nombre_servicio}}</li>
+                <li>{{ strtoupper($detalles->nombre_servicio)}}</li>
               </ul>
             </div>
+                      <!-- path sistema -->
+            <br>
+            <hr><br>
+            <div class="page-title-text">
+              {{$detalles->nombre_servicio}}
+            </div>
+            <p class="big" style="word-break: break-all;">{{$detalles->detalle_servicio}}</p>
           </div>
         </div>
       </section>
@@ -84,28 +85,15 @@
             </div>
             <div class="cell-md-8">
               <div class="post-single">
-                <div class="post-panel post-panel-gray group-post-panel group-center">
+               <!--  <div class="post-panel post-panel-gray group-post-panel group-center">
                   <span class="post-panel-item">
                     <span class="mdi mdi-md icon-primary mdi-playlist-play"></span>
                     <time datetime="2017-03-07" style="color:#c26933">{{$detalles->catPadre}} <i class="fa fa-angle-right"></i> {{$detalles->catHijo}} </time>
                   </span>
-                  <!-- <a class="icon-link" href="single-post.html">
-                    <span class="mdi mdi-md icon-primary mdi-comment-multiple-outline"></span>
-                    <span>141</span>
-                  </a> -->
-                  <!-- <a class="icon-link" href="#">
-                    <span class="mdi mdi-md icon-primary mdi-heart-outline"></span>
-                    <span>0</span>
-                  </a> -->
-                  <!-- <a class="icon-link" href="#">
-                    <span class="mdi mdi-md icon-primary mdi-share"></span>
-                    <span>42</span>
-                  </a> -->
-                </div>
-                <h3>{{$detalles->nombre_servicio}}</h3>
-                <hr>
-                <p class="big">{{$detalles->detalle_servicio}}</p>
-                
+                </div> -->
+                <!-- <h3>{{$detalles->nombre_servicio}}</h3> -->
+                <!-- <hr> -->
+                <!-- <p class="big">{{$detalles->detalle_servicio}}</p> -->
                 <section class="section-xs bg-white">
                   <div class="shell">
                     <div class="panel-custom-group-wrap">
@@ -122,14 +110,31 @@
                           <div class="panel-custom-collapse collapse in" id="accordion1Collapse1" role="tabpanel" aria-labelledby="accordion1Heading1">
                             <div class="panel-custom-body">
                               {{trans('back/admin.lblDirServicio')}} : <h6 style="font-size: 14px;"> {{$detalles->direccion_servicio}}</h6>
-                              {{trans('publico/labels.lblHorario')}} :
+<!--                               {{trans('publico/labels.lblHorario')}} :
+                              @foreach($detalles->horario as $horario)
+                                <h6 style="font-size: 14px;">{{$horario->dia}} : <br>{{trans('publico/labels.lblFromHorario')}} : {{$horario->desde}}, {{trans('publico/labels.lblToHorario')}} : {{$horario->hasta}} </h6>
+                              @endforeach -->
+                                {{trans('back/admin.titleComoLlegarDesdeForm')}} :<h6 style="font-size: 14px; word-break: break-all;"> {{$detalles->como_llegar1}}</h6>
+                                {{trans('back/admin.titleComoLlegarServ')}}:<h6 style="font-size: 14px; word-break: break-all;"> {{$detalles->como_llegar1_1}}</h6>
+                                <!-- {{trans('back/admin.titleComoLlegarDesdeForm')}} :<h6 style="font-size: 14px;"> {{$detalles->como_llegar2}}</h6>
+                                {{trans('back/admin.titleComoLlegarServ')}} :<h6 style="font-size: 14px;"> {{$detalles->como_llegar2_2}}</h6> -->
+                            </div>
+                          </div>
+                        </div>
+                        <!-- Bootstrap panel-->
+                        <div class="panel panel-custom panel-custom-default">
+                          <div class="panel-custom-heading" id="accordionHHeadingH" role="tab">
+                            <p class="panel-custom-title">
+                              <a role="button" data-toggle="collapse" data-parent="#accordion1" href="#accordionHCollapseH" aria-controls="accordionHCollapseH" aria-expanded="true"><i class="fa fa-calendar"></i>&nbsp;&nbsp;{{trans('publico/labels.lblHorario')}}
+                              </a>
+                            </p>
+                          </div>
+                          <div class="panel-custom-collapse collapse" id="accordionHCollapseH" role="tabpanel" aria-labelledby="accordionHHeadingH">
+                            <div class="panel-custom-body">
+                              <!-- {{trans('publico/labels.lblHorario')}} : -->
                               @foreach($detalles->horario as $horario)
                                 <h6 style="font-size: 14px;">{{$horario->dia}} : <br>{{trans('publico/labels.lblFromHorario')}} : {{$horario->desde}}, {{trans('publico/labels.lblToHorario')}} : {{$horario->hasta}} </h6>
                               @endforeach
-                                {{trans('back/admin.titleComoLlegarDesdeForm')}} :<h6 style="font-size: 14px;"> {{$detalles->como_llegar1}}</h6>
-                                {{trans('back/admin.titleComoLlegarServ')}}:<h6 style="font-size: 14px;"> {{$detalles->como_llegar1_1}}</h6>
-                                {{trans('back/admin.titleComoLlegarDesdeForm')}} :<h6 style="font-size: 14px;"> {{$detalles->como_llegar2}}</h6>
-                                {{trans('back/admin.titleComoLlegarServ')}} :<h6 style="font-size: 14px;"> {{$detalles->como_llegar2_2}}</h6>
                             </div>
                           </div>
                         </div>
@@ -137,7 +142,7 @@
                         <div class="panel panel-custom panel-custom-default">
                           <div class="panel-custom-heading" id="accordion1Heading2" role="tab">
                             <p class="panel-custom-title">
-                              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="#accordion1Collapse2" aria-controls="accordion1Collapse2"><i class="fa fa-envelope"></i>&nbsp;&nbsp;{{trans('publico/labels.titleContact')}}
+                              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionH" href="#accordion1Collapse2" aria-controls="accordion1Collapse2"><i class="fa fa-envelope"></i>&nbsp;&nbsp;{{trans('publico/labels.titleContact')}}
                               </a>
                             </p>
                           </div>

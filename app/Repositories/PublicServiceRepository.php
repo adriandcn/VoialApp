@@ -2781,9 +2781,9 @@ class PublicServiceRepository extends BaseRepository {
     //Entrega el detalle de los servicios
     public function obtenerDetallesServicio($idServicio) {
         $servicios = DB::table('usuario_servicios')
-                        ->join('catalogo_servicios','id_catalogo_servicios','=','id_catalogo_servicio')
                         ->where('id',$idServicio)
                         ->first();
+                        // return $servicios;
         $datosCatalogo = DB::table('catalogo_servicios')
                         ->where('id_catalogo_servicios',$servicios->id_catalogo_servicio)
                         ->select('nombre_servicio','id_padre','id_catalogo_servicios')

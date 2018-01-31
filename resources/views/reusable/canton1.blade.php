@@ -1,12 +1,12 @@
 @section('cantones')	
  
 
-<div class="form-group-1 tooltip" title="Canton donde esta ubicado tu servicio, seleciona una opción">
-                    {!!Form::label('canton_1', 'Canton', array('class'=>'control-label','id'=>'iconFormulario-step4'))!!}
+<div class="form-group-1 tooltip" title="Cantón donde esta ubicado tu servicio, seleciona una opción">
+                    {!!Form::label('canton_1', 'Cantón', array('class'=>'control-label','id'=>'iconFormulario-step4'))!!}
                     
                     
                     <!--<select name="id_canton" id="id_canton" class='inputselect chng'> -->
-                    <select name="id_canton" id="id_canton" class="input-text chng" style="height: 40px;width: 100%">
+                    <select name="id_canton" id="id_canton" class="form-control chng" style="height: 40px;width: 100%">
                         
                         <option value="0"  >Seleccionar</option>
 @foreach($cantones as $canton)

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="wide wow-animation" lang="en">
+<html class="wide wow-animation" lang="es">
   <head>
     <!-- Site Title-->
     <title>Servicios</title>
@@ -108,7 +108,7 @@
                             </div>
                             @endif
                             @foreach($servicio->children as $servChild)
-                            <div class="col-sm-4" style="    margin-bottom: 10px;">
+                            <div class="col-sm-6" style="    margin-bottom: 10px;">
                               <button class="button-primary button" type="button" onclick="setIdCatalogo('{{$servChild->id_catalogo_servicios}}')" data-toggle="modal" data-target="#form-modal-add-trip">
                                 {{$servChild->nombre_servicio}}<span></span>
                               </button>

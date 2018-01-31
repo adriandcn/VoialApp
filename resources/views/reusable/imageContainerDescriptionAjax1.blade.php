@@ -28,7 +28,7 @@
                     
             
                     <input type="text" class="form-input" value="{!!$imagen->descripcion_fotografia!!}" name="descripcion_fotografia_{!!$imagen->id!!}" 
-                           style='height: 25px;width: 100%;' placeholder='Descripcion' 
+                           style='height: 25px;width: 100%;' placeholder="{{ trans('back/admin.lblDescriptionImage')}}" 
                            onchange="AjaxSaveDetailsFotografia1('deleteImage','{!!$imagen->id!!}')">
                     
                       <br>

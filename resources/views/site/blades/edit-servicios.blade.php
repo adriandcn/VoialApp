@@ -190,13 +190,6 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                           <textarea class="form-input tooltip" id="descriptionEn" name="detalle_servicio_eng" data-constraints="@Required" title="{{ trans('back/admin.altServDescriptionEng')}}">{{$usuarioServicio[0]->detalle_servicio_eng}}</textarea>
                         </div>
                       </div>
-                      <div class="cell-sm-6">
-                        <div class="form-wrap">
-                            <!--Select 2-->
-                            <p class="text-label"><i class="fa fa-map-marker"></i>&nbsp;&nbsp;{{ trans('back/admin.tittleProvCiud')}}</p>
-                            <div id="provincias"></div>
-                        </div>
-                      </div>
                       <div class="cell-xs-12">
                         <div class="form-wrap">
                           <label class="form-label-outside" for="contact-message">
@@ -206,20 +199,14 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                       <div class="cell-sm-6">
                         <div class="form-wrap">
                           <label class="form-label-outside" for="contact-first-name"><i class="fa fa-money"></i>&nbsp;&nbsp;{{ trans('back/admin.lblPrecioDesde')}}</label>
-                          <input type="text" name="precio_desde" value="{!!$usuarioServicio->precio_desde!!}" class="form-input tooltip" title="{{ trans('back/admin.altPrecioDesde')}}" placeholder="{{ trans('back/admin.placeHolderPDesde')}}">
+                          <input type="text" name="precio_desde" value="{!!$usuarioServicio->precio_desde!!}" class="form-input tooltip numsOnly" title="{{ trans('back/admin.altPrecioDesde')}}" placeholder="{{ trans('back/admin.placeHolderPDesde')}}">
                         </div>
                       </div>
                       <div class="cell-sm-6">
                         <div class="form-wrap">
                           <label class="form-label-outside" for="contact-first-name"><i class="fa fa-money"></i>&nbsp;&nbsp;{{ trans('back/admin.lblPrecioHasta')}}</label>
-                          <input type="text" name="precio_hasta" value="{!!$usuarioServicio->precio_hasta!!}" class="form-input tooltip" placeholder="{{ trans('back/admin.placeHolderPHasta')}}" title="{{ trans('back/admin.altPrecioHasta')}}">
+                          <input type="text" name="precio_hasta" value="{!!$usuarioServicio->precio_hasta!!}" class="form-input tooltip numsOnly" placeholder="{{ trans('back/admin.placeHolderPHasta')}}" title="{{ trans('back/admin.altPrecioHasta')}}">
                         </div>
-                      </div>
-                      <div class="cell-sm-12">
-                          <div class="form-wrap">
-                          <label class="form-label-outside" for="contact-first-name"><i class="fa fa-map-marker"></i>&nbsp;&nbsp;{{ trans('back/admin.lblDirServicio')}}</label>
-                          <input type="text" name="direccion_servicio" value="{!!$usuarioServicio->direccion_servicio!!}" class="form-input tooltip" placeholder="Dirección del Servicio" title="{{ trans('back/admin.altDirServicio')}}">
-                          </div>
                       </div>
                       <div class="cell-sm-6">
                           <div class="form-wrap">
@@ -230,7 +217,7 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                       <div class="cell-sm-6">
                           <div class="form-wrap">
                           <label class="form-label-outside" for="contact-first-name"><i class="fa fa-phone"></i>&nbsp;&nbsp;{{ trans('back/admin.lblTelefonoServ')}}</label>
-                          <input type="text tooltip" name="telefono" value="{!!$usuarioServicio->telefono!!}" class="form-input tooltip" title="{{ trans('back/admin.altTelefonoServ')}}" placeholder="{{ trans('back/admin.placeHolderPhoneEdit')}}">
+                          <input type="text tooltip" name="telefono" value="{!!$usuarioServicio->telefono!!}" class="form-input tooltip numsOnly" title="{{ trans('back/admin.altTelefonoServ')}}" placeholder="{{ trans('back/admin.placeHolderPhoneEdit')}}">
                           <input type="hidden" name="flag_image" id="flag_image">
                           </div>
                       </div>
@@ -265,26 +252,43 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                           <input type="text" name="tags" value="{!!$usuarioServicio->tags!!}" class="form-input tooltip" placeholder="{{ trans('back/admin.placeHolderTagServ')}}" title="{{trans('back/admin.altTagServ')}}">
                           </div>
                       </div>
+                      <div class="cell-sm-6">
+                        <div class="form-wrap">
+                            <!--Select 2-->
+                            <p class="text-label"><i class="fa fa-map-marker"></i>&nbsp;&nbsp;{{ trans('back/admin.tittleProvCiud')}}</p>
+                            <div id="provincias"></div>
+                        </div>
+                      </div>
+                      <div class="cell-sm-12">
+                          <div class="form-wrap">
+                          <label class="form-label-outside" for="contact-first-name"><i class="fa fa-map-marker"></i>&nbsp;&nbsp;{{ trans('back/admin.lblDirServicio')}}</label>
+                          <input type="text" name="direccion_servicio" value="{!!$usuarioServicio->direccion_servicio!!}" class="form-input tooltip" placeholder="Dirección del Servicio" title="{{ trans('back/admin.altDirServicio')}}">
+                          </div>
+                      </div>
                       <div class="cell-xs-12">
                         <div class="form-wrap">
+                          <!-- <label class="form-label-outside" for="contact-message">
+                            <i class="fa fa-map-marker"></i>&nbsp;&nbsp;{{ trans('back/admin.titleComoLlegarServ')}}</label> -->
                           <label class="form-label-outside" for="contact-message">
-                            <i class="fa fa-map-marker"></i>&nbsp;&nbsp;{{ trans('back/admin.titleComoLlegarServ')}}</label>
-                          <h4 class="section-title">{{trans('front/responsive.ubicacion')}}</h4>
+                            <i class="fa fa-map-marker"></i>&nbsp;&nbsp;{{trans('front/responsive.ubicacion')}}</label>
+                          <!-- <h4 class="section-title">{{trans('front/responsive.ubicacion')}}</h4> -->
                               <div class="tab-container full-width style2">
                                    @include('reusable.maps1', ['longitud_servicio' => $usuarioServicio->longitud_servicio,'latitud_servicio'=>$usuarioServicio->latitud_servicio])  
                               </div>
                         </div>
                       </div>
-                      <div class="cell-xs-6">
+                      <div class="cell-xs-12">
                         <div class="form-wrap">
                           <div class="form-group">
-                              {!!Form::label('como_llegar1', trans('back/admin.titleComoLlegarDesdeForm'), array('class'=>'control-label-2'))!!}
+                              <label class="form-label-outside" for="contact-email"><i class="fa fa-road"></i>&nbsp;&nbsp;{{ trans('back/admin.titleComoLlegarDesdeForm')}}</label>
+                              {!!Form::label('', '', array('class'=>'control-label-2'))!!}
                               <input type="text" name="como_llegar1_1" value="{!!$usuarioServicio->como_llegar1_1!!}" class="form-input tooltip" title="{{ trans('back/admin.titleComoLlegarDesde')}}" placeholder="{{ trans('back/admin.placeHolderComoLlegarDesde')}}">
+                              <br>
                               <textarea class="form-input tooltip" id="como_llegar1" name="como_llegar1" class="input-text chng" placeholder="{{ trans('back/admin.placeHolderDestalleComoLlegarDesde')}}" title="{{ trans('back/admin.altDestalleComoLlegarDesde')}}" rows="50">{!!trim($usuarioServicio->como_llegar1)!!}</textarea>
                           </div>
                         </div>
                       </div>
-                      <div class="cell-xs-6">
+                      <!-- <div class="cell-xs-6">
                         <div class="form-wrap">
                           <div class="form-group">
                               {!!Form::label('como_llegar2', trans('back/admin.titleComoLlegarDesdeForm'), array('class'=>'control-label-2'))!!}
@@ -292,25 +296,25 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                               <textarea class="form-input tooltip" id="como_llegar2_2" name="como_llegar2" class="input-text chng" placeholder="{{ trans('back/admin.placeHolderDestalleComoLlegarDesde')}}" title="{{ trans('back/admin.altDestalleComoLlegarDesde')}}" rows="50">{!!trim($usuarioServicio->como_llegar2)!!}</textarea>
                           </div>
                         </div>
-                      </div>
+                      </div> -->
                       <div class="cell-sm-12">
                         <div class="form-inline form-inline-custom">
                           <div class="form-wrap">
-                            <label class="form-label-outside" for="contact-email"><i class="fa fa-font"></i>&nbsp;&nbsp;{{ trans('back/admin.titleServIcludes')}}</label>
+                            <label class="form-label-outside" for="contact-email"><i class="fa fa-list"></i>&nbsp;&nbsp;{{ trans('back/admin.titleServIcludesList')}}</label>
                             @if($id_catalogo==1)
-                            <h4 class="section-title">Servicio de Alimentacion & bebidas:</h4>
+                            <!-- <h4 class="section-title">Servicio de Alimentacion & bebidas:</h4> -->
                             @elseif($id_catalogo==2)
                             @else
-                            <h4 class="section-title">{{ trans('back/admin.titleServIcludesList')}}</h4>
+                            <!-- <h4 class="section-title">{{ trans('back/admin.titleServIcludesList')}}</h4> -->
                             @endif
                             <div class="tab-container full-width style2">
                                     <ul style="list-style: none">
                                  @foreach ($catalogoServicioEstablecimiento as $catalogo)
-                                    <li>
+                                    <li style="margin-bottom: 12px;">
                                         <input class="circulo chng" name="id_servicio_est[]" id="id_servicio_est[]" 
                                                value="{!!$catalogo->id!!}" type="checkbox" 
                                                data-labelauty="No brindo este servicio|Si brindo este servicio" {{($catalogo->estado_servicio_est_us <> NULL)?'checked':''}}/>
-                                        {!!$catalogo->nombre_servicio_est!!}
+                                        <strong>{!!$catalogo->nombre_servicio_est!!}</strong>
                                     </li> 
                                 @endforeach    
                                 </ul>

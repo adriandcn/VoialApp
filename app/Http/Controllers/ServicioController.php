@@ -31,8 +31,8 @@ class ServicioController extends Controller {
     ];
 
     protected $validationRulesServicios = [
-        'detalle_servicio' => 'required|max:255',
-        'nombre_servicio' => 'required|max:255'
+        // 'detalle_servicio' => 'required|max:100000000',
+        // 'nombre_servicio' => 'required|max:100000000'
     ];
     
       protected  $messages = [
@@ -1140,8 +1140,8 @@ public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $aut
                 'id_parroquia' => $formFields['id_parroquia'],
                     'como_llegar1' => $formFields['como_llegar1'],
                     'como_llegar1_1' => $formFields['como_llegar1_1'],
-                    'como_llegar2_2' => $formFields['como_llegar2_2'],
-                    'como_llegar2' => $formFields['como_llegar2'],
+                    // 'como_llegar2_2' => $formFields['como_llegar2_2'],
+                    // 'como_llegar2' => $formFields['como_llegar2'],
                     'fecha_ingreso' => $formFields['fecha_ingreso'],
                     // 'horario' => $formFields['horario'],
                     'fecha_fin' => $formFields['fecha_fin']

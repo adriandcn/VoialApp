@@ -1,7 +1,7 @@
 @section('provincias')
 <div class="form-group-1 tooltip" title="Provincia donde esta ubicado tu servicio, seleciona una opción" >
     {!!Form::label('provincia_1', 'Provincia', array('id'=>'iconFormulario-step4'))!!}
-    <select name="id_provincia" id="id_provincia" class="input-text chng" style="height: 40px;width: 100%;">
+    <select name="id_provincia" id="id_provincia" class="form-control chng" style="height: 40px;width: 100%;">
         <option value="0">Seleccionar</option>
         @foreach($provincias as $provincia) @if($id_provincia==$provincia->id)
         <option value="{!!$provincia->id!!}" selected>{!!$provincia->nombre!!}</option>

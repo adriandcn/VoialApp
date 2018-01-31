@@ -53,28 +53,28 @@
                 lng: longitud
             },
             map: map,
-            draggable: true
+            draggable: false
         });
 
-        var searchBox = new google.maps.places.SearchBox(document.getElementById('searchmap'));
-        google.maps.event.addListener(searchBox, 'places_changed', function () {
-            var places = searchBox.getPlaces();
-            var bounds = new google.maps.LatLngBounds();
-            var i, place;
-            for (i = 0; place = places[i]; i++) {
-                bounds.extend(place.geometry.location);
-                marker.setPosition(place.geometry.location);
-            }
-            map.fitBounds(bounds);
-            map.setZoom(15);
+        // var searchBox = new google.maps.places.SearchBox(document.getElementById('searchmap'));
+        // google.maps.event.addListener(searchBox, 'places_changed', function () {
+        //     var places = searchBox.getPlaces();
+        //     var bounds = new google.maps.LatLngBounds();
+        //     var i, place;
+        //     for (i = 0; place = places[i]; i++) {
+        //         bounds.extend(place.geometry.location);
+        //         marker.setPosition(place.geometry.location);
+        //     }
+        //     map.fitBounds(bounds);
+        //     map.setZoom(15);
 
-        });
-        google.maps.event.addListener(marker, 'position_changed', function () {
-            var lat = marker.getPosition().lat();
-            var lng = marker.getPosition().lng;
-            $('#latitud_servicio').val(lat);
-            $('#longitud_servicio').val(lng);
-        });
+        // });
+        // google.maps.event.addListener(marker, 'position_changed', function () {
+        //     var lat = marker.getPosition().lat();
+        //     var lng = marker.getPosition().lng;
+        //     $('#latitud_servicio').val(lat);
+        //     $('#longitud_servicio').val(lng);
+        // });
         
         google.maps.event.trigger(map, "resize");
     }

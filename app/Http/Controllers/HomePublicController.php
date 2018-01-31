@@ -1118,4 +1118,9 @@ class HomePublicController extends Controller {
         return response()->json(['data' => $lastServices]);
     }
 
+    public function getLoginTemplate()
+    {
+        return view('site.blades.login');
+    }
+
 }

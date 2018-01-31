@@ -130,6 +130,15 @@
                               }
                             }
                             $('#spinnerLogin').hide();
+                        },
+                        error: function(e){
+                          var errorString = '<ul>';
+                          $.each(e.responseJSON,function(key,val){
+                            errorString += '<li>' + val[0] + '</li><br>';
+                          });
+                          errorString += '</ul>';
+                          $('.rowerrorLogin').html("@include('partials/error', ['type' => 'danger','message'=>'" + errorString + "'])");
+                          $('#spinnerLogin').hide();
                         }
                     });
           });
@@ -142,13 +151,14 @@
                   url = $form.attr("action");
               var posting = $.post(url, {formData: data});
               posting.done(function (data) {
-                  if (data.fail) {
+                  if (data.fail == true) {
                       var errorString = '<ul>';
                       $.each(data.errors, function (key, value) {
                           errorString += '<li>' + value + '</li><br>';
                       });
                       errorString += '</ul>';
                       $('.rowerrorRegister').html("@include('partials/error', ['type' => 'danger','message'=>'" + errorString + "'])");
+                      $('.rowerrorRegister').show();
                   }
                   if (data.success) {
                       $('.rowerrorRegister').hide();
@@ -158,7 +168,16 @@
                       showAlert('Registro correcto!','ya puedes utilizar tu cuenta',data.redirectto,'success','success');
                   }
                   $('#spinnerRegister').hide();
-              }); 
+              });
+              posting.error(function(e){
+                  var errorString = '<ul>';
+                  $.each(e.responseJSON,function(key,val){
+                    errorString += '<li>' + val[0] + '</li><br>';
+                  });
+                  errorString += '</ul>';
+                  $('.rowerrorRegister').html("@include('partials/error', ['type' => 'danger','message'=>'" + errorString + "'])");
+                  $('#spinnerLogin').hide();
+              });
           });
 
       </script>

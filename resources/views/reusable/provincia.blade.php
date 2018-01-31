@@ -3,7 +3,7 @@
 <div class="form-group-1">
     {!!Form::label('provincia_1', 'Provincia', array('class'=>'control-label','id'=>'iconFormulario-step4'))!!}
 
-    <select name="id_provincia" id="id_provincia" class='inputselect chng'>
+    <select name="id_provincia" id="id_provincia" class='form-control chng'>
         <option value="0">Seleccionar</option>
         @foreach($provincias as $provincia) @if($id_provincia==$provincia->id)
         <option value="{!!$provincia->id!!}" selected>{!!$provincia->nombre!!}</option>

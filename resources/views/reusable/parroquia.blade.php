@@ -4,7 +4,7 @@
                     {!!Form::label('parroquia_1', 'Parroquia', array('class'=>'control-label','id'=>'iconFormulario-step4'))!!}
                     
                     
-                    <select name="id_parroquia" id="id_parroquia" class='inputselect chng'>
+                    <select name="id_parroquia" id="id_parroquia" class='form-control chng'>
                         <option value="0"  >Seleccionar</option>
 @foreach($parroquias as $parroquia)
 @if($id_parroquia==$parroquia->id)

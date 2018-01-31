@@ -1,6 +1,6 @@
 <?php
 //pruebas
-Route::get('/test', ['as' => 'publico', 'uses' => 'pruebasCtrl@test']);
+// Route::get('/test', ['as' => 'publico', 'uses' => 'pruebasCtrl@test']);
 //Lenguaje
 Route::get('language', 'HomeController@language');
 //Login
@@ -14,6 +14,7 @@ Route::get('/getLastServicesCreated', ['as' => 'publico', 'uses' => 'HomePublicC
 //--Search--
 Route::get('Search', ['as' => 'min-search', 'uses' => 'SearchController@getSearchTotal']);
 // Auth
+Route::get('/loginRegister', ['as' => 'publico', 'uses' => 'HomePublicController@getLoginTemplate']);
 Route::controllers(['auth' => 'Auth\AuthController', 'password' => 'Auth\PasswordController', ]);
 Route::get('/confirm/{confirmation_code}', ['uses' => 'HomeController@getConfirm']);
 // --Imagenes--

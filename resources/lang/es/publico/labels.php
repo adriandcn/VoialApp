@@ -67,5 +67,7 @@ return [
     'alertFacebookRegister' => 'Cuenta creada correctamente \nUsuario: :username, \nContraseña: :passwdr',
     'btnLogInFacebook' => 'Ingresar con Facebook',
     'latestCreated' => 'Últimos servicios creados',
-    'btnRegisterFacebook' => 'Registrarse con Facebook'
+    'btnRegisterFacebook' => 'Registrarse con Facebook',
+    'lblPassRestore' => 'Ingresa tu email o usuario , enviaremos un email de recuperación',
+    'lblBtnRestore' => 'Recuperar'
 ];

@@ -42,7 +42,7 @@ return [
     'btnAddHorario' => 'Enter Timetable',
     'lblTelefonoServ' => 'Phone',
     'altTelefonoServ' => 'The tourist can communicate directly with you if you wish',
-    'placeHolderPhoneEdit' => 'Service phone',
+    'placeHolderPhoneEdit' => '(062)999999/0955555555/0966666666',
     'lblEmailServ' => 'Contact email',
     'altEmailServ' => 'It is always good to have an email in which you can ask for more information about your service',
     'placeHolderEmailServ' => 'Contact email',
@@ -89,4 +89,6 @@ return [
     'titleOperadorHeaderPage' => 'Operator data',
     'altPage' => 'Dasboard',
     'lblBtnCancel' => 'Cancel',
+    'altSearchboxUbicacion' => 'You can search for a site by writing it directly eg: Guayaquil',
+    'lblDescriptionImage' => 'Description'
 ];

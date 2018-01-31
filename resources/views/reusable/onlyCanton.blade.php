@@ -5,7 +5,7 @@
                     {!!Form::label('canton_1', 'Canton', array('class'=>'control-label','id'=>'iconFormulario-step4'))!!}
                     
                     
-                    <select name="id_canton" id="id_canton" class='inputselect chng'>
+                    <select name="id_canton" id="id_canton" class='form-control chng'>
                         <option value="0"  >Seleccionar</option>
 @foreach($cantones as $canton)
 

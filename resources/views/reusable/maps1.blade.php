@@ -14,7 +14,7 @@
 
 <div class='form-group'>
     <!-- <label for='searchmap'>Ubicación: </label> -->
-    <input type="text" id='searchmap' style="height: 27px; width: 100%;margin-bottom: 1%" class="form-input tooltip" title="Puedes buscar un sitio escribiendolo directamente Ej: Guayaquil">
+    <input type="text" id='searchmap' style="height: 27px; width: 100%;margin-bottom: 1%" class="form-input tooltip" title="{{ trans('back/admin.altSearchboxUbicacion')}}">
     <div id="map" class="tooltip" title="Haz clic sobre el mapa para marcar la ubicación de tu servicio"></div>
 </div>
 <div class="form-group">

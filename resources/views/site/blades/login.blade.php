@@ -58,19 +58,27 @@
                             <input class="form-input" id="passRestore" type="text" name="passRestore" data-constraints="@Required">
                           </div>
                           <div class="group-buttons-3" style="text-align: right;">
-                            <button class="button-primary button" type="button">
+                            <button class="button-primary button" type="button" onclick="sendRestorePassword(event)">
                               <div style="display: inline; " id="spinnerRestore">
                                 <i class="fa fa-spinner fa-spin"></i>
                               </div>
                               {{ trans('publico/labels.lblBtnRestore')}}
-                              <span></span></button>
+                              <span></span>
+                            </button>
+                            <button class="button-primary button" type="button" onclick="showRestorePassword(event)">
+                              {{ trans('publico/labels.lblBtnCancel')}}
+                              <span></span>
+                            </button>
                           </div>
                         </div>
-                        <div class="form-wrap" style="text-align: right;">
-                          <a href="">Recuperar contraseña</a>
+                        <div class="form-wrap" style="text-align: right;" id="restorePassLink">
+                          <a href="" onclick="showRestorePassword(event)">{{ trans('publico/labels.lblPassRestoreLink')}}</a>
                         </div>
                         <div class="rowerrorLogin" style="margin-top: 10px;"></div>
                         <div class="group-buttons-3 group-md-justify">
+                          <input type="hidden" id="messageOK" value="{{trans('publico/labels.msgOkRestore')}}">
+                          <input type="hidden" id="messageError" value="{{trans('publico/labels.msgErrorRestore')}}">
+                          <input type="hidden" id="messageErrorUser" value="{{trans('publico/labels.messageErrorUserRestore')}}">
                           <button class="button-primary button" type="submit">
                             <div style="display: inline;" id="spinnerLogin">
                               <i class="fa fa-spinner fa-spin"></i>

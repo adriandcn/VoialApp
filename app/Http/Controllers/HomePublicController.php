@@ -17,6 +17,7 @@ use App\Models\Review_Usuario_Servicio;
 use App\Jobs\VerifyReview;
 use App\Jobs\ContactosMail;
 use DB;
+use Mail;
 
 class HomePublicController extends Controller {
 
@@ -1121,6 +1122,47 @@ class HomePublicController extends Controller {
     public function getLoginTemplate()
     {
         return view('site.blades.login');
+    }
+
+    public function sendEmailRestorePassword(Request $request)
+    {
+        $correo_enviar = $request->email;
+        $existUser = DB::table('users')
+        ->where('username',$correo_enviar)
+        ->orWhere('email',$correo_enviar)->get();
+        if (count($existUser) > 0) {
+            $data['restore_code'] = str_random(30);
+            $data['link'] = 'RECUPERAR';
+            $correo_enviar = $existUser[0]->email;
+            Mail::send('emails.auth.passwordRestore', $data, function($message) use ($correo_enviar)
+            {
+                $message->from("info@voilappbeta.com",'VoilApp');
+                $message->to($correo_enviar,'')->subject('Restauración de contraseña');
+            });
+            DB::table('users')
+            ->where('username',$correo_enviar)
+            ->orWhere('email',$correo_enviar)->update(['code_restore' => $data['restore_code']]);
+            return response()->json(['error' => false]);
+        }else{
+            return response()->json(['error' => true]);
+        }
+    }
+
+    public function viewRestorePassword(catalogoServiciosRepository $catalogoServicios,$codeRestore)
+    {
+        $exist = DB::table('users')->where('code_restore',$codeRestore)->get();
+        if (count($exist) > 0) {
+            $email = $exist[0]->email;
+            return view('site.blades.restore-pass',compact('email'));
+        }else{
+            return redirect('/');
+        }
+    }
+    public function restorePassword(Request $request)
+    {   
+        $update = DB::table('users')
+            ->where('email',$request->email)->update(['password' => bcrypt($request->p),'code_restore' => null]);
+        return response()->json(['error' => !$update]);
     }
 
 }

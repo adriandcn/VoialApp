@@ -69,5 +69,17 @@ return [
     'latestCreated' => 'Últimos servicios creados',
     'btnRegisterFacebook' => 'Registrarse con Facebook',
     'lblPassRestore' => 'Ingresa tu email o usuario , enviaremos un email de recuperación',
-    'lblBtnRestore' => 'Recuperar'
+    'lblPassRestoreLink' => 'Recuperar contraseña',
+    'lblBtnRestore' => 'Recuperar',
+    'lblBtnUpdatePass' => 'Actualizar',
+    'lblBtnCancel' => 'Cancelar',
+    'msgOkRestore' => 'Se ha enviado un email de restauración, no olvides revisar también tu correo no deseado',
+    'msgErrorRestore' => 'No se puedo enviar el email de restauración, inténtalo nuevamente',
+    'lblRestorePassForm' => 'Nueva contraseña',
+    'messageErrorUserRestore' => 'Usuario no encontrado',
+    'lblNewPass' => 'Contraseña',
+    'lblNewPass2' => 'Repite contraseña',
+    'msgOkUpdatePass' => 'Contraseña actualizada corectamente',
+    'messageErrorUpdatePass' => 'No se pudo actualizar contraseña, intentalo mas tarde.',
+    'messagePassNotEqual' => 'Contraseñas no coinciden'
 ];

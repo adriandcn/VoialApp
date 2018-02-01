@@ -203,8 +203,8 @@
         .btn-full-image{
           cursor: pointer;
           position: absolute;
-          top: 50%;
-          color: white;
+          top: 45%;
+          color: #c26933;
         }
         .btn-right{
           left: 0;
@@ -226,16 +226,16 @@
               <div class="modal modal-custom fade" id="form-img-full" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document" style="width: 80%">
                   <div class="modal-content" id="imgFull" >
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close" style="color: white;"><span aria-hidden="true"></span></button>
                     <!-- <a class="button" href="#" onclick="backImage()" style="position: absolute;
                     bottom: 43%;"> -->
-                      <i class="fa fa-angle-left fa-5x btn-full-image btn-right" onclick="backImage()"></i><span></span>
+                      <i class="fa fa-arrow-left fa-3x btn-full-image btn-right" onclick="backImage()"></i><span></span>
                     <!-- </a> -->
                    <!-- <a class="button" href="#" onclick="nextImage()" style="position: absolute;
                     bottom: 43%;
                     right: -14%;"> -->
-                      <i class="fa fa-angle-right fa-5x btn-full-image btn-left" onclick="nextImage()"></i><span></span>
+                      <i class="fa fa-arrow-right fa-3x btn-full-image btn-left" onclick="nextImage()"></i><span></span>
                     <!-- </a> -->
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close" style="color: white; top: 80%;"><span aria-hidden="true"></span></button>
                   </div>
                 </div>
               </div>

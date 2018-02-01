@@ -17,6 +17,9 @@ Route::get('Search', ['as' => 'min-search', 'uses' => 'SearchController@getSearc
 Route::get('/loginRegister', ['as' => 'publico', 'uses' => 'HomePublicController@getLoginTemplate']);
 Route::controllers(['auth' => 'Auth\AuthController', 'password' => 'Auth\PasswordController', ]);
 Route::get('/confirm/{confirmation_code}', ['uses' => 'HomeController@getConfirm']);
+Route::post('/sendRestorePassword', 'HomePublicController@sendEmailRestorePassword');
+Route::get('/viewRestorePassword/{codeRestore}', 'HomePublicController@viewRestorePassword');
+Route::post('/restorePassword', 'HomePublicController@restorePassword');
 // --Imagenes--
 Route::get('/image', ['as' => 'upload', 'uses' => 'ImageController@getUpload']);
 Route::post('upload', ['as' => 'upload-post', 'uses' => 'ImageController@postUpload']);

@@ -193,19 +193,21 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                       <div class="cell-xs-12">
                         <div class="form-wrap">
                           <label class="form-label-outside" for="contact-message">
-                            <i class="fa fa-info"></i>&nbsp;&nbsp;{{ trans('back/admin.tittleServiceInfo')}}</label>
+                            <i class="fa fa-info"></i>&nbsp;&nbsp;{{ trans('back/admin.tittleServiceInfo')}}</label><br>
+                            <label class="form-label-outside" id="msgPrecioError" for="contact-message" style="color: red;">
+                            <i class="fa fa-info"></i>&nbsp;&nbsp;</label>
                         </div>
                       </div>
                       <div class="cell-sm-6">
                         <div class="form-wrap">
                           <label class="form-label-outside" for="contact-first-name"><i class="fa fa-money"></i>&nbsp;&nbsp;{{ trans('back/admin.lblPrecioDesde')}}</label>
-                          <input type="text" name="precio_desde" value="{!!$usuarioServicio->precio_desde!!}" class="form-input tooltip numsOnly" title="{{ trans('back/admin.altPrecioDesde')}}" placeholder="{{ trans('back/admin.placeHolderPDesde')}}">
+                          <input type="text" id="precio_desde" name="precio_desde" value="{!!$usuarioServicio->precio_desde!!}" class="form-input tooltip numsOnly" title="{{ trans('back/admin.altPrecioDesde')}}" placeholder="{{ trans('back/admin.placeHolderPDesde')}}">
                         </div>
                       </div>
                       <div class="cell-sm-6">
                         <div class="form-wrap">
                           <label class="form-label-outside" for="contact-first-name"><i class="fa fa-money"></i>&nbsp;&nbsp;{{ trans('back/admin.lblPrecioHasta')}}</label>
-                          <input type="text" name="precio_hasta" value="{!!$usuarioServicio->precio_hasta!!}" class="form-input tooltip numsOnly" placeholder="{{ trans('back/admin.placeHolderPHasta')}}" title="{{ trans('back/admin.altPrecioHasta')}}">
+                          <input type="text" id="precio_hasta" name="precio_hasta" value="{!!$usuarioServicio->precio_hasta!!}" class="form-input tooltip numsOnly" placeholder="{{ trans('back/admin.placeHolderPHasta')}}" title="{{ trans('back/admin.altPrecioHasta')}}">
                         </div>
                       </div>
                       <div class="cell-sm-6">

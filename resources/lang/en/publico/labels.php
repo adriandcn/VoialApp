@@ -66,5 +66,20 @@ return [
     'alertFacebookRegister' => 'User registered correctly \nUsuario: :username, \nPassword: :passwdr',
     'btnLogInFacebook' => 'Login with Facebook',
     'latestCreated' => 'Last services created',
-    'btnRegisterFacebook' => 'Register with Facebook'
+    'btnRegisterFacebook' => 'Register with Facebook',
+
+    'lblPassRestore' => 'Enter your email or user, we will send a recovery email',
+    'lblPassRestoreLink' => 'Recover password',
+    'lblBtnRestore' => 'Retrieve',
+    'lblBtnUpdatePass' => 'Update',
+    'lblBtnCancel' => 'Cancel',
+    'msgOkRestore' => 'A restoration email has been sent, do not forget to check your spam too',
+    'msgErrorRestore' => 'Can not send the restore email, try again',
+    'lblRestorePassForm' => 'New password',
+    'messageErrorUserRestore' => 'User not found',
+    'lblNewPass' => 'Password',
+    'lblNewPass2' => 'Repeat password',
+    'msgOkUpdatePass' => 'Password updated correctly',
+    'messageErrorUpdatePass' => 'Could not update password, try it later.',
+    'messagePassNotEqual' => 'Passwords do not match'
 ];

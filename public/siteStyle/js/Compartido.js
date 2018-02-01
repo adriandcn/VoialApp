@@ -1,7 +1,7 @@
-
 $.ajaxSetup({
     headers: {
-        'X-CSRF-Token': $('meta[name=_token]').attr('content')}
+        'X-CSRF-Token': $('meta[name=_token]').attr('content')
+    }
 });
 
 var dirServer = $('#serverDir').val();
@@ -9,42 +9,40 @@ $('#restoreForm').hide();
 //hace la logica del controller, recibe los datos del formulario y hace un redirect a la pagina enviada desde
 //el controller
 jQuery.fn.ForceNumericOnly =
-function()
-{
-    return this.each(function()
-    {
-        $(this).keydown(function(e)
-        {
-            var key = e.charCode || e.keyCode || 0;
-            // allow backspace, tab, delete, enter, arrows, numbers and keypad numbers ONLY
-            // home, end, period, and numpad decimal
-            return (
-                key == 8 || 
-                key == 9 ||
-                key == 13 ||
-                key == 46 ||
-                key == 110 ||
-                key == 190 ||
-                (key >= 35 && key <= 40) ||
-                (key >= 48 && key <= 57) ||
-                (key >= 96 && key <= 105));
+    function() {
+        return this.each(function() {
+            $(this).keydown(function(e) {
+                var key = e.charCode || e.keyCode || 0;
+                // allow backspace, tab, delete, enter, arrows, numbers and keypad numbers ONLY
+                // home, end, period, and numpad decimal
+                return (
+                    key == 8 ||
+                    key == 9 ||
+                    key == 13 ||
+                    key == 46 ||
+                    key == 110 ||
+                    key == 190 ||
+                    (key >= 35 && key <= 40) ||
+                    (key >= 48 && key <= 57) ||
+                    (key >= 96 && key <= 105));
+            });
         });
-    });
-};
+    };
 $(".numsOnly").ForceNumericOnly();
+
 function AjaxContainerRegistro($formulario) {
     $("#spinnerSave").show();
 
     //event.preventDefault();
 
     var $form = $('#' + $formulario),
-            data = $form.serialize(),
-            url = $form.attr("action");
-    var posting = $.post(url, {formData: data});
-    posting.done(function (data) {
+        data = $form.serialize(),
+        url = $form.attr("action");
+    var posting = $.post(url, { formData: data });
+    posting.done(function(data) {
         if (data.fail) {
             var errorString = '<ul>';
-            $.each(data.errors, function (key, value) {
+            $.each(data.errors, function(key, value) {
                 errorString += '<li>' + value + '</li>';
             });
             errorString += '</ul>';
@@ -76,23 +74,23 @@ function AjaxContainerRegistro($formulario) {
 //************************************************************************//
 function RenderBooking($id_usuario_operador, $id_usuario_servicio) {
 
-var url = "/booking/"+$id_usuario_servicio;
-console.log(url);
-        $.ajax({
+    var url = "/booking/" + $id_usuario_servicio;
+    console.log(url);
+    $.ajax({
         type: 'GET',
         //url: '/booking/'+$id_usuario_servicio,
         url: url,
-        data:"",
-        success: function (data) {
+        data: "",
+        success: function(data) {
             console.log(data);
             //console.log(data.redirectto);
             window.open(data.redirectto, '_blank');
             //window.location.href = data.redirectto;
         },
-        error: function (data) {
+        error: function(data) {
             var errors = data.responseJSON;
             if (errors) {
-                $.each(errors, function (i) {
+                $.each(errors, function(i) {
                     console.log(errors[i]);
                 });
             }
@@ -106,23 +104,23 @@ console.log(url);
 //************************************************************************//
 function RenderBookingCalendario($id_usuario_operador, $id_usuario_servicio, $calendar_id) {
 
-var url = "/bookingCalendario/"+$id_usuario_servicio+"/"+$calendar_id;
-console.log(url);
-        $.ajax({
+    var url = "/bookingCalendario/" + $id_usuario_servicio + "/" + $calendar_id;
+    console.log(url);
+    $.ajax({
         type: 'GET',
         //url: '/booking/'+$id_usuario_servicio,
         url: url,
-        data:"",
-        success: function (data) {
+        data: "",
+        success: function(data) {
             console.log(data);
             //console.log(data.redirectto);
             window.open(data.redirectto, '_blank');
             //window.location.href = data.redirectto;
         },
-        error: function (data) {
+        error: function(data) {
             var errors = data.responseJSON;
             if (errors) {
-                $.each(errors, function (i) {
+                $.each(errors, function(i) {
                     console.log(errors[i]);
                 });
             }
@@ -141,16 +139,16 @@ function AjaxSaveDetailsFotografiaProfile($formulario, $id) {
 
 
     var $form = $('#' + $formulario),
-            data = $form.serialize() + '&ids=' + $id + '&actionImageProfile=update';
+        data = $form.serialize() + '&ids=' + $id + '&actionImageProfile=update';
     url = $form.attr("action");
-    var posting = $.post(url, {formData: data});
-    posting.done(function (data) {
+    var posting = $.post(url, { formData: data });
+    posting.done(function(data) {
         if (data.fail) {
 
 
 
             var errorString = '<ul>';
-            $.each(data.errors, function (key, value) {
+            $.each(data.errors, function(key, value) {
                 errorString += '<li>' + value + '</li>';
             });
             errorString += '</ul>';
@@ -163,7 +161,7 @@ function AjaxSaveDetailsFotografiaProfile($formulario, $id) {
             $("#target").LoadingOverlay("hide", true);
             $('.register').fadeOut(); //hiding Reg form
             var successContent = '' + data.message + '';
-            
+
 
 
 
@@ -184,16 +182,16 @@ function AjaxSaveDetailsFotografia($formulario, $id) {
 
 
     var $form = $('#' + $formulario),
-            data = $form.serialize() + '&ids=' + $id + '&actionImage=update';
+        data = $form.serialize() + '&ids=' + $id + '&actionImage=update';
     url = $form.attr("action");
-    var posting = $.post(url, {formData: data});
-    posting.done(function (data) {
+    var posting = $.post(url, { formData: data });
+    posting.done(function(data) {
         if (data.fail) {
 
 
 
             var errorString = '<ul>';
-            $.each(data.errors, function (key, value) {
+            $.each(data.errors, function(key, value) {
                 errorString += '<li>' + value + '</li>';
             });
             errorString += '</ul>';
@@ -206,7 +204,7 @@ function AjaxSaveDetailsFotografia($formulario, $id) {
             $("#target").LoadingOverlay("hide", true);
             $('.register').fadeOut(); //hiding Reg form
             var successContent = '' + data.message + '';
-            
+
 
 
 
@@ -227,20 +225,21 @@ function AjaxContainerRegistroWithLoad($formulario, $loadScreen) {
 
     $.ajaxSetup({
         headers: {
-            'X-CSRF-Token': $('meta[name=_token]').attr('content')}
+            'X-CSRF-Token': $('meta[name=_token]').attr('content')
+        }
     });
     $("#spinnerSave").show();
 
     //event.preventDefault();
 
     var $form = $('#' + $formulario),
-            data = $form.serialize(),
-            url = $form.attr("action");
-    var posting = $.post(url, {formData: data});
-    posting.done(function (data) {
+        data = $form.serialize(),
+        url = $form.attr("action");
+    var posting = $.post(url, { formData: data });
+    posting.done(function(data) {
         if (data.fail) {
             var errorString = '<ul>';
-            $.each(data.errors, function (key, value) {
+            $.each(data.errors, function(key, value) {
                 errorString += '<li>' + value + '</li>';
             });
             errorString += '</ul>';
@@ -252,7 +251,7 @@ function AjaxContainerRegistroWithLoad($formulario, $loadScreen) {
         }
         if (data.success) {
             $("#spinnerSave").hide();
-            
+
             window.location.href = data.redirectto;
 
             //  $('#containerbase').empty();
@@ -277,16 +276,16 @@ function AjaxContainerRetrunMessagePostParametro($formulario, $id) {
 
 
     var $form = $('#' + $formulario),
-            data = $form.serialize() + '&catalogo=' + $id;
+        data = $form.serialize() + '&catalogo=' + $id;
     url = $form.attr("action");
-    var posting = $.post(url, {formData: data});
-    posting.done(function (data) {
+    var posting = $.post(url, { formData: data });
+    posting.done(function(data) {
         if (data.fail) {
 
 
 
             var errorString = '<ul>';
-            $.each(data.errors, function (key, value) {
+            $.each(data.errors, function(key, value) {
                 errorString += '<li>' + value + '</li>';
             });
             errorString += '</ul>';
@@ -297,8 +296,8 @@ function AjaxContainerRetrunMessagePostParametro($formulario, $id) {
         }
         if (data.success) {
             $("#target").LoadingOverlay("hide", true);
-            
-            
+
+
             window.location.href = data.redirectto;
 
 
@@ -316,22 +315,23 @@ function AjaxContainerRetrunMessagePostParametro($formulario, $id) {
 
 //Hace la logica y envia el div que se quiere queaparezca el loading page
 //funciona para parciales pequeños
-function AjaxContainerRegistroWithLoadCharge($formulario, $loadScreen,$itinerario) {
+function AjaxContainerRegistroWithLoadCharge($formulario, $loadScreen, $itinerario) {
 
     $.ajaxSetup({
         headers: {
-            'X-CSRF-Token': $('meta[name=_token]').attr('content')}
+            'X-CSRF-Token': $('meta[name=_token]').attr('content')
+        }
     });
     $("#spinnerSave").show();
 
     var $form = $('#' + $formulario),
-            data = $form.serialize(),
-            url = $form.attr("action");
-    var posting = $.post(url, {formData: data});
-    posting.done(function (data) {
+        data = $form.serialize(),
+        url = $form.attr("action");
+    var posting = $.post(url, { formData: data });
+    posting.done(function(data) {
         if (data.fail) {
             var errorString = '<ul>';
-            $.each(data.errors, function (key, value) {
+            $.each(data.errors, function(key, value) {
                 errorString += '<li>' + value + '</li>';
             });
             errorString += '</ul>';
@@ -343,9 +343,9 @@ function AjaxContainerRegistroWithLoadCharge($formulario, $loadScreen,$itinerari
         if (data.success) {
             $("#spinnerSave").hide();
             alert("El itinerario ha sido agregado. Puede modificar los campos para agregar un nuevo itinerario")
-            
-            GetDataAjaxSectionItiner("/getlistaItinerarios/"+$itinerario);
-        } 
+
+            GetDataAjaxSectionItiner("/getlistaItinerarios/" + $itinerario);
+        }
     });
 }
 
@@ -353,22 +353,23 @@ function AjaxContainerRegistroWithLoadCharge($formulario, $loadScreen,$itinerari
 
 //Hace la logica y envia el div que se quiere queaparezca el loading page
 //funciona para parciales pequeños
-function AjaxContainerRegistroWithMessage($formulario, $loadScreen,$message) {
+function AjaxContainerRegistroWithMessage($formulario, $loadScreen, $message) {
 
     $.ajaxSetup({
         headers: {
-            'X-CSRF-Token': $('meta[name=_token]').attr('content')}
+            'X-CSRF-Token': $('meta[name=_token]').attr('content')
+        }
     });
     $("#spinnerSave").show();
 
     var $form = $('#' + $formulario),
-            data = $form.serialize(),
-            url = $form.attr("action");
-    var posting = $.post(url, {formData: data});
-    posting.done(function (data) {
+        data = $form.serialize(),
+        url = $form.attr("action");
+    var posting = $.post(url, { formData: data });
+    posting.done(function(data) {
         if (data.fail) {
             var errorString = '<ul>';
-            $.each(data.errors, function (key, value) {
+            $.each(data.errors, function(key, value) {
                 errorString += '<li>' + value + '</li>';
             });
             errorString += '</ul>';
@@ -380,9 +381,9 @@ function AjaxContainerRegistroWithMessage($formulario, $loadScreen,$message) {
         if (data.success) {
             $("#spinnerSave").hide();
             alert($message);
-            
-            
-        } 
+
+
+        }
     });
 }
 
@@ -392,13 +393,13 @@ function AjaxContainerRegistroWithMessage($formulario, $loadScreen,$message) {
 //lo materializa en el lugar indicado
 function RenderPartialGeneric($idPartial, $id_usuario_servicio) {
 
-callModal('cls');
+    callModal('cls');
     var url = "/render/" + $idPartial;
     $.ajax({
         type: "GET",
         url: url,
-        data: {
-        }}).done(function (newHtml) {
+        data: {}
+    }).done(function(newHtml) {
 
         /* output the javascript object to HTML */
         $('#basic-modal-content').html(newHtml.newHtml);
@@ -410,16 +411,16 @@ callModal('cls');
 
 
 
-function RenderPartialGenericFotografia($idPartial, $id_catalogo_fotografia,$id_usuario_servicio,$id_auxiliar) {
+function RenderPartialGenericFotografia($idPartial, $id_catalogo_fotografia, $id_usuario_servicio, $id_auxiliar) {
 
-    
-callModal('cls');
+
+    callModal('cls');
     var url = "/render/" + $idPartial;
     $.ajax({
         type: "GET",
         url: url,
-        data: {
-        }}).done(function (newHtml) {
+        data: {}
+    }).done(function(newHtml) {
 
         /* output the javascript object to HTML */
         $('#basic-modal-content').html(newHtml.newHtml);
@@ -444,8 +445,8 @@ function RenderPartialGenericMap($idPartial, $itiner) {
     $.ajax({
         type: "GET",
         url: url,
-        data: {
-        }}).done(function (newHtml) {
+        data: {}
+    }).done(function(newHtml) {
 
         /* output the javascript object to HTML */
         $('#basic-modal-content').html(newHtml.newHtml);
@@ -459,13 +460,13 @@ function RenderPartialGenericMapUpdate($idPartial, $itiner, $id_detalle) {
 
     callModalMap('cls');
 
-    var url = "/render/" + $idPartial+"/"+$id_detalle;
+    var url = "/render/" + $idPartial + "/" + $id_detalle;
 
     $.ajax({
         type: "GET",
         url: url,
-        data: {
-        }}).done(function (newHtml) {
+        data: {}
+    }).done(function(newHtml) {
 
         /* output the javascript object to HTML */
         $('#basic-modal-content').html(newHtml.newHtml);
@@ -477,17 +478,17 @@ function RenderPartialGenericMapUpdate($idPartial, $itiner, $id_detalle) {
 }
 
 
-function RenderPartialPadre($idPartial, $id_catalogo_servicio, $id_usuario_operador,$padre) {
+function RenderPartialPadre($idPartial, $id_catalogo_servicio, $id_usuario_operador, $padre) {
 
     callModalMap('cls');
 
-    var url = "/render/" + $idPartial+"/"+$padre;
+    var url = "/render/" + $idPartial + "/" + $padre;
 
     $.ajax({
         type: "GET",
         url: url,
-        data: {
-        }}).done(function (newHtml) {
+        data: {}
+    }).done(function(newHtml) {
 
         /* output the javascript object to HTML */
         $('#basic-modal-content').html(newHtml.newHtml);
@@ -509,8 +510,8 @@ function RenderPartial($idPartial, $id_catalogo_servicio, $id_usuario_operador) 
     $.ajax({
         type: "GET",
         url: url,
-        data: {
-        }}).done(function (newHtml) {
+        data: {}
+    }).done(function(newHtml) {
 
         /* output the javascript object to HTML */
         $('#basic-modal-content').html(newHtml.newHtml);
@@ -527,17 +528,17 @@ function GetDataAjax(url) {
         type: 'GET',
         url: url,
         dataType: 'json',
-        success: function (data) {
-            
+        success: function(data) {
+
             $('#renderPartial').LoadingOverlay("show");
             $('#renderPartial').html(data.dificultades);
             $('#renderPartial').LoadingOverlay("hide", true);
 
         },
-        error: function (data) {
+        error: function(data) {
             var errors = data.responseJSON;
             if (errors) {
-                $.each(errors, function (i) {
+                $.each(errors, function(i) {
                     console.log(errors[i]);
                 });
             }
@@ -551,16 +552,16 @@ function GetDataAjaxSection(url) {
         type: 'GET',
         url: url,
         dataType: 'json',
-        success: function (data) {
+        success: function(data) {
             $("#renderPartial").LoadingOverlay("show");
             $("#renderPartial").html(data.contentPanel);
             $("#renderPartial").LoadingOverlay("hide", true);
 
         },
-        error: function (data) {
+        error: function(data) {
             var errors = data.responseJSON;
             if (errors) {
-                $.each(errors, function (i) {
+                $.each(errors, function(i) {
                     console.log(errors[i]);
                 });
             }
@@ -574,16 +575,16 @@ function GetDataAjaxSectionEventos(url) {
         type: 'GET',
         url: url,
         dataType: 'json',
-        success: function (data) {
+        success: function(data) {
             $("#renderPartialListaServicios").LoadingOverlay("show");
             $("#renderPartialListaServicios").html(data.contentPanelServicios);
             $("#renderPartialListaServicios").LoadingOverlay("hide", true);
 
         },
-        error: function (data) {
+        error: function(data) {
             var errors = data.responseJSON;
             if (errors) {
-                $.each(errors, function (i) {
+                $.each(errors, function(i) {
                     console.log(errors[i]);
                 });
             }
@@ -597,16 +598,16 @@ function GetDataAjaxImagenes(url) {
         type: 'GET',
         url: url,
         dataType: 'json',
-        success: function (data) {
-            
+        success: function(data) {
+
             $("#renderPartialImagenes").html(data.contentImagenes);
-                 
+
 
         },
-        error: function (data) {
+        error: function(data) {
             var errors = data.responseJSON;
             if (errors) {
-                $.each(errors, function (i) {
+                $.each(errors, function(i) {
                     console.log(errors[i]);
                 });
             }
@@ -621,16 +622,16 @@ function GetDataAjaxProvincias(url) {
         type: 'GET',
         url: url,
         dataType: 'json',
-        success: function (data) {
+        success: function(data) {
 
             $("#provincias").html(data.provincias);
 
 
         },
-        error: function (data) {
+        error: function(data) {
             var errors = data.responseJSON;
             if (errors) {
-                $.each(errors, function (i) {
+                $.each(errors, function(i) {
                     console.log(errors[i]);
                 });
             }
@@ -645,16 +646,16 @@ function GetDataAjaxCantones(url) {
         type: 'GET',
         url: url,
         dataType: 'json',
-        success: function (data) {
-            
+        success: function(data) {
+
             $("#canton").html(data.cantones);
-            
+
 
         },
-        error: function (data) {
+        error: function(data) {
             var errors = data.responseJSON;
             if (errors) {
-                $.each(errors, function (i) {
+                $.each(errors, function(i) {
                     console.log(errors[i]);
                 });
             }
@@ -668,16 +669,16 @@ function GetDataAjaxDescripcion(url) {
         type: 'GET',
         url: url,
         dataType: 'json',
-        success: function (data) {
+        success: function(data) {
 
             $("#descripcionGeografica1").html(data.descripcionGeografica);
 
 
         },
-        error: function (data) {
+        error: function(data) {
             var errors = data.responseJSON;
             if (errors) {
-                $.each(errors, function (i) {
+                $.each(errors, function(i) {
                     console.log(errors[i]);
                 });
             }
@@ -690,61 +691,62 @@ function GetDataAjaxDescripcion(url) {
 //                  NUEVAS FUNCIONES                    //
 //******************************************************//
 function ReportarErrores(url) {
-    
+
     $("#modalerrores").LoadingOverlay("show");
     //alert(url);
-   
+
     $.ajax({
         type: 'GET',
         url: url,
         dataType: 'json',
-        success: function (data) {
+        success: function(data) {
             //alert(data.guardar);
             $("#modalerrores").LoadingOverlay("hide", true);
             //$('#errores').modal('hide');
             $("#errores .close").click();
             swal(
-            'Muchas Gracias!',
-            'Atenderemos su Solicitud!',
-            'success'
-          )
-  
-                 
+                'Muchas Gracias!',
+                'Atenderemos su Solicitud!',
+                'success'
+            )
+
+
 
         },
-        error: function (data) {
+        error: function(data) {
             var errors = data.responseJSON;
             if (errors) {
-                $.each(errors, function (i) {
+                $.each(errors, function(i) {
                     console.log(errors[i]);
                 });
             }
         }
     });
-    
-    
+
+
 }
 
 
 function PostErrores($formulario, $id) {
-    
+
 
     $.ajaxSetup({
         headers: {
-            'X-CSRF-Token': $('meta[name=_token]').attr('content')}
+            'X-CSRF-Token': $('meta[name=_token]').attr('content')
+        }
     });
-    
+
     $("#modalerrores1").LoadingOverlay("show");
 
     var $form = $('#' + $formulario),
-            data = $form.serialize();
-    url = $form.attr("action");       
-   
-        var posting = $.post(url, {formData: data});
-        posting.done(function (data) {
+        data = $form.serialize();
+    url = $form.attr("action");
+
+    var posting = $.post(url, { formData: data });
+    posting.done(function(data) {
         if (data.fail) {
             var errorString = '<ul>';
-            $.each(data.errors, function (key, value) {
+            $.each(data.errors, function(key, value) {
                 errorString += '<li>' + value + '</li>';
             });
             errorString += '</ul>';
@@ -758,33 +760,34 @@ function PostErrores($formulario, $id) {
             $("#modalerrores1").LoadingOverlay("hide", true);
             $("#errorguardar .close").click();
             swal(
-            'Muchas Gracias!',
-            'Nos Comunicaremos a la brevedad posible!',
-            'success'
-          )
+                'Muchas Gracias!',
+                'Nos Comunicaremos a la brevedad posible!',
+                'success'
+            )
 
         } //success
     }); //done
 }
 
-function PostContactosNuevo($formulario,$id) {
-    
+function PostContactosNuevo($formulario, $id) {
+
     $.ajaxSetup({
         headers: {
-            'X-CSRF-Token': $('meta[name=_token]').attr('content')}
+            'X-CSRF-Token': $('meta[name=_token]').attr('content')
+        }
     });
-    
+
     $("#spinnerSave").show();
 
     var $form = $('#' + $formulario),
-            data = $form.serialize();
+        data = $form.serialize();
     url = $form.attr("action");
-    
-    var posting = $.post(url, {formData: data});
-    posting.done(function (data) {
+
+    var posting = $.post(url, { formData: data });
+    posting.done(function(data) {
         if (data.fail) {
             var errorString = '<ul>';
-            $.each(data.errors, function (key, value) {
+            $.each(data.errors, function(key, value) {
                 errorString += '<li>' + value + '</li>';
             });
             errorString += '</ul>';
@@ -794,15 +797,15 @@ function PostContactosNuevo($formulario,$id) {
 
         }
         if (data.success) {
-            $("#nombres,#email,#telefono").val("");  
+            $("#nombres,#email,#telefono").val("");
             $("#target").LoadingOverlay("hide", true);
             swal(
-            'Muchas Gracias!',
-            'Atenderemos su Solicitud!',
-            'success'
-          )
-         
-  
+                'Muchas Gracias!',
+                'Atenderemos su Solicitud!',
+                'success'
+            )
+
+
         } //success
     }); //done
 
@@ -815,16 +818,16 @@ function GetDataAjaxParroquias(url) {
         type: 'GET',
         url: url,
         dataType: 'json',
-        success: function (data) {
+        success: function(data) {
 
             $("#parroquia").html(data.parroquias);
 
 
         },
-        error: function (data) {
+        error: function(data) {
             var errors = data.responseJSON;
             if (errors) {
-                $.each(errors, function (i) {
+                $.each(errors, function(i) {
                     console.log(errors[i]);
                 });
             }
@@ -832,23 +835,23 @@ function GetDataAjaxParroquias(url) {
     });
 }
 
-function GetDataAjaxSectionItiner(url,$id_usuario_servicio) {
+function GetDataAjaxSectionItiner(url, $id_usuario_servicio) {
 
     $.ajax({
         type: 'GET',
         url: url,
         dataType: 'json',
-        success: function (data) {
+        success: function(data) {
             $("#renderPartialItinerarios").LoadingOverlay("show");
             $("#renderPartialItinerarios").html(data.contentPanelItinerarios);
             $('#renderPartialItinerarios').find('.id_usuario_servicio').val($id_usuario_servicio);
             $("#renderPartialItinerarios").LoadingOverlay("hide", true);
 
         },
-        error: function (data) {
+        error: function(data) {
             var errors = data.responseJSON;
             if (errors) {
-                $.each(errors, function (i) {
+                $.each(errors, function(i) {
                     console.log(errors[i]);
                 });
             }
@@ -870,16 +873,16 @@ function AjaxContainerRetrunMessage($formulario, $id) {
 
 
     var $form = $('#' + $formulario),
-            data = $form.serialize() + '&ids=' + $id;
+        data = $form.serialize() + '&ids=' + $id;
     url = $form.attr("action");
-    var posting = $.post(url, {formData: data});
-    posting.done(function (data) {
+    var posting = $.post(url, { formData: data });
+    posting.done(function(data) {
         if (data.fail) {
 
 
 
             var errorString = '<ul>';
-            $.each(data.errors, function (key, value) {
+            $.each(data.errors, function(key, value) {
                 errorString += '<li>' + value + '</li>';
             });
             errorString += '</ul>';
@@ -892,7 +895,7 @@ function AjaxContainerRetrunMessage($formulario, $id) {
             $("#target").LoadingOverlay("hide", true);
             $('.register').fadeOut(); //hiding Reg form
             var successContent = '' + data.message + '';
-            
+
 
 
 
@@ -906,26 +909,26 @@ function AjaxContainerRetrunMessage($formulario, $id) {
 
 
 //retorna un mensaje despues de ejecutar la logica del controller
-function AjaxContainerRetrunBurnURL($urlS,$formulario, $id, $load) {
+function AjaxContainerRetrunBurnURL($urlS, $formulario, $id, $load) {
     $('.error').html('');
 
-    
+
     $("#".$load).LoadingOverlay("show");
 
 
 
     var $form = $('#' + $formulario),
-            data = $form.serialize() + '&ids=' + $id;
-    
-    var url =$urlS + $id;
-    var posting = $.post(url, {formData: data});
-    posting.done(function (data) {
+        data = $form.serialize() + '&ids=' + $id;
+
+    var url = $urlS + $id;
+    var posting = $.post(url, { formData: data });
+    posting.done(function(data) {
         if (data.fail) {
 
 
 
             var errorString = '<ul>';
-            $.each(data.errors, function (key, value) {
+            $.each(data.errors, function(key, value) {
                 errorString += '<li>' + value + '</li>';
             });
             errorString += '</ul>';
@@ -936,7 +939,7 @@ function AjaxContainerRetrunBurnURL($urlS,$formulario, $id, $load) {
         }
         if (data.success) {
             $("#".$load).LoadingOverlay("hide", true);
-        
+
 
 
         } //success
@@ -953,17 +956,17 @@ function AjaxContainerRegistroParametro($formulario, $parametro) {
 
     $("#loadingScreen").LoadingOverlay("show");
     var $form = $('#' + $formulario),
-            data = $form.serialize() + '&ids=' + $id;
+        data = $form.serialize() + '&ids=' + $id;
     url = $form.attr("action");
-    var posting = $.post(url, {formData: data});
+    var posting = $.post(url, { formData: data });
     var $form = $('#' + $formulario),
-            data = $form.serialize(),
-            url = $form.attr("action");
-    var posting = $.post(url, {formData: data});
-    posting.done(function (data) {
+        data = $form.serialize(),
+        url = $form.attr("action");
+    var posting = $.post(url, { formData: data });
+    posting.done(function(data) {
         if (data.fail) {
             var errorString = '<ul>';
-            $.each(data.errors, function (key, value) {
+            $.each(data.errors, function(key, value) {
                 errorString += '<li>' + value + '</li>';
             });
             errorString += '</ul>';
@@ -991,19 +994,19 @@ function AjaxContainerRegistro1($formulario) {
     $("#spinnerSave").show();
 
     //event.preventDefault();
-    
+
     var $form = $('#' + $formulario),
-            data = $form.serialize(),
-            url = $form.attr("action");
+        data = $form.serialize(),
+        url = $form.attr("action");
     //alert(url);
     //alert(data);
-    var posting = $.post(url, {formData: data});
-    posting.done(function (data) {
+    var posting = $.post(url, { formData: data });
+    posting.done(function(data) {
         //alert(data);
         if (data.fail) {
             //alert("Fail");
             var errorString = '<ul>';
-            $.each(data.errors, function (key, value) {
+            $.each(data.errors, function(key, value) {
                 errorString += '<li>' + value + '</li>';
             });
             errorString += '</ul>';
@@ -1028,29 +1031,30 @@ function AjaxContainerRegistro1($formulario) {
 
 
 function AjaxContainerRegistro2($formulario) {
-    
+
     $.ajaxSetup({
         headers: {
-            'X-CSRF-Token': $('meta[name=_token]').attr('content')}
+            'X-CSRF-Token': $('meta[name=_token]').attr('content')
+        }
     });
-    
+
     $("#spinnerSave").show();
 
     //event.preventDefault();
-    
+
     var $form = $('#' + $formulario),
-            data = $form.serialize(),
-            url = $form.attr("action");
+        data = $form.serialize(),
+        url = $form.attr("action");
     //alert(url);
     //alert(data);
 
-    var posting = $.post(url, {formData: data});
-    posting.done(function (data) {
+    var posting = $.post(url, { formData: data });
+    posting.done(function(data) {
         //alert(data);
         if (data.fail) {
             alert("Fail");
             var errorString = '<ul>';
-            $.each(data.errors, function (key, value) {
+            $.each(data.errors, function(key, value) {
                 errorString += '<li>' + value + '</li>';
             });
             errorString += '</ul>';
@@ -1076,7 +1080,7 @@ function AjaxContainerRegistro2($formulario) {
 
 
 function AjaxContainerCambioDashboard() {
-    
+
     $("#spinnerSave").show();
 
     var url = "/serviciosres";
@@ -1084,28 +1088,28 @@ function AjaxContainerCambioDashboard() {
     $("#target").LoadingOverlay("hide", true);
 }
 
-function AjaxContainerEdicionServicios(event,$id_usuario_servicio,$id_catalogo) {
-    
+function AjaxContainerEdicionServicios(event, $id_usuario_servicio, $id_catalogo) {
+
     $("#spinnerSave").show();
 
     event.preventDefault();
-    var url = dirServer + "public/servicios/serviciooperador1/"+$id_usuario_servicio+"/"+$id_catalogo;
+    var url = dirServer + "public/servicios/serviciooperador1/" + $id_usuario_servicio + "/" + $id_catalogo;
     console.log($id_usuario_servicio);
     var id = $id_usuario_servicio;
     //alert(id);
     //alert(url);      
-        $.ajax({
+    $.ajax({
         type: 'GET',
         url: url,
-        data:"",
-        success: function (data) {
+        data: "",
+        success: function(data) {
             //alert(data.redirectto);
             window.location.href = dirServer + 'public/' + data.redirectto;
         },
-        error: function (data) {
+        error: function(data) {
             var errors = data.responseJSON;
             if (errors) {
-                $.each(errors, function (i) {
+                $.each(errors, function(i) {
                     console.log(errors[i]);
                 });
             }
@@ -1113,71 +1117,72 @@ function AjaxContainerEdicionServicios(event,$id_usuario_servicio,$id_catalogo) 
     });
 }
 
-function AjaxContainerInfoOperador(){
-    
-        $("#spinnerSave").show();
+function AjaxContainerInfoOperador() {
+
+    $("#spinnerSave").show();
 
     //event.preventDefault();
     var url = "/infoOperador";
     //alert(id);
     //alert(url);      
-        $.ajax({
+    $.ajax({
         type: 'GET',
         url: url,
-        data:"",
-        success: function (data) {
+        data: "",
+        success: function(data) {
             //alert(data.redirectto);
 
             setTimeout(function() {
                 $("#target").LoadingOverlay("hide", true);
                 window.location.href = data.redirectto;
-            },1000)
-            
+            }, 1000)
+
         },
-        error: function (data) {
+        error: function(data) {
             var errors = data.responseJSON;
             if (errors) {
-                $.each(errors, function (i) {
+                $.each(errors, function(i) {
                     console.log(errors[i]);
                 });
             }
         }
     });
-    
+
 }
 
-function setIdCatalogo($catalogoId){
+function setIdCatalogo($catalogoId) {
     $('.id_catalogo_servicio').val($catalogoId);
     $("#form-modal-add-trip").show();
 }
 
-function AjaxContainerRegistroWithLoad1(event,$formulario, $idCreate) {
+function AjaxContainerRegistroWithLoad1(event, $formulario, $idCreate) {
     event.preventDefault();
     $.ajaxSetup({
         headers: {
-            'X-CSRF-Token': $('meta[name=_token]').attr('content')}
+            'X-CSRF-Token': $('meta[name=_token]').attr('content')
+        }
     });
     $("#spinnerSaveTrip").show();
     $("#spinnerSave").show();
     $('.rowerrorM').html('');
     var $form = $('#' + $formulario),
-            data = $form.serialize(),
-            url = $form.attr("action");
-    var posting = $.post(url, {formData: data});
-    posting.done(function (data) {
+        data = $form.serialize(),
+        url = $form.attr("action");
+    var posting = $.post(url, { formData: data });
+    posting.done(function(data) {
         if (data.limitServices) {
-            showAlert('Error!','Únicamente puedes crear ' + data.limit + ' servicios',null,'warning','danger');
+            showAlert('Error!', 'Únicamente puedes crear ' + data.limit + ' servicios', null, 'warning', 'danger');
             $("#form-modal-add-trip").hide();
             $("#spinnerSaveTrip").hide();
         };
         if (data.serviceExist) {
-            showAlert('Error!','Ya existe un servicio con el nombre ingresado',null,'warning','danger');
+            showAlert('Error!', 'Ya existe un servicio con el nombre ingresado', null, 'warning', 'danger');
             $("#form-modal-add-trip").hide();
             $("#spinnerSaveTrip").hide();
         };
         if (data.fail) {
             var errorString = '<div class="alert alert-danger animated shake"><ul>';
-            $.each(data.errors, function (key, value) {
+            $.each(data.errors, function(key, value) {
                 errorString += '<li>' + value + '</li>';
             });
             errorString += '</ul><div>';
@@ -1194,23 +1199,24 @@ function AjaxContainerRegistroWithLoad1(event,$formulario, $idCreate) {
 function AjaxContainerRegistroWithLoad2($formulario, $loadScreen) {
     $.ajaxSetup({
         headers: {
-            'X-CSRF-Token': $('meta[name=_token]').attr('content')}
+            'X-CSRF-Token': $('meta[name=_token]').attr('content')
+        }
     });
-    
+
     $("#spinnerSave").show();
 
     var $form = $('#' + $formulario),
-            data = $form.serialize(),
-            url = $form.attr("action");
-    
+        data = $form.serialize(),
+        url = $form.attr("action");
+
     //alert(data);
     //alert(url);
-    var posting = $.post(url, {formData: data});
-    posting.done(function (data) {
+    var posting = $.post(url, { formData: data });
+    posting.done(function(data) {
         //console.log(data);
         if (data.fail) {
             var errorString = '<ul>';
-            $.each(data.errors, function (key, value) {
+            $.each(data.errors, function(key, value) {
                 errorString += '<li>' + value + '</li>';
             });
             errorString += '</ul>';
@@ -1229,32 +1235,33 @@ function AjaxContainerRegistroWithLoad2($formulario, $loadScreen) {
 
         } //success
     });
-    
+
 }
 
 function UpdateServicioInfo($formulario, $id) {
-    
+
     $.ajaxSetup({
         headers: {
-            'X-CSRF-Token': $('meta[name=_token]').attr('content')}
+            'X-CSRF-Token': $('meta[name=_token]').attr('content')
+        }
     });
-    
+
     $('.error').html('');
 
     $("#spinnerSave").show();
-   
+
     var $form = $('#' + $formulario),
-            data = $form.serialize(),
-            url = $form.attr("action");
-            //alert(data);
-            //alert(url);
-        
-    var posting = $.post(url, {formData: data});
-    posting.done(function (data) {
+        data = $form.serialize(),
+        url = $form.attr("action");
+    //alert(data);
+    //alert(url);
+
+    var posting = $.post(url, { formData: data });
+    posting.done(function(data) {
         if (data.fail) {
             alert("Fail");
             var errorString = '<ul>';
-            $.each(data.errors, function (key, value) {
+            $.each(data.errors, function(key, value) {
                 errorString += '<li>' + value + '</li>';
             });
             errorString += '</ul>';
@@ -1269,13 +1276,13 @@ function UpdateServicioInfo($formulario, $id) {
             //window.location.href = data.redirectto;
             //$('.register').fadeOut(); //hiding Reg form
             //var successContent = '' + data.message + '';
-            
+
         } //success
     }); //done
 }
 
 function UpdateServicioInfo1($formulario, $id, redirect) {
-    
+
     // $.ajaxSetup({
     //     headers: {
     //         'X-CSRF-Token': $('meta[name=_token]').attr('content')}
@@ -1285,13 +1292,13 @@ function UpdateServicioInfo1($formulario, $id, redirect) {
     $('.rowerror').html('');
     $("#spinnerSave").show();
     var $form = $('#' + $formulario),
-            data = $form.serialize();
+        data = $form.serialize();
     var url = dirServer + "public/uploadServiciosRes1";
-    var posting = $.post(url, {formData: data});
-    posting.done(function (data) {
+    var posting = $.post(url, { formData: data });
+    posting.done(function(data) {
         if (data.fail) {
             var errorString = '<ul>';
-            $.each(data.errors, function (key, value) {
+            $.each(data.errors, function(key, value) {
                 errorString += '<li>' + value + '</li>';
             });
             errorString += '</ul>';
@@ -1314,15 +1321,15 @@ function GetDataAjaxImagenesRes(url) {
         type: 'GET',
         url: url,
         dataType: 'json',
-        success: function (data) {
-            
+        success: function(data) {
+
             $("#renderPartialImagenes").html(data.contentImagenes);
-    
+
         },
-        error: function (data) {
+        error: function(data) {
             var errors = data.responseJSON;
             if (errors) {
-                $.each(errors, function (i) {
+                $.each(errors, function(i) {
                     console.log(errors[i]);
                 });
             }
@@ -1332,59 +1339,59 @@ function GetDataAjaxImagenesRes(url) {
 
 
 function GetDataAjaxImagenes1(id_usuario_servicio) {
-    
+
     $("#testboxForm").LoadingOverlay("show");
-   var url = "/imagenesAjaxDescription1/1/"+id_usuario_servicio;
+    var url = "/imagenesAjaxDescription1/1/" + id_usuario_servicio;
     //alert(url);
-    
+
     $.ajax({
         type: 'GET',
         url: url,
         dataType: 'json',
-        success: function (data) {
-            
-            
+        success: function(data) {
+
+
             //$("#renderPartialImagenes").html(data.contentImagenes);
             window.location.href = "/edicionServicios";
-                 
+
 
         },
-        error: function (data) {
+        error: function(data) {
             var errors = data.responseJSON;
             if (errors) {
-                $.each(errors, function (i) {
+                $.each(errors, function(i) {
                     console.log(errors[i]);
                 });
             }
         }
     });
-    
+
 }
 
 function AjaxContainerVistaPrevia($id_usuario_servicio) {
-    
+
     $("#spinnerSave").show();
 
     //event.preventDefault();
-    var url = "/vistaPreviaServicio/"+$id_usuario_servicio;
+    var url = "/vistaPreviaServicio/" + $id_usuario_servicio;
     var id = $id_usuario_servicio;
     //alert(id);
     //alert(url);      
-    
 
-        $.ajax({
+
+    $.ajax({
         type: 'GET',
         url: url,
-        data:"",
-        success: function (data) {
+        data: "",
+        success: function(data) {
             console.log(data);
             //console.log(data.redirectto);
             window.location.href = data.redirectto;
         },
-        error: function (data) {
+        error: function(data) {
             var errors = data.responseJSON;
             if (errors) {
-                $.each(errors, function (i) {
+                $.each(errors, function(i) {
                     console.log(errors[i]);
                 });
             }
@@ -1398,16 +1405,16 @@ function AjaxSaveDetailsFotografia1($formulario, $id) {
     $("#spinnerSave").show();
 
     var $form = $('#' + $formulario),
-            data = $form.serialize() + '&ids=' + $id + '&actionImage=update';
+        data = $form.serialize() + '&ids=' + $id + '&actionImage=update';
     url = $form.attr("action");
     console.log(url);
     console.log(data);
-    var posting = $.post(url, {formData: data});
-    posting.done(function (data) {
+    var posting = $.post(url, { formData: data });
+    posting.done(function(data) {
         if (data.fail) {
 
             var errorString = '<ul>';
-            $.each(data.errors, function (key, value) {
+            $.each(data.errors, function(key, value) {
                 errorString += '<li>' + value + '</li>';
             });
             errorString += '</ul>';
@@ -1417,10 +1424,10 @@ function AjaxSaveDetailsFotografia1($formulario, $id) {
 
         }
         if (data.success) {
-            
+
             $("#target").LoadingOverlay("hide", true);
             //window.location.href = data.redirectto;
-    
+
         } //success
     }); //done
 
@@ -1432,13 +1439,13 @@ function GetDataAjaxProvincias1(url) {
         type: 'GET',
         url: url,
         dataType: 'json',
-        success: function (data) {
+        success: function(data) {
             $("#provincias").html(data.provincias);
         },
-        error: function (data) {
+        error: function(data) {
             var errors = data.responseJSON;
             if (errors) {
-                $.each(errors, function (i) {
+                $.each(errors, function(i) {
                     console.log(errors[i]);
                 });
             }
@@ -1452,13 +1459,13 @@ function GetDataAjaxCantones1(url) {
         type: 'GET',
         url: url,
         dataType: 'json',
-        success: function (data) {
+        success: function(data) {
             $("#canton").html(data.cantones);
         },
-        error: function (data) {
+        error: function(data) {
             var errors = data.responseJSON;
             if (errors) {
-                $.each(errors, function (i) {
+                $.each(errors, function(i) {
                     console.log(errors[i]);
                 });
             }
@@ -1466,24 +1473,25 @@ function GetDataAjaxCantones1(url) {
     });
 }
 
-$('.checkboxDays').on('switchChange.bootstrapSwitch', function (event, state) {
+$('.checkboxDays').on('switchChange.bootstrapSwitch', function(event, state) {
     applyFilterDays(event.currentTarget.id);
-}); 
+});
 
 var filtersDays = [];
 var filtersH = [];
-function applyFilterDays(item){
+
+function applyFilterDays(item) {
     if (!_.contains(filtersDays, item)) {
         filtersDays.push(item);
         $('#from_time' + item).removeAttr('disabled');
         $('#to_time' + item).removeAttr('disabled');
         $('#from_time' + item).change(function() {
-            var index = _.where(filtersH, {'d':item});
+            var index = _.where(filtersH, { 'd': item });
             if (index.length == 0) {
-                var obj = {d:item,desde:$('#from_time' + item).val()};
+                var obj = { d: item, desde: $('#from_time' + item).val() };
                 filtersH.push(obj);
-            }else{
-                filtersH.forEach(function(val,key){
+            } else {
+                filtersH.forEach(function(val, key) {
                     if (val.d == item) {
                         filtersH[key].desde = $('#from_time' + item).val();
                     }
@@ -1491,13 +1499,13 @@ function applyFilterDays(item){
 
             }
         });
-         $('#to_time' + item).change(function() {
-            var index = _.where(filtersH, {'d':item});
+        $('#to_time' + item).change(function() {
+            var index = _.where(filtersH, { 'd': item });
             if (index.length == 0) {
-                var obj = {d:item,hasta:$('#to_time' + item).val()};
+                var obj = { d: item, hasta: $('#to_time' + item).val() };
                 filtersH.push(obj);
-            }else{
-                filtersH.forEach(function(val,key){
+            } else {
+                filtersH.forEach(function(val, key) {
                     if (val.d == item) {
                         filtersH[key].hasta = $('#to_time' + item).val();
                     }
@@ -1505,85 +1513,84 @@ function applyFilterDays(item){
 
             }
         });
-        
-    }else{
-        filtersDays = _.without(filtersDays,item);
-        $('#from_time' + item).attr('disabled','disabled');
+
+    } else {
+        filtersDays = _.without(filtersDays, item);
+        $('#from_time' + item).attr('disabled', 'disabled');
         $('#from_time' + item).value = null;
-        $('#to_time' + item).attr('disabled','disabled');
+        $('#to_time' + item).attr('disabled', 'disabled');
         $('#to_time' + item).value = null;
-        filtersH.splice(item,1);
+        filtersH.splice(item, 1);
     }
 }
 
-function saveHorario(event,idServicio) {
+function saveHorario(event, idServicio) {
     event.preventDefault();
     var day = '';
     var errorDays = [];
-    filtersH.forEach(function(obj,key){
+    filtersH.forEach(function(obj, key) {
         var jdt1 = new Date(Date.parse('20 Aug 2000 ' + obj.desde + ':00')).getTime();
         var jdt2 = new Date(Date.parse('20 Aug 2000 ' + obj.hasta + ':00')).getTime();
-        if (jdt1 > jdt2)
-        {
-            switch(obj.d){
+        if (jdt1 > jdt2) {
+            switch (obj.d) {
                 case '0':
                     day = 'Lunes';
-                break;
+                    break;
                 case '1':
                     day = 'Martes';
-                break;
+                    break;
                 case '2':
                     day = 'Miercoles';
-                break;
+                    break;
                 case '3':
                     day = 'Jueves';
-                break;
+                    break;
                 case '4':
                     day = 'Viernes';
-                break;
+                    break;
                 case '5':
                     day = 'Sabado';
-                break;
+                    break;
                 case '6':
                     day = 'Domingo';
-                break;
+                    break;
             }
             errorDays.push(day);
         }
     });
     if (errorDays.length > 0) {
-        showAlert('Error! en los siguientes dias :' + errorDays.toString(),'La hora "HASTA" no puede ser menor a la hora "DESDE"',null,'warning','danger');
-    }else{
-        if (filtersDays.length != filtersH.length ) {
-             showAlert('Error!, Algunas horas no han sido asignadas',null,null,'warning','danger');
-         }else{
+        showAlert('Error! en los siguientes dias :' + errorDays.toString(), 'La hora "HASTA" no puede ser menor a la hora "DESDE"', null, 'warning', 'danger');
+    } else {
+        if (filtersDays.length != filtersH.length) {
+            showAlert('Error!, Algunas horas no han sido asignadas', null, null, 'warning', 'danger');
+        } else {
             if (filtersDays.length == 0 && filtersH.length == 0) {
-                 showAlert('Error!, No se puede guardar un horario vacío',null,null,'warning','danger');
-            }else{
+                showAlert('Error!, No se puede guardar un horario vacío', null, null, 'warning', 'danger');
+            } else {
                 var url = dirServer + 'public/saveHorario';
                 $.ajax({
                     type: 'POST',
                     url: url,
                     dataType: 'json',
-                    data:{
-                        dias:filtersDays,
-                        horas:filtersH,
-                        idServicio:idServicio
+                    data: {
+                        dias: filtersDays,
+                        horas: filtersH,
+                        idServicio: idServicio
                     },
-                    success: function (data) {
+                    success: function(data) {
                         if (data.resul) {
-                            showAlert('Horario guardado correctamente!','',null,'success','success');
+                            showAlert('Horario guardado correctamente!', '', null, 'success', 'success');
                             $('#form-modal-horario').hide();
                         }
                     },
-                    error: function (e) {
+                    error: function(e) {
                         console.log(e);
                     }
                 });
             }
-         }
+        }
     }
-    
+
 }
 
 function sendSearch(s) {
@@ -1611,16 +1618,16 @@ function GetDataAjaxParroquias1(url) {
         type: 'GET',
         url: url,
         dataType: 'json',
-        success: function (data) {
+        success: function(data) {
 
             $("#parroquia").html(data.parroquias);
 
 
         },
-        error: function (data) {
+        error: function(data) {
             var errors = data.responseJSON;
             if (errors) {
-                $.each(errors, function (i) {
+                $.each(errors, function(i) {
                     console.log(errors[i]);
                 });
             }
@@ -1634,16 +1641,16 @@ function GetDataAjaxDescripcion1(url) {
         type: 'GET',
         url: url,
         dataType: 'json',
-        success: function (data) {
+        success: function(data) {
 
             $("#descripcionGeografica1").html(data.descripcionGeografica);
 
 
         },
-        error: function (data) {
+        error: function(data) {
             var errors = data.responseJSON;
             if (errors) {
-                $.each(errors, function (i) {
+                $.each(errors, function(i) {
                     console.log(errors[i]);
                 });
             }
@@ -1652,19 +1659,19 @@ function GetDataAjaxDescripcion1(url) {
 }
 
 function AjaxContainerRetrunMessageImagenRes($formulario, $id) {
-    
+
     $('.error').html('');
 
     //$("#spinnerSave").show();
 
     var $form = $('#' + $formulario),
-            data = $form.serialize() + '&ids=' + $id;
+        data = $form.serialize() + '&ids=' + $id;
     url = $form.attr("action");
-    var posting = $.post(url, {formData: data});
-    posting.done(function (data) {
+    var posting = $.post(url, { formData: data });
+    posting.done(function(data) {
         if (data.fail) {
             var errorString = '<ul>';
-            $.each(data.errors, function (key, value) {
+            $.each(data.errors, function(key, value) {
                 errorString += '<li>' + value + '</li>';
             });
             errorString += '</ul>';
@@ -1677,7 +1684,7 @@ function AjaxContainerRetrunMessageImagenRes($formulario, $id) {
             //$("#target").LoadingOverlay("hide", true);
             $('.register').fadeOut(); //hiding Reg form
             var successContent = '' + data.message + '';
-            
+
         } //success
     }); //done
 
@@ -1685,82 +1692,82 @@ function AjaxContainerRetrunMessageImagenRes($formulario, $id) {
 
 //COMPARTIDO.JS
 function UpdateServicioActivo(url) {
-    
+
     $("#spinnerSave").show();
     //alert(url);
-   
+
     $.ajax({
         type: 'GET',
         url: url,
         dataType: 'json',
-        success: function (data) {
+        success: function(data) {
             //alert(data.redirectto);
             //window.location.href = "/edicionServicios";
             $("#target").LoadingOverlay("hide", true);
-                 
+
 
         },
-        error: function (data) {
+        error: function(data) {
             var errors = data.responseJSON;
             if (errors) {
-                $.each(errors, function (i) {
+                $.each(errors, function(i) {
                     console.log(errors[i]);
                 });
             }
         }
     });
-    
+
 }
 
 
 
 function GetDataAjaxPromo(url) {
-    
+
     $("#spinnerSave").show();
-    
+
     $.ajax({
         type: 'GET',
         url: url,
         dataType: 'json',
-        success: function (data) {
-            
+        success: function(data) {
+
             $("#target").LoadingOverlay("hide", true);
             window.location.href = data.redirectto;
 
         },
-        error: function (data) {
+        error: function(data) {
             var errors = data.responseJSON;
             if (errors) {
-                $.each(errors, function (i) {
+                $.each(errors, function(i) {
                     console.log(errors[i]);
                 });
             }
         }
     });
-    
+
 }
 
 
 
 
 function GetDataEditPromo(url) {
-    
+
     $("#spinnerSave").show();
-    
+
     $.ajax({
         type: 'GET',
         url: url,
         dataType: 'json',
-        success: function (data) {
-            
+        success: function(data) {
+
             $("#target").LoadingOverlay("hide", true);
             window.location.href = data.redirectto;
 
         },
-        error: function (data) {
+        error: function(data) {
             var errors = data.responseJSON;
             if (errors) {
-                $.each(errors, function (i) {
+                $.each(errors, function(i) {
                     console.log(errors[i]);
                 });
             }
@@ -1770,30 +1777,31 @@ function GetDataEditPromo(url) {
 
 
 function GuardarPromo($formulario, $id) {
-    
+
     $.ajaxSetup({
         headers: {
-            'X-CSRF-Token': $('meta[name=_token]').attr('content')}
+            'X-CSRF-Token': $('meta[name=_token]').attr('content')
+        }
     });
-    
+
     $('.error').html('');
 
     $("#spinnerSave").show();
 
     var $form = $('#' + $formulario),
-            data = $form.serialize() + '&catalogo=' + $id;
+        data = $form.serialize() + '&catalogo=' + $id;
     url = $form.attr("action");
     //alert(data);
     //alert(url);
-    
-    var posting = $.post(url, {formData: data});
-    posting.done(function (data) {
+
+    var posting = $.post(url, { formData: data });
+    posting.done(function(data) {
         if (data.fail) {
 
 
 
             var errorString = '<ul>';
-            $.each(data.errors, function (key, value) {
+            $.each(data.errors, function(key, value) {
                 errorString += '<li>' + value + '</li>';
             });
             errorString += '</ul>';
@@ -1821,7 +1829,7 @@ function GuardarPromo($formulario, $id) {
 }
 
 // function AjaxContainerEdicionServicios($id_usuario_servicio,$id_catalogo) {
-    
+
 //     $("#spinnerSave").show();
 
 //     event.preventDefault();
@@ -1850,225 +1858,226 @@ function GuardarPromo($formulario, $id) {
 
 
 function UpdatePermanente(url) {
-    
+
     $("#spinnerSave").show();
     //alert(url);
-   
+
     $.ajax({
         type: 'GET',
         url: url,
         dataType: 'json',
-        success: function (data) {
+        success: function(data) {
             //alert(data.redirectto);
             //window.location.href = "/edicionServicios";
             $("#target").LoadingOverlay("hide", true);
-                 
+
 
         },
-        error: function (data) {
+        error: function(data) {
             var errors = data.responseJSON;
             if (errors) {
-                $.each(errors, function (i) {
+                $.each(errors, function(i) {
                     console.log(errors[i]);
                 });
             }
         }
     });
-    
+
 }
 
 
 function UpdateServicioActivo(url) {
-    
+
     $("#spinnerSave").show();
     //alert(url);
-   
+
     $.ajax({
         type: 'GET',
         url: url,
         dataType: 'json',
-        success: function (data) {
+        success: function(data) {
             //alert(data.redirectto);
             //window.location.href = "/edicionServicios";
             $("#target").LoadingOverlay("hide", true);
         },
-        error: function (data) {
+        error: function(data) {
             var errors = data.responseJSON;
             if (errors) {
-                $.each(errors, function (i) {
+                $.each(errors, function(i) {
                     console.log(errors[i]);
                 });
             }
         }
     });
-    
+
 }
 
 function GetDataAjaxImagenes2(url) {
-    
+
     $("#testboxForm").LoadingOverlay("show");
-    
-   $.ajax({
+
+    $.ajax({
         type: 'GET',
         url: url,
         dataType: 'json',
-        success: function (data) {
+        success: function(data) {
             $("#renderPartialImagenes").html(data.contentImagenes);
             //window.location.href = "/edicionServicios";
         },
-        error: function (data) {
+        error: function(data) {
             var errors = data.responseJSON;
             if (errors) {
-                $.each(errors, function (i) {
+                $.each(errors, function(i) {
                     console.log(errors[i]);
                 });
             }
         }
     });
-    
+
 }
 
 var filtersServ = [];
-function applyFilterServ(item){
+
+function applyFilterServ(item) {
     if (!_.contains(filtersServ, item)) {
         filtersServ.push(item);
-    }else{
-        filtersServ = _.without(filtersServ,item);
+    } else {
+        filtersServ = _.without(filtersServ, item);
     }
 }
 
-$('.checkboxServ').on('switchChange.bootstrapSwitch', function (event, state) {
+$('.checkboxServ').on('switchChange.bootstrapSwitch', function(event, state) {
     applyFilterServ(event.currentTarget.id);
-}); 
+});
 
-var openFilterModal = function(event){
+var openFilterModal = function(event) {
     event.preventDefault();
     $('#filter').modal('show');
 }
 
-function searchServ($idCatalogo,$idSubCatalogo){
+function searchServ($idCatalogo, $idSubCatalogo) {
     event.preventDefault();
     // console.log(filtersServ);
     // console.log($idCatalogo);
     // console.log($idSubCatalogo);
-    var data = {filter:filtersServ,idCatalogo:$idCatalogo,idSubCatalogo:$idSubCatalogo};
+    var data = { filter: filtersServ, idCatalogo: $idCatalogo, idSubCatalogo: $idSubCatalogo };
     var url = dirServer + 'public/filterService';
 
     $.ajax({
         type: 'POST',
         url: url,
         dataType: 'json',
-        data:data,
-        success: function (r) {
-        var htmlResult = '';
-        var array = r.data;
-        for (var i = 0; i < array.length; i++) {
-            var id;
-            if (array[i].id_usuario_servicio) {
-                id = array[i].id_usuario_servicio;
-            }else{
-                id = array[i].id;
-            }
-            var url = dirServer + 'public/';
-            var urlImg = url + 'images/fullsize/' + array[i].filename;
-            var urlDetail = url + 'tokenDz$rip/' + id;
-            var htmlString = '<div class="col-xs-12 col-sm-6 col-md-4 isotope-item" style=" padding-bottom: 25px;">\
-                    <div class="post-masonry post-masonry-short post-content-white bg-post-2 bg-image box-skew post-skew-right-top post-skew-var-4" style="background: url(' + urlImg + ');\
-                          background-size: cover;\
-                          background-repeat: no-repeat;\
-                          min-height: 200px;\
-                          cursor: pointer;" onclick="openDetailOnClick(' + id + ')">\
-                      <div class="post-masonry-content">\
-                        <h4><a href="' + urlDetail + '">' + array[i].nombre_servicio + '</a></h4>\
-                        <div style="overflow-x: hidden;">\
-                          ' + array[i].detalle_servicio + '\
-                        </div>\
-                      </div>\
-                      <a class="link-position link-primary-sec-2 link-right post-link" href="' + urlDetail + '"><i class="fa fa-info-circle" aria-hidden="true" style="color: #2f6890;"></i>\
-                      </a>\
-                    </div>\
-                  </div>';
-            htmlResult = htmlResult + htmlString;
-        }
-        $('#findedFilter').html(htmlResult);
-        $('#initialRows').hide();
-        $('#filter').modal('hide');
-        },
-        error: function (e) {
-            console.log(e)
-        }
-    });
-}
-
-function searchServIni($idCatalogo,$idSubCatalogo){
-    var data = {filter:filtersServ,idCatalogo:$idCatalogo,idSubCatalogo:$idSubCatalogo};
-    var url = dirServer + 'public/filterService';
-
-    $.ajax({
-        type: 'POST',
-        url: url,
-        dataType: 'json',
-        data:data,
-        success: function (r) {
-        var htmlResult = '';
-        var array = r.data;
-        for (var i = 0; i < array.length; i++) {
-            var id;
-            if (array[i].id_usuario_servicio) {
-                id = array[i].id_usuario_servicio;
-            }else{
-                id = array[i].id;
-            }
-            var url = dirServer + 'public/';
-            var urlImg = url + 'images/fullsize/' + array[i].filename;
-            var urlDetail = url + 'tokenDz$rip/' + id;
-            var htmlString = '<div class="col-xs-12 col-sm-6 col-md-4 isotope-item" style=" padding-bottom: 25px;">\
-                    <div class="post-masonry post-masonry-short post-content-white bg-post-2 bg-image box-skew post-skew-right-top post-skew-var-4" style="background: url(' + urlImg + ');\
-                          background-size: cover;\
-                          background-repeat: no-repeat;\
-                          min-height: 200px;\
-                          cursor: pointer;" onclick="openDetailOnClick(' + id + ')">\
-                      <div class="post-masonry-content">\
-                        <h4><a href="' + urlDetail + '">' + array[i].nombre_servicio + '</a></h4>\
-                        <div style="overflow-x: hidden;">\
-                          ' + array[i].detalle_servicio + '\
-                        </div>\
-                      </div>\
-                      <a class="link-position link-primary-sec-2 link-right post-link" href="' + urlDetail + '"><i class="fa fa-info-circle" aria-hidden="true" style="color: #2f6890;"></i>\
-                      </a>\
-                    </div>\
-                  </div>';
-            htmlResult = htmlResult + htmlString;
-        }
-        $('#findedFilter').html(htmlResult);
-        $('#initialRows').hide();
-        },
-        error: function (e) {
-            console.log(e)
-        }
-    });
-}
-
-function openDetailOnClick(idServ){
-    var url = dirServer + 'public/tokenDz$rip/' + idServ;
-    window.location.href = url;
-}
-
-function getLastServicesCreated(){
-    var url = dirServer + 'public/getLastServicesCreated';
-    $.ajax({
-        type: 'GET',
-        url: url,
-        dataType: 'json',
-        data:{},
-        success: function (r) {
+        data: data,
+        success: function(r) {
             var htmlResult = '';
             var array = r.data;
             for (var i = 0; i < array.length; i++) {
                 var id;
                 if (array[i].id_usuario_servicio) {
                     id = array[i].id_usuario_servicio;
-                }else{
+                } else {
+                    id = array[i].id;
+                }
+                var url = dirServer + 'public/';
+                var urlImg = url + 'images/fullsize/' + array[i].filename;
+                var urlDetail = url + 'tokenDz$rip/' + id;
+                var htmlString = '<div class="col-xs-12 col-sm-6 col-md-4 isotope-item" style=" padding-bottom: 25px;">\
+                    <div class="post-masonry post-masonry-short post-content-white bg-post-2 bg-image box-skew post-skew-right-top post-skew-var-4" style="background: url(' + urlImg + ');\
+                          background-size: cover;\
+                          background-repeat: no-repeat;\
+                          min-height: 200px;\
+                          cursor: pointer;" onclick="openDetailOnClick(' + id + ')">\
+                      <div class="post-masonry-content">\
+                        <h4><a href="' + urlDetail + '">' + array[i].nombre_servicio + '</a></h4>\
+                        <div style="overflow-x: hidden;">\
+                          ' + array[i].detalle_servicio + '\
+                        </div>\
+                      </div>\
+                      <a class="link-position link-primary-sec-2 link-right post-link" href="' + urlDetail + '"><i class="fa fa-info-circle" aria-hidden="true" style="color: #2f6890;"></i>\
+                      </a>\
+                    </div>\
+                  </div>';
+                htmlResult = htmlResult + htmlString;
+            }
+            $('#findedFilter').html(htmlResult);
+            $('#initialRows').hide();
+            $('#filter').modal('hide');
+        },
+        error: function(e) {
+            console.log(e)
+        }
+    });
+}
+
+function searchServIni($idCatalogo, $idSubCatalogo) {
+    var data = { filter: filtersServ, idCatalogo: $idCatalogo, idSubCatalogo: $idSubCatalogo };
+    var url = dirServer + 'public/filterService';
+
+    $.ajax({
+        type: 'POST',
+        url: url,
+        dataType: 'json',
+        data: data,
+        success: function(r) {
+            var htmlResult = '';
+            var array = r.data;
+            for (var i = 0; i < array.length; i++) {
+                var id;
+                if (array[i].id_usuario_servicio) {
+                    id = array[i].id_usuario_servicio;
+                } else {
+                    id = array[i].id;
+                }
+                var url = dirServer + 'public/';
+                var urlImg = url + 'images/fullsize/' + array[i].filename;
+                var urlDetail = url + 'tokenDz$rip/' + id;
+                var htmlString = '<div class="col-xs-12 col-sm-6 col-md-4 isotope-item" style=" padding-bottom: 25px;">\
+                    <div class="post-masonry post-masonry-short post-content-white bg-post-2 bg-image box-skew post-skew-right-top post-skew-var-4" style="background: url(' + urlImg + ');\
+                          background-size: cover;\
+                          background-repeat: no-repeat;\
+                          min-height: 200px;\
+                          cursor: pointer;" onclick="openDetailOnClick(' + id + ')">\
+                      <div class="post-masonry-content">\
+                        <h4><a href="' + urlDetail + '">' + array[i].nombre_servicio + '</a></h4>\
+                        <div style="overflow-x: hidden;">\
+                          ' + array[i].detalle_servicio + '\
+                        </div>\
+                      </div>\
+                      <a class="link-position link-primary-sec-2 link-right post-link" href="' + urlDetail + '"><i class="fa fa-info-circle" aria-hidden="true" style="color: #2f6890;"></i>\
+                      </a>\
+                    </div>\
+                  </div>';
+                htmlResult = htmlResult + htmlString;
+            }
+            $('#findedFilter').html(htmlResult);
+            $('#initialRows').hide();
+        },
+        error: function(e) {
+            console.log(e)
+        }
+    });
+}
+
+function openDetailOnClick(idServ) {
+    var url = dirServer + 'public/tokenDz$rip/' + idServ;
+    window.location.href = url;
+}
+
+function getLastServicesCreated() {
+    var url = dirServer + 'public/getLastServicesCreated';
+    $.ajax({
+        type: 'GET',
+        url: url,
+        dataType: 'json',
+        data: {},
+        success: function(r) {
+            var htmlResult = '';
+            var array = r.data;
+            for (var i = 0; i < array.length; i++) {
+                var id;
+                if (array[i].id_usuario_servicio) {
+                    id = array[i].id_usuario_servicio;
+                } else {
                     id = array[i].id;
                 }
                 var url = dirServer + 'public/';
@@ -2077,20 +2086,125 @@ function getLastServicesCreated(){
                 var htmlString = '<div class="post-mini post-footer">\
                         <div class="unit unit-horizontal unit-spacing-xs">\
                           <div class="unit__left">\
-                          <a href="' + urlDetail +'" ><img src="' + urlImg + '" alt="" width="70" height="70"/></a></div>\
+                          <a href="' + urlDetail + '" ><img src="' + urlImg + '" alt="" width="70" height="70"/></a></div>\
                           <div class="unit__body">\
-                            <a href="' + urlDetail +'" ><p>' + array[i].nombre_servicio  +'</p></a>\
-                            <p>' + array[i].detalle_servicio.substring(0,20) + '...'  +'</p>\
+                            <a href="' + urlDetail + '" ><p>' + array[i].nombre_servicio + '</p></a>\
+                            <p>' + array[i].detalle_servicio.substring(0, 20) + '...' + '</p>\
                           </div>\
                         </div>\
                       </div>';
                 htmlResult = htmlResult + htmlString;
             }
-             $('#lastServicesCreated').html(htmlResult);
+            $('#lastServicesCreated').html(htmlResult);
         },
-        error: function (e) {
+        error: function(e) {
             console.log(e)
         }
     });
 }
 
+$('#spinnerRestore').hide();
+
+function showRestorePassword(event) {
+    event.preventDefault();
+    if ($('#restoreForm').is(":visible")) {
+        $('#restoreForm').fadeOut();
+        $('#restorePassLink').fadeIn();
+    } else {
+        $('#restoreForm').fadeIn();
+        $('#restorePassLink').fadeOut();
+    }
+}
+
+function sendRestorePassword(event) {
+    event.preventDefault();
+    $('#spinnerRestore').show();
+    var url = dirServer + 'public/sendRestorePassword';
+    var msg = '';
+    $.ajax({
+        type: 'POST',
+        url: url,
+        dataType: 'json',
+        data: { email: $('#passRestore').val() },
+        success: function(r) {
+            if (!r.error) {
+                msg = $('#messageOK').val();
+                showAlert(msg, '', null, 'success', 'success');
+                $('#spinnerRestore').hide();
+                $('#restorePassLink').fadeIn();
+                $('#restoreForm').hide();
+            } else {
+                msg = $('#messageErrorUser').val();
+                showAlert(msg, '', null, 'warning', 'danger');
+                $('#spinnerRestore').hide();
+            }
+        },
+        error: function(e) {
+            msg = $('#messageError').val();
+            showAlert(msg, '', null, 'warning', 'danger');
+            $('#spinnerRestore').hide();
+        }
+    });
+}
+$('#spinnerChange').hide();
+
+function changePassword(event) {
+    event.preventDefault();
+    if ($('#pass').val() != $('#pass2').val()) {
+        msg = $('#msgPassNotEqual').val();
+        showAlert(msg, '', null, 'warning', 'danger');
+    } else {
+        $('#spinnerChange').show();
+        var url = dirServer + 'public/restorePassword';
+        var msg = '';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            dataType: 'json',
+            data: { p: $('#pass').val(), email: $('#emailUpdate').val() },
+            success: function(r) {
+                if (!r.error) {
+                    msg = $('#msgOkUpdatePass').val();
+                    showAlert(msg, '', null, 'success', 'success');
+                    $('#spinnerChange').hide();
+                    window.location.href = dirServer + 'public/';
+                } else {
+                    msg = $('#messageErrorUpdatePass').val();
+                    showAlert(msg, '', null, 'warning', 'danger');
+                    $('#spinnerChange').hide();
+                }
+            },
+            error: function(e) {
+                msg = $('#messageErrorUpdatePass').val();
+                showAlert(msg, '', null, 'warning', 'danger');
+                $('#spinnerChange').hide();
+            }
+        });
+    }
+}
+
+$('#precio_desde').live({
+    keyup: function() {
+        var iniP = parseFloat($(this).val());
+        var finP = parseFloat($('#precio_hasta').val());
+        if (iniP > finP) {
+            $('#msgPrecioError').text('Precio desde no puede ser mayor a precio hasta');
+            $('#msgPrecioError').fadeIn();
+        } else {
+            $('#msgPrecioError').fadeOut();
+        }
+    }
+});
+$('#msgPrecioError').hide();
+$('#precio_hasta').live({
+    keyup: function() {
+        var iniP = parseFloat($('#precio_desde').val());
+        var finP = parseFloat($(this).val());
+        if (finP < iniP) {
+            $('#msgPrecioError').text('Precio hasta no puede ser menor a precio desde');
+            $('#msgPrecioError').fadeIn();
+        } else {
+            $('#msgPrecioError').fadeOut();
+        }
+    }
+});

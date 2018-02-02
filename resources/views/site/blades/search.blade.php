@@ -88,7 +88,8 @@
                           background-size: cover;
                           background-repeat: no-repeat;
                           min-height: 200px;
-                          cursor: pointer;" onclick="openDetailOnClick({{$serv->id_usuario_servicio}})">
+                          cursor: pointer;
+                          margin-bottom: 20px;" onclick="openDetailOnClick({{$serv->id_usuario_servicio}})">
                                 <div class="post-masonry-content">
                                   <h4><a href="{!!asset('/tokenDz$rip')!!}/{{$serv->id_usuario_servicio}}">{{$serv->nombre_servicio}}</a></h4>
                                   <div>

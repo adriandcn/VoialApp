@@ -1,3 +1,40 @@
+@if(session('device') == 'mobile')
+  <style type="text/css">
+    article,
+    aside,
+    details,
+    figcaption,
+    figure,
+    footer,
+    header,
+    hgroup,
+    main,
+    menu,
+    nav,
+    section,
+    summary {
+      display: inline-grid !important;
+    }
+  </style>
+@else
+<style type="text/css">
+    article,
+    aside,
+    details,
+    figcaption,
+    figure,
+    footer,
+    header,
+    hgroup,
+    main,
+    menu,
+    nav,
+    section,
+    summary {
+      display: flow-root !important;
+    }
+  </style>
+@endif
 <!DOCTYPE html>
 <html class="wide wow-animation" lang="en">
   <head>
@@ -142,7 +179,7 @@
                   </form>
             </div>
             <div class="modal-footer">
-              <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-search" style="float: right;" href="#" onclick="searchServ({{request()->route('idCatalogo')}},{{request()->route('idSubCatalogo')}})">
+              <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-search" style="float: right;" href="#" onclick="searchServ(event,{{request()->route('idCatalogo')}},{{request()->route('idSubCatalogo')}})">
                   Aplicar
                   <span></span>
               </a>

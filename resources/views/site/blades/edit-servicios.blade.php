@@ -420,6 +420,10 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
               </div>
               <div class="modal-body">
                 <form class="rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="bat/rd-mailform.php">
+                  <div class="form-wrap">
+                        <label class="form-label-outside" for="contact-first-name-2" style="color: #c26933ba;">24 Horas</label>
+                        <span class="badge" style="background-color: transparent;"><input type="checkbox" name="my-checkbox" id="24_h" data-size="mini" data-on-color="success" data-on-text="Si" data-off-text="No"></span>
+                  </div>
                   <div class="range range-15">
                     @foreach($diasList as $dia)
                     <div class="cell-sm-4">
@@ -438,7 +442,7 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
               </div>
               <div class="modal-footer">
                 <div class="col-md-6">
-                  <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-close" href="#" data-dismiss="modal">
+                  <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-close" href="#" data-dismiss="modal" id="btnCloseModalH">
                       {{trans('front/responsive.cerrar')}}
                       <span></span>
                   </a>

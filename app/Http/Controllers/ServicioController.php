@@ -747,9 +747,9 @@ class ServicioController extends Controller {
 
         //Verificar si existe servicio
         $exist_servicios = $gestion_search->getSearchTotal($formFields['nombre_servicio']);
-        if (count($exist_servicios) > 0) {
-            return response()->json(['serviceExist' => true]);
-        }
+        // if (count($exist_servicios) > 0) {
+        //     return response()->json(['serviceExist' => true]);
+        // }
 
         $operadorData = array(
             'nombre_servicio' => $formFields['nombre_servicio'],

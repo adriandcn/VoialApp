@@ -1480,6 +1480,37 @@ $('.checkboxDays').on('switchChange.bootstrapSwitch', function(event, state) {
 var filtersDays = [];
 var filtersH = [];
 
+$('#24_h').on('switchChange.bootstrapSwitch', function(event, state) {
+    if (state) {
+        for (var i = 0; i < 7; i++) {
+            // $('#to_time' + i).removeAttr('disabled');
+            // $('#from_time' + i).removeAttr('disabled');
+            $('#from_time' + i).val('23:59');
+            $('#to_time' + i).val('23:59');
+            var exist = false;
+            filtersH.forEach(function(val, key) {
+                if (val.d == i) {
+                    exist = true;
+                }
+            });
+            if (!exist) {
+                var obj = { d: i, desde: $('#to_time' + i).val(), hasta: $('#to_time' + i).val() };
+                filtersH.push(obj);
+            }
+        }
+        $('.checkboxDays').bootstrapSwitch('state' , true);
+    }else{
+        console.log('aqui');
+        for (var i = 0; i < 7; i++) {
+            // $('#from_time' + i).attr('disabled', 'disabled');
+            // $('#to_time' + i).attr('disabled', 'disabled');
+            $('#from_time' + i).val(null);
+            $('#to_time' + i).val(null);
+        }
+        $('.checkboxDays').bootstrapSwitch('state' , false);
+    }
+});
+
 function applyFilterDays(item) {
     if (!_.contains(filtersDays, item)) {
         filtersDays.push(item);
@@ -1516,11 +1547,14 @@ function applyFilterDays(item) {
 
     } else {
         filtersDays = _.without(filtersDays, item);
+        // filtersH.splice(parseInt(item), 1);
+        filtersH = _.filter(filtersH, function(itemArray) { return parseInt(itemArray.d) !== parseInt(item); });
         $('#from_time' + item).attr('disabled', 'disabled');
-        $('#from_time' + item).value = null;
+        $('#from_time' + item).val(null);
         $('#to_time' + item).attr('disabled', 'disabled');
-        $('#to_time' + item).value = null;
-        filtersH.splice(item, 1);
+        $('#to_time' + item).val(null);
+        console.log(item);
+        
     }
 }
 
@@ -1580,7 +1614,7 @@ function saveHorario(event, idServicio) {
                     success: function(data) {
                         if (data.resul) {
                             showAlert('Horario guardado correctamente!', '', null, 'success', 'success');
-                            $('#form-modal-horario').hide();
+                            $('#btnCloseModalH').trigger('click');
                         }
                     },
                     error: function(e) {
@@ -1955,7 +1989,7 @@ var openFilterModal = function(event) {
     $('#filter').modal('show');
 }
 
-function searchServ($idCatalogo, $idSubCatalogo) {
+function searchServ(event,$idCatalogo, $idSubCatalogo) {
     event.preventDefault();
     // console.log(filtersServ);
     // console.log($idCatalogo);

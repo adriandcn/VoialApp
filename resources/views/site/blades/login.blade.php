@@ -103,8 +103,8 @@
                           <input class="form-input tooltip" id="login-name-4" type="text" name="name" data-constraints="@Required" title="Ingresa tu nombre Ej: Juan">
                         </div>
                         <div class="form-wrap">
-                          <label class="form-label-outside" for="login-username-4">{{ trans('publico/labels.lblUsername')}}</label>
-                          <input class="form-input tooltip" id="login-username-4" type="text" name="username" data-constraints="@Required" title="Ingresa tu nombre de usuario con el que ingresaras al sistema Ej: juan18">
+                          <label class="form-label-outside" >{{ trans('publico/labels.lblUsername')}}</label>
+                          <input class="form-input tooltip" type="text" name="username" data-constraints="@Required" title="Ingresa tu nombre de usuario con el que ingresaras al sistema Ej: juan18">
                         </div>
                         <div class="form-wrap">
                           <label class="form-label-outside" for="login-email-4">{{ trans('publico/labels.lblEmail')}}</label>

@@ -14,9 +14,19 @@ use Jenssegers\Agent\Agent;
 use App\Jobs\VerifyReview;
 use Illuminate\Support\Facades\Session;
 use App\Models\Review_Usuario_Servicio;
+use GuzzleHttp\Client;
 
 class SearchController extends Controller
     {
+
+    private function getIp() {
+        if (!empty($_SERVER['HTTP_CLIENT_IP']))
+            return $_SERVER['HTTP_CLIENT_IP'];
+        if (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
+            return $_SERVER['HTTP_X_FORWARDED_FOR'];
+        return $_SERVER['REMOTE_ADDR'];
+    }
+
     // Obtiene los top places paginados
     public function getSearchTotal(Request $request, PublicServiceRepository $gestion)
         {
@@ -72,6 +82,24 @@ class SearchController extends Controller
                 if ($request->s != '') {
                     $term = $request->s;
                     $busquedaTotal = $gestion->getSearchTotal($term);
+                    //save search
+                    $query['ip'] =  $this->getIp();
+                    $query['query'] = $request->s;
+                    $query['usuario'] = ($request->session()->has('user_id')) ? $request->session()->get('user_name') : null;
+                    if ($query['ip'] != '' || $query['ip'] != null) {
+                        $client = new Client();
+                        $res = $client->get('http://ip-api.com/json/186.46.201.39', ['fields' => '520191', 'lang' => 'en']);
+                        $status = $res->getStatusCode();
+                        if ($status == 200) {
+                            $result = json_decode($res->getBody());
+                            $query['provincia'] = $result->regionName;
+                            $query['canton'] = $result->city;
+                        }
+                    }else{
+                        $query['provincia'] = null;
+                        $query['canton'] = null;
+                    }
+                    $gestion->saveQueryVisitor($query);
                     $despliegue = null;
                     if ($busquedaTotal != null)
                     {

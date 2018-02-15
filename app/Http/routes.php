@@ -10,11 +10,13 @@ Route::get('/redirect/{typeAction}', 'SocialAuthFacebookController@redirect');
 Route::get('/callback', 'SocialAuthFacebookController@callback');
 //--Home--
 Route::get('/', ['as' => 'publico', 'uses' => 'HomePublicController@getHome']);
+Route::get('/clicT', ['as' => 'clicsTendencias', 'uses' => 'HomePublicController@saveClickTendencias']);
 Route::get('/getLastServicesCreated', ['as' => 'publico', 'uses' => 'HomePublicController@getLastServicesCreated']);
 //--Search--
 Route::get('Search', ['as' => 'min-search', 'uses' => 'SearchController@getSearchTotal']);
 // Auth
-Route::get('/loginRegister', ['as' => 'publico', 'uses' => 'HomePublicController@getLoginTemplate']);
+Route::get('/login', ['as' => 'publico', 'uses' => 'HomePublicController@getLoginTemplate']);
+Route::get('/Register', ['as' => 'publico', 'uses' => 'HomePublicController@getRegisterTemplate']);
 Route::controllers(['auth' => 'Auth\AuthController', 'password' => 'Auth\PasswordController', ]);
 Route::get('/confirm/{confirmation_code}', ['uses' => 'HomeController@getConfirm']);
 Route::post('/sendRestorePassword', 'HomePublicController@sendEmailRestorePassword');

@@ -11,6 +11,7 @@ use App\Models\Usuario_Servicio;
 use App\Models\asignacion;
 use App\Models\asignacion_sesion;
 use App\Models\persona;
+use App\Models\visitorQuery;
 use Carbon\Carbon;
 
 class PublicServiceRepository extends BaseRepository {
@@ -42,9 +43,10 @@ class PublicServiceRepository extends BaseRepository {
         $this->review = new Review_Usuario_Servicio();
         
         
-           $this->asignacion = new asignacion();
-            $this->persona = new persona();
+        $this->asignacion = new asignacion();
+        $this->persona = new persona();
         $this->asignacion_sesion = new asignacion_sesion();
+        $this->visitorQuery = new visitorQuery();
     }
 
 //Entrega el arreglo de los servicios más visitados por provincia
@@ -3512,6 +3514,11 @@ class PublicServiceRepository extends BaseRepository {
         }
 
         return $rows;
+    }
+
+    public function saveQueryVisitor ($data){
+        $save = $this->visitorQuery->insert($data);
+        return $save;
     }
 
 }

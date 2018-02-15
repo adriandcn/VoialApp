@@ -23,10 +23,10 @@
                 <div class="rd-navbar-collapse">
                   <div class="forms-modal">
                     @if(session('statut') == 'visitor')
-                      <a href="{!!asset('/loginRegister')!!}">
+                      <a href="{!!asset('/login')!!}">
                         {{ trans('publico/labels.lblLogIn')}}
                       </a>
-                      <a href="{!!asset('/loginRegister')!!}">
+                      <a href="{!!asset('/Register')!!}">
                         {{ trans('publico/labels.lblRegister')}}
                       </a>
                       <a href="{!!asset('/language')!!}">

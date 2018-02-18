@@ -4,6 +4,33 @@
     <!-- Site Title-->
     <title>Servicios</title>
     @include('site.reusable.head')
+    <style type="text/css">
+      input[type=checkbox]
+      {
+        /* Double-sized Checkboxes */
+        -ms-transform: scale(1.5); /* IE */
+        -moz-transform: scale(1.5); /* FF */
+        -webkit-transform: scale(1.5); /* Safari and Chrome */
+        -o-transform: scale(1.5); /* Opera */
+        padding: 10px;
+      }
+      .noUi-tooltip {
+          display: none;
+      }
+      .noUi-active .noUi-tooltip {
+          display: block;
+      }
+      .noUi-connect {
+          background: #2f6890;
+      }
+      .noUi-handle {
+          border: 1px solid #c26933;
+          border-radius: 3px;
+          background: #c26933;
+          cursor: default;
+          box-shadow: inset 0 0 1px #c26933, inset 0 1px 7px #c26933, 0 3px 6px -3px #BBB;
+      }
+    </style>
   </head>
    <body>
     <!-- Page-->
@@ -198,16 +225,22 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                             <i class="fa fa-info"></i>&nbsp;&nbsp;</label>
                         </div>
                       </div>
+                      <div class="cell-sm-12">
+                        <div class="form-wrap">
+                           <label class="form-label-outside" for="contact-first-name"><i class="fa fa-money"></i>&nbsp;&nbsp;{{ trans('back/admin.lblRangoPrecio')}}</label>
+                          <div id="keypress"></div>
+                        </div>
+                      </div>
                       <div class="cell-sm-6">
                         <div class="form-wrap">
-                          <label class="form-label-outside" for="contact-first-name"><i class="fa fa-money"></i>&nbsp;&nbsp;{{ trans('back/admin.lblPrecioDesde')}}</label>
-                          <input type="text" id="precio_desde" name="precio_desde" value="{!!$usuarioServicio->precio_desde!!}" class="form-input tooltip numsOnly" title="{{ trans('back/admin.altPrecioDesde')}}" placeholder="{{ trans('back/admin.placeHolderPDesde')}}">
+                           <label class="form-label-outside" for="contact-first-name"><i class="fa fa-money"></i>&nbsp;&nbsp;{{ trans('back/admin.lblPrecioDesde')}}</label>
+                          <input type="number" id="precio_desde" name="precio_desde" value="{!!$usuarioServicio->precio_desde!!}" class="form-input tooltip numsOnly" title="{{ trans('back/admin.altPrecioDesde')}}" placeholder="{{ trans('back/admin.placeHolderPDesde')}}">
                         </div>
                       </div>
                       <div class="cell-sm-6">
                         <div class="form-wrap">
                           <label class="form-label-outside" for="contact-first-name"><i class="fa fa-money"></i>&nbsp;&nbsp;{{ trans('back/admin.lblPrecioHasta')}}</label>
-                          <input type="text" id="precio_hasta" name="precio_hasta" value="{!!$usuarioServicio->precio_hasta!!}" class="form-input tooltip numsOnly" placeholder="{{ trans('back/admin.placeHolderPHasta')}}" title="{{ trans('back/admin.altPrecioHasta')}}">
+                          <input type="number" id="precio_hasta" name="precio_hasta" value="{!!$usuarioServicio->precio_hasta!!}" class="form-input tooltip numsOnly" placeholder="{{ trans('back/admin.placeHolderPHasta')}}" title="{{ trans('back/admin.altPrecioHasta')}}">
                         </div>
                       </div>
                       <div class="cell-sm-6">
@@ -248,10 +281,23 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                             </div>
                         </div>
                       @endforeach
+                      @if (count($tendenciasList) > 0)
+                      <div class="cell-sm-12">
+                          <div class="form-wrap">
+                            <label class="form-label-outside" for="contact-first-name"><i class="fa fa-star"></i>&nbsp;&nbsp;{{ trans('publico/labels.lblTendencias')}}</label><br>
+                            <div style="display: flex;">
+                                @foreach($tendenciasList as $tendencia)
+                                  <a href="#" class="tooltip" title="{{ trans('back/admin.altTendencias')}}" onclick="updateHashtags(event,'{{$tendencia->hashtag}}','{{$tendencia->idtendencias}}')"><h6 class="text-primary">{{$tendencia->nombre}}&nbsp;/&nbsp;</h6>
+                                  </a>
+                                @endforeach
+                            </div>
+                          </div>
+                      </div>
+                      @endif
                       <div class="cell-sm-12">
                           <div class="form-wrap">
                           <label class="form-label-outside" for="contact-first-name"><i class="fa fa-hashtag"></i>&nbsp;&nbsp;{{ trans('back/admin.lblTagServ')}}</label>
-                          <input type="text" name="tags" value="{!!$usuarioServicio->tags!!}" class="form-input tooltip" placeholder="{{ trans('back/admin.placeHolderTagServ')}}" title="{{trans('back/admin.altTagServ')}}">
+                          <input type="text" name="tags" id="txtHashtags" value="{!!$usuarioServicio->tags!!}" class="form-input tooltip" placeholder="{{ trans('back/admin.placeHolderTagServ')}}" title="{{trans('back/admin.altTagServ')}}">
                           </div>
                       </div>
                       <div class="cell-sm-6">
@@ -274,9 +320,9 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                           <label class="form-label-outside" for="contact-message">
                             <i class="fa fa-map-marker"></i>&nbsp;&nbsp;{{trans('front/responsive.ubicacion')}}</label>
                           <!-- <h4 class="section-title">{{trans('front/responsive.ubicacion')}}</h4> -->
-                              <div class="tab-container full-width style2">
-                                   @include('reusable.maps1', ['longitud_servicio' => $usuarioServicio->longitud_servicio,'latitud_servicio'=>$usuarioServicio->latitud_servicio])  
-                              </div>
+                            <div class="tab-container full-width style2">
+                                 @include('reusable.maps1', ['longitud_servicio' => $usuarioServicio->longitud_servicio,'latitud_servicio'=>$usuarioServicio->latitud_servicio])  
+                            </div>
                         </div>
                       </div>
                       <div class="cell-xs-12">
@@ -315,7 +361,7 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                                     <li style="margin-bottom: 12px;">
                                         <input class="circulo chng" name="id_servicio_est[]" id="id_servicio_est[]" 
                                                value="{!!$catalogo->id!!}" type="checkbox" 
-                                               data-labelauty="No brindo este servicio|Si brindo este servicio" {{($catalogo->estado_servicio_est_us <> NULL)?'checked':''}}/>
+                                               data-labelauty="No brindo este servicio|Si brindo este servicio" {{($catalogo->estado_servicio_est_us <> NULL)?'checked':''}}/>&nbsp;&nbsp;
                                         <strong>{!!$catalogo->nombre_servicio_est!!}</strong>
                                     </li> 
                                 @endforeach    

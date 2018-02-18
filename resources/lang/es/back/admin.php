@@ -91,4 +91,9 @@ return [
     'altSearchboxUbicacion' => 'Puedes buscar un sitio escribiéndolo directamente Ej: Guayaquil',
     'lblDescriptionImage' => 'Descripción',
     'altPage' => 'Dasboard',
+    'altTendencias' => 'Haz clic sobre la tendencia para que tu servicio pueda ser encontrado más fácilmente',
+    'lblRangoPrecio' => 'Rango de precios',
+    'altSearchRadio' => 'Ingresa el radio de búsqueda Ej:50',
+    'lblSearchRadio' => 'Radio de búsqueda (metros)',
+    'altSearchMap' => 'Haz clic sobre el mapa para marcar la ubicación desde donde se va a buscar'
 ];

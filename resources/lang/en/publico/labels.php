@@ -81,5 +81,11 @@ return [
     'lblNewPass2' => 'Repeat password',
     'msgOkUpdatePass' => 'Password updated correctly',
     'messageErrorUpdatePass' => 'Could not update password, try it later.',
-    'messagePassNotEqual' => 'Passwords do not match'
+    'messagePassNotEqual' => 'Passwords do not match',
+    'lblTendencias' => 'Trends',
+    'titleMapSearch' => 'Search by map',
+    'descriptionMapSearch' => 'In this section you can search for services, just select the point where you want to search and the radius',
+    'lblPathMapSearch' => 'Search by map',
+    'lblResult' => 'Results',
+    'lblMap' => 'Map'
 ];

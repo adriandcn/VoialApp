@@ -10,7 +10,11 @@
                 <h4>Tags</h4>
                 <ul class="list-tags">
                   @foreach($headerCategories as $category)
-                    <li><a href="{!!asset('/catalogoServ')!!}/{{$category->id_catalogo_servicios}}">{{$category->nombre_servicio}}</a></li>
+                      @if(count($headerCategories) > 0)
+                        @foreach($category->child as $childCat)
+                          <li><a href="{!!asset('/catalogoServ')!!}/{{$childCat->id_catalogo_servicios}}">{{$childCat->nombre_servicio}}<span class="overlay-skew"></span></a></li>
+                        @endforeach
+                      @endif
                   @endforeach
                 </ul>
                 <h4>Links</h4>
@@ -91,9 +95,10 @@
     <script src="{{ asset('/siteStyle/js/script.js')}}"></script>
     <script src="{{ asset('/siteStyle/sweetalert/sweetalert.js')}}"></script>
     <script src="{{ asset('/siteStyle/js/alertas.js')}}"></script>
-    <script src="{{ asset('/siteStyle/js/Compartido.js')}}"></script> 
+    <script src="{{ asset('/siteStyle/nouislider/nouislider.min.js')}}"></script>  
     <script src="{{ asset('/siteStyle/js/bootstrap-switch.js')}}"></script> 
-    <script src="{{ asset('/siteStyle/js/underscore.js')}}"></script> 
+    <script src="{{ asset('/siteStyle/js/underscore.js')}}"></script>
+    <script src="{{ asset('/siteStyle/js/Compartido.js')}}"></script>
 
       <script type="text/javascript">
           $('.error').html('');

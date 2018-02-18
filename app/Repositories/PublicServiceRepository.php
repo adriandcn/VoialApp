@@ -12,6 +12,7 @@ use App\Models\asignacion;
 use App\Models\asignacion_sesion;
 use App\Models\persona;
 use App\Models\visitorQuery;
+use App\Models\Tendencia;
 use Carbon\Carbon;
 
 class PublicServiceRepository extends BaseRepository {
@@ -47,6 +48,7 @@ class PublicServiceRepository extends BaseRepository {
         $this->persona = new persona();
         $this->asignacion_sesion = new asignacion_sesion();
         $this->visitorQuery = new visitorQuery();
+        $this->tendencia = new Tendencia();
     }
 
 //Entrega el arreglo de los servicios más visitados por provincia
@@ -2203,13 +2205,14 @@ class PublicServiceRepository extends BaseRepository {
     //Motor de busqueda
     public function getSearchTotal($term) {
 
-        $query = DB::table('searchengine')
-                ->whereRaw("match(search) against ('" . $term . "')")
-                ->orWhere('searchengine.search', 'like', "%" . $term)
-                ->orWhere('searchengine.search', 'like', $term . "%")
-                ->orWhere('searchengine.search', 'like', "%" . $term . "%")
-                ->select('searchengine.id_usuario_servicio', 'searchengine.tipo_busqueda')
-                ->get();
+        // $query = DB::table('searchengine')
+        //         ->whereRaw("match(search) against ('" . $term . "')")
+        //         ->orWhere('searchengine.search', 'like', "%" . $term)
+        //         ->orWhere('searchengine.search', 'like', $term . "%")
+        //         ->orWhere('searchengine.search', 'like', "%" . $term . "%")
+        //         ->select('searchengine.id_usuario_servicio', 'searchengine.tipo_busqueda')
+        //         ->get();
+        $query = DB::select("SELECT *, MATCH (search) AGAINST (" . "'" . $term . "'" . ") as relevancia FROM searchengine WHERE MATCH (search) AGAINST (" . "'" . $term . "'" . "IN BOOLEAN MODE) ORDER BY relevancia;");
         return $query;
     }
 
@@ -2277,8 +2280,9 @@ class PublicServiceRepository extends BaseRepository {
         $arrayId = [];
         if (count($data) > 0) {
             foreach ($data as $item) {
+                $id = (property_exists($item, 'id_usuario_servicio')) ? $item->id_usuario_servicio: $item->id;
                 $dataServ = DB::table('usuario_servicios')
-                ->where('id',$item->id_usuario_servicio)
+                ->where('id',$id)
                 ->select('id_catalogo_servicio')
                 ->first();
                 $dataCatalogoPadre = DB::table('catalogo_servicios')
@@ -2290,7 +2294,7 @@ class PublicServiceRepository extends BaseRepository {
                 ->select('id_padre')
                 ->first();
                 if ($dataCatalogoRaiz->id_padre == 1) {
-                    array_push($arrayId, $item->id_usuario_servicio);
+                    array_push($arrayId, $id);
                 }
             }
             $paginated = $this->usuario_servicio
@@ -3519,6 +3523,82 @@ class PublicServiceRepository extends BaseRepository {
     public function saveQueryVisitor ($data){
         $save = $this->visitorQuery->insert($data);
         return $save;
+    }
+
+    public function distance($lat1, $lon1, $lat2, $lon2, $unit) {
+
+      $theta = $lon1 - $lon2;
+      $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
+      $dist = acos($dist);
+      $dist = rad2deg($dist);
+      $miles = $dist * 60 * 1.1515;
+      $unit = strtoupper($unit);
+
+      if ($unit == "K") {
+      return ($miles * 1.609344);
+      } else if ($unit == "N") {
+      return ($miles * 0.8684);
+      } else {
+      return $miles;
+      }
+    }
+
+    public function searchInMap ($lat = null,$lng = null,$radio = 50,$idTendencia = null){
+        if ($lat == null || $lat == null) {
+            $lat = config('global.latDefault');
+            $lng = config('global.lngDefault');
+        }
+        if ($idTendencia == null || $idTendencia == '') {
+            $dataList = DB::select('SELECT *
+                                        FROM (
+                                          SELECT 
+                                            *,
+                                            3956 * ACOS(COS(RADIANS(' . $lat . ')) * COS(RADIANS(latitud_servicio)) * COS(RADIANS(' . $lng . ') - RADIANS(longitud_servicio)) + SIN(RADIANS(' . $lat . ')) * SIN(RADIANS(latitud_servicio))) AS distance
+                                          FROM usuario_servicios
+                                          WHERE
+                                            latitud_servicio 
+                                              BETWEEN ' . $lat . ' - (' . $radio . ' / 69) 
+                                              AND ' . $lat . ' + (' . $radio . ' / 69)
+                                            AND longitud_servicio 
+                                              BETWEEN ' . $lng . ' - (' . $radio . ' / (69 * COS(RADIANS(' . $lat . ')))) 
+                                              AND ' . $lng . ' + (' . $radio . ' / (69* COS(RADIANS(' . $lat . '))))
+                                        ) r
+                                        WHERE distance < ' . $radio . '
+                                        ORDER BY distance ASC
+                                        ;
+                                        ');
+        }else{
+            $dataTendencia = $this->tendencia->where('idTendencias',$idTendencia)->select('hashtag')->first();
+            $busquedaTotal = $this->getSearchTotal($dataTendencia->hashtag);
+            $arrayInTotal = [];
+            foreach ($busquedaTotal as $key => $value) {
+                array_push($arrayInTotal, $value->id_usuario_servicio);
+            }
+            $dataList = $this->usuario_servicio
+                        ->whereIn('usuario_servicios.id',$arrayInTotal)->get();
+        }
+        $arrayFinded = [];
+        foreach ($dataList as $value) {
+            $distance = $this->distance($lat,$lng,$value->latitud_servicio,$value->longitud_servicio,'K');
+            if ($distance < ($radio / 1000)) {
+                array_push($arrayFinded,  $value);
+            }
+        }
+        foreach ($arrayFinded as $serv) {
+            $image = DB::table('images')
+            ->where('id_usuario_servicio','=',$serv->id)
+            ->where('profile_pic','=',1)
+            ->orWhereNull('profile_pic')
+            ->select('filename')
+            ->get();
+            if (count($image) > 0) {
+                $serv->filename = $image[0]->filename;
+            }else{
+                $serv->filename = 'default_service.png';
+            }
+            
+        }
+        return $arrayFinded;
     }
 
 }

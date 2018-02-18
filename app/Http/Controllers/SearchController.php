@@ -44,6 +44,38 @@ class SearchController extends Controller
                     return $view;
                 }
         }
+    //Busqueda por mapa
+    public function getViewSearchMap(Request $request)
+    {
+        $view = View::make('site.blades.mapSearch');
+        return $view;
+    }
+
+    public function searchAllInMap(Request $request,PublicServiceRepository $gestion){
+        //save search
+        $query['ip'] =  $this->getIp();
+        $query['query'] = 'mapa';
+        $query['usuario'] = ($request->session()->has('user_id')) ? $request->session()->get('user_name') : null;
+        if ($query['ip'] != '' || $query['ip'] != null) {
+            $client = new Client();
+            $res = $client->get('http://ip-api.com/json/186.46.201.39', ['fields' => '520191', 'lang' => 'en']);
+            $status = $res->getStatusCode();
+            if ($status == 200) {
+                $result = json_decode($res->getBody());
+                $query['provincia'] = $result->regionName;
+                $query['canton'] = $result->city;
+            }
+        }else{
+            $query['provincia'] = null;
+            $query['canton'] = null;
+        }
+        $query['radio'] = $request->radio;
+        $idTendenciaS = Session::get('idTendenciaSearch');
+        $gestion->saveQueryVisitor($query);
+        $findedMap = $gestion->searchInMap($request->lat,$request->lng,$request->radio,$idTendenciaS);
+        return response()->json(['error' => false,'data' => $findedMap]);
+    }
+
     // Obtiene los terminos y condiciones
     public function getTermsConditions()
         {
@@ -118,8 +150,13 @@ class SearchController extends Controller
             ));
         }
     public function postSearch(Request $request, PublicServiceRepository $gestion)
-
-        {
+    {
         $this->getSearchTotal($request, $gestion);
-        }
     }
+
+    public function getTendenciasView($idTendencia)
+    {
+        Session::put('idTendenciaSearch', $idTendencia);
+        return view('site.blades.tendenciasSearch');
+    }
+}

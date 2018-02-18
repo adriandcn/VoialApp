@@ -18,7 +18,6 @@ use App\Jobs\VerifyReview;
 use App\Jobs\ContactosMail;
 use DB;
 use Mail;
-use GuzzleHttp\Client;
 
 class HomePublicController extends Controller {
 
@@ -1170,34 +1169,6 @@ class HomePublicController extends Controller {
         $update = DB::table('users')
             ->where('email',$request->email)->update(['password' => bcrypt($request->p),'code_restore' => null]);
         return response()->json(['error' => !$update]);
-    }
-
-    public function saveClickTendencias(Request $request)
-    {
-        $currentClics = DB::table('tendencias')
-            ->where('idtendencias',$request->idtendencia)->select('clics')->first();
-        $ip = $this->getIp();
-        if ($ip != '' || $ip != null) {
-            $client = new Client();
-            $res = $client->get('http://ip-api.com/json/186.46.201.39', ['fields' => '520191', 'lang' => 'en']);
-            $status = $res->getStatusCode();
-            if ($status == 200) {
-                $result = json_decode($res->getBody());
-                $query['provincia'] = $result->regionName;
-                $query['canton'] = $result->city;
-            }
-        }else{
-            $query['provincia'] = null;
-            $query['canton'] = null;
-        }
-        $insert = DB::table('tendencias_clics')
-            ->insert(
-                [
-                    'idtendencia' => $request->idtendencia,
-                    'provincia' => $query['provincia'],
-                    'canton' => $query['canton']
-            )]);
-        return response()->json(['error' => !$insert]);
     }
 
 }

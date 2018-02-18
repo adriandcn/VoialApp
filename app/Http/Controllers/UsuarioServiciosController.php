@@ -1110,11 +1110,15 @@ class UsuarioServiciosController extends Controller
         $view = view('responsive.dashboard', compact('data', 'listServicios'));
         return ($view);
         }
-    public function tablaServiciosRes(Guard $auth, ServiciosOperadorRepository $gestion, OperadorRepository $operador_gestion, catalogoServiciosRepository $catalogoRepo)
+    public function tablaServiciosRes(Guard $auth, ServiciosOperadorRepository $gestion, OperadorRepository $operador_gestion, catalogoServiciosRepository $catalogoRepo,Request $request)
         {
         //
         $operador = $operador_gestion->getOperadorTipo($auth->user()->id, session('tip_oper'));
         $data['tipoOperador'] = session('tip_oper');
+        if (session('operador_id') == '' || session('operador_id') == null) {
+            $operador_id = $operador_gestion->getOperador($auth->user()->id);
+            $request->session()->put('operador_id', $operador_id[0]->id_usuario_op);
+        }
 
         $listServiciosUnicos = $gestion->getServiciosOperadorUnicos(session('operador_id'));
         

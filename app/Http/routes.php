@@ -10,10 +10,15 @@ Route::get('/redirect/{typeAction}', 'SocialAuthFacebookController@redirect');
 Route::get('/callback', 'SocialAuthFacebookController@callback');
 //--Home--
 Route::get('/', ['as' => 'publico', 'uses' => 'HomePublicController@getHome']);
-Route::get('/clicT', ['as' => 'clicsTendencias', 'uses' => 'HomePublicController@saveClickTendencias']);
+// Tendencias
+Route::get('/getTend/{idCatalogo}', ['as' => 'clicsTendencias', 'uses' => 'tendenciasController@getTendencias']);
+Route::post('/clicTend', ['as' => 'clicsTendencias', 'uses' => 'tendenciasController@saveClickTendencias']);
 Route::get('/getLastServicesCreated', ['as' => 'publico', 'uses' => 'HomePublicController@getLastServicesCreated']);
 //--Search--
 Route::get('Search', ['as' => 'min-search', 'uses' => 'SearchController@getSearchTotal']);
+Route::get('searchMap', ['as' => 'map-search', 'uses' => 'SearchController@getViewSearchMap']);
+Route::post('searchAllInMap', ['as' => 'map-search', 'uses' => 'SearchController@searchAllInMap']);
+Route::get('tendenciasSearch/{idTendencia}', ['as' => 'tendencias-search', 'uses' => 'SearchController@getTendenciasView']);
 // Auth
 Route::get('/login', ['as' => 'publico', 'uses' => 'HomePublicController@getLoginTemplate']);
 Route::get('/Register', ['as' => 'publico', 'uses' => 'HomePublicController@getRegisterTemplate']);

@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\User, App\Models\Role ,DB;
 use App\Models\Usuario_Servicio;
 use App\Models\Servicio_Establecimiento_Usuario;
+use App\Models\Tendencia;
 
 class catalogoServiciosRepository extends BaseRepository
 {
@@ -29,6 +30,7 @@ class catalogoServiciosRepository extends BaseRepository
 		$this->campos = ['id_catalogo_servicios','nombre_servicio','nombre_servicio_eng','nivel','id_padre'];
 		$this->arrayList = [];
 		$this->arrayForAcordion = [];
+		$this->tendenciasModel = new Tendencia();
 	}
 
 	/**
@@ -147,11 +149,67 @@ class catalogoServiciosRepository extends BaseRepository
 		foreach ($findedEstablesimientos as $value) {
 			array_push($arrayEstServ, $value->id_usuario_servicio);
 		}
-		$finded = $usuario_Servicio->join('images', 'usuario_servicios.id', '=', 'images.id_usuario_servicio')
+		$finded = $usuario_Servicio->leftJoin('images', 'usuario_servicios.id', '=', 'images.id_usuario_servicio')
 			->where('images.profile_pic', '=', 1)
+			->orWhereNull('images.profile_pic')
 			->whereIn('usuario_servicios.id', $arrayEstServ)->get();
 		return $finded;
 	}
 
+	private function getIp() {
+        if (!empty($_SERVER['HTTP_CLIENT_IP']))
+            return $_SERVER['HTTP_CLIENT_IP'];
+        if (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
+            return $_SERVER['HTTP_X_FORWARDED_FOR'];
+        return $_SERVER['REMOTE_ADDR'];
+    }
+
+    public function getTendencias($idCatalogo = null){
+        if ($idCatalogo != 'all' && $idCatalogo != null) {
+            $tendenciasList = $this->tendenciasModel
+                        ->join('tendencias_catalogo','idtendencia','=','idtendencias')
+                        ->where('tendencias.status',1)
+                        ->where('idCatalogo',$idCatalogo)
+                        ->get();
+        }else{
+            $tendenciasList = $this->tendenciasModel
+                        ->where('status',1)
+                        ->get();
+        }
+        
+        foreach ($tendenciasList as $value) {
+            $clics = DB::table('tendencias_clics')->where('idtendencia',$value->idtendencias)->count();
+            $value->clics = $clics;
+        }
+        return $tendenciasList;
+    }
+
+	public function saveClickTendencias($idtendencia)
+    {
+
+        $ip = $this->getIp();
+        if ($ip != '' || $ip != null) {
+            $client = new Client();
+            $res = $client->get('http://ip-api.com/json/186.46.201.39', ['fields' => '520191', 'lang' => 'en']);
+            $status = $res->getStatusCode();
+            if ($status == 200) {
+                $result = json_decode($res->getBody());
+                $query['provincia'] = $result->regionName;
+                $query['canton'] = $result->city;
+            }
+        }else{
+            $query['provincia'] = null;
+            $query['canton'] = null;
+        }
+        $insert = DB::table('tendencias_clics')
+            ->insert(
+                        [
+                            'idtendencia' => $idtendencia,
+                            'provincia' => $query['provincia'],
+                            'canton' => $query['canton']
+                        ]
+                    );
+        return ['error' => !$insert];
+    }
 
 }

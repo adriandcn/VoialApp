@@ -802,7 +802,7 @@ class ServicioController extends Controller {
     
     
 
-public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $auth,PublicServiceRepository $gestion1, redesSocialesRepository $redesSociales){
+public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $auth,PublicServiceRepository $gestion1, redesSocialesRepository $redesSociales,catalogoServiciosRepository $catalogoServRep){
         $id =  session('usu_serviciocrear');
         $id_catalogo = session('catalogocrear');
         session()->forget('parroquia_admin');
@@ -833,6 +833,7 @@ public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $aut
         //$contadorCalendario = DB::select('SELECT COUNT(id_usuario_servicio) AS contador FROM booking_abcalendar_calendars WHERE id_usuario_servicio ='.$usuarioServicio[0]['id'])->get();
         //$contadorCalendario = DB::table('booking_abcalendar_calendars')->where('id_usuario_servicio', '=', $usuarioServicio[0]['id'] )->count();
         // return response()->json(['d' => $catalogoServicioEstablecimiento]);
+        $tendenciasList = $catalogoServRep->getTendencias();
         if($calendarios != Array()){
         //if($contadorCalendario[0]->contador != ""){ 
             
@@ -881,14 +882,14 @@ public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $aut
             return view('site.blades.edit-servicios', compact('redesServicio','usuarioServicio', 'catalogoServicioEstablecimiento', 
                         'id_catalogo', 'ImgPromociones', 'Servicio' ,'calendarios', 
                         'contadorCalendario','arrayDeIds','calendarioConNombre','reservacionesConNombre',
-                        'imagenes','atraccion','promociones','eventos'));
+                        'imagenes','atraccion','promociones','eventos','tendenciasList'));
             
         }else{
             // return view('responsive.registroStep4', compact('redesServicio','usuarioServicio', 'catalogoServicioEstablecimiento', 
             //             'id_catalogo', 'ImgPromociones', 'Servicio','calendarios','imagenes',
             //             'atraccion','promociones','eventos'));
             // return $redesServicio;
-            return view('site.blades.edit-servicios', compact('redesServicio','usuarioServicio', 'catalogoServicioEstablecimiento', 'id_catalogo', 'ImgPromociones', 'Servicio','calendarios','imagenes', 'atraccion','promociones','eventos'));
+            return view('site.blades.edit-servicios', compact('redesServicio','usuarioServicio', 'catalogoServicioEstablecimiento', 'id_catalogo', 'ImgPromociones', 'Servicio','calendarios','imagenes', 'atraccion','promociones','eventos','tendenciasList'));
             
         }
     }
@@ -1210,8 +1211,9 @@ public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $aut
                             ->where('id_padre',$idCatalogo)
                             ->get();
         $findedServ = [];
+        $tendenciasList = $catalogoServicios->getTendencias($idCatalogo);
         $catalogoServicios =  $catalogoServicios->recursiveList($padresList,1);
-        return view('site.blades.servicios-list-level-2', compact('catalogoServicios','idCatalogo','dataCatalogo'));
+        return view('site.blades.servicios-list-level-2', compact('catalogoServicios','idCatalogo','dataCatalogo','tendenciasList'));
         // return response()->json(array('success' => true, 'redirectto' => $catalogoServicios));
     }
 
@@ -1234,17 +1236,18 @@ public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $aut
         // $catalogoServicios =  $catalogoServicios->recursiveListInArray($padresList,null);
         // foreach ($catalogoServicios as $catalogo) {
             $qServ = DB::table('usuario_servicios')
-                            ->join('images', 'usuario_servicios.id', '=', 'images.id_usuario_servicio')
+                            ->leftJoin('images', 'usuario_servicios.id', '=', 'images.id_usuario_servicio')
                             ->select($campos_serv)
                             ->where('id_catalogo_servicio',$idSubCatalogo)
-                            ->where('images.profile_pic', '=', 1)
+                            ->where('images.profile_pic','=',1)
+                            ->orWhereNull('images.profile_pic')
                             ->get();
             foreach ($qServ as $serv) {
                 array_push($findedServ, $serv);
             }
         // }
         return view('site.blades.servicios-list-level-3', compact('findedServ','padresList','dataCatalogo','dataSubCatalogo'));
-        // return response()->json(array('success' => true, 'redirectto' => $padresList));
+        // return response()->json(array('success' => true, 'redirectto' => $findedServ));
     }
 
     public function getServiciosByOperador($idOperador) {
@@ -1263,57 +1266,23 @@ public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $aut
     }
 
     public function cleanFilterServicios($catalogo,$idSubCatalogo, catalogoServiciosRepository $catalogoServicios){
-        // $campos = ['id_catalogo_servicios','nombre_servicio','nombre_servicio_eng'];
         $campos_serv = ['usuario_servicios.id','nombre_servicio','detalle_servicio','images.filename'];
-        // $padresList = DB::table('catalogo_servicios')
-        //                     ->select($campos)
-        //                     ->where('id_padre',$idSubCatalogo)
-        //                     ->get();
-        // $findedServ = [];
-        // $catalogoServicios =  $catalogoServicios->recursiveListInArray($padresList,null);
-        // foreach ($catalogoServicios as $catalogo) {
             $qServ = DB::table('usuario_servicios')
-                            ->join('images', 'usuario_servicios.id', '=', 'images.id_usuario_servicio')
+                            ->leftJoin('images', 'usuario_servicios.id', '=', 'images.id_usuario_servicio')
                             ->select($campos_serv)
                             ->where('id_catalogo_servicio',$idSubCatalogo)
                             ->where('images.profile_pic', '=', 1)
+                            ->orWhereNull('images.profile_pic')
                             ->get();
-        //     foreach ($qServ as $serv) {
-        //         array_push($findedServ, $serv);
-        //     }
-        // }
         return $qServ;
     }
     public function applyServicesFilter(Request $request,catalogoServiciosRepository $catalogoServicios){
-        // $campos = ['id_usuario_servicio', 'id_servicio_est'];
-        // $campos_serv = ['id','nombre_servicio','detalle_servicio'];
-        // $padresList = DB::table('servicio_establecimiento_usuario')
-        //                     ->select($campos)
-        //                     ->where('id_padre',$request->idSubCatalogo)
-        //                     ->get();
-        // $findedServ = [];
-        // $catalogoServicios =  $catalogoServicios->recursiveListInArray($padresList,null);
         if ($request->has('filter')) {
             $inCatalogo = $catalogoServicios->getByCatalogoArray($request->filter);
         }else{
             $inCatalogo = $this->cleanFilterServicios($request->idCatalogo,$request->idSubCatalogo,$catalogoServicios);
         }
-        // foreach ($catalogoServicios as $catalogo) {
-        //     $qServ = DB::table('usuario_servicios')
-        //                     ->select($campos_serv)
-        //                     ->where('id_catalogo_servicio',$catalogo->id_catalogo_servicios)
-        //                     ->get();
-        //     foreach ($qServ as $serv) {
-        //         array_push($findedServ, $serv);
-        //     }
-        // }
-         return response()->json(array('success' => true, 'data' => $inCatalogo));
-        // $view = View::make('site.partial.filterCatalogoServ',['inCatalogo' => $inCatalogo,'padresList' => $padresList]);
-        // if ($request->ajax()) {
-        //     $sections = $view->rendersections();
-        //     return response()->json($sections);
-        // }
-       
+         return response()->json(array('success' => true, 'data' => $inCatalogo));   
     }
     
 }

@@ -114,8 +114,8 @@
                               @foreach($detalles->horario as $horario)
                                 <h6 style="font-size: 14px;">{{$horario->dia}} : <br>{{trans('publico/labels.lblFromHorario')}} : {{$horario->desde}}, {{trans('publico/labels.lblToHorario')}} : {{$horario->hasta}} </h6>
                               @endforeach -->
-                                {{trans('back/admin.titleComoLlegarDesdeForm')}} :<h6 style="font-size: 14px; word-break: break-all;"> {{$detalles->como_llegar1}}</h6>
-                                {{trans('back/admin.titleComoLlegarServ')}}:<h6 style="font-size: 14px; word-break: break-all;"> {{$detalles->como_llegar1_1}}</h6>
+                                {{trans('back/admin.titleComoLlegarDesdeForm')}} :<h6 style="font-size: 14px; word-break: break-all;"> {{$detalles->como_llegar1_1}}</h6>
+                                {{trans('back/admin.titleComoLlegarServ')}}:<h6 style="font-size: 14px; word-break: break-all;"> {{$detalles->como_llegar1}}</h6>
                                 <!-- {{trans('back/admin.titleComoLlegarDesdeForm')}} :<h6 style="font-size: 14px;"> {{$detalles->como_llegar2}}</h6>
                                 {{trans('back/admin.titleComoLlegarServ')}} :<h6 style="font-size: 14px;"> {{$detalles->como_llegar2_2}}</h6> -->
                             </div>

@@ -81,5 +81,11 @@ return [
     'lblNewPass2' => 'Repite contraseña',
     'msgOkUpdatePass' => 'Contraseña actualizada corectamente',
     'messageErrorUpdatePass' => 'No se pudo actualizar contraseña, intentalo mas tarde.',
-    'messagePassNotEqual' => 'Contraseñas no coinciden'
+    'messagePassNotEqual' => 'Contraseñas no coinciden',
+    'lblTendencias' => 'Tendencias',
+    'titleMapSearch' => 'Bùsqueda mediante mapa',
+    'descriptionMapSearch' => 'En esta sección puedes realizar la búsqueda de servicios, únicamente selecciona el punto donde deseas buscar y el radio.',
+    'lblPathMapSearch' => 'Busqueda mediante mapa',
+    'lblResult' => 'Resultados',
+    'lblMap' => 'Mapa'
 ];

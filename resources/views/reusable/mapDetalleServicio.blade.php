@@ -26,8 +26,6 @@
     <input type="hidden" class='form-control input-sm' name='longitud_servicio' value="{!!$longitud_servicio!!}" id='longitud_servicio'/>
 </div>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDor7F0iN5YavbFiLRA7pY7L8-Rgl89GT8&signed_in=true&libraries=places&callback=initMap" async defer></script>
-
 
 <script>
 
@@ -90,6 +88,7 @@
 </script>
 </head>
 
+{!!HTML::script('https://maps.googleapis.com/maps/api/js?key=AIzaSyDor7F0iN5YavbFiLRA7pY7L8-Rgl89GT8&signed_in=true&libraries=places&callback=initMap') !!}
 {!!HTML::script('js/jquery_.js') !!}
 {!! HTML::script('/js/jsModal/jquery.simplemodal.js') !!}
 {!! HTML::script('/js/jsModal/basic.js') !!}

@@ -90,5 +90,10 @@ return [
     'altPage' => 'Dasboard',
     'lblBtnCancel' => 'Cancel',
     'altSearchboxUbicacion' => 'You can search for a site by writing it directly eg: Guayaquil',
-    'lblDescriptionImage' => 'Description'
+    'lblDescriptionImage' => 'Description',
+    'altTendencias' => 'Click on the trend so that your service can be found more easily',
+    'lblRangoPrecio' => 'Price range',
+    'altSearchRadio' => 'Enter search radius Ex: 50',
+    'lblSearchRadio' => 'Search radius (meters)',
+    'altSearchMap' => 'Click on the map to mark the location from where you are going to search'
 ];

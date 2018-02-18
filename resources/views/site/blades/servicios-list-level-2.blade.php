@@ -42,13 +42,35 @@
           </div>
         </div>
       </section>
-     
+     @if (count($tendenciasList) > 0)
       <section class="section-xs bg-white">
         <div class="shell">
-         <!--  <div class="heading-group">
-            <h1><i class="fa fa-list"></i> &nbsp;&nbsp;Catalogo de Servicios</h1>
-            <h6 class="text-regular">Puedes crear servicio de las categorias que se muestran a continuación:</h6>
-          </div> -->
+          <div class="heading-group">
+            <h4><i class="fa fa-star"></i> &nbsp;&nbsp;{{ trans('publico/labels.lblTendencias')}}</h4>
+          </div>
+          <br>
+          <div class="row">
+              <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="isotope-filters isotope-filters-horizontal tabs-custom tabs-horizontal">
+                  <ul class="nav-custom nav-custom-tabs">                @foreach($tendenciasList as $tendencia)
+                    <li>
+                      <a href="#" onclick="sendSearchTendencias(event,'{{$tendencia->idtendencias}}')">{{$tendencia->nombre}}
+                      </a>
+                      <span></span>
+                    </li>
+                  @endforeach
+                  </ul>
+                </div>
+              </div>
+          </div>
+        </div>
+      </section>
+      @endif
+      <section class="section-xs bg-white">
+        <div class="shell">
+          <div class="heading-group">
+            <h4><i class="fa fa-search"></i> &nbsp;&nbsp;Resultados</h4>
+          </div>
           <div class="isotope grid-masonry text-left column-offset-30" data-isotope-layout="masonry">
             <div class="row">
               @if(count($catalogoServicios) == 0)
@@ -70,7 +92,6 @@
               @endif
             </div>
           </div>
- <!--          <div class="wrap-button text-center text-md-right"><a class="button button-sm button-primary" href="blog.html">Ver más recomendados<span></span></a></div> -->
         </div>
       </section>
 

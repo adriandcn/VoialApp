@@ -21,6 +21,7 @@ jQuery.fn.ForceNumericOnly =
                     key == 13 ||
                     key == 46 ||
                     key == 110 ||
+                    key == 111 ||
                     key == 190 ||
                     (key >= 35 && key <= 40) ||
                     (key >= 48 && key <= 57) ||
@@ -1646,6 +1647,13 @@ function sendSearch(s) {
     // });
 }
 
+function sendSearchTendencias(event,idTendencia) {
+    event.preventDefault();
+    // var txtS = s.replace(/#/g,'+');
+    var url = dirServer + 'public/tendenciasSearch/' + idTendencia;
+    window.location = url;
+}
+
 function GetDataAjaxParroquias1(url) {
 
     $.ajax({
@@ -2012,8 +2020,9 @@ function searchServ(event,$idCatalogo, $idSubCatalogo) {
                 } else {
                     id = array[i].id;
                 }
+                var image = (array[i].filename != null)? array[i].filename :'default_service.png';
                 var url = dirServer + 'public/';
-                var urlImg = url + 'images/fullsize/' + array[i].filename;
+                var urlImg = url + 'images/fullsize/' + image;
                 var urlDetail = url + 'tokenDz$rip/' + id;
                 var htmlString = '<div class="col-xs-12 col-sm-6 col-md-4 isotope-item" style=" padding-bottom: 25px;">\
                     <div class="post-masonry post-masonry-short post-content-white bg-post-2 bg-image box-skew post-skew-right-top post-skew-var-4" style="background: url(' + urlImg + ');\
@@ -2062,8 +2071,9 @@ function searchServIni($idCatalogo, $idSubCatalogo) {
                 } else {
                     id = array[i].id;
                 }
+                var image = (array[i].filename != null)? array[i].filename :'default_service.png';
                 var url = dirServer + 'public/';
-                var urlImg = url + 'images/fullsize/' + array[i].filename;
+                var urlImg = url + 'images/fullsize/' + image;
                 var urlDetail = url + 'tokenDz$rip/' + id;
                 var htmlString = '<div class="col-xs-12 col-sm-6 col-md-4 isotope-item" style=" padding-bottom: 25px;">\
                     <div class="post-masonry post-masonry-short post-content-white bg-post-2 bg-image box-skew post-skew-right-top post-skew-var-4" style="background: url(' + urlImg + ');\
@@ -2242,3 +2252,189 @@ $('#precio_hasta').live({
         }
     }
 });
+
+var hashArray = [];
+function updateHashtags(event,hashtags,idTendencia){
+    event.preventDefault();
+    if (hashArray.indexOf(idTendencia) == -1) {
+        hashArray.push(idTendencia);
+        $('#txtHashtags').val($('#txtHashtags').val() + ' ' + hashtags);
+    }
+}
+
+// var slider = document.getElementById('slider');
+
+// noUiSlider.create(slider, {
+//     start: [0, 50],
+//     connect: true,
+//     range: {
+//         'min': 0,
+//         'max': 500
+//     },
+//     tooltips: true
+// });
+
+if (noUiSlider) {
+    var keypressSlider = document.getElementById('keypress');
+    var input0 = document.getElementById('precio_desde');
+    var input1 = document.getElementById('precio_hasta');
+    var inputs = [input0, input1];
+
+    noUiSlider.create(keypressSlider, {
+        start: [0, 100],
+        connect: true,
+        range: {
+            'min': 0,
+            'max': 1000
+        },
+        tooltips: true,
+        step: 1
+    });
+
+    keypressSlider.noUiSlider.on('update', function( values, handle ) {
+        inputs[handle].value = values[handle];
+    });
+
+    function setSliderHandle(i, value) {
+        var r = [null,null];
+        r[i] = value;
+        keypressSlider.noUiSlider.set(r);
+    }
+
+    // Listen to keydown events on the input field.
+    inputs.forEach(function(input, handle) {
+
+        input.addEventListener('change', function(){
+            setSliderHandle(handle, this.value);
+        });
+
+        input.addEventListener('keydown', function( e ) {
+
+            var values = keypressSlider.noUiSlider.get();
+            var value = Number(values[handle]);
+
+            // [[handle0_down, handle0_up], [handle1_down, handle1_up]]
+            var steps = keypressSlider.noUiSlider.steps();
+
+            // [down, up]
+            var step = steps[handle];
+
+            var position;
+
+            // 13 is enter,
+            // 38 is key up,
+            // 40 is key down.
+            switch ( e.which ) {
+
+                case 13:
+                    setSliderHandle(handle, this.value);
+                    break;
+
+                case 38:
+
+                    // Get step to go increase slider value (up)
+                    position = step[1];
+
+                    // false = no step is set
+                    if ( position === false ) {
+                        position = 1;
+                    }
+
+                    // null = edge of slider
+                    if ( position !== null ) {
+                        setSliderHandle(handle, value + position);
+                    }
+
+                    break;
+
+                case 40:
+
+                    position = step[0];
+
+                    if ( position === false ) {
+                        position = 1;
+                    }
+
+                    if ( position !== null ) {
+                        setSliderHandle(handle, value - position);
+                    }
+
+                    break;
+            }
+        });
+    });
+
+    $('#precio_desde').click(function() {
+     this.select();
+    });
+    $('#precio_hasta').click(function() {
+     this.select();
+    });
+}
+$("#resultsMap").hide();
+function searchByMap(event){
+    if (event != null) {
+        event.preventDefault();
+    }
+    $("#spinnerSearch").show();
+    event.preventDefault();
+    var url = dirServer + "public/searchAllInMap";     
+    $.ajax({
+        type: 'POST',
+        url: url,
+        data: {lat: $('#latitud_servicio').val(),lng: $('#longitud_servicio').val(),radio: $('#radioSearch').val()},
+        success: function(r) {
+            var htmlResult = '';
+            var array = r.data;
+            // for (var i = 0; i < array.length; i++) {
+            //     var marker = new google.maps.Marker({
+            //         position: {
+            //             lat: parseFloat(array[i].latitud_servicio),
+            //             lng: parseFloat(array[i].longitud_servicio)
+            //         },
+            //         map: map,
+            //         draggable: false
+            //     });
+            // }
+            for (var i = 0; i < array.length; i++) {
+                var id;
+                if (array[i].id_usuario_servicio) {
+                    id = array[i].id_usuario_servicio;
+                } else {
+                    id = array[i].id;
+                }
+                var url = dirServer + 'public/';
+                var urlImg = url + 'images/fullsize/' + array[i].filename;
+                var urlDetail = url + 'tokenDz$rip/' + id;
+                var htmlString = '<div class="col-xs-12 col-sm-6 col-md-4 isotope-item" style=" padding-bottom: 25px;">\
+                    <div class="post-masonry post-masonry-short post-content-white bg-post-2 bg-image box-skew post-skew-right-top post-skew-var-4" style="background: url(' + urlImg + ');\
+                          background-size: cover;\
+                          background-repeat: no-repeat;\
+                          min-height: 200px;\
+                          cursor: pointer;" onclick="openDetailOnClick(' + id + ')">\
+                      <div class="post-masonry-content">\
+                        <h4><a href="' + urlDetail + '">' + array[i].nombre_servicio + '</a></h4>\
+                        <div style="overflow-x: hidden;">\
+                          ' + array[i].detalle_servicio + '\
+                        </div>\
+                      </div>\
+                      <a class="link-position link-primary-sec-2 link-right post-link" href="' + urlDetail + '"><i class="fa fa-info-circle" aria-hidden="true" style="color: #2f6890;"></i>\
+                      </a>\
+                    </div>\
+                  </div>';
+                htmlResult = htmlResult + htmlString;
+            }
+            if (array.length == 0) {
+                var htmlString = '<div class="col-xs-12 text-center text-default">\
+                        <h4 style="color:#c26933;"><i class="fa fa-frown-o "></i> &nbsp;&nbsp;Ups!! No se han encontrado resultados</h4>\
+                      </div>';
+                htmlResult = htmlResult + htmlString;
+            }
+            $('#findedFilterMap').html(htmlResult);
+            $("#resultsMap").fadeIn();
+        },
+        error: function(e) {
+            console.log(e);
+        }
+    });
+}

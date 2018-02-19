@@ -2420,6 +2420,7 @@ function searchByMap(event){
                       </div>\
                       <a class="link-position link-primary-sec-2 link-right post-link" href="' + urlDetail + '"><i class="fa fa-info-circle" aria-hidden="true" style="color: #2f6890;"></i>\
                       </a>\
+                    <span class="badge" style="color:Wwhite;background: #c26933;">Distancia: ' + parseInt(array[i].distance) + 'Km</span>\
                     </div>\
                   </div>';
                 htmlResult = htmlResult + htmlString;

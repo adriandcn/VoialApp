@@ -1095,7 +1095,7 @@ function AjaxContainerEdicionServicios(event, $id_usuario_servicio, $id_catalogo
 
     event.preventDefault();
     var url = dirServer + "public/servicios/serviciooperador1/" + $id_usuario_servicio + "/" + $id_catalogo;
-    console.log($id_usuario_servicio);
+    console.log(url);
     var id = $id_usuario_servicio;
     //alert(id);
     //alert(url);      
@@ -1105,7 +1105,7 @@ function AjaxContainerEdicionServicios(event, $id_usuario_servicio, $id_catalogo
         data: "",
         success: function(data) {
             //alert(data.redirectto);
-            window.location.href = dirServer + 'public/' + data.redirectto;
+            window.location.href = dirServer + 'public' + data.redirectto;
         },
         error: function(data) {
             var errors = data.responseJSON;

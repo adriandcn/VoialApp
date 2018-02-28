@@ -803,6 +803,7 @@ class ServicioController extends Controller {
     
 
 public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $auth,PublicServiceRepository $gestion1, redesSocialesRepository $redesSociales,catalogoServiciosRepository $catalogoServRep){
+
         $id =  session('usu_serviciocrear');
         $id_catalogo = session('catalogocrear');
         session()->forget('parroquia_admin');
@@ -836,7 +837,6 @@ public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $aut
         $tendenciasList = $catalogoServRep->getTendencias();
         if($calendarios != Array()){
         //if($contadorCalendario[0]->contador != ""){ 
-            
             $contadorCalendario = DB::table('booking_abcalendar_calendars')
                      ->select(DB::raw('COUNT(id_usuario_servicio) AS contador'))
                      ->where('id_usuario_servicio', '=', $usuarioServicio[0]['id'])
@@ -878,7 +878,6 @@ public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $aut
             //             'id_catalogo', 'ImgPromociones', 'Servicio' ,'calendarios', 
             //             'contadorCalendario','arrayDeIds','calendarioConNombre','reservacionesConNombre',
             //             'imagenes','atraccion','promociones','eventos'));
-                         
             return view('site.blades.edit-servicios', compact('redesServicio','usuarioServicio', 'catalogoServicioEstablecimiento', 
                         'id_catalogo', 'ImgPromociones', 'Servicio' ,'calendarios', 
                         'contadorCalendario','arrayDeIds','calendarioConNombre','reservacionesConNombre',

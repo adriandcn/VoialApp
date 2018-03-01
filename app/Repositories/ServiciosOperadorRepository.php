@@ -301,7 +301,6 @@ class ServiciosOperadorRepository extends BaseRepository {
 
         foreach ($evento as $servicioBase) {
             $pro = $this->eventos->find($servicioBase->id);
-
             //Transformo el arreglo en un solo objeto
             $inputs['updated_at'] = \Carbon\Carbon::now()->toDateTimeString();
             $inputs['longitud_evento'] = $inputs['longitud_servicio'];
@@ -953,8 +952,6 @@ Actualizar tabla de busqueda
     public function getPromocionesUsuarioServicio($id_usuario_servicio) {
         $promociones = new $this->promocion;
         return $promociones::where('id_usuario_servicio', '=', $id_usuario_servicio)->orderBy('updated_at', 'DESC')->get();
-
-
         return $promociones::All();
     }
 
@@ -962,8 +959,6 @@ Actualizar tabla de busqueda
     public function getEventosUsuarioServicio($id_usuario_servicio) {
         $eventos = new $this->eventos;
         return $eventos::where('id_usuario_servicio', '=', $id_usuario_servicio)->orderBy('updated_at', 'DESC')->get();
-
-
         return $eventos::All();
     }  
 

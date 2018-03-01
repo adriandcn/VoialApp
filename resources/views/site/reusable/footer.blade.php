@@ -99,6 +99,7 @@
     <script src="{{ asset('/siteStyle/js/bootstrap-switch.js')}}"></script> 
     <script src="{{ asset('/siteStyle/js/underscore.js')}}"></script>
     <script src="{{ asset('/siteStyle/js/Compartido.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('public_components/components/owl-carousel/owl.carousel.min.js')}}"></script>
 
       <script type="text/javascript">
           $('.error').html('');

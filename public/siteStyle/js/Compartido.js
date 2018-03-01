@@ -2439,3 +2439,37 @@ function searchByMap(event){
         }
     });
 }
+
+// Eventos
+$('#spinnerSave').hide();
+function saveEvento(event,idEvent){
+    event.preventDefault();
+    $('#spinnerSave').show();
+    // if (idEvent != null) {
+        var $form = $('#formAddEvent'),
+        data = $form.serialize(),
+        url = $form.attr("action");
+        var posting = $.post(url, { formData: data });
+        posting.done(function(data) {
+            if (data.fail) {
+                var errorString = '<ul>';
+                $.each(data.errors, function(key, value) {
+                    errorString += '<li>' + value + '</li>';
+                });
+                errorString += '</ul>';
+                $('#spinnerSave').hide();
+                $('.rowerrorEvent').html(errorString);
+            }
+            if (data.success) {
+                $('#spinnerSave').hide();
+                window.location.href = data.redirectto;
+            }
+        });
+        posting.error(function(e) {
+            showAlert('Error!', 'Ha ocurrido un error, intentalo nuevamente', null, 'warning', 'danger');
+            $('#spinnerSave').hide();
+        });
+    // }else{
+
+    // }
+}

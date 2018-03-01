@@ -70,3 +70,6 @@ Route::post('/saveHorario', ['as' => 'SearchIndex', 'uses' => 'horarioController
 //Eventos y promociones
 Route::get('/eventPromotionsAdmin/{idServicio}', ['as' => 'eventspromotionsAdmin', 'uses' => 'UsuarioServiciosController@getEventos', 'middleware' => 'notAuth']);
 Route::post('/addEventPomotions', ['as' => 'AddEventstPromotions', 'uses' => 'UsuarioServiciosController@store', 'middleware' => 'notAuth']);
+Route::get('/addEvent', ['as' => 'getEventsByService', 'uses' => 'UsuarioServiciosController@getViewAdd', 'middleware' => 'notAuth']);
+Route::get('/addEvent/{idEvento}', ['as' => 'getEventData', 'uses' => 'UsuarioServiciosController@getViewAdd', 'middleware' => 'notAuth']);
+Route::post('/updateEvent', ['as' => 'AddEventst', 'uses' => 'UsuarioServiciosController@postEvento', 'middleware' => 'notAuth']);

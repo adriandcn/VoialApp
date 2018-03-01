@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\ServiciosOperadorRepository;
 use App\Repositories\catalogoServiciosRepository;
 use App\Repositories\OperadorRepository;
+use App\Repositories\PublicServiceRepository;
 use Validator;
 use Input;
 use App\Models\Usuario_Servicio;
@@ -51,31 +52,22 @@ class UsuarioServiciosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getEventos(Guard $auth, $idServicio, ServiciosOperadorRepository $gestion)
-
+    public function getEventos(Guard $auth, $idServicio, ServiciosOperadorRepository $gestion,PublicServiceRepository $gestionPublic)
     {
 
-        //
-        // $validacion = $gestion->getPermisoEvento($idServicio);
-        // if (isset($validacion))
-        //     {
-        //     $permiso = $gestion->getPermiso($validacion->id_usuario_servicio);
-        //     }
-        //   else
-        //     {
-        //     return view('errors.404');
-        //     }
-        // if (!isset($permiso) || $permiso->id_usuario != $auth->user()->id)
-        //     {
-        //     return view('errors.404');
-        //     }
-        $listEventos = $gestion->getEventosporId($idServicio);
-        // return response()->json(['data'=>$listEventos]);
-        foreach($listEventos as $servicioBase)
-        {
-            $servicio = $gestion->getUsuario_serv($servicioBase->id_usuario_servicio);
-        }
-        return view('site.blades.events-Promotions-Admin', compact('listEventos', 'servicio'));
+        $servicio = $gestionPublic->obtenerDetallesServicio($idServicio);
+        $listEventos = $gestion->getEventosUsuarioServicio($idServicio);
+        $listPromociones  = $gestion->getPromocionesUsuarioServicio($idServicio);
+        // return response()->json(['data'=>$servicio]);
+        return view('site.blades.events-Promotions-Admin', compact('listEventos', 'servicio','listPromociones'));
+    }
+
+    public function getViewAdd(ServiciosOperadorRepository $gestion, $idEvento = null)
+    {
+
+        $evento = $gestion->getEventosporId($idEvento);
+        // return response()->json(['data'=>$evento]);
+        return view('site.blades.addEvent', compact('evento'));
     }
     public function getImagesDescription(Request $request, $tipo, $idtipo, ServiciosOperadorRepository $gestion)
 
@@ -687,20 +679,28 @@ class UsuarioServiciosController extends Controller
         {
         $inputData = Input::get('formData');
         parse_str($inputData, $formFields);
-        $permiso = $gestion->getPermiso($formFields['id_usuario_servicio']);
-        if (!isset($permiso) || $permiso->id_usuario != $auth->user()->id)
-            {
-            return view('errors.404');
-            }
+        // $permiso = $gestion->getPermiso($formFields['id_usuario_servicio']);
+        // if (!isset($permiso) || $permiso->id_usuario != $auth->user()->id)
+        // {
+        //     return view('errors.404');
+        // }
         $validator = Validator::make($formFields, Eventos_usuario_Servicio::$rulesP);
         if ($validator->fails())
-            {
+        {
             return response()->json(array(
                 'fail' => true,
                 'errors' => $validator->getMessageBag()->toArray()
             ));
-            }
+        }
         // obtengo llas promociones por id
+            $dateSplit = explode(" - ", $formFields['daterange']);
+            $date_desde = $dateSplit[0];
+            $date_hasta = $dateSplit[1];
+            $formFields['fecha_desde'] = $date_desde;
+            $formFields['fecha_hasta'] = $date_hasta;
+            $formFields['longitud_evento'] = $formFields['longitud_servicio'];
+            $formFields['latitud_evento'] = $formFields['latitud_servicio'];
+            $formFields['permanente'] = true;
         if (isset($formFields['id']))
             {
             $Evento = $gestion->getEvento($formFields['id']);
@@ -713,7 +713,7 @@ class UsuarioServiciosController extends Controller
             // Gestion de actualizacion de busqueda
             $search = $formFields['nombre_evento'] . " " . $formFields['descripcion_evento'] . " " . $formFields['tags'];
             $gestion->storeUpdateSerchEngine($Evento, 2, $formFields['id'], $search);
-            $returnHTML = ('/servicios/serviciooperador/' . $formFields['id_usuario_servicio'] . '/' . $formFields['catalogo']);
+            $returnHTML = ('/servicios/eventPromotionsAdmin/' . $formFields['id_usuario_servicio']);
             // $returnHTML = ('/servicios/serviciooperador/'.$formFields['id_usuario_servicio'].'/'.$formFields['catalogo']);
             }
           else
@@ -723,7 +723,7 @@ class UsuarioServiciosController extends Controller
             // Gestion de nueva de busqueda
             $search = $formFields['nombre_evento'] . " " . $formFields['descripcion_evento'];
             $gestion->storeSearchEngine($formFields['id_usuario_servicio'], $search, 2, $object->id);
-            $returnHTML = ('/eventos/' . $object->id);
+            $returnHTML = ('../eventPromotionsAdmin/' . $formFields['id_usuario_servicio']);
             }
         return response()->json(array(
             'success' => true,

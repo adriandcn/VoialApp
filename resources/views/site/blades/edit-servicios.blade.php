@@ -180,7 +180,7 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                   <hr>
                 </div>
               </div>
-              <a class="button button-primary" href="">{{ trans('back/admin.lblEvents')}}<span></span>
+              <a class="button button-primary" href="{{asset('/eventPromotionsAdmin')}}/{{$usuarioServicio->id}}">{{ trans('back/admin.lblEvents')}}<span></span>
               </a>
             </div>
             <div class="cell-md-8">

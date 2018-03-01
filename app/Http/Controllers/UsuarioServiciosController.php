@@ -51,30 +51,32 @@ class UsuarioServiciosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getEventos(Guard $auth, $id, ServiciosOperadorRepository $gestion)
+    public function getEventos(Guard $auth, $idServicio, ServiciosOperadorRepository $gestion)
 
-        {
+    {
+
         //
-        $validacion = $gestion->getPermisoEvento($id);
-        if (isset($validacion))
-            {
-            $permiso = $gestion->getPermiso($validacion->id_usuario_servicio);
-            }
-          else
-            {
-            return view('errors.404');
-            }
-        if (!isset($permiso) || $permiso->id_usuario != $auth->user()->id)
-            {
-            return view('errors.404');
-            }
-        $listEventos = $gestion->getEventosporId($id);
+        // $validacion = $gestion->getPermisoEvento($idServicio);
+        // if (isset($validacion))
+        //     {
+        //     $permiso = $gestion->getPermiso($validacion->id_usuario_servicio);
+        //     }
+        //   else
+        //     {
+        //     return view('errors.404');
+        //     }
+        // if (!isset($permiso) || $permiso->id_usuario != $auth->user()->id)
+        //     {
+        //     return view('errors.404');
+        //     }
+        $listEventos = $gestion->getEventosporId($idServicio);
+        // return response()->json(['data'=>$listEventos]);
         foreach($listEventos as $servicioBase)
-            {
+        {
             $servicio = $gestion->getUsuario_serv($servicioBase->id_usuario_servicio);
-            }
-        return view('Registro.editEvento', compact('listEventos', 'servicio'));
         }
+        return view('site.blades.events-Promotions-Admin', compact('listEventos', 'servicio'));
+    }
     public function getImagesDescription(Request $request, $tipo, $idtipo, ServiciosOperadorRepository $gestion)
 
         {
@@ -1625,4 +1627,9 @@ class UsuarioServiciosController extends Controller
         $request->session()->put('id_usuario_servicio_promo', $id_usuario_servicio);
         return redirect('/listarPromocion');
         }
+    public function getEventEditView($id_usuario_servicio, Request $request, ServiciosOperadorRepository $gestion)
+    {
+        $request->session()->put('id_usuario_servicio_promo', $id_usuario_servicio);
+        return redirect('/listarPromocion');
+    }
     }

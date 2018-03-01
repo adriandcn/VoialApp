@@ -65,5 +65,8 @@ Route::get('/getParroquias1/{id}/{id_parroquia}', ['as' => 'parroquias1', 'uses'
 // -- Busqueda--
 Route::get('/Search', ['as' => 'SearchIndex', 'uses' => 'SearchController@getTotalSearchInside']);
 
-// Save Historial
+// Save Horario
 Route::post('/saveHorario', ['as' => 'SearchIndex', 'uses' => 'horarioController@store', 'middleware' => 'notAuth']);
+//Eventos y promociones
+Route::get('/eventPromotionsAdmin/{idServicio}', ['as' => 'eventspromotionsAdmin', 'uses' => 'UsuarioServiciosController@getEventos', 'middleware' => 'notAuth']);
+Route::post('/addEventPomotions', ['as' => 'AddEventstPromotions', 'uses' => 'UsuarioServiciosController@store', 'middleware' => 'notAuth']);

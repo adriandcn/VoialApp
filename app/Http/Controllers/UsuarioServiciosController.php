@@ -62,7 +62,31 @@ class UsuarioServiciosController extends Controller
         return view('site.blades.events-Promotions-Admin', compact('listEventos', 'servicio','listPromociones'));
     }
 
-    public function getViewAdd(ServiciosOperadorRepository $gestion, $idEvento = null)
+    public function getViewAdd(ServiciosOperadorRepository $gestion, $idUsuarioServicio = null,Request $request)
+    {
+
+        $request->session()->put('idUsServ',$idUsuarioServicio);
+        // $formFieldsid['id_usuario_servicio'] = $idUsuarioServicio;
+        // $formFieldsid['id_fotografia'] = 'NA';
+        // $formFieldsid['nombre_evento'] = 'NA';
+        // $formFieldsid['descripcion_evento'] = 'NA';
+        // $formFieldsid['observaciones_evento'] = 'NA';
+        // $formFieldsid['estado_evento'] = 'NA';
+        // $formFieldsid['fecha_desde'] = 'NA';
+        // $formFieldsid['fecha_hasta'] = 'NA';
+        // $formFieldsid['longitud_evento'] = 'NA';
+        // $formFieldsid['latitud_evento'] = 'NA';
+        // $formFieldsid['tags'] = 'NA';
+        // $formFieldsid['created_at'] = 'NA';
+        // $formFieldsid['updated_at'] = 'NA';
+        // $formFieldsid['permanente'] = 'NA';
+        // $gestion->storeUpdateEvento($formFields, $Evento);
+        $evento = [];
+        // return response()->json(['data'=>$evento]);
+        return view('site.blades.addEvent', compact('evento'));
+    }
+
+    public function getViewEdit(ServiciosOperadorRepository $gestion, $idEvento = null)
     {
 
         $evento = $gestion->getEventosporId($idEvento);
@@ -700,6 +724,7 @@ class UsuarioServiciosController extends Controller
             $formFields['fecha_hasta'] = $date_hasta;
             $formFields['longitud_evento'] = $formFields['longitud_servicio'];
             $formFields['latitud_evento'] = $formFields['latitud_servicio'];
+            $formFields['estado_evento'] = ($formFields['estado_evento'] == 'ok')?true:false;
             $formFields['permanente'] = true;
         if (isset($formFields['id']))
             {
@@ -713,8 +738,7 @@ class UsuarioServiciosController extends Controller
             // Gestion de actualizacion de busqueda
             $search = $formFields['nombre_evento'] . " " . $formFields['descripcion_evento'] . " " . $formFields['tags'];
             $gestion->storeUpdateSerchEngine($Evento, 2, $formFields['id'], $search);
-            $returnHTML = ('/servicios/eventPromotionsAdmin/' . $formFields['id_usuario_servicio']);
-            // $returnHTML = ('/servicios/serviciooperador/'.$formFields['id_usuario_servicio'].'/'.$formFields['catalogo']);
+            $returnHTML = ('../eventPromotionsAdmin/' . $formFields['id_usuario_servicio']);
             }
           else
             { //logica de insert

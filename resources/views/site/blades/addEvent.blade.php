@@ -63,8 +63,8 @@
       <section class="page-title breadcrumbs-elements page-title-inset-1">
         <div class="shell">
           <div class="page-title__overlay box-skew box-skew-var-1"><span class="box-skew__item"></span>
-            <div class="page-title-text">{{ trans('back/admin.lblEventAdmin')}}</div>
-            <p class="big text-width-medium">{{ trans('back/admin.eventsDescription')}}</p>
+            <div class="page-title-text">{{ trans('publico/labels.lblEventAdminAdd')}}</div>
+            <p class="big text-width-medium">{{ trans('publico/labels.eventsDescription')}}</p>
             <!-- path sistema -->
             <br>
             <hr>
@@ -93,63 +93,78 @@
               <div class="range range-60">
                 <div class="cell-lg-10">
                   <h6><i class="fa fa-plus"></i> {{trans('publico/labels.lblAddEvent')}}</h6>
+                  <br>
                   <!-- RD Mailform-->
-                        <input type="hidden" name="id_evento" value="{{$evento->id}}">
+                        <input type="hidden" name="id" value="{{$evento->id}}">
                         <input type="hidden" name="id_usuario_servicio" value="{{$evento->id_usuario_servicio}}">
+                        @if(Session::has('idUsServ')) 
+                          <input type="hidden" name="id_usuario_servicio" value="{{ Session::get('idUsServ') }}">
+                        @endif
                         <div class="form-wrap">
                           <label class="form-label-outside" for="id_fotografia">
-                            id_fotografia
+                            <i class="fa fa-image "></i>&nbsp;&nbsp; {{trans('publico/labels.lblEventPhoto')}}
                           </label>
-                          <input class="form-input" id="id_fotografia" type="text" name="id_fotografia" value="{{$evento->id_fotografia}}">
+                          <!-- <input class="form-input" id="id_fotografia" type="text" name="id_fotografia" value="{{$evento->id_fotografia}}"> -->
+                          <a class="button button-primary tooltip button-icon button-icon-sm button-icon-right fa-plus" href="" data-toggle="modal" data-target="#foto">
+                            {{ trans('publico/labels.lblAddImageEvent')}}
+                            <span></span>
+                          </a>
                         </div>
                         <div class="form-wrap">
                           <label class="form-label-outside" for="pass">
-                            nombre_evento
+                            <i class="fa fa-font "></i>&nbsp;&nbsp; {{trans('publico/labels.lblEventName')}}
                           </label>
                           <input class="form-input" id="pass" type="text" name="nombre_evento" value="{{$evento->nombre_evento}}">
                         </div>
                         <div class="form-wrap">
                           <label class="form-label-outside" for="descripcion_evento">
-                            descripcion_evento
+                            <i class="fa fa-font "></i>&nbsp;&nbsp; {{trans('publico/labels.lblEventDescripion')}}
                           </label>
                           <input class="form-input" id="descripcion_evento" type="text" name="descripcion_evento" value="{{$evento->descripcion_evento}}">
                         </div>
                         <div class="form-wrap">
                           <label class="form-label-outside" for="observaciones_evento">
-                            observaciones_evento
+                            <i class="fa fa-eye "></i>&nbsp;&nbsp; {{trans('publico/labels.lblEventObservations')}}
                           </label>
                           <input class="form-input" id="observaciones_evento" type="text" name="observaciones_evento" value="{{$evento->observaciones_evento}}">
                         </div>
                         <div class="form-wrap">
                           <label class="form-label-outside" for="contact-first-name">
-                            <i class="fa fa-lightbulb-o "></i>&nbsp;&nbsp;{{ trans('back/admin.lblestadoServicio')}}
-                          </label>
+                            <i class="fa fa-lightbulb-o "></i>&nbsp;&nbsp;{{ trans('publico/labels.lblEventStatus')}}
+                          </label><br>
                           <input  class="tooltip checkboxDays" type="checkbox" id='estado_evento' name="estado_evento" data-size="mini" data-on-color="success" data-on-text="Si" data-off-text="No" checked="{{$evento->estado_evento}}">
                         </div>
                         <div class="form-wrap">
                           <label class="form-label-outside" for="fecha_hasta">
-                            fecha_desde_hasta
+                            <i class="fa fa-calendar"></i>&nbsp;&nbsp; {{trans('publico/labels.lblEventDate')}}
                           </label>
                           <input class="form-input" id="fecha_hasta" type="text" name="daterange" value="{{$evento->fecha_hasta}}">
                         </div>
                         <div class="form-wrap">
                           <label class="form-label-outside" for="tags">
-                            tags
+                            <i class="fa fa-hashtag "></i>&nbsp;&nbsp; {{trans('publico/labels.lblEventTags')}}
                           </label>
                           <input class="form-input" id="tags" type="text" name="tags" value="{{$evento->tags}}">
                         </div>
                         <div class="rowerrorEvent" style="margin-top: 10px;"></div>
                         <div class="group-buttons-3 group-md-justify">
-                          <button class="button-primary button" type="submit" onclick="saveEvento(event,{{{$evento->id}}})">
+                          <button class="button button-facebook button-icon button-icon-sm button-icon-right fa-plus" type="submit" onclick="saveEvento(event,{{$evento->id}})">
                             <div style="display: inline;" id="spinnerSave">
                               <i class="fa fa-spinner fa-spin"></i>
                             </div>
-                            {{ trans('publico/labels.btnSave')}}
+                            {{ trans('publico/labels.lblbtnSave')}}
                             <span></span></button>
-                          <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-facebook" href="{{url('/redirect/L')}}" target="_blank">
-                            {{ trans('publico/labels.btnCancel')}}
+                          @if(Session::has('idUsServ')) 
+                          <a class="button-primary button" href="../eventPromotionsAdmin/{{ Session::get('idUsServ') }}">
+                            {{ trans('publico/labels.lblBtnCancel')}}
                             <span></span>
                           </a>
+                          @else
+                          <a class="button-primary button" href="../eventPromotionsAdmin/{{ Session::get('idUsServ') }}">
+                            {{$evento->id_usuario_servicio}}
+                            <span></span>
+                          </a>
+                          @endif
                         </div>
                 </div>
               </div>
@@ -171,7 +186,47 @@
           });
         $("[name='estado_evento']").bootstrapSwitch();
       </script>
-    </div>
+      {!! HTML::style('/packages/dropzone/dropzone.css') !!}
+      {!! HTML::script('/packages/dropzone/dropzone.js') !!}
+      {!! HTML::script('/assets/js/dropzone-config.js') !!} 
+       <div class="modal fade" id="foto" tabindex="-1" role="dialog" style="z-index: 99999; background: #00000099;">
+        <div class="modal-dialog" role="document" >
+          <div class="modal-content">
+              <div id="testboxForm" class="foto">
+                        <div class="modal-header">
+              <h3 class="modal-title" id="exampleModalLabel">{{trans('front/responsive.agregarfoto')}}</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="{{trans('front/responsive.cerrar')}}">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h4 style="text-align: center;color:#428bca;">{{trans('back/admin.descriptionAddImageModal')}}
+                <span class="glyphicon glyphicon-hand-down"></span>
+              </h4>
+              <br>
+              <div class="rowerrorM"> </div>
+          {!! Form::open(['url' => route('upload-event'), 'class' => 'dropzone', 'files'=>true, 'id'=>'real-dropzone']) !!}      
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="hidden" id="id_catalogo_fotografia" name="id_catalogo_fotografia" value="1">
+                <input type="hidden" id="id_usuario_servicio" name="id_usuario_servicio" value="{!!$evento->id!!}">
+                <div class="form-group">
+                     <div class="dz-message">
+                      </div>
+                      <div class="fallback">
+                          <input name="file" type="file" multiple />
+                      </div>
+                      <div class="dropzone-previews" id="dropzonePreview"></div>
+                </div>
+            </div>
+            {!! Form::close() !!}       
+            <div class="modal-footer">
+               <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-check" href="" data-dismiss="modal" id="nextbtn">{{trans('front/responsive.finalizar')}}<span></span></a>
+            </div>
+              </div>
+          </div>
+        </div>
+      </div>    </div>
     <!-- END PANEL-->
+
   </body>
 </html>

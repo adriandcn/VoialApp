@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{{ asset('/siteStyle/nouislider/nouislider.min.css')}}">
     <link rel="stylesheet" href="{{ asset('public_components/components/owl-carousel/owl.carousel.css')}}">
     <link rel="stylesheet" href="{{ asset('public_components/components/owl-carousel/owl.theme.css')}}">
-    <link rel="stylesheet" href="{{ asset('public_components/components/owl-carousel/owl.transitions.css')}}">
+    <!-- <link rel="stylesheet" href="{{ asset('public_components/components/owl-carousel/owl.transitions.css')}}"> -->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://code.jboxcdn.com/0.4.9/jBox.js"></script>

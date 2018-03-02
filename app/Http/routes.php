@@ -30,6 +30,7 @@ Route::post('/restorePassword', 'HomePublicController@restorePassword');
 // --Imagenes--
 Route::get('/image', ['as' => 'upload', 'uses' => 'ImageController@getUpload']);
 Route::post('upload', ['as' => 'upload-post', 'uses' => 'ImageController@postUpload']);
+Route::post('uploadEvent', ['as' => 'upload-event', 'uses' => 'ImageController@postUpload']);
 Route::post('upload/delete', ['as' => 'upload-remove', 'uses' => 'ImageController@deleteUpload']);
 
 // --Servicios--
@@ -70,6 +71,6 @@ Route::post('/saveHorario', ['as' => 'SearchIndex', 'uses' => 'horarioController
 //Eventos y promociones
 Route::get('/eventPromotionsAdmin/{idServicio}', ['as' => 'eventspromotionsAdmin', 'uses' => 'UsuarioServiciosController@getEventos', 'middleware' => 'notAuth']);
 Route::post('/addEventPomotions', ['as' => 'AddEventstPromotions', 'uses' => 'UsuarioServiciosController@store', 'middleware' => 'notAuth']);
-Route::get('/addEvent', ['as' => 'getEventsByService', 'uses' => 'UsuarioServiciosController@getViewAdd', 'middleware' => 'notAuth']);
-Route::get('/addEvent/{idEvento}', ['as' => 'getEventData', 'uses' => 'UsuarioServiciosController@getViewAdd', 'middleware' => 'notAuth']);
+Route::get('/addEvent/{idUsuarioServicio}', ['as' => 'getEventsByService', 'uses' => 'UsuarioServiciosController@getViewAdd', 'middleware' => 'notAuth']);
+Route::get('/editEvent/{idEvento}', ['as' => 'getEventData', 'uses' => 'UsuarioServiciosController@getViewEdit', 'middleware' => 'notAuth']);
 Route::post('/updateEvent', ['as' => 'AddEventst', 'uses' => 'UsuarioServiciosController@postEvento', 'middleware' => 'notAuth']);

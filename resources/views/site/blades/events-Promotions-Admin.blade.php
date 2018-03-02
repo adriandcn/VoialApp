@@ -59,8 +59,8 @@
       <section class="page-title breadcrumbs-elements page-title-inset-1">
         <div class="shell">
           <div class="page-title__overlay box-skew box-skew-var-1"><span class="box-skew__item"></span>
-            <div class="page-title-text">{{ trans('back/admin.lblEventAdmin')}}</div>
-            <p class="big text-width-medium">{{ trans('back/admin.eventsDescription')}}</p>
+            <div class="page-title-text">{{ trans('publico/labels.lblEventAdmin')}}</div>
+            <p class="big text-width-medium">{{ trans('publico/labels.lblEventAdminAddCescription')}}</p>
             <!-- path sistema -->
             <br>
             <hr>
@@ -78,15 +78,14 @@
       </section>
       <section class="section-xs bg-white">
           <div class="shell shell-inset-xs-15 shell-offset-left-xlg-50">
-              <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-plus" href="../addEvent">
-                Añadir Evento<span></span>
+              <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-plus" href="../addEvent/{{$servicio->id}}">
+                {{ trans('publico/labels.lblBtnAddEvent')}}<span></span>
               </a>
               <br>
               <br>
               <hr>
               <div class="heading-group">
-                  <h5><i class="fa fa-calendar"></i>&nbsp;&nbsp;Eventos</h5>
-                  <h6 class="text-regular">descripcion eventos</h6>
+                  <h5><i class="fa fa-calendar"></i>&nbsp;&nbsp;{{ trans('publico/labels.titleEvents')}}</h5>
               </div>
               <div class="range range-50">
                 @if(count($listEventos) == 0)
@@ -96,7 +95,7 @@
                 @else
                 @foreach ($listEventos as $evento)
                   <div class="cell-sm-3 cell-xs-6 wow rotate-custom rotate-custom-left" data-wow-delay=".15s">
-                      <a class="layouts-link" href="../addEvent/{{$evento->id}}">
+                      <a class="layouts-link" href="../editEvent/{{$evento->id}}">
                         <img class="img-shadow" src="{{asset('/siteStyle/images/catalogo_servicios/bg-home-3-1920x1000.jpg')}}" alt="" width="270" height="393"/>
                         <div class="eventCard">
                           <h6 style="margin-top: 1px;">
@@ -116,14 +115,13 @@
       <section class="section-xs bg-white">
           <div class="shell shell-inset-xs-15 shell-offset-left-xlg-50">
               <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-plus" href="" data-toggle="modal" data-target="#form-modal-add-evento">
-                Añadir Promoción<span></span>
+                {{ trans('publico/labels.lblBtnAddPromotion')}}<span></span>
               </a>
               <br>
               <br>
               <hr>
               <div class="heading-group">
-                  <h5><i class="fa fa-calendar"></i>&nbsp;&nbsp;Promociones</h5>
-                  <h6 class="text-regular">descripcion promociones</h6>
+                  <h5><i class="fa fa-calendar"></i>&nbsp;&nbsp;{{ trans('publico/labels.titlePromotions')}}</h5>
               </div>
               <div class="range range-50">
                 @if(count($listEventos) == 0)

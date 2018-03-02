@@ -573,7 +573,6 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
       <!-- Page Footer-->
       @include('site.reusable.footer')
       {!! HTML::style('/packages/dropzone/dropzone.css') !!}
-      <!-- End Dropzone Preview Template -->
       {!! HTML::script('/packages/dropzone/dropzone.js') !!}
       {!! HTML::script('/assets/js/dropzone-config.js') !!} 
     </div>

@@ -27,44 +27,49 @@
       <!-- Breadcrumbs & Page title-->
       <!-- Breadcrumbs & Page title-->
       <?php
-        if(count($evento) == 0){
-          $evento = (object) array(
+        if(count($promotion) == 0){
+          $promotion = (object) array(
             'id' => null,
             'id_usuario_servicio' => '',
-            'id_fotografia' => '',
-            'nombre_evento' => '',
-            'descripcion_evento' => '',
-            'observaciones_evento' => '',
-            'estado_evento' => 1,
+            'id_catalogo_tipo_fotografia' => '',
+            'descripcion_promocion' => '',
+            'nombre_promocion' => '',
+            'estado_promocion' => '',
             'fecha_desde' => '',
             'fecha_hasta' => '',
-            'longitud_evento' => -78.46783820000002,
-            'latitud_evento' => -0.1806532,
+            'fecha_desde_hasta' => date("Y-m-d") . ' - ' . date("Y-m-d"),
             'tags' => '',
+            'precio_normal' => '',
+            'descuento' => 0,
+            'codigo_promocion' => '',
+            'observaciones_promocion' => '',
+            'created_at' => '',
+            'updated_at' => ''
           );
         }else{
-          $evento = (object) array(
-            'id' => $evento[0]->id,
-            'id_usuario_servicio' => $evento[0]->id_usuario_servicio,
-            'id_fotografia' => $evento[0]->id_fotografia,
-            'nombre_evento' => $evento[0]->nombre_evento,
-            'descripcion_evento' => $evento[0]->descripcion_evento,
-            'observaciones_evento' => $evento[0]->observaciones_evento,
-            'estado_evento' => $evento[0]->estado_evento,
-            'fecha_desde' => $evento[0]->fecha_desde,
-            'fecha_hasta' => $evento[0]->fecha_hasta,
-            'longitud_evento' => ($evento[0]->longitud_evento != '' || $evento[0]->longitud_evento != null)?$evento[0]->longitud_evento:-78.46783820000002,
-            'latitud_evento' => ($evento[0]->latitud_evento != '' || $evento[0]->latitud_evento != null)?$evento[0]->latitud_evento:-0.1806532,
-            'tags' => $evento[0]->tags
+          $promotion = (object) array(
+            'id' => $promotion[0]->id,
+            'id_usuario_servicio' => $promotion[0]->id_usuario_servicio,
+            'id_catalogo_tipo_fotografia' => $promotion[0]->id_catalogo_tipo_fotografia,
+            'descripcion_promocion' => $promotion[0]->descripcion_promocion,
+            'nombre_promocion' => $promotion[0]->nombre_promocion,
+            'estado_promocion' => $promotion[0]->estado_promocion,
+            'fecha_desde' => $promotion[0]->fecha_desde,
+            'fecha_hasta' => $promotion[0]->fecha_hasta,
+            'fecha_desde_hasta' => $promotion[0]->fecha_desde . ' - ' .$promotion[0]->fecha_hasta,
+            'tags' => $promotion[0]->tags,
+            'precio_normal' => $promotion[0]->precio_normal,
+            'descuento' => $promotion[0]->descuento,
+            'codigo_promocion' => $promotion[0]->codigo_promocion,
+            'observaciones_promocion' => $promotion[0]->observaciones_promocion
           );
-          
         }
       ?>
       <section class="page-title breadcrumbs-elements page-title-inset-1">
         <div class="shell">
           <div class="page-title__overlay box-skew box-skew-var-1"><span class="box-skew__item"></span>
-            <div class="page-title-text">{{ trans('publico/labels.lblEventAdminAdd')}}</div>
-            <p class="big text-width-medium">{{ trans('publico/labels.eventsDescription')}}</p>
+            <div class="page-title-text">{{ trans('publico/labels.lblPromotionAdminAdd')}}</div>
+            <p class="big text-width-medium">{{ trans('publico/labels.PromotionsDescription')}}</p>
             <!-- path sistema -->
             <br>
             <hr>
@@ -73,7 +78,7 @@
               <ul class="breadcrumbs-custom">
                 <li><a href="{{asset('/')}}">{{ trans('publico/labels.lblHome')}}</a></li>
                 <li><a href="{{asset('/serviciosres')}}">{{ trans('publico/labels.lblPathMyServices')}}</a></li>
-                <li>{{ trans('publico/labels.lblPathAddEvent')}}</li>
+                <li>{{ trans('publico/labels.lblPathAddPromotion')}}</li>
               </ul>
             </div>
           </div>
@@ -83,72 +88,93 @@
         <form class="rd-mailform" id="formAddEvent" action="{{$serverDir}}public/updateEvent" method="POST">
         <div class="shell">
           <div class="range range-50">
-            <div class="cell-md-4">
-              <h6><i class="fa fa-map-marker"></i> {{trans('publico/labels.lblEventLocation')}}</h6>
-              <div class="tab-container full-width style2">
-                   @include('reusable.maps1', ['longitud_servicio' => $evento->longitud_evento,'latitud_servicio'=>$evento->latitud_evento])  
-              </div>
+            <div class="cell-md-3">
             </div>
             <div class="cell-md-8">
               <div class="range range-60">
                 <div class="cell-lg-10">
-                  <h6><i class="fa fa-plus"></i> {{trans('publico/labels.lblAddEvent')}}</h6>
+                  <h6><i class="fa fa-plus"></i> {{trans('publico/labels.lblAddPromotion')}}</h6>
                   <br>
                   <!-- RD Mailform-->
-                        <input type="hidden" name="id" value="{{$evento->id}}">
-                        <input type="hidden" name="id_usuario_servicio" value="{{$evento->id_usuario_servicio}}">
+                        <input type="hidden" name="id" value="{{$promotion->id}}">
+                        <input type="hidden" name="id_usuario_servicio" value="{{$promotion->id_usuario_servicio}}">
                         @if(Session::has('idUsServ')) 
                           <input type="hidden" name="id_usuario_servicio" value="{{ Session::get('idUsServ') }}">
                         @endif
                         <div class="form-wrap">
                           <label class="form-label-outside" for="id_fotografia">
-                            <i class="fa fa-image "></i>&nbsp;&nbsp; {{trans('publico/labels.lblEventPhoto')}}
+                            <i class="fa fa-image "></i>&nbsp;&nbsp; {{trans('publico/labels.lblPromotionPhoto')}}
                           </label>
-                          <!-- <input class="form-input" id="id_fotografia" type="text" name="id_fotografia" value="{{$evento->id_fotografia}}"> -->
-                          <a class="button button-primary tooltip button-icon button-icon-sm button-icon-right fa-plus" href="" data-toggle="modal" data-target="#foto">
-                            {{ trans('publico/labels.lblAddImageEvent')}}
-                            <span></span>
-                          </a>
+                          <select name="id_parroquia" id="id_parroquia" class='form-control chng'>
+                          <option value="0"  >Seleccionar</option>
+                          @foreach($listTypePhoto as $typePhoto)
+                            @if($promotion->id_catalogo_tipo_fotografia == $typePhoto->id)
+                              <option value="{!!$typePhoto->tipo!!}" selected >{!!$typePhoto->descripcion!!}</option>
+                            @else
+                              <option value="{!!$typePhoto->tipo!!}" >{!!$typePhoto->descripcion!!}</option>
+                            @endif
+                          @endforeach
+                          </select>
                         </div>
                         <div class="form-wrap">
                           <label class="form-label-outside" for="pass">
-                            <i class="fa fa-font "></i>&nbsp;&nbsp; {{trans('publico/labels.lblEventName')}}
+                            <i class="fa fa-font "></i>&nbsp;&nbsp; {{trans('publico/labels.lblPromotionName')}}
                           </label>
-                          <input class="form-input" id="pass" type="text" name="nombre_evento" value="{{$evento->nombre_evento}}">
+                          <input class="form-input" id="pass" type="text" name="nombre_promocion" value="{{$promotion->nombre_promocion}}">
                         </div>
                         <div class="form-wrap">
-                          <label class="form-label-outside" for="descripcion_evento">
-                            <i class="fa fa-font "></i>&nbsp;&nbsp; {{trans('publico/labels.lblEventDescripion')}}
+                          <label class="form-label-outside" for="descripcion_promocion">
+                            <i class="fa fa-font "></i>&nbsp;&nbsp; {{trans('publico/labels.lblPromotionDescripion')}}
                           </label>
-                          <input class="form-input" id="descripcion_evento" type="text" name="descripcion_evento" value="{{$evento->descripcion_evento}}">
+                          <input class="form-input" id="descripcion_promocion" type="text" name="descripcion_promocion" value="{{$promotion->descripcion_promocion}}">
                         </div>
                         <div class="form-wrap">
-                          <label class="form-label-outside" for="observaciones_evento">
-                            <i class="fa fa-eye "></i>&nbsp;&nbsp; {{trans('publico/labels.lblEventObservations')}}
+                          <label class="form-label-outside" for="observaciones_promocion">
+                            <i class="fa fa-eye "></i>&nbsp;&nbsp; {{trans('publico/labels.lblPromotionObservations')}}
                           </label>
-                          <input class="form-input" id="observaciones_evento" type="text" name="observaciones_evento" value="{{$evento->observaciones_evento}}">
+                          <input class="form-input" id="observaciones_promocion" type="text" name="observaciones_promocion" value="{{$promotion->observaciones_promocion}}">
                         </div>
                         <div class="form-wrap">
                           <label class="form-label-outside" for="contact-first-name">
-                            <i class="fa fa-lightbulb-o "></i>&nbsp;&nbsp;{{ trans('publico/labels.lblEventStatus')}}
+                            <i class="fa fa-lightbulb-o "></i>&nbsp;&nbsp;{{ trans('publico/labels.lblPromotionStatus')}}
                           </label><br>
-                          <input  class="tooltip checkboxDays" type="checkbox" id='estado_evento' name="estado_evento" data-size="mini" data-on-color="success" data-on-text="Si" data-off-text="No" checked="{{$evento->estado_evento}}">
+                          <input  class="tooltip checkboxDays" type="checkbox" id='estado_promocion' name="estado_promocion" data-size="mini" data-on-color="success" data-on-text="Si" data-off-text="No" checked="{{$promotion->estado_promocion}}">
                         </div>
                         <div class="form-wrap">
-                          <label class="form-label-outside" for="fecha_hasta">
-                            <i class="fa fa-calendar"></i>&nbsp;&nbsp; {{trans('publico/labels.lblEventDate')}}
+                          <label class="form-label-outside" for="fecha_desde_hasta">
+                            <i class="fa fa-calendar"></i>&nbsp;&nbsp; {{trans('publico/labels.lblPromotionDate')}}
                           </label>
-                          <input class="form-input" id="fecha_hasta" type="text" name="daterange" value="{{$evento->fecha_hasta}}">
+                          <input class="form-input" id="fecha_desde_hasta" type="text" name="daterange" value="{{$promotion->fecha_desde_hasta}}">
                         </div>
                         <div class="form-wrap">
                           <label class="form-label-outside" for="tags">
-                            <i class="fa fa-hashtag "></i>&nbsp;&nbsp; {{trans('publico/labels.lblEventTags')}}
+                            <i class="fa fa-hashtag "></i>&nbsp;&nbsp; {{trans('publico/labels.lblPromotionTags')}}
                           </label>
-                          <input class="form-input" id="tags" type="text" name="tags" value="{{$evento->tags}}">
+                          <input class="form-input" id="tags" type="text" name="tags" value="{{$promotion->tags}}">
                         </div>
-                        <div class="rowerrorEvent" style="margin-top: 10px;"></div>
+                        <div class="form-wrap">
+                          <label class="form-label-outside" for="precio_normal">
+                            <i class="fa fa-hashtag "></i>&nbsp;&nbsp; {{trans('publico/labels.lblPromotionPrecioNormal')}}
+                          </label>
+                          <input class="form-input numsOnly" id="precio_normal" type="text" name="precio_normal" value="{{$promotion->precio_normal}}">
+                        </div>
+                        <div class="form-wrap">
+                          <label class="form-label-outside" for="descuento">
+                            <i class="fa fa-hashtag "></i>&nbsp;&nbsp; {{trans('publico/labels.lblPromoDescuento')}}
+                          </label>
+                          <input class="form-input" id="descuentotxt" type="text" name="descuento" value="{{$promotion->descuento}}">
+                          <br>
+                          <div id="slideDescuento"></div>
+                        </div>
+                        <div class="form-wrap">
+                          <label class="form-label-outside" for="codigo_promocion">
+                            <i class="fa fa-hashtag "></i>&nbsp;&nbsp; {{trans('publico/labels.lblPromotionCodigo')}}
+                          </label>
+                          <input class="form-input" id="codigo_promocion" type="text" name="codigo_promocion" value="{{$promotion->codigo_promocion}}">
+                        </div>
+                        <div class="rowerrorPromotion" style="margin-top: 10px;"></div>
                         <div class="group-buttons-3 group-md-justify">
-                          <button class="button button-facebook button-icon button-icon-sm button-icon-right fa-plus" type="submit" onclick="saveEvento(event,{{$evento->id}})">
+                          <button class="button button-facebook button-icon button-icon-sm button-icon-right fa-plus" type="submit" onclick="saveEvento(event,'{{$promotion->id}}')">
                             <div style="display: inline;" id="spinnerSave">
                               <i class="fa fa-spinner fa-spin"></i>
                             </div>
@@ -161,7 +187,7 @@
                           </a>
                           @else
                           <a class="button-primary button" href="../eventPromotionsAdmin/{{ Session::get('idUsServ') }}">
-                            {{$evento->id_usuario_servicio}}
+                            {{ trans('publico/labels.lblBtnCancel')}}
                             <span></span>
                           </a>
                           @endif
@@ -184,49 +210,100 @@
                 format: 'YYYY-MM-DD'
               }
           });
-        $("[name='estado_evento']").bootstrapSwitch();
-      </script>
-      {!! HTML::style('/packages/dropzone/dropzone.css') !!}
-      {!! HTML::script('/packages/dropzone/dropzone.js') !!}
-      {!! HTML::script('/assets/js/dropzone-config.js') !!} 
-       <div class="modal fade" id="foto" tabindex="-1" role="dialog" style="z-index: 99999; background: #00000099;">
-        <div class="modal-dialog" role="document" >
-          <div class="modal-content">
-              <div id="testboxForm" class="foto">
-                        <div class="modal-header">
-              <h3 class="modal-title" id="exampleModalLabel">{{trans('front/responsive.agregarfoto')}}</h3>
-              <button type="button" class="close" data-dismiss="modal" aria-label="{{trans('front/responsive.cerrar')}}">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <h4 style="text-align: center;color:#428bca;">{{trans('back/admin.descriptionAddImageModal')}}
-                <span class="glyphicon glyphicon-hand-down"></span>
-              </h4>
-              <br>
-              <div class="rowerrorM"> </div>
-          {!! Form::open(['url' => route('upload-event'), 'class' => 'dropzone', 'files'=>true, 'id'=>'real-dropzone']) !!}      
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <input type="hidden" id="id_catalogo_fotografia" name="id_catalogo_fotografia" value="1">
-                <input type="hidden" id="id_usuario_servicio" name="id_usuario_servicio" value="{!!$evento->id!!}">
-                <div class="form-group">
-                     <div class="dz-message">
-                      </div>
-                      <div class="fallback">
-                          <input name="file" type="file" multiple />
-                      </div>
-                      <div class="dropzone-previews" id="dropzonePreview"></div>
-                </div>
-            </div>
-            {!! Form::close() !!}       
-            <div class="modal-footer">
-               <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-check" href="" data-dismiss="modal" id="nextbtn">{{trans('front/responsive.finalizar')}}<span></span></a>
-            </div>
-              </div>
-          </div>
-        </div>
-      </div>    </div>
-    <!-- END PANEL-->
+        $("[name='estado_promocion']").bootstrapSwitch();
+        //Slide descuento
+          if (noUiSlider) {
+              var keypressSliderDescuento = document.getElementById('slideDescuento');
+              var inputDescuento = document.getElementById('descuentotxt');
+              var inputsPromotion = [inputDescuento];
 
+              noUiSlider.create(keypressSliderDescuento, {
+                  start: {{$promotion->descuento}},
+                  tooltips: true,
+                  step: 5,
+                  range: {
+                    'min': 0,
+                    'max': 50
+                  }
+              });
+
+              keypressSliderDescuento.noUiSlider.on('update', function( values, handle ) {
+                  inputsPromotion[handle].value = values[handle];
+              });
+
+              function setSliderHandle(i, value) {
+                  var r = [null,null];
+                  r[i] = value;
+                  keypressSliderDescuento.noUiSlider.set(r);
+              }
+
+              // Listen to keydown events on the input field.
+              inputsPromotion.forEach(function(input, handle) {
+
+                  input.addEventListener('change', function(){
+                      setSliderHandle(handle, this.value);
+                  });
+
+                  input.addEventListener('keydown', function( e ) {
+
+                      var values = keypressSliderDescuento.noUiSlider.get();
+                      var value = Number(values[handle]);
+
+                      // [[handle0_down, handle0_up], [handle1_down, handle1_up]]
+                      var steps = keypressSliderDescuento.noUiSlider.steps();
+
+                      // [down, up]
+                      var step = steps[handle];
+
+                      var position;
+
+                      // 13 is enter,
+                      // 38 is key up,
+                      // 40 is key down.
+                      switch ( e.which ) {
+
+                          case 13:
+                              setSliderHandle(handle, this.value);
+                              break;
+
+                          case 38:
+
+                              // Get step to go increase slider value (up)
+                              position = step[1];
+
+                              // false = no step is set
+                              if ( position === false ) {
+                                  position = 1;
+                              }
+
+                              // null = edge of slider
+                              if ( position !== null ) {
+                                  setSliderHandle(handle, value + position);
+                              }
+
+                              break;
+
+                          case 40:
+
+                              position = step[0];
+
+                              if ( position === false ) {
+                                  position = 1;
+                              }
+
+                              if ( position !== null ) {
+                                  setSliderHandle(handle, value - position);
+                              }
+
+                              break;
+                      }
+                  });
+              });
+
+              $('#inputDescuento').click(function() {
+               this.select();
+              });
+          } 
+      </script>
   </body>
 </html>

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Response;
 use App\Repositories\PublicServiceRepository;
 use App\Repositories\catalogoServiciosRepository;
+use App\Repositories\ServiciosOperadorRepository;
 use Input;
 use Validator;
 use Jenssegers\Agent\Agent;
@@ -801,13 +802,15 @@ class HomePublicController extends Controller {
 
 
     //Obtiene las descripcion de la atraccion elegida
-    public function getSearchHomeCatalogo(PublicServiceRepository $gestion, $id_catalogo) {
+    public function getSearchHomeCatalogo(PublicServiceRepository $gestion, $id_catalogo, ServiciosOperadorRepository $gestionServ) {
 
         $detalles = $gestion->obtenerDetallesServicio($id_catalogo);
-        // return response()->json(['a' => $detalles]);
+        $listPromociones = $gestionServ->getPromocionesUsuarioServicio($id_catalogo);
+        // return response()->json(['a' => $$id_catalogo]);
         if ($detalles != null) {
             return view('site.blades.detail-service')
-                            ->with('detalles', $detalles);
+                            ->with('detalles', $detalles)
+                            ->with('listPromociones', $listPromociones);
         } else {
             return redirect('/');
         }
@@ -1169,6 +1172,42 @@ class HomePublicController extends Controller {
         $update = DB::table('users')
             ->where('email',$request->email)->update(['password' => bcrypt($request->p),'code_restore' => null]);
         return response()->json(['error' => !$update]);
+    }
+
+    public function getViewArticles(Request $request ,$idArticle = null)
+    {
+        if ($idArticle != null) {
+            $articlesFinded = DB::table('articlesDetail')
+                    ->where('status',1)
+                    ->where('id_article',$idArticle)
+                    ->get();
+            if (count($articlesFinded) > 0 ) {
+                return view('site.blades.articlesBlogDetail',compact('article'));
+            }else{
+                return view('errors.404');
+            }
+        }else{
+            $listArticles = DB::table('articles')
+                    ->where('status',1)->get();
+            return view('site.blades.articlesBlog',compact('listArticles'));
+        }
+    }
+
+    public function getDetailPromotion($idPromotion = null ,ServiciosOperadorRepository $gestion)
+    {
+        if ($idPromotion != null) {
+            $promotion = $gestion->getPromocion($idPromotion);
+            $servicioData = $gestion->getServiciosOperadorporIdUsuarioServicio($promotion[0]->id_usuario_servicio);
+            if (count($promotion) > 0 ) {
+                $promotion = $promotion[0];
+                $servicioData = $servicioData[0];
+                return view('site.blades.promotionDetail',compact('promotion','servicioData'));
+            }else{
+                return view('errors.404');
+            }
+        }else{
+            return redirect('/');
+        }
     }
 
 }

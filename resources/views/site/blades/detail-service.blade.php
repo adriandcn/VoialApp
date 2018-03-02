@@ -4,6 +4,15 @@
     <!-- Site Title-->
     <title>Servicios</title>
     @include('site.reusable.head')
+     <style type="text/css">
+      .eventCard {
+        border-bottom: 1px solid #ccc;
+        border-left: 1px solid #ccc;
+        border-right: 1px solid #ccc;
+        padding: 7px;
+        border-radius: 5px;
+      }
+    </style>
   </head>
    <body>
     <!-- Page-->
@@ -67,12 +76,12 @@
                   @section('contentImagenes')
                   @show
               </div>
-              <a class="button button-primary" href="">
+              <!-- <a class="button button-primary" href="">
                 {{trans('back/admin.lblEvents')}}<span></span>
               </a>
               <br>
               <br>
-              <hr>
+              <hr> -->
               <a class="button button-facebook" href="#">
                 <i class="fa fa-map-marker"></i>&nbsp;&nbsp;{{trans('publico/labels.lblUbicacion')}}<span></span>
               </a>
@@ -85,15 +94,6 @@
             </div>
             <div class="cell-md-8">
               <div class="post-single">
-               <!--  <div class="post-panel post-panel-gray group-post-panel group-center">
-                  <span class="post-panel-item">
-                    <span class="mdi mdi-md icon-primary mdi-playlist-play"></span>
-                    <time datetime="2017-03-07" style="color:#c26933">{{$detalles->catPadre}} <i class="fa fa-angle-right"></i> {{$detalles->catHijo}} </time>
-                  </span>
-                </div> -->
-                <!-- <h3>{{$detalles->nombre_servicio}}</h3> -->
-                <!-- <hr> -->
-                <!-- <p class="big">{{$detalles->detalle_servicio}}</p> -->
                 <section class="section-xs bg-white">
                   <div class="shell">
                     <div class="panel-custom-group-wrap">
@@ -110,14 +110,8 @@
                           <div class="panel-custom-collapse collapse in" id="accordion1Collapse1" role="tabpanel" aria-labelledby="accordion1Heading1">
                             <div class="panel-custom-body">
                               {{trans('back/admin.lblDirServicio')}} : <h6 style="font-size: 14px;"> {{$detalles->direccion_servicio}}</h6>
-<!--                               {{trans('publico/labels.lblHorario')}} :
-                              @foreach($detalles->horario as $horario)
-                                <h6 style="font-size: 14px;">{{$horario->dia}} : <br>{{trans('publico/labels.lblFromHorario')}} : {{$horario->desde}}, {{trans('publico/labels.lblToHorario')}} : {{$horario->hasta}} </h6>
-                              @endforeach -->
                                 {{trans('back/admin.titleComoLlegarDesdeFormPublico')}} :<h6 style="font-size: 14px; word-break: break-all;"> {{$detalles->como_llegar1_1}}</h6>
                                 {{trans('back/admin.titleComoLlegarServPublico')}}:<h6 style="font-size: 14px; word-break: break-all;"> {{$detalles->como_llegar1}}</h6>
-                                <!-- {{trans('back/admin.titleComoLlegarDesdeForm')}} :<h6 style="font-size: 14px;"> {{$detalles->como_llegar2}}</h6>
-                                {{trans('back/admin.titleComoLlegarServ')}} :<h6 style="font-size: 14px;"> {{$detalles->como_llegar2_2}}</h6> -->
                             </div>
                           </div>
                         </div>
@@ -193,6 +187,37 @@
                       </div>
                     </div>
                   </div>
+                </section>
+                <section class="section-xs bg-white">
+                    <div class="shell shell-inset-xs-15 shell-offset-left-xlg-50">
+                        <div class="heading-group">
+                            <h5><i class="fa fa-money"></i>&nbsp;&nbsp;{{ trans('publico/labels.titlePromotions')}}</h5>
+                        </div>
+                        <div class="range range-50">
+                          @if(count($listPromociones) == 0)
+                            <div class="col-xs-12" style="text-align: center;">
+                              <h4><a href=""><i class="fa fa-frown-o "></i> &nbsp;&nbsp;{{trans('publico/labels.noResult')}}</a></h4>
+                            </div>
+                          @else
+                          @foreach ($listPromociones as $promotion)
+                            <div class="cell-sm-3 cell-xs-6 wow rotate-custom rotate-custom-left" data-wow-delay=".15s">
+                                <a class="layouts-link" href="../detailPromotion/{{$promotion->id}}">
+                                  <!-- <img class="img-shadow" src="{{asset('/siteStyle/images/catalogo_servicios/bg-home-3-1920x1000.jpg')}}" alt="" width="270" height="393"/> -->
+                                  <div class="eventCard">
+                                    <h6 style="margin-top: 1px;">
+                                      <i class="fa fa-money"></i>&nbsp;&nbsp;{{$promotion->nombre_promocion}}
+                                    </h6>
+                                    <hr>
+                                    <h7><i class="fa fa-dot"></i>&nbsp;&nbsp;Fecha: {{$promotion->created_at}}</h7><br>
+                                    <h7><i class="fa fa-dot"></i>&nbsp;&nbsp;Descripción: {{str_limit($promotion->descripcion_promocion, $limit = 15, $end = '...')}}</h7>
+                                    <h7><i class="fa fa-dot"></i>&nbsp;&nbsp;Descuento % : {{$promotion->descuento}}</h7>
+                                  </div>
+                                </a>
+                            </div>
+                          @endforeach
+                          @endif
+                        </div>
+                    </div>
                 </section>
               </div>
             </div>

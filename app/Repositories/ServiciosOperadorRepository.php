@@ -900,7 +900,7 @@ Actualizar tabla de busqueda
         //$promocionU->precio_normal = trim($inputs['precio_normal']);
         //$promocionU->descuento = trim($inputs['descuento']);
         //$promocionU->codigo_promocion = trim($inputs['codigo']);
-        $promocionU->permanente = 0;
+        // $promocionU->permanente = 0;
         $promocionU->created_at = \Carbon\Carbon::now()->toDateTimeString();
         $promocionU->updated_at = \Carbon\Carbon::now()->toDateTimeString();
 

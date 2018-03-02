@@ -17,7 +17,7 @@ return [
     'altDescription' => 'Ingresa una descripción breve y que capte la atención del usuario lector.',
     'loaderPageServicios' => 'Cargando ...',
     //formulario de registro de servicios
-    'lblEvents' => 'Promociones y Eventos',
+    'lblEvents' => 'Promociones',
     'lblAddImage' => 'A&ntilde;adir imagenes al servicio',
     'altAddImage' => 'Haz clic para añadir imagenes a tu servicio',
     'lblServiceName' => 'Nombre Servicio',

@@ -66,32 +66,19 @@ class UsuarioServiciosController extends Controller
     {
 
         $request->session()->put('idUsServ',$idUsuarioServicio);
-        // $formFieldsid['id_usuario_servicio'] = $idUsuarioServicio;
-        // $formFieldsid['id_fotografia'] = 'NA';
-        // $formFieldsid['nombre_evento'] = 'NA';
-        // $formFieldsid['descripcion_evento'] = 'NA';
-        // $formFieldsid['observaciones_evento'] = 'NA';
-        // $formFieldsid['estado_evento'] = 'NA';
-        // $formFieldsid['fecha_desde'] = 'NA';
-        // $formFieldsid['fecha_hasta'] = 'NA';
-        // $formFieldsid['longitud_evento'] = 'NA';
-        // $formFieldsid['latitud_evento'] = 'NA';
-        // $formFieldsid['tags'] = 'NA';
-        // $formFieldsid['created_at'] = 'NA';
-        // $formFieldsid['updated_at'] = 'NA';
-        // $formFieldsid['permanente'] = 'NA';
-        // $gestion->storeUpdateEvento($formFields, $Evento);
-        $evento = [];
-        // return response()->json(['data'=>$evento]);
-        return view('site.blades.addEvent', compact('evento'));
+        $listTypePhoto  = DB::table('catalogo_tipo_fotografia')->get();
+        $promotion = [];
+        // return response()->json(['data'=>$idUsuarioServicio]);
+        return view('site.blades.addEvent', compact('promotion','listTypePhoto'));
     }
 
-    public function getViewEdit(ServiciosOperadorRepository $gestion, $idEvento = null)
+    public function getViewEdit(ServiciosOperadorRepository $gestion, $idPromotion = null)
     {
 
-        $evento = $gestion->getEventosporId($idEvento);
-        // return response()->json(['data'=>$evento]);
-        return view('site.blades.addEvent', compact('evento'));
+        $promotion = $gestion->getPromocion($idPromotion);
+        $listTypePhoto  = DB::table('catalogo_tipo_fotografia')->get();
+        // return response()->json(['data'=>$promotion]);
+        return view('site.blades.addEvent', compact('promotion','listTypePhoto'));
     }
     public function getImagesDescription(Request $request, $tipo, $idtipo, ServiciosOperadorRepository $gestion)
 
@@ -551,11 +538,11 @@ class UsuarioServiciosController extends Controller
         $inputData = Input::get('formData');
         parse_str($inputData, $formFields);
         // usuario_servicio_id
-        $permiso = $gestion->getPermiso($formFields['id_usuario_servicio']);
-        if (!isset($permiso) || $permiso->id_usuario != $auth->user()->id)
-            {
-            return view('errors.404');
-            }
+        // $permiso = $gestion->getPermiso($formFields['id_usuario_servicio']);
+        // if (!isset($permiso) || $permiso->id_usuario != $auth->user()->id)
+        //     {
+        //     return view('errors.404');
+        //     }
         $validator = Validator::make($formFields, Promocion_Usuario_Servicio::$rulesP);
         if ($validator->fails())
             {
@@ -567,9 +554,17 @@ class UsuarioServiciosController extends Controller
         // obtengo llas promociones por id
         if (isset($formFields['id']))
             {
-            $Promocion = $gestion->getPromocion($formFields['id']);
+                if ($formFields['id'] != '' || $formFields['id'] != null) {
+                    $Promocion = $gestion->getPromocion($formFields['id']);
+                }
             }
         // si ya existe el objeto se hace el update
+            $dateSplit = explode(" - ", $formFields['daterange']);
+            $date_desde = $dateSplit[0];
+            $date_hasta = $dateSplit[1];
+            $formFields['fecha_inicio'] = $date_desde;
+            $formFields['fecha_fin'] = $date_hasta;
+            $formFields['estado_promocion'] = ($formFields['estado_promocion'] == 'on')?true:false;
         if (isset($Promocion))
             {
             // logica update
@@ -577,16 +572,16 @@ class UsuarioServiciosController extends Controller
             // Gestion de actualizacion de busqueda
             $search = $formFields['nombre_promocion'] . " " . $formFields['descripcion_promocion'] . " " . $formFields['codigo_promocion'] . " " . $formFields['tags'] . " " . $formFields['observaciones_promocion'];
             $gestion->storeUpdateSerchEngine($Promocion, 1, $formFields['id'], $search);
-            $returnHTML = ('/servicios/serviciooperador/' . $formFields['id_usuario_servicio'] . '/' . $formFields['catalogo']);
+            $returnHTML = ('../eventPromotionsAdmin/' . $formFields['id_usuario_servicio']);
             }
           else
             { //logica de insert
             // Arreglo de inputs prestados que vienen del formulario
             $object = $gestion->storeNewPromocion($formFields);
             // Gestion de nueva de busqueda
-            $search = $formFields['nombre_promocion'] . " " . $formFields['descripcion_promocion'] . " " . $formFields['codigo'];
+            $search = $formFields['nombre_promocion'] . " " . $formFields['descripcion_promocion'] . " " . $formFields['codigo_promocion'];
             $gestion->storeSearchEngine($formFields['id_usuario_servicio'], $search, 1, $object->id);
-            $returnHTML = ('/promocion/' . $object->id);
+            $returnHTML = ('../eventPromotionsAdmin/' . $formFields['id_usuario_servicio']);
             }
         return response()->json(array(
             'success' => true,

@@ -21,3 +21,24 @@
     <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDor7F0iN5YavbFiLRA7pY7L8-Rgl89GT8&signed_in=true&libraries=places&callback=initMap" async defer></script> -->
      <script type="text/javascript" src="{{ asset('/siteStyle/js/gmap3.js')}}"></script>
      <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+     <style type="text/css">
+        .noUi-tooltip {
+            display: none;
+        }
+
+        .noUi-active .noUi-tooltip {
+            display: block;
+        }
+
+        .noUi-connect {
+            background: #2f6890;
+        }
+
+        .noUi-handle {
+            border: 1px solid #c26933;
+            border-radius: 3px;
+            background: #c26933;
+            cursor: default;
+            box-shadow: inset 0 0 1px #c26933, inset 0 1px 7px #c26933, 0 3px 6px -3px #BBB;
+        }
+     </style>

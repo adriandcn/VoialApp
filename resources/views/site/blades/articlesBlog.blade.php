@@ -68,9 +68,7 @@
               <span class="box-skew__item"></span>
               <ul class="breadcrumbs-custom">
                 <li><a href="{{asset('/')}}">{{ trans('publico/labels.lblHome')}}</a></li>
-                <li><a href="{{asset('/serviciosres')}}">{{ trans('publico/labels.lblPathMyServices')}}</a></li>
-                <li>{{ trans('publico/labels.lblPathEditPromotionServ')}}</li>
-                <li>{{ $servicio->nombre_servicio}}</li>
+                <li>{{ trans('publico/labels.lblBlog')}}</li>
               </ul>
             </div>
           </div>
@@ -78,33 +76,27 @@
       </section>
       <section class="section-xs bg-white">
           <div class="shell shell-inset-xs-15 shell-offset-left-xlg-50">
-              <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-plus" href="../addEvent/{{$servicio->id}}">
-                {{ trans('publico/labels.lblBtnAddPromotion')}}<span></span>
-              </a>
-              <br>
-              <br>
-              <hr>
               <div class="heading-group">
-                  <h5><i class="fa fa-money"></i>&nbsp;&nbsp;{{ trans('publico/labels.titlePromotions')}}</h5>
+                  <h5><i class="fa fa-info"></i>&nbsp;&nbsp;{{ trans('publico/labels.titleArticles')}}</h5>
               </div>
               <div class="range range-50">
-                @if(count($listPromociones) == 0)
+                @if(count($listArticles) == 0)
                   <div class="col-xs-12" style="text-align: center;">
-                    <h4><a href=""><i class="fa fa-frown-o "></i> &nbsp;&nbsp;{{trans('publico/labels.noResult')}}</a></h4>
+                    <h4 style="color:#c26933;"><i class="fa fa-frown-o "></i> &nbsp;&nbsp;{{trans('publico/labels.noResult')}}</h4>
                   </div>
                 @else
-                @foreach ($listPromociones as $promotion)
+                @foreach ($listArticles as $article)
                   <div class="cell-sm-3 cell-xs-6 wow rotate-custom rotate-custom-left" data-wow-delay=".15s">
-                      <a class="layouts-link" href="../editEvent/{{$promotion->id}}">
+                      <a class="layouts-link" href="../Blog/{{$article->id_article}}">
                         <!-- <img class="img-shadow" src="{{asset('/siteStyle/images/catalogo_servicios/bg-home-3-1920x1000.jpg')}}" alt="" width="270" height="393"/> -->
                         <div class="eventCard">
                           <h6 style="margin-top: 1px;">
-                            <i class="fa fa-money"></i>&nbsp;&nbsp;{{$promotion->nombre_promocion}}
+                            <i class="fa fa-money"></i>&nbsp;&nbsp;{{$article->nombre_promocion}}
                           </h6>
                           <hr>
-                          <h7><i class="fa fa-dot"></i>&nbsp;&nbsp;Fecha: {{$promotion->created_at}}</h7><br>
-                          <h7><i class="fa fa-dot"></i>&nbsp;&nbsp;Descripción: {{str_limit($promotion->descripcion_promocion, $limit = 15, $end = '...')}}</h7>
-                          <h7><i class="fa fa-dot"></i>&nbsp;&nbsp;Descuento % : {{$promotion->descuento}}</h7>
+                          <h7><i class="fa fa-dot"></i>&nbsp;&nbsp;Fecha: {{$article->created_at}}</h7><br>
+                          <h7><i class="fa fa-dot"></i>&nbsp;&nbsp;Descripción: {{str_limit($article->descripcion_promocion, $limit = 15, $end = '...')}}</h7>
+                          <h7><i class="fa fa-dot"></i>&nbsp;&nbsp;Descuento % : {{$article->descuento}}</h7>
                         </div>
                       </a>
                   </div>
@@ -113,7 +105,6 @@
               </div>
           </div>
       </section>
-      <!-- Page Footer-->
       @include('site.reusable.footer')
     </div>
     <!-- END PANEL-->

@@ -84,18 +84,17 @@
                     @if(count($despliegue) > 0 || $despliegue != null)
                           @foreach ($despliegue as $serv)
                              <div class="col-xs-12 col-sm-6 col-md-4 isotope-item">
-                              <div class="post-masonry post-masonry-short post-content-white bg-post-2 bg-image box-skew post-skew-right-top post-skew-var-4" style="background: url(images/icon/{{$serv->filename}});
+                              <div class="post-masonry post-masonry-short post-content-white bg-post-2 bg-image  post-skew-right-top post-skew-var-4" style="background: url(images/icon/{{$serv->filename}});
                           background-size: cover;
                           background-repeat: no-repeat;
                           min-height: 200px;
                           cursor: pointer;
                           margin-bottom: 20px;" onclick="openDetailOnClick({{$serv->id_usuario_servicio}})">
                                 <div class="post-masonry-content">
-                                  <h4><a href="{!!asset('/tokenDz$rip')!!}/{{$serv->id_usuario_servicio}}">{{$serv->nombre_servicio}}</a></h4>
-                                  <div>
-                                    {{str_limit($serv->detalle_servicio, $limit = 500, $end = '...')}}
-                                  </div>
-                                </div><a class="link-position link-primary-sec-2 link-right post-link" href="{!!asset('/tokenDz$rip')!!}/{{$serv->id_usuario_servicio}}"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                </div>
+                                <h6 class="servName">
+                                  <a href="{!!asset('/tokenDz$rip')!!}/{{$serv->id_usuario_servicio}}" style="color:white;">{{$serv->nombre_servicio}}</a>
+                                </h6>
                               </div>
                             </div>   
                           @endforeach

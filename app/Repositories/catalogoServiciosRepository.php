@@ -27,7 +27,7 @@ class catalogoServiciosRepository extends BaseRepository
 	public function __construct()
 	{
 		$this->level = 0;
-		$this->campos = ['id_catalogo_servicios','nombre_servicio','nombre_servicio_eng','nivel','id_padre'];
+		$this->campos = ['id_catalogo_servicios','nombre_servicio','nombre_servicio_eng','nivel','id_padre','image'];
 		$this->arrayList = [];
 		$this->arrayForAcordion = [];
 		$this->tendenciasModel = new Tendencia();
@@ -42,7 +42,11 @@ class catalogoServiciosRepository extends BaseRepository
 	 */
   	public function getList()
 	{		
-		$serviciosList = DB::table('catalogo_servicios')->where('estado_catalogo_servicios',1)->where('nivel',1)->get();
+		$serviciosList = DB::table('catalogo_servicios')
+						->where('estado_catalogo_servicios',1)
+						->where('nivel',1)
+						->orderBy('orden','ASC')
+						->get();
 		return $serviciosList;
 	}
 

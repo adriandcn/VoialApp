@@ -48,7 +48,7 @@
                 <div class="shell">
                   <div class="range">
                     <div class="cell-lg-6 cell-md-7 cell-sm-8" data-caption-animate="fadeInUp" data-caption-delay="100">
-                      <div class="swiper__overlay swiper-overlay-end box-skew box-skew-var-2"><span class="box-skew__item"></span>
+                      <div class="swiper__overlay swiper-overlay-end box-skew-var-2"><span class="box-skew__item"></span>
                         <div class="swiper-overlay-item-1">
                           <h1>{{trans('publico/labels.saludo')}}</h1>
                           <h6>{{trans('publico/labels.appDescription')}}</h6>
@@ -121,7 +121,7 @@
     <section>
         <div class="parallax-container">
           <div class="material-parallax parallax">
-            <img src="{{asset('/siteStyle/images/catalogo_servicios/bg-home-3-1920x1000.jpg')}}" alt="" width="1920" height="1000"/>
+            <img src="{{asset('/images/Fondos/')}}/{{$servicio->image}}" alt="" width="1920" height="1000"/>
           </div>
           <div class="parallax-content section-lg context-dark">
             <div class="shell">

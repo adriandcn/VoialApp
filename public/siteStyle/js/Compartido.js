@@ -2025,18 +2025,14 @@ function searchServ(event,$idCatalogo, $idSubCatalogo) {
                 var urlImg = url + 'images/fullsize/' + image;
                 var urlDetail = url + 'tokenDz$rip/' + id;
                 var htmlString = '<div class="col-xs-12 col-sm-6 col-md-4 isotope-item" style=" padding-bottom: 25px;">\
-                    <div class="post-masonry post-masonry-short post-content-white bg-post-2 bg-image box-skew post-skew-right-top post-skew-var-4" style="background: url(' + urlImg + ');\
+                    <div class="post-masonry post-masonry-short post-content-white bg-post-2 bg-image post-skew-right-top post-skew-var-4" style="background: url(' + urlImg + ');\
                           background-size: cover;\
                           background-repeat: no-repeat;\
                           min-height: 200px;\
                           cursor: pointer;" onclick="openDetailOnClick(' + id + ')">\
                       <div class="post-masonry-content">\
-                        <h4><a href="' + urlDetail + '">' + array[i].nombre_servicio + '</a></h4>\
-                        <div style="overflow-x: hidden;">\
-                          ' + array[i].detalle_servicio + '\
-                        </div>\
+                        <h6 class="servName"><a href="' + urlDetail + '" style="color:white;">' + array[i].nombre_servicio + '</a></h6>\
                       </div>\
-                      <a class="link-position link-primary-sec-2 link-right post-link" href="' + urlDetail + '"><i class="fa fa-info-circle" aria-hidden="true" style="color: #2f6890;"></i>\
                       </a>\
                     </div>\
                   </div>';
@@ -2049,6 +2045,9 @@ function searchServ(event,$idCatalogo, $idSubCatalogo) {
         error: function(e) {
             console.log(e)
         }
+                        //         <div style="overflow-x: hidden;">\
+                        //   ' + array[i].detalle_servicio + '\
+                        // </div>\
     });
 }
 
@@ -2076,18 +2075,14 @@ function searchServIni($idCatalogo, $idSubCatalogo) {
                 var urlImg = url + 'images/fullsize/' + image;
                 var urlDetail = url + 'tokenDz$rip/' + id;
                 var htmlString = '<div class="col-xs-12 col-sm-6 col-md-4 isotope-item" style=" padding-bottom: 25px;">\
-                    <div class="post-masonry post-masonry-short post-content-white bg-post-2 bg-image box-skew post-skew-right-top post-skew-var-4" style="background: url(' + urlImg + ');\
+                    <div class="post-masonry post-masonry-short post-content-white bg-post-2 bg-image post-skew-right-top post-skew-var-4" style="background: url(' + urlImg + ');\
                           background-size: cover;\
                           background-repeat: no-repeat;\
                           min-height: 200px;\
                           cursor: pointer;" onclick="openDetailOnClick(' + id + ')">\
                       <div class="post-masonry-content">\
-                        <h4><a href="' + urlDetail + '">' + array[i].nombre_servicio + '</a></h4>\
-                        <div style="overflow-x: hidden;">\
-                          ' + array[i].detalle_servicio + '\
-                        </div>\
+                        <h6 class="servName"><a href="' + urlDetail + '" style="color:white">' + array[i].nombre_servicio + '</a></h6>\
                       </div>\
-                      <a class="link-position link-primary-sec-2 link-right post-link" href="' + urlDetail + '"><i class="fa fa-info-circle" aria-hidden="true" style="color: #2f6890;"></i>\
                       </a>\
                     </div>\
                   </div>';
@@ -2099,6 +2094,10 @@ function searchServIni($idCatalogo, $idSubCatalogo) {
         error: function(e) {
             console.log(e)
         }
+                        //  <div style="overflow-x: hidden;">\
+                        //   ' + array[i].detalle_servicio + '\
+                        // </div>\
+        // <a class="link-position link-primary-sec-2 link-right post-link" href="' + urlDetail + '"><i class="fa fa-info-circle" aria-hidden="true" style="color: #2f6890;"></i>\
     });
 }
 
@@ -2310,19 +2309,14 @@ function searchByMap(event){
                 var urlImg = url + 'images/fullsize/' + array[i].filename;
                 var urlDetail = url + 'tokenDz$rip/' + id;
                 var htmlString = '<div class="col-xs-12 col-sm-6 col-md-4 isotope-item" style=" padding-bottom: 25px;">\
-                    <div class="post-masonry post-masonry-short post-content-white bg-post-2 bg-image box-skew post-skew-right-top post-skew-var-4" style="background: url(' + urlImg + ');\
+                    <div class="post-masonry post-masonry-short post-content-white bg-post-2 bg-image post-skew-right-top post-skew-var-4" style="background: url(' + urlImg + ');\
                           background-size: cover;\
                           background-repeat: no-repeat;\
                           min-height: 200px;\
                           cursor: pointer;" onclick="openDetailOnClick(' + id + ')">\
                       <div class="post-masonry-content">\
-                        <h4><a href="' + urlDetail + '">' + array[i].nombre_servicio + '</a></h4>\
-                        <div style="overflow-x: hidden;">\
-                          ' + array[i].detalle_servicio + '\
-                        </div>\
-                      </div>\
-                      <a class="link-position link-primary-sec-2 link-right post-link" href="' + urlDetail + '"><i class="fa fa-info-circle" aria-hidden="true" style="color: #2f6890;"></i>\
-                      </a>\
+                        <h6 class="servName"><a href="' + urlDetail + '" style="color:white;">' + array[i].nombre_servicio + '</a></h6>\
+                      </div><br>\
                     <span class="badge" style="color:Wwhite;background: #c26933;">Distancia: ' + parseInt(array[i].distance) + 'Km</span>\
                     </div>\
                   </div>';

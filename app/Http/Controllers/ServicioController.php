@@ -1199,7 +1199,7 @@ public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $aut
     } 
 
     public function getServiciosByCatalogo($idCatalogo,catalogoServiciosRepository $catalogoServicios) {
-        $campos = ['id_catalogo_servicios','nombre_servicio','nombre_servicio_eng','descripcion'];
+        $campos = ['id_catalogo_servicios','nombre_servicio','nombre_servicio_eng','descripcion','image'];
         $campos_serv = ['id','nombre_servicio','detalle_servicio'];
         $dataCatalogo = DB::table('catalogo_servicios')
                             ->select($campos)
@@ -1208,6 +1208,7 @@ public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $aut
         $padresList = DB::table('catalogo_servicios')
                             ->select($campos)
                             ->where('id_padre',$idCatalogo)
+                            ->where('estado_catalogo_servicios',1)
                             ->get();
         $findedServ = [];
         $tendenciasList = $catalogoServicios->getTendencias($idCatalogo);
@@ -1217,8 +1218,8 @@ public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $aut
     }
 
     public function getServiciosByChildcatalogo($idCatalogo,$idSubCatalogo,catalogoServiciosRepository $catalogoServicios) {
-        $campos = ['id_catalogo_servicios','nombre_servicio','nombre_servicio_eng'];
-        $campos_serv = ['usuario_servicios.id','nombre_servicio','detalle_servicio','images.filename'];
+        $campos = ['id_catalogo_servicios','nombre_servicio','nombre_servicio_eng','descripcion'];
+        $campos_serv = ['usuario_servicios.id','nombre_servicio','detalle_servicio','images.filename','id_catalogo_servicio'];
         $dataCatalogo = DB::table('catalogo_servicios')
                             ->select($campos)
                             ->where('id_catalogo_servicios',$idCatalogo)
@@ -1232,19 +1233,19 @@ public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $aut
                             ->where('id_catalogo_servicio',$idCatalogo)
                             ->get();
         $findedServ = [];
-        // $catalogoServicios =  $catalogoServicios->recursiveListInArray($padresList,null);
-        // foreach ($catalogoServicios as $catalogo) {
-            $qServ = DB::table('usuario_servicios')
-                            ->leftJoin('images', 'usuario_servicios.id', '=', 'images.id_usuario_servicio')
+        $qServ = DB::table('usuario_servicios')
                             ->select($campos_serv)
+                            ->leftJoin('images', 'usuario_servicios.id', '=', 'images.id_usuario_servicio')
                             ->where('id_catalogo_servicio',$idSubCatalogo)
-                            ->where('images.profile_pic','=',1)
-                            ->orWhereNull('images.profile_pic')
+                            ->where(function($query){
+                                 $query->where('images.profile_pic','=',1);
+                                 $query->orWhereNull('images.profile_pic');
+                             })
                             ->get();
-            foreach ($qServ as $serv) {
-                array_push($findedServ, $serv);
-            }
-        // }
+        $findedServ = $qServ;
+            // foreach ($qServ as $serv) {
+            //     array_push($findedServ, $serv);
+            // }
         return view('site.blades.servicios-list-level-3', compact('findedServ','padresList','dataCatalogo','dataSubCatalogo'));
         // return response()->json(array('success' => true, 'redirectto' => $findedServ));
     }
@@ -1270,8 +1271,10 @@ public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $aut
                             ->leftJoin('images', 'usuario_servicios.id', '=', 'images.id_usuario_servicio')
                             ->select($campos_serv)
                             ->where('id_catalogo_servicio',$idSubCatalogo)
-                            ->where('images.profile_pic', '=', 1)
-                            ->orWhereNull('images.profile_pic')
+                            ->where(function($query){
+                                 $query->where('images.profile_pic','=',1);
+                                 $query->orWhereNull('images.profile_pic');
+                            })
                             ->get();
         return $qServ;
     }

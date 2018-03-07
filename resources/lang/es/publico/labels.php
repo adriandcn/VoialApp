@@ -4,7 +4,9 @@ return [
     //voilapp
     'lblSearch' => 'Buscar',
     'saludo' => 'Bienvenido a Voilapp.city',
-    'appDescription' => 'Somos una guia de todos los clientes que se puedan dar en la ciudad para poder agradar a los clientes',
+    'appDescription' => 'Te ayuda a encontrar servicios médicos y de salud registrados, disponiendo de un
+    acceso fácil por su referencia geolocalizada y direccionamiento de llegada. También apoya a
+    los servicios médicos para darse a conocer al público en general.',
     'lblLogIn' => 'Ingresar',
     'lblRegister' => 'Registro',
     'lblLanguage' => 'Espa&ntilde;ol',

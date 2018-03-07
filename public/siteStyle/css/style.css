@@ -1,5 +1,7 @@
 @charset "UTF-8";
 
+
+
 /*
 *
 * Trunk version 1.2.2
@@ -133,6 +135,8 @@ img {
     max-width: 100%;
     height: auto;
 }
+
+
 
 
 /*
@@ -329,6 +333,8 @@ hr {
 }
 
 
+
+
 /*
 *
 * Colors
@@ -406,6 +412,8 @@ hr {
 .page a.text-white:focus {
     color: #c26933;
 }
+
+
 
 
 /*
@@ -851,6 +859,8 @@ hr {
 }
 
 
+
+
 /*
 *
 * Components
@@ -911,6 +921,8 @@ hr {
     font-size: 30px;
     line-height: 1;
 }
+
+
 
 
 /*
@@ -2415,6 +2427,8 @@ button[type="submit"]:focus {
 }
 
 
+
+
 /*
 *
 * Lists
@@ -2922,6 +2936,8 @@ dl {
 }
 
 
+
+
 /*
 *
 * Posts
@@ -3152,6 +3168,8 @@ dl {
 }
 
 
+
+
 /*
 *
 * Posts masonry
@@ -3283,6 +3301,8 @@ dl {
 }
 
 
+
+
 /*
 *
 * Post variant 1
@@ -3390,6 +3410,8 @@ dl {
 }
 
 
+
+
 /*
 *
 * Post variant 2
@@ -3474,6 +3496,8 @@ dl {
         transform: skewX(6deg);
     }
 }
+
+
 
 
 /*
@@ -3584,6 +3608,8 @@ dl {
     opacity: 1;
     visibility: visible;
 }
+
+
 
 
 /*
@@ -3726,6 +3752,8 @@ dl {
 }
 
 
+
+
 /*
 *
 * Post minimal
@@ -3854,6 +3882,8 @@ dl {
 .post-minimal-3 time+p {
     margin-top: 30px;
 }
+
+
 
 
 /*
@@ -4074,6 +4104,8 @@ dl {
 .link-right {
     right: 18px;
 }
+
+
 
 
 /*
@@ -4578,6 +4610,8 @@ dl {
 }
 
 
+
+
 /*
 *
 * Post Team
@@ -4599,6 +4633,8 @@ dl {
 .post-team img {
     width: 100%;
 }
+
+
 
 
 /*
@@ -4690,6 +4726,8 @@ dl {
         max-width: 250px;
     }
 }
+
+
 
 
 /*
@@ -4793,6 +4831,8 @@ dl {
         max-width: 470px;
     }
 }
+
+
 
 
 /*
@@ -5092,6 +5132,8 @@ dl {
 }
 
 
+
+
 /*
 *
 * Products
@@ -5228,6 +5270,8 @@ dl {
         max-width: none;
     }
 }
+
+
 
 
 /*
@@ -5402,6 +5446,8 @@ dl {
 .box-category-list>ul+ul {
     margin-top: 6px;
 }
+
+
 
 
 /*
@@ -5611,6 +5657,8 @@ dl {
 }
 
 
+
+
 /*
 *
 * Thumbnails
@@ -5659,6 +5707,8 @@ dl {
 }
 
 
+
+
 /*
 *
 * Tooltip Custom
@@ -5700,6 +5750,8 @@ dl {
 .tooltip-custom .tooltip.bottom .tooltip-arrow {
     border-bottom-color: #c26933;
 }
+
+
 
 
 /*
@@ -5752,6 +5804,8 @@ dl {
 }
 
 
+
+
 /*
 *
 * Navigation
@@ -5773,6 +5827,8 @@ dl {
     background-color: #c26933;
     color: #fff;
 }
+
+
 
 
 /*
@@ -5957,6 +6013,8 @@ html .center {
 }
 
 
+
+
 /*
 *
 * Panels Custom
@@ -6043,6 +6101,8 @@ html .center {
 h3+.panel-custom-group-wrap {
     margin-top: 30px;
 }
+
+
 
 
 /*
@@ -7368,6 +7428,8 @@ h5+.box-comment {
 }
 
 
+
+
 /*
 *
 * Helpers
@@ -7458,6 +7520,8 @@ h5+.box-comment {
 }
 
 
+
+
 /*
 *
 * Text styling
@@ -7524,6 +7588,8 @@ strong {
         white-space: nowrap;
     }
 }
+
+
 
 
 /*
@@ -7653,6 +7719,8 @@ strong {
         display: none !important;
     }
 }
+
+
 
 
 /*
@@ -7898,6 +7966,8 @@ html .page .group-bottom>*:first-child {
         min-width: 148px;
     }
 }
+
+
 
 
 /*
@@ -8575,6 +8645,8 @@ html .page .group-bottom>*:first-child {
 }
 
 
+
+
 /*
 *
 * Sections
@@ -8691,6 +8763,8 @@ html .page .group-bottom>*:first-child {
 .section-grid-demonstration .divider+.row {
     margin-top: 35px;
 }
+
+
 
 
 /*
@@ -9832,6 +9906,8 @@ html .range-0>* {
 }
 
 
+
+
 /*
 *
 * background Posts
@@ -9922,6 +9998,8 @@ html .range-0>* {
 }
 
 
+
+
 /*
 *
 * background Product
@@ -9945,6 +10023,8 @@ html .range-0>* {
 }
 
 
+
+
 /*
 *
 * background Video
@@ -9966,6 +10046,8 @@ html .range-0>* {
 .bg-video-4:before {
     background-image: url(../images/video-18-1034x439.jpg);
 }
+
+
 
 
 /*
@@ -11813,6 +11895,8 @@ html.lt-ie-10 .range>[class*="cell-md-preffix-"],
 html.lt-ie-10 .range>[class*="cell-lg-preffix-"] {
     margin-left: auto;
 }
+
+
 
 
 /*
@@ -14534,6 +14618,8 @@ html.lt-ie-10 .range>[class*="cell-lg-preffix-"] {
 }
 
 
+
+
 /*
 *
 * Plugins
@@ -14570,6 +14656,8 @@ html:not(.lt-ie10) .not-animated {
 }
 
 
+
+
 /**
 * FadeIn Keyframes Animation
 */
@@ -14596,6 +14684,8 @@ html:not(.lt-ie10) .not-animated {
     -webkit-animation-name: fadeIn;
     animation-name: fadeIn;
 }
+
+
 
 
 /**
@@ -14634,6 +14724,8 @@ html:not(.lt-ie10) .not-animated {
 }
 
 
+
+
 /**
 * FadeInDown Keyframes Animation
 */
@@ -14668,6 +14760,8 @@ html:not(.lt-ie10) .not-animated {
     -webkit-animation-name: fadeInDown;
     animation-name: fadeInDown;
 }
+
+
 
 
 /**
@@ -14706,6 +14800,8 @@ html:not(.lt-ie10) .not-animated {
 }
 
 
+
+
 /**
 * FadeInRight Keyframes Animation
 */
@@ -14742,6 +14838,8 @@ html:not(.lt-ie10) .not-animated {
 }
 
 
+
+
 /*
 **
 * FadeOut Keyframes Animation
@@ -14769,6 +14867,8 @@ html:not(.lt-ie10) .not-animated {
     -webkit-animation-name: fadeOut;
     animation-name: fadeOut;
 }
+
+
 
 
 /**
@@ -14805,6 +14905,8 @@ html:not(.lt-ie10) .not-animated {
 }
 
 
+
+
 /**
 * SlideInLeft Keyframes Animation
 */
@@ -14839,6 +14941,8 @@ html:not(.lt-ie10) .not-animated {
 }
 
 
+
+
 /**
 * SlideInRight Keyframes Animation
 */
@@ -14871,6 +14975,8 @@ html:not(.lt-ie10) .not-animated {
     -webkit-animation-name: slideInRight;
     animation-name: slideInRight;
 }
+
+
 
 
 /**
@@ -15055,6 +15161,8 @@ html:not(.lt-ie10) .not-animated {
     animation-name: blurIn;
     animation-duration: 1.1s;
 }
+
+
 
 
 /*
@@ -15334,6 +15442,8 @@ html:not(.lt-ie10) .not-animated {
 }
 
 
+
+
 /*
 *
 * RD Navbar
@@ -15461,6 +15571,8 @@ html:not(.lt-ie10) .not-animated {
 }
 
 
+
+
 /*
 * Navbar components
 */
@@ -15576,6 +15688,8 @@ html:not(.lt-ie10) .not-animated {
 .rd-navbar-dropdown {
     display: none;
 }
+
+
 
 
 /*
@@ -16189,6 +16303,8 @@ html:not(.lt-ie10) .not-animated {
 }
 
 
+
+
 /*
 * Static Layout
 */
@@ -16219,6 +16335,8 @@ html:not(.lt-ie10) .not-animated {
 }
 
 
+
+
 /*
 * Fullwidth Layout
 */
@@ -16246,6 +16364,8 @@ html:not(.lt-ie10) .not-animated {
 .rd-navbar-fullwidth.rd-navbar--is-clone .rd-navbar-aside-right {
     margin-top: 0;
 }
+
+
 
 
 /*
@@ -16586,6 +16706,8 @@ html.rd-navbar-fixed-linked .page {
 }
 
 
+
+
 /*
 * Sidebar Layout
 */
@@ -16875,6 +16997,8 @@ html.rd-navbar-fixed-linked .page {
 .rd-navbar-sidebar .rd-navbar-sidebar-inner::-webkit-scrollbar-track {
     background: rgba(186, 200, 95, 0.3);
 }
+
+
 
 
 /*
@@ -17244,6 +17368,8 @@ html.rd-navbar-fixed-linked .page {
 .rd-navbar-variant-3 .modal-dialog {
     margin-right: auto;
 }
+
+
 
 
 /*
@@ -17616,6 +17742,8 @@ ol ol {
 }
 
 
+
+
 /*
 *
 * Material Parallax
@@ -17664,6 +17792,8 @@ ol ol {
     position: relative;
     z-index: 1;
 }
+
+
 
 
 /*
@@ -17716,6 +17846,8 @@ ol ol {
 *+.rd-google-map {
     margin-top: 30px;
 }
+
+
 
 
 /*
@@ -17843,6 +17975,8 @@ ol ol {
 }
 
 
+
+
 /*
 *
 * ToTop
@@ -17901,6 +18035,8 @@ html.tablet .ui-to-top {
         bottom: 40px;
     }
 }
+
+
 
 
 /*
@@ -18527,6 +18663,8 @@ html.tablet .ui-to-top {
 }
 
 
+
+
 /*
 *
 * Photoswipe
@@ -18558,6 +18696,8 @@ html.tablet .ui-to-top {
 .pswp img {
     max-width: none;
 }
+
+
 
 
 /* style is added when JS option showHideOpacity is set to true */
@@ -18597,6 +18737,8 @@ html.tablet .ui-to-top {
 }
 
 
+
+
 /*
   Background is added as a separate element.
   As animating opacity is much faster than animating rgba() background-color.
@@ -18633,6 +18775,8 @@ html.tablet .ui-to-top {
     top: 0;
     bottom: 0;
 }
+
+
 
 
 /* Prevent selection and tap highlights */
@@ -18704,6 +18848,8 @@ html.tablet .ui-to-top {
 }
 
 
+
+
 /*
   stretched thumbnail or div placeholder element (see below)
   style is added to avoid flickering in webkit/blink when layers overlap
@@ -18712,6 +18858,8 @@ html.tablet .ui-to-top {
 .pswp__img--placeholder {
     -webkit-backface-visibility: hidden;
 }
+
+
 
 
 /*
@@ -18729,6 +18877,8 @@ html.tablet .ui-to-top {
     left: 0;
     top: 0;
 }
+
+
 
 
 /*
@@ -18756,6 +18906,8 @@ html.tablet .ui-to-top {
 [data-photo-swipe] [data-inner-html] iframe {
     pointer-events: none;
 }
+
+
 
 
 /*! PhotoSwipe Default UI CSS by Dmitry Semenov | photoswipe.com | MIT license */
@@ -18818,6 +18970,8 @@ html.tablet .ui-to-top {
     padding: 0;
     border: 0;
 }
+
+
 
 
 /* pswp__ui--over-close class it added when mouse is over element that should close gallery */
@@ -18885,12 +19039,16 @@ html.tablet .ui-to-top {
 }
 
 
+
+
 /* no arrows on touch screens */
 
 .pswp--touch .pswp__button--arrow--left,
 .pswp--touch .pswp__button--arrow--right {
     visibility: hidden;
 }
+
+
 
 
 /*
@@ -18935,6 +19093,8 @@ html.tablet .ui-to-top {
     right: 6px;
     background-position: -94px -44px;
 }
+
+
 
 
 /*
@@ -19028,6 +19188,8 @@ html.tablet .ui-to-top {
 }
 
 
+
+
 /* increase size of share links on touch devices */
 
 .pswp--touch .pswp__share-tooltip a {
@@ -19073,6 +19235,8 @@ a.pswp__share--download:hover {
 }
 
 
+
+
 /*
 
   3. Index indicator ("1 of X" counter)
@@ -19090,6 +19254,8 @@ a.pswp__share--download:hover {
     opacity: 0.75;
     padding: 0 10px;
 }
+
+
 
 
 /*
@@ -19126,11 +19292,15 @@ a.pswp__share--download:hover {
 }
 
 
+
+
 /* Fake caption element, used to calculate height of next/prev image */
 
 .pswp__caption--fake {
     visibility: hidden;
 }
+
+
 
 
 /*
@@ -19285,6 +19455,8 @@ a.pswp__share--download:hover {
 }
 
 
+
+
 /*
 
   6. Additional styles
@@ -19300,6 +19472,8 @@ a.pswp__share--download:hover {
     opacity: 1;
     z-index: 1550;
 }
+
+
 
 
 /* top black bar with buttons and "1 of X" indicator */
@@ -19323,6 +19497,8 @@ a.pswp__share--download:hover {
 }
 
 
+
+
 /* pswp--has_mouse class is added only when two subsequent mousemove events occur */
 
 .pswp--has_mouse .pswp__button--arrow--left,
@@ -19336,12 +19512,16 @@ a.pswp__share--download:hover {
 }
 
 
+
+
 /* pswp__ui--fit class is added when main image "fits" between top bar and bottom bar (caption) */
 
 .pswp__ui--fit .pswp__top-bar,
 .pswp__ui--fit .pswp__caption {
     background-color: rgba(0, 0, 0, 0.3);
 }
+
+
 
 
 /* pswp__ui--idle class is added when mouse isn't moving for several seconds (JS option timeToIdle) */
@@ -19356,6 +19536,8 @@ a.pswp__share--download:hover {
 }
 
 
+
+
 /*
   pswp__ui--hidden class is added when controls are hidden
   e.g. when user taps to toggle visibility of controls
@@ -19368,6 +19550,8 @@ a.pswp__share--download:hover {
     /* Force paint & create composition layer for controls. */
     opacity: 0.001;
 }
+
+
 
 
 /* pswp__ui--one-slide class is added when there is just one item in gallery */
@@ -19385,6 +19569,8 @@ a.pswp__share--download:hover {
 .pswp--minimal--dark .pswp__top-bar {
     background: none;
 }
+
+
 
 
 /*
@@ -19449,6 +19635,8 @@ a.pswp__share--download:hover {
 .progress-linear+.progress-linear {
     margin-top: 34px;
 }
+
+
 
 
 /*
@@ -19539,6 +19727,8 @@ a.pswp__share--download:hover {
 .counter-plus:after {
     content: '+';
 }
+
+
 
 
 /*
@@ -19751,6 +19941,8 @@ a.pswp__share--download:hover {
 }
 
 
+
+
 /*
 ------------------------------------------------------------------------------------------------------------------------
 1. BASIC STYLE
@@ -19787,6 +19979,8 @@ a.pswp__share--download:hover {
 }
 
 
+
+
 /*
 ------------------------------------------------------------------------------------------------------------------------
 2. VERTICAL SCROLLBAR
@@ -19803,6 +19997,8 @@ y-axis
 }
 
 
+
+
 /* non-visible scrollbar */
 
 .mCS-dir-rtl-custom>.mCSB_inside>.mCSB_container {
@@ -19814,6 +20010,8 @@ y-axis
 .mCS-dir-rtl-custom>.mCSB_inside>.mCSB_container.mCS_no_scrollbar_y.mCS_y_hidden {
     margin-left: 0;
 }
+
+
 
 
 /* RTL direction/left-side scrollbar */
@@ -19834,6 +20032,8 @@ y-axis
 }
 
 
+
+
 /* scrollbar position: outside */
 
 .mCS-dir-rtl-custom>.mCSB_inside>.mCSB_scrollTools,
@@ -19846,6 +20046,8 @@ y-axis
 .mCS-dir-rtl-custom>.mCSB_outside+.mCSB_scrollTools {
     left: -26px;
 }
+
+
 
 
 /* RTL direction/left-side scrollbar (scrollbar position: outside) */
@@ -19918,6 +20120,8 @@ y-axis
 }
 
 
+
+
 /*
 ------------------------------------------------------------------------------------------------------------------------
 3. HORIZONTAL SCROLLBAR
@@ -19939,6 +20143,8 @@ x-axis
 }
 
 
+
+
 /* non-visible scrollbar */
 
 .mCSB_scrollTools.mCSB_scrollTools_horizontal {
@@ -19954,6 +20160,8 @@ x-axis
 .mCustomScrollBox+.mCSB_scrollTools+.mCSB_scrollTools.mCSB_scrollTools_horizontal {
     bottom: -26px;
 }
+
+
 
 
 /* scrollbar position: outside */
@@ -20015,6 +20223,8 @@ x-axis
 }
 
 
+
+
 /*
 ------------------------------------------------------------------------------------------------------------------------
 4. VERTICAL AND HORIZONTAL SCROLLBARS
@@ -20052,11 +20262,15 @@ yx-axis
 }
 
 
+
+
 /* non-visible horizontal scrollbar */
 
 .mCSB_container_wrapper.mCS_no_scrollbar_x.mCS_x_hidden+.mCSB_scrollTools.mCSB_scrollTools_vertical {
     bottom: 0;
 }
+
+
 
 
 /* non-visible vertical scrollbar/RTL direction/left-side scrollbar */
@@ -20067,11 +20281,15 @@ yx-axis
 }
 
 
+
+
 /* RTL direction/left-side scrollbar */
 
 .mCS-dir-rtl-custom>.mCustomScrollBox.mCSB_vertical_horizontal.mCSB_inside>.mCSB_scrollTools.mCSB_scrollTools_horizontal {
     left: 20px;
 }
+
+
 
 
 /* non-visible scrollbar/RTL direction/left-side scrollbar */
@@ -20101,11 +20319,15 @@ yx-axis
 }
 
 
+
+
 /* non-visible horizontal scrollbar */
 
 .mCustomScrollBox.mCSB_vertical_horizontal.mCSB_inside>.mCSB_container_wrapper.mCS_no_scrollbar_x.mCS_x_hidden {
     margin-bottom: 0;
 }
+
+
 
 
 /*
@@ -20147,6 +20369,8 @@ yx-axis
     margin-top .2s ease-out .2s, margin-bottom .2s ease-out .2s,
     opacity .2s ease-in-out, background-color .2s ease-in-out;
 }
+
+
 
 
 /*
@@ -20236,6 +20460,8 @@ yx-axis
 }
 
 
+
+
 /* theme: "dark" */
 
 .mCS-dark.mCSB_scrollTools .mCSB_draggerRail {
@@ -20272,6 +20498,8 @@ yx-axis
 .mCS-dark.mCSB_scrollTools .mCSB_buttonRight {
     background-position: -80px -56px;
 }
+
+
 
 
 /*
@@ -20616,6 +20844,8 @@ yx-axis
 }
 
 
+
+
 /* a11y */
 
 .swiper-container .swiper-notification {
@@ -20628,6 +20858,8 @@ yx-axis
 }
 
 
+
+
 /* IE10 Windows Phone 8 Fixes */
 
 .swiper-wp8-horizontal {
@@ -20637,6 +20869,8 @@ yx-axis
 .swiper-wp8-vertical {
     touch-action: pan-x;
 }
+
+
 
 
 /* Coverflow */
@@ -20963,6 +21197,8 @@ yx-axis
 .ie-edge .swiper__overlay {
     height: 465px;
 }
+
+
 
 
 /*
@@ -21933,6 +22169,8 @@ yx-axis
 }
 
 
+
+
 /* Icons */
 
 
@@ -22014,6 +22252,8 @@ yx-axis
 [dir="rtl"] .slick-next:before {
     content: "";
 }
+
+
 
 
 /* Dots */
@@ -22218,6 +22458,8 @@ yx-axis
         right: -40px;
     }
 }
+
+
 
 
 /*
@@ -22546,6 +22788,8 @@ button::-moz-focus-inner {
 }
 
 
+
+
 /* Main image in popup */
 
 img.mfp-img {
@@ -22560,6 +22804,8 @@ img.mfp-img {
     padding: 40px 0 40px;
     margin: 0 auto;
 }
+
+
 
 
 /* The shadow behind the image */
@@ -22716,6 +22962,8 @@ screen and (max-height: 300px) {
 }
 
 
+
+
 /*rtl:begin:ignore*/
 
 
@@ -22764,6 +23012,8 @@ screen and (max-height: 300px) {
 }
 
 
+
+
 /* 
  *  Owl Carousel - Auto Height Plugin
  */
@@ -22771,6 +23021,8 @@ screen and (max-height: 300px) {
 .owl-height {
     transition: height 500ms ease-in-out;
 }
+
+
 
 
 /* 
@@ -22922,11 +23174,15 @@ screen and (max-height: 300px) {
 }
 
 
+
+
 /* No Js */
 
 .no-js .owl-carousel {
     display: block;
 }
+
+
 
 
 /* 
@@ -22937,6 +23193,8 @@ screen and (max-height: 300px) {
     opacity: 0;
     transition: opacity 400ms ease;
 }
+
+
 
 
 /* 
@@ -22991,6 +23249,8 @@ screen and (max-height: 300px) {
     position: relative;
     z-index: 1;
 }
+
+
 
 
 /*
@@ -23190,6 +23450,8 @@ screen and (max-height: 300px) {
         display: none !important;
     }
 }
+
+
 
 
 /*
@@ -25638,6 +25900,8 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
 }
 
 
+
+
 /*rtl:end:ignore*/
 
 
@@ -25675,6 +25939,8 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
     font-weight: 400;
     font-family: 'FontAwesome';
 }
+
+
 
 
 /* makes the font 33% larger relative to the icon container */
@@ -25759,6 +26025,8 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
 .fa.fa-pull-right {
     margin-left: .3em;
 }
+
+
 
 
 /* Deprecated as of 4.4.0 */
@@ -25882,6 +26150,8 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
 .fa-inverse {
     color: #ffffff;
 }
+
+
 
 
 /* Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
@@ -28718,6 +28988,8 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
     overflow: visible;
     clip: auto;
 }
+
+
 
 
 /*
@@ -37815,6 +38087,8 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
 }
 
 
+
+
 /*
 *
 * Layout panel
@@ -38368,4 +38642,13 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
     -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
     transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
     height: 20px;
+}
+
+.servName {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background: #1e3c72;
+    background: -webkit-linear-gradient(to right, #2a5298, #1e3c72);
+    background: linear-gradient(to right, #2a5298, #1e3c72);
+    font-size: 13px;
+    text-align: center;
 }

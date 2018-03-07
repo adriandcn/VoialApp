@@ -80,7 +80,10 @@
               @else
                 @foreach($catalogoServicios as $servicio)
                   <div class="col-xs-12 col-sm-6 col-md-4 isotope-item">
-                    <div class="post-masonry post-masonry-short post-content-white bg-post-2 bg-image box-skew post-skew-right-top post-skew-var-4">
+                    <div class="post-masonry post-masonry-short post-content-white bg-post-2 bg-image" style="background: url('{!!asset('/images/Fondos/')!!}/{{$servicio->image}}')!important;
+                        background-size: cover !important;
+                        background-position: center center !important;
+                        background-repeat: no-repeat !important;">
                       <div class="post-masonry-content">
                         <h4><a href="{!!asset('/catalogoServ')!!}/{{$idCatalogo}}/{{$servicio->id_catalogo_servicios}}">{{$servicio->nombre_servicio}}</a></h4>
                       </div>

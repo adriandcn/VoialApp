@@ -3543,7 +3543,7 @@ class PublicServiceRepository extends BaseRepository {
       }
     }
 
-    public function searchInMap ($lat = null,$lng = null,$radio = 50,$idTendencia = null){
+    public function searchInMapTendencias ($lat = null,$lng = null,$radio = 50,$idTendencia = null){
         if ($lat == null || $lat == null) {
             $lat = config('global.latDefault');
             $lng = config('global.lngDefault');
@@ -3598,6 +3598,22 @@ class PublicServiceRepository extends BaseRepository {
                 $serv->filename = 'default_service.png';
             }
             
+        }
+        return $arrayFinded;
+    }
+
+    public function searchInMapByDistance ($lat = null,$lng = null, $radio = 50,$dataList = []){
+        if ($lat == null || $lat == null) {
+            $lat = config('global.latDefault');
+            $lng = config('global.lngDefault');
+        }
+        $arrayFinded = [];
+        foreach ($dataList as $value) {
+            $distance = $this->distance($lat,$lng,$value->latitud_servicio,$value->longitud_servicio,'K');
+            if ($distance < ($radio / 1000)) {
+                $value->distance = $distance;
+                array_push($arrayFinded,  $value);
+            }
         }
         return $arrayFinded;
     }

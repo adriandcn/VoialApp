@@ -72,7 +72,7 @@ class SearchController extends Controller
         $query['radio'] = $request->radio;
         $idTendenciaS = Session::get('idTendenciaSearch');
         $gestion->saveQueryVisitor($query);
-        $findedMap = $gestion->searchInMap($request->lat,$request->lng,$request->radio,$idTendenciaS);
+        $findedMap = $gestion->searchInMapTendencias($request->lat,$request->lng,$request->radio,$idTendenciaS);
         return response()->json(['error' => false,'data' => $findedMap]);
     }
 

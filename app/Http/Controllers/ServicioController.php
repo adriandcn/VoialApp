@@ -1266,8 +1266,8 @@ public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $aut
     }
 
     public function cleanFilterServicios($catalogo,$idSubCatalogo, catalogoServiciosRepository $catalogoServicios){
-        $campos_serv = ['usuario_servicios.id','nombre_servicio','detalle_servicio','images.filename'];
-            $qServ = DB::table('usuario_servicios')
+        $campos_serv = ['usuario_servicios.id','nombre_servicio','detalle_servicio','images.filename','latitud_servicio','longitud_servicio'];
+        $qServ = DB::table('usuario_servicios')
                             ->leftJoin('images', 'usuario_servicios.id', '=', 'images.id_usuario_servicio')
                             ->select($campos_serv)
                             ->where('id_catalogo_servicio',$idSubCatalogo)
@@ -1278,13 +1278,17 @@ public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $aut
                             ->get();
         return $qServ;
     }
-    public function applyServicesFilter(Request $request,catalogoServiciosRepository $catalogoServicios){
+
+    public function applyServicesFilter(Request $request,catalogoServiciosRepository $catalogoServicios, PublicServiceRepository $gestion){
         if ($request->has('filter')) {
-            $inCatalogo = $catalogoServicios->getByCatalogoArray($request->filter);
+            $inCatalogo = $catalogoServicios->getByCatalogoArray($request->filter, $request->idSubCatalogo);
         }else{
-            $inCatalogo = $this->cleanFilterServicios($request->idCatalogo,$request->idSubCatalogo,$catalogoServicios);
+            $inCatalogo = $this->cleanFilterServicios($request->idCatalogo, $request->idSubCatalogo, $catalogoServicios);
         }
-         return response()->json(array('success' => true, 'data' => $inCatalogo));   
+        if ($request->has('lat') && $request->has('lng') && $request->has('radio')) {
+            $inCatalogo = $gestion->searchInMapByDistance($request->lat, $request->lng, $request->radio, $inCatalogo);
+        }
+        return response()->json(array('success' => true, 'data' => $inCatalogo));   
     }
     
 }

@@ -1499,8 +1499,8 @@ $('#24_h').on('switchChange.bootstrapSwitch', function(event, state) {
                 filtersH.push(obj);
             }
         }
-        $('.checkboxDays').bootstrapSwitch('state' , true);
-    }else{
+        $('.checkboxDays').bootstrapSwitch('state', true);
+    } else {
         console.log('aqui');
         for (var i = 0; i < 7; i++) {
             // $('#from_time' + i).attr('disabled', 'disabled');
@@ -1508,7 +1508,7 @@ $('#24_h').on('switchChange.bootstrapSwitch', function(event, state) {
             $('#from_time' + i).val(null);
             $('#to_time' + i).val(null);
         }
-        $('.checkboxDays').bootstrapSwitch('state' , false);
+        $('.checkboxDays').bootstrapSwitch('state', false);
     }
 });
 
@@ -1555,7 +1555,7 @@ function applyFilterDays(item) {
         $('#to_time' + item).attr('disabled', 'disabled');
         $('#to_time' + item).val(null);
         console.log(item);
-        
+
     }
 }
 
@@ -1647,7 +1647,7 @@ function sendSearch(s) {
     // });
 }
 
-function sendSearchTendencias(event,idTendencia) {
+function sendSearchTendencias(event, idTendencia) {
     event.preventDefault();
     // var txtS = s.replace(/#/g,'+');
     var url = dirServer + 'public/tendenciasSearch/' + idTendencia;
@@ -1997,14 +1997,20 @@ var openFilterModal = function(event) {
     $('#filter').modal('show');
 }
 
-function searchServ(event,$idCatalogo, $idSubCatalogo) {
+function searchServ(event, idCatalogo, idSubCatalogo) {
     event.preventDefault();
     // console.log(filtersServ);
-    // console.log($idCatalogo);
-    // console.log($idSubCatalogo);
-    var data = { filter: filtersServ, idCatalogo: $idCatalogo, idSubCatalogo: $idSubCatalogo };
+    // console.log(idCatalogo);
+    // console.log(idSubCatalogo);
+    var data = {
+        filter: filtersServ,
+        idCatalogo: idCatalogo,
+        idSubCatalogo: idSubCatalogo,
+        lat: $('#latitud_servicio').val(),
+        lng: $('#longitud_servicio').val(),
+        radio: $('#radioSearch').val()
+    };
     var url = dirServer + 'public/filterService';
-
     $.ajax({
         type: 'POST',
         url: url,
@@ -2020,7 +2026,7 @@ function searchServ(event,$idCatalogo, $idSubCatalogo) {
                 } else {
                     id = array[i].id;
                 }
-                var image = (array[i].filename != null)? array[i].filename :'default_service.png';
+                var image = (array[i].filename != null) ? array[i].filename : 'default_service.png';
                 var url = dirServer + 'public/';
                 var urlImg = url + 'images/fullsize/' + image;
                 var urlDetail = url + 'tokenDz$rip/' + id;
@@ -2033,26 +2039,37 @@ function searchServ(event,$idCatalogo, $idSubCatalogo) {
                       <div class="post-masonry-content">\
                         <h6 class="servName"><a href="' + urlDetail + '" style="color:white;">' + array[i].nombre_servicio + '</a></h6>\
                       </div>\
+                      <br>\
+                      <span class="badge" style="color:Wwhite;background: #c26933;">Distancia: ' + parseInt(array[i].distance) + 'Km</span>\
                       </a>\
                     </div>\
                   </div>';
                 htmlResult = htmlResult + htmlString;
             }
+            if (array.length == 0) {
+                var htmlString = '<div class="col-xs-12 text-center text-default">\
+                        <h4 style="color:#c26933;"><i class="fa fa-frown-o "></i> &nbsp;&nbsp;Ups!! No se han encontrado resultados</h4>\
+                      </div>';
+                htmlResult = htmlResult + htmlString;
+            }
             $('#findedFilter').html(htmlResult);
             $('#initialRows').hide();
             $('#filter').modal('hide');
+            $('html, body').animate({
+                scrollTop: $("#sectionResult").offset().top
+            }, 1000);
         },
         error: function(e) {
             console.log(e)
         }
-                        //         <div style="overflow-x: hidden;">\
-                        //   ' + array[i].detalle_servicio + '\
-                        // </div>\
+        //         <div style="overflow-x: hidden;">\
+        //   ' + array[i].detalle_servicio + '\
+        // </div>\
     });
 }
 
-function searchServIni($idCatalogo, $idSubCatalogo) {
-    var data = { filter: filtersServ, idCatalogo: $idCatalogo, idSubCatalogo: $idSubCatalogo };
+function searchServIni(idCatalogo, idSubCatalogo) {
+    var data = { filter: filtersServ, idCatalogo: idCatalogo, idSubCatalogo: idSubCatalogo };
     var url = dirServer + 'public/filterService';
 
     $.ajax({
@@ -2070,7 +2087,7 @@ function searchServIni($idCatalogo, $idSubCatalogo) {
                 } else {
                     id = array[i].id;
                 }
-                var image = (array[i].filename != null)? array[i].filename :'default_service.png';
+                var image = (array[i].filename != null) ? array[i].filename : 'default_service.png';
                 var url = dirServer + 'public/';
                 var urlImg = url + 'images/fullsize/' + image;
                 var urlDetail = url + 'tokenDz$rip/' + id;
@@ -2094,9 +2111,9 @@ function searchServIni($idCatalogo, $idSubCatalogo) {
         error: function(e) {
             console.log(e)
         }
-                        //  <div style="overflow-x: hidden;">\
-                        //   ' + array[i].detalle_servicio + '\
-                        // </div>\
+        //  <div style="overflow-x: hidden;">\
+        //   ' + array[i].detalle_servicio + '\
+        // </div>\
         // <a class="link-position link-primary-sec-2 link-right post-link" href="' + urlDetail + '"><i class="fa fa-info-circle" aria-hidden="true" style="color: #2f6890;"></i>\
     });
 }
@@ -2253,7 +2270,8 @@ $('#precio_hasta').live({
 });
 
 var hashArray = [];
-function updateHashtags(event,hashtags,idTendencia){
+
+function updateHashtags(event, hashtags, idTendencia) {
     event.preventDefault();
     if (hashArray.indexOf(idTendencia) == -1) {
         hashArray.push(idTendencia);
@@ -2274,17 +2292,18 @@ function updateHashtags(event,hashtags,idTendencia){
 // });
 
 $("#resultsMap").hide();
-function searchByMap(event){
+
+function searchByMap(event) {
     if (event != null) {
         event.preventDefault();
     }
     $("#spinnerSearch").show();
     event.preventDefault();
-    var url = dirServer + "public/searchAllInMap";     
+    var url = dirServer + "public/searchAllInMap";
     $.ajax({
         type: 'POST',
         url: url,
-        data: {lat: $('#latitud_servicio').val(),lng: $('#longitud_servicio').val(),radio: $('#radioSearch').val()},
+        data: { lat: $('#latitud_servicio').val(), lng: $('#longitud_servicio').val(), radio: $('#radioSearch').val() },
         success: function(r) {
             var htmlResult = '';
             var array = r.data;
@@ -2339,33 +2358,34 @@ function searchByMap(event){
 
 // Eventos
 $('#spinnerSave').hide();
-function saveEvento(event,idEvent){
+
+function saveEvento(event, idEvent) {
     event.preventDefault();
     $('#spinnerSave').show();
     // if (idEvent != null) {
-        var $form = $('#formAddEvent'),
+    var $form = $('#formAddEvent'),
         data = $form.serialize(),
         url = $form.attr("action");
-        var posting = $.post(url, { formData: data });
-        posting.done(function(data) {
-            if (data.fail) {
-                var errorString = '<ul>';
-                $.each(data.errors, function(key, value) {
-                    errorString += '<li>' + value + '</li>';
-                });
-                errorString += '</ul>';
-                $('#spinnerSave').hide();
-                $('.rowerrorPromotion').html(errorString);
-            }
-            if (data.success) {
-                $('#spinnerSave').hide();
-                window.location.href = data.redirectto;
-            }
-        });
-        posting.error(function(e) {
-            showAlert('Error!', 'Ha ocurrido un error, intentalo nuevamente', null, 'warning', 'danger');
+    var posting = $.post(url, { formData: data });
+    posting.done(function(data) {
+        if (data.fail) {
+            var errorString = '<ul>';
+            $.each(data.errors, function(key, value) {
+                errorString += '<li>' + value + '</li>';
+            });
+            errorString += '</ul>';
             $('#spinnerSave').hide();
-        });
+            $('.rowerrorPromotion').html(errorString);
+        }
+        if (data.success) {
+            $('#spinnerSave').hide();
+            window.location.href = data.redirectto;
+        }
+    });
+    posting.error(function(e) {
+        showAlert('Error!', 'Ha ocurrido un error, intentalo nuevamente', null, 'warning', 'danger');
+        $('#spinnerSave').hide();
+    });
     // }else{
 
     // }

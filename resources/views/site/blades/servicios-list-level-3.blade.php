@@ -96,6 +96,30 @@
       </section>
       <section class="section-xs bg-white">
         <div class="shell">
+          <div class="row">
+            <?php
+                $latitud_servicio = -0.1806532;
+                $longitud_servicio = -78.46783820000002;
+                $radio = 100;
+              ?>
+              <div class="col-xs-12 col-sm-12 isotope-item">
+                @include('reusable.searchMap', ['latitud_servicio' =>$latitud_servicio ,'longitud_servicio'=>$longitud_servicio,'radio'=>$radio]) 
+              </div>
+              <div class="col-xs-12 col-sm-12 isotope-item text-right">
+                <a class="button button-primary button-icon button-icon-sm button-icon-right fa-search" href="" onclick="searchServ(event,{{request()->route('idCatalogo')}},{{request()->route('idSubCatalogo')}})" id="btnSearchMap">
+                  {{trans('publico/labels.lblSearch')}}<span></span>
+                </a>
+              </div>
+          </div>
+                <div id="sectionResult"></div>
+        </div>
+      </section>
+      <section class="section-xs bg-white">
+        <div class="shell">
+          <div class="heading-group" >
+            <h4><i class="fa fa-search"></i> &nbsp;&nbsp;{{ trans('publico/labels.lblResult')}}</h4>
+          </div>
+          <br>
           <div class="isotope grid-masonry text-left column-offset-30" data-isotope-layout="masonry">
              <div id="findedFilter"></div>
              <br>
@@ -117,9 +141,9 @@
           <div class="modal-content">
             <!-- <div id="testboxForm"> -->
               <div class="modal-header">
-              <h3 class="modal-title">
-                {{trans('publico/labels.btnFilter')}}
-              </h3>
+                <h3 class="modal-title">
+                  {{trans('publico/labels.btnFilter')}}
+                </h3>
               </div>
             <div class="modal-body">
                 <form class="rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="bat/rd-mailform.php">

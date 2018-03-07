@@ -138,25 +138,33 @@ class catalogoServiciosRepository extends BaseRepository
 		return $padresList;
 	}
 
-	public function getByCatalogoArray($array)
+	public function getByCatalogoArray($array, $idSubCatalogo = null)
 	{	
 		$usuario_Servicio = new Usuario_Servicio();
-		$campos_serv = ['usuario_servicios.id','nombre_servicio','detalle_servicio','images.filename'];
+		$campos_serv = ['usuario_servicios.id','nombre_servicio','detalle_servicio','images.filename','latitud_servicio','longitud_servicio'];
 		// $finded = $usuario_Servicio->join('images', 'usuario_servicios.id', '=', 'images.id_usuario_servicio')
 		// 	->where('images.profile_pic', '=', 1)
 		// 	->whereIn('id_catalogo_servicio', $array)->get();
 		$servicio_establecimiento_usuario = new Servicio_Establecimiento_Usuario();
 		$findedEstablesimientos = $servicio_establecimiento_usuario
 			->select('id_usuario_servicio')
-			->whereIn('id_servicio_est', $array)->get();
+			->whereIn('id_servicio_est', $array)
+			->groupBy('id_usuario_servicio')
+			->get();
 		$arrayEstServ = [];
 		foreach ($findedEstablesimientos as $value) {
 			array_push($arrayEstServ, $value->id_usuario_servicio);
 		}
-		$finded = $usuario_Servicio->leftJoin('images', 'usuario_servicios.id', '=', 'images.id_usuario_servicio')
-			->where('images.profile_pic', '=', 1)
-			->orWhereNull('images.profile_pic')
-			->whereIn('usuario_servicios.id', $arrayEstServ)->get();
+		$finded = $usuario_Servicio
+			->leftJoin('images', 'usuario_servicios.id', '=', 'images.id_usuario_servicio')
+			->whereIn('usuario_servicios.id', $arrayEstServ)
+			->where('id_catalogo_servicio',$idSubCatalogo)
+			->where(function($query){
+                 $query->where('images.profile_pic','=',1);
+                 $query->orWhereNull('images.profile_pic');
+            })
+            ->select($campos_serv)
+			->get();
 		return $finded;
 	}
 

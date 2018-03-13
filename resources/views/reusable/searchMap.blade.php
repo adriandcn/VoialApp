@@ -13,7 +13,7 @@
 </style>
 
 <div class='form-group'>
-    <input type="text" id='searchmap' style="height: 27px; width: 100%;margin-bottom: 1%" class="form-input tooltip" title="{{ trans('back/admin.altSearchboxUbicacion')}}">
+    <input type="text" id='searchmap' style="height: 27px; width: 100%;margin-bottom: 1%" class="form-input tooltip" title="{{ trans('back/admin.altSearchboxUbicacion')}}" placeholder="{{ trans('back/admin.placeHolderSearchboxUbicacion')}}">
     <div class="form-group">
     <label>{{ trans('back/admin.lblSearchRadio')}}</label>
     <input type="number" class='form-input tooltip' name='radio' value="{!!$radio!!}" id='radioSearch' title="{{ trans('back/admin.altSearchRadio')}}"/>

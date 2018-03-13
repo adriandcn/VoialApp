@@ -97,5 +97,6 @@ return [
     'lblRangoPrecio' => 'Price range',
     'altSearchRadio' => 'Enter search radius Ex: 50',
     'lblSearchRadio' => 'Search radius (meters)',
-    'altSearchMap' => 'Click on the map to mark the location from where you are going to search'
+    'altSearchMap' => 'Click on the map to mark the location from where you are going to search',
+    'placeHolderSearchboxUbicacion' => 'Site or sector to be located',
 ];

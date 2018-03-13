@@ -5,8 +5,7 @@ return [
     'lblSearch' => 'Search',
     'saludo' => 'Welcome to Voilapp.city',
     'appDescription' => 'We help you find registered medical and health services, with a
-    easy access by its geolocated reference and arrival address. It also supports
-    medical services to realize the general public.',
+    easy access by its geolocated reference and arrival address.',
     'lblLogIn' => 'Log In',
     'lblRegister' => 'Registration',
     'lblLanguage' => 'Espa&ntilde;ol',

@@ -5,7 +5,7 @@
 	"default": {
 
 		"host": "voilappbeta.com",
-		"username": "SB_4239678@voilappbeta.com",  // or null for anonymous login
+		"username": "developer@voilappbeta.com",  // or null for anonymous login
 		"password": "root@123",
 		"path": "/",
 

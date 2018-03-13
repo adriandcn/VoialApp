@@ -5,8 +5,7 @@ return [
     'lblSearch' => 'Buscar',
     'saludo' => 'Bienvenido a Voilapp.city',
     'appDescription' => 'Te ayuda a encontrar servicios médicos y de salud registrados, disponiendo de un
-    acceso fácil por su referencia geolocalizada y direccionamiento de llegada. También apoya a
-    los servicios médicos para darse a conocer al público en general.',
+    acceso fácil por su referencia geolocalizada y direccionamiento de llegada.',
     'lblLogIn' => 'Ingresar',
     'lblRegister' => 'Registro',
     'lblLanguage' => 'Espa&ntilde;ol',

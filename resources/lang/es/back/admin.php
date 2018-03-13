@@ -97,5 +97,6 @@ return [
     'lblRangoPrecio' => 'Rango de precios',
     'altSearchRadio' => 'Ingresa el radio de búsqueda Ej:50',
     'lblSearchRadio' => 'Radio de búsqueda (metros)',
-    'altSearchMap' => 'Haz clic sobre el mapa para marcar la ubicación desde donde se va a buscar'
+    'altSearchMap' => 'Haz clic sobre el mapa para marcar la ubicación desde donde se va a buscar',
+    'placeHolderSearchboxUbicacion' => 'Sitio o sector a ubicar',
 ];

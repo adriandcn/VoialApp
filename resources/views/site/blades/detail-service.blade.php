@@ -63,7 +63,7 @@
             <div class="page-title-text">
               {{$detalles->nombre_servicio}}
             </div>
-            <p class="big" style="word-break: break-all;">{{$detalles->detalle_servicio}}</p>
+            <p class="big">{{$detalles->detalle_servicio}}</p>
           </div>
         </div>
       </section>

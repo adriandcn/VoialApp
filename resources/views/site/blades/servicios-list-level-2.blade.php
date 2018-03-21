@@ -50,7 +50,7 @@
           </div>
           <br>
           <div class="row">
-              <div class="col-xs-12 col-sm-6 col-md-4">
+              <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="isotope-filters isotope-filters-horizontal tabs-custom tabs-horizontal">
                   <ul class="nav-custom nav-custom-tabs">                @foreach($tendenciasList as $tendencia)
                     <li>

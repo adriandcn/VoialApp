@@ -375,10 +375,10 @@ class AuthController extends Controller {
     public function sendActivationEmail($data){
         $correo_enviar = $data['email'];
         $nombre = $data['nombre'];
-        Mail::send('emails.auth.verify', $data, function($message) use ($correo_enviar,$nombre)
+        Mail::send('site.emails.activation', $data, function($message) use ($data)
         {
             $message->from("info@voilappbeta.com",'VoilApp');
-            $message->to($correo_enviar,$nombre)->subject('Verifica tu cuenta');
+            $message->to($data['email'],$data['email'])->subject('Verifica tu cuenta');
         });
     }
 
@@ -463,14 +463,17 @@ class AuthController extends Controller {
             $nombre = $auth->user()->email;
             // Datos de email de activacion
             $data = [
-                        'email' => $formFields['email'],
-                        'nombre' => $formFields['name'],
-                        'confirmation_code' => $confirmation_code,
-                        // 'link' => config('global.serverDir') . 'activate?c='.$confirmation_code,
-                        'title'  => trans('front/verify.ReviewEmail'),
-                        'intro'  => trans('front/verify.email-intro'),
-                        'link'   => trans('front/verify.email-link')
-                    ];
+                'email' => $formFields['email'],
+                'nombre' => $formFields['name'],
+                'confirmation_code' => $confirmation_code,
+                'title'  => trans('front/verify.email-title'),
+                'body'  => trans('front/verify.email-body'),
+                'footer'  => trans('front/verify.email-footer'),
+                'link'   => trans('front/verify.email-link'),
+                'linkPD'   => trans('front/verify.email-msg-link'),
+                'linkUnsuscribe'   => trans('front/verify.email-unsubscribe'),
+                'urlPage' => config('global.urlHomeSite')
+            ];
             $this->sendActivationEmail($data);
 
             //logica que comprueba si el usuario tiene servicios para ser modificados

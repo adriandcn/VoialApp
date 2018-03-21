@@ -1,16 +1,10 @@
 <?php
 
-return [
-	'email-title' => 'VoilApp verificación de registro',
-	'email-intro'=> 'Para validar tu cuenta ',
-	'email-link' => 'haz click en este link',
-	'message' => 'Gracias por registrarte! Por favor revisa tu correo electrónico.',
-	'success' => 'Su cuenta ha sido verificada exitosamente. Ahora puede loguearse',
-    'ReviewEmail' => 'VoilApp Correo de verificación',
-	'again' => 'Debe verificar su correo electrónico antes de ingresar. ' .
-                '<br>Si no ha recibido ninguna confirmación, revise la carpeta de correo no deseado.'.
-                '<br>Para obtener un nuevo email de confirmación por favor <a href="' . url('auth/resend') . '" class="alert-link">click aquí</a>.', 
-    'resend' => 'Un mensaje de confirmación ha sido enviado.Por favor revise su email.',
-    'okConfirmation' => 'Tu cuenta ha sido confirmada correctamente.'
+return  [
+'email-title' => 'NOTIFICATION OF REGISTRATION',
+'email-link' => 'Agree',
+'email-msg-link' => 'To finish with the registration, CLICK on this LINK.',
+'email-unsubscribe' => 'Unsubscribe',
+'email-body' => 'We welcome you to a part of Voilàpp, together we can help users to know your products and / or services, easily their decision and what they need, be covered in a comfortable, complete and efficient way . ',
+'email-footer' => 'Voilàpp.city.com sent this email because it entered this address for its registration and can be part of the group Voilàpp.city.com'
 ];
-

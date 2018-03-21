@@ -1,6 +1,6 @@
 <?php
 //pruebas
-// Route::get('/test', ['as' => 'publico', 'uses' => 'pruebasCtrl@test']);
+// Route::get('/email', 'pruebasCtrl@test');
 //Lenguaje
 Route::get('language', 'HomeController@language');
 //Login

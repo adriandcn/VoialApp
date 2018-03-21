@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Repositories\catalogoServiciosRepository;
-use DB;
+use DB,Mail;
 
 class pruebasCtrl extends Controller
 {
@@ -18,14 +18,31 @@ class pruebasCtrl extends Controller
      */
     public function test(catalogoServiciosRepository $catalogoServicios)
     {   
-        $campos = ['id_catalogo_servicios','nombre_servicio','nombre_servicio_eng'];
-        $padresList = DB::table('catalogo_servicios')
-                            ->select($campos)
-                            ->where('estado_catalogo_servicios',1)
-                            ->where('nivel',0)
-                            ->get();
-        $headerCategories = $catalogoServicios->recursiveList($padresList,2);
-
-        return response()->json(['data' => $headerCategories]);
+        $data = [
+                'email' => 'fallsouls@hotmail.com',
+                'nombre' =>'Alex',
+                'confirmation_code' => '12312311d3qsda',
+                'title'  => trans('front/verify.email-title'),
+                'body'  => trans('front/verify.email-body'),
+                'footer'  => trans('front/verify.email-footer'),
+                'link'   => trans('front/verify.email-link'),
+                'linkPD'   => trans('front/verify.email-msg-link'),
+                'linkUnsuscribe'   => trans('front/verify.email-unsubscribe'),
+                'urlPage' => config('global.urlHomeSite')
+            ];
+        // Mail::send('site.emails.activation', $data, function($message) use ($data)
+        // {
+        //     $message->from("info@voilappbeta.com",'VoilApp');
+        //     $message->to($data['email'],$data['email'])->subject('Verifica tu cuenta');
+        // });
+        return view('site.emails.activation')
+                ->with('body',$data['body'])
+                ->with('linkPD',$data['linkPD'])
+                ->with('footer',$data['footer'])
+                ->with('confirmation_code',$data['confirmation_code'])
+                ->with('link',$data['link'])
+                ->with('linkUnsuscribe',$data['linkUnsuscribe'])
+                ->with('title',$data['title'])
+                ->with('urlPage',$data['urlPage']);
     }
 }

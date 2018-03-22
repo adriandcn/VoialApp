@@ -575,12 +575,13 @@ class UsuarioServiciosController extends Controller
             $returnHTML = ('../eventPromotionsAdmin/' . $formFields['id_usuario_servicio']);
             }
           else
-            { //logica de insert
+            { 
+            //logica de insert
             // Arreglo de inputs prestados que vienen del formulario
             $object = $gestion->storeNewPromocion($formFields);
             // Gestion de nueva de busqueda
             $search = $formFields['nombre_promocion'] . " " . $formFields['descripcion_promocion'] . " " . $formFields['codigo_promocion'];
-            $gestion->storeSearchEngine($formFields['id_usuario_servicio'], $search, 1, $object->id);
+            $gestion->storeSearchEngine($formFields['id_usuario_servicio'], $search, 1, $object->id, $formFields['tags']);
             $returnHTML = ('../eventPromotionsAdmin/' . $formFields['id_usuario_servicio']);
             }
         return response()->json(array(

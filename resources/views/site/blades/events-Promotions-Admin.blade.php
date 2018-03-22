@@ -96,7 +96,7 @@
                 @foreach ($listPromociones as $promotion)
                   <div class="cell-sm-3 cell-xs-6 wow rotate-custom rotate-custom-left" data-wow-delay=".15s">
                       <a class="layouts-link" href="../editEvent/{{$promotion->id}}">
-                        <!-- <img class="img-shadow" src="{{asset('/siteStyle/images/catalogo_servicios/bg-home-3-1920x1000.jpg')}}" alt="" width="270" height="393"/> -->
+                        <img class="img-shadow" src="{{asset('/siteStyle/images/catalogo_servicios/bg-home-3-1920x1000.jpg')}}" alt="" width="270" height="393"/>
                         <div class="eventCard">
                           <h6 style="margin-top: 1px;">
                             <i class="fa fa-money"></i>&nbsp;&nbsp;{{$promotion->nombre_promocion}}

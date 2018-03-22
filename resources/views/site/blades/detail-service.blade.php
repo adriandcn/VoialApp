@@ -199,22 +199,27 @@
                               <h4><a href=""><i class="fa fa-frown-o "></i> &nbsp;&nbsp;{{trans('publico/labels.noResult')}}</a></h4>
                             </div>
                           @else
-                          @foreach ($listPromociones as $promotion)
-                            <div class="cell-sm-3 cell-xs-6 wow rotate-custom rotate-custom-left" data-wow-delay=".15s">
-                                <a class="layouts-link" href="../detailPromotion/{{$promotion->id}}">
-                                  <!-- <img class="img-shadow" src="{{asset('/siteStyle/images/catalogo_servicios/bg-home-3-1920x1000.jpg')}}" alt="" width="270" height="393"/> -->
-                                  <div class="eventCard">
-                                    <h6 style="margin-top: 1px;">
-                                      <i class="fa fa-money"></i>&nbsp;&nbsp;{{$promotion->nombre_promocion}}
-                                    </h6>
-                                    <hr>
-                                    <h7><i class="fa fa-dot"></i>&nbsp;&nbsp;Fecha: {{$promotion->created_at}}</h7><br>
-                                    <h7><i class="fa fa-dot"></i>&nbsp;&nbsp;Descripción: {{str_limit($promotion->descripcion_promocion, $limit = 15, $end = '...')}}</h7>
-                                    <h7><i class="fa fa-dot"></i>&nbsp;&nbsp;Descuento % : {{$promotion->descuento}}</h7>
-                                  </div>
-                                </a>
-                            </div>
-                          @endforeach
+
+                          <div class="owl-carousel owl-theme">
+                            @foreach ($listPromociones as $promotion)
+                              <div class="item" style=" margin-right: 10px;">
+                                <!-- <div class="cell-sm-3 cell-xs-6 wow rotate-custom rotate-custom-left" data-wow-delay=".15s"> -->
+                                    <a class="layouts-link" href="../detailPromotion/{{$promotion->id}}">
+                                      <img class="img-shadow" src="{{asset('/siteStyle/images/catalogo_servicios/bg-home-3-1920x1000.jpg')}}" alt="" width="270" height="393"/>
+                                      <div class="eventCard">
+                                        <h6 style="margin-top: 1px;">
+                                          <i class="fa fa-money"></i>&nbsp;&nbsp;{{$promotion->nombre_promocion}}
+                                        </h6>
+                                        <hr>
+                                        <h7><i class="fa fa-dot"></i>&nbsp;&nbsp;Fecha: {{$promotion->created_at}}</h7><br>
+                                        <h7><i class="fa fa-dot"></i>&nbsp;&nbsp;Descripción: {{str_limit($promotion->descripcion_promocion, $limit = 15, $end = '...')}}</h7>
+                                        <h7><i class="fa fa-dot"></i>&nbsp;&nbsp;Descuento % : {{$promotion->descuento}}</h7>
+                                      </div>
+                                    </a>
+                                <!-- </div> -->
+                              </div>
+                            @endforeach
+                          </div>
                           @endif
                         </div>
                     </div>
@@ -268,6 +273,15 @@
       <script type="text/javascript">
         $(document).ready(function () {
           GetDataAjaxImagenesRes("{!!asset('/getImagesServicio')!!}/1/{!!$detalles->id!!}");
+          var owl = $('.owl-carousel');
+          owl.owlCarousel({
+              loop:true,
+              items:3,
+              autoPlay:true,
+              autoPlayTimeout:1000,
+              autoPlayHoverPause:true,
+              margin:10
+          });
         });
       </script>
       @include('site.reusable.footer')

@@ -119,13 +119,14 @@ class ServiciosOperadorRepository extends BaseRepository {
     
     
         //Guarda las promociones por usuario_servicio
-    public function storeSearchEngine($usuario_servicio,$search,$tipo_busqueda,$id_tipo) {
+    public function storeSearchEngine($usuario_servicio,$search,$tipo_busqueda,$id_tipo,$tags) {
 
         $objeto = new $this->search_engine;
         $objeto->id_usuario_servicio = $usuario_servicio;
         $objeto->search = $search;
         $objeto->estado_search = 1;
         $objeto->tipo_busqueda = $tipo_busqueda;
+        $objeto->tags = $tags;
         $objeto->id_tipo = $id_tipo;
         
         $objeto->created_at = \Carbon\Carbon::now()->toDateTimeString();
@@ -890,16 +891,18 @@ Actualizar tabla de busqueda
     public function storeNewPromocion($inputs) {
 
         $promocionU = new $this->promocion;
-        $promocionU->id_usuario_servicio = trim($inputs['id_usuario_servicio']);
+        $promocionU->id_usuario_servicio = $inputs['id_usuario_servicio'];
         $promocionU->id_catalogo_tipo_fotografia = 2;
-        //$promocionU->descripcion_promocion = trim($inputs['descripcion_promocion']);
-        $promocionU->nombre_promocion = trim($inputs['nombre_promocion']);
+        $promocionU->descripcion_promocion = $inputs['descripcion_promocion'];
+        $promocionU->nombre_promocion = $inputs['nombre_promocion'];
         $promocionU->estado_promocion = 1;
         $promocionU->fecha_desde = $inputs['fecha_inicio'];
         $promocionU->fecha_hasta = $inputs['fecha_fin'];
-        //$promocionU->precio_normal = trim($inputs['precio_normal']);
-        //$promocionU->descuento = trim($inputs['descuento']);
-        //$promocionU->codigo_promocion = trim($inputs['codigo']);
+        $promocionU->precio_normal = $inputs['precio_normal'];
+        $promocionU->descuento = $inputs['descuento'];
+        $promocionU->codigo_promocion = $inputs['codigo_promocion'];
+        $promocionU->observaciones_promocion = $inputs['observaciones_promocion'];
+        $promocionU->tags = $inputs['tags'];
         // $promocionU->permanente = 0;
         $promocionU->created_at = \Carbon\Carbon::now()->toDateTimeString();
         $promocionU->updated_at = \Carbon\Carbon::now()->toDateTimeString();

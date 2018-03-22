@@ -20,6 +20,7 @@ return [
     'lblEvents' => 'Promociones',
     'lblAddImage' => 'A&ntilde;adir imagenes al servicio',
     'altAddImage' => 'Haz clic para añadir imagenes a tu servicio',
+    'lblAddImagePromotion' => 'Añadir imagenes a la promoción',
     'lblServiceName' => 'Nombre Servicio',
     'altServiceName' => 'Nombre que indentificará tu servicio',
     'lblestadoServicio' => 'Servicio activo',

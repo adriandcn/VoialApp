@@ -19,6 +19,7 @@ return [
     //formulario de registro de servicios
     'lblEvents' => 'Promotions',
     'lblAddImage' => 'Add images to the service',
+    'lblAddImagePromotion' => 'Add images to the promotion',
     'altAddImage' => 'Click to add images to your service',
     'lblServiceName' => 'Service name',
     'altServiceName' => 'Name that your service will identify',

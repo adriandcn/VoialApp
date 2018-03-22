@@ -89,6 +89,13 @@
         <div class="shell">
           <div class="range range-50">
             <div class="cell-md-3">
+                  <a class="button button-primary tooltip button-icon button-icon-sm button-icon-right fa-plus" title="{{ trans('back/admin.altAddImage')}}" href="" data-toggle="modal" data-target="#foto">
+                    {{ trans('back/admin.lblAddImagePromotion')}}<span></span>
+                  </a>
+                  <br>
+                  <br>
+                  <hr>
+                  <br>
             </div>
             <div class="cell-md-8">
               <div class="range range-60">
@@ -198,11 +205,53 @@
           </div>
         </div>
       </form>
+      <!-- Modal FOTOGRAFIA-->
+      <div class="modal fade" id="foto" tabindex="-1" role="dialog" style="z-index: 99999; background: #00000099;">
+        <div class="modal-dialog" role="document" >
+          <div class="modal-content">
+              <div id="testboxForm" class="foto">
+                        <div class="modal-header">
+              <h3 class="modal-title" id="exampleModalLabel">{{trans('front/responsive.agregarfoto')}}</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="{{trans('front/responsive.cerrar')}}">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h4 style="text-align: center;color:#428bca;">{{trans('back/admin.descriptionAddImageModal')}}
+                <span class="glyphicon glyphicon-hand-down"></span>
+              </h4>
+              <br>
+              <div class="rowerrorM"> </div>
+          {!! Form::open(['url' => route('upload-event'), 'class' => 'dropzone', 'files'=>true, 'id'=>'real-dropzone']) !!}      
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="id_usuario_servicio" value="{{$promotion->id_usuario_servicio}}">
+                <div class="form-group">
+                     <div class="dz-message">
+                      </div>
+                      <div class="fallback">
+                          <input name="file" type="file" multiple />
+                      </div>
+                      <div class="dropzone-previews" id="dropzonePreview"></div>
+                </div>
+            </div>
+            {!! Form::close() !!}       
+            <div class="modal-footer">
+               <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-check" href="" data-dismiss="modal" id="nextbtn">{{trans('front/responsive.finalizar')}}<span></span></a>
+            </div>
+              </div>
+          </div>
+        </div>
+      </div>
       </section>
       <!-- Page Footer-->
       @include('site.reusable.footer')
       <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
       <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+      <!-- Page Footer-->
+      @include('site.reusable.footer')
+      {!! HTML::style('/packages/dropzone/dropzone.css') !!}
+      {!! HTML::script('/packages/dropzone/dropzone.js') !!}
+      {!! HTML::script('/assets/js/dropzone-config.js') !!} 
       <script type="text/javascript">
         $('input[name="daterange"]').daterangepicker(
           {

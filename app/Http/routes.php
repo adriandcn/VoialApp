@@ -32,6 +32,7 @@ Route::get('/image', ['as' => 'upload', 'uses' => 'ImageController@getUpload']);
 Route::post('upload', ['as' => 'upload-post', 'uses' => 'ImageController@postUpload']);
 Route::post('uploadEvent', ['as' => 'upload-event', 'uses' => 'ImageController@postUpload']);
 Route::post('upload/delete', ['as' => 'upload-remove', 'uses' => 'ImageController@deleteUpload']);
+Route::post('promotionImages/{idpromotion}', ['as' => 'images-promotion', 'uses' => 'ImageController@promotionImages']);
 
 // --Servicios--
 Route::get('/serviciosres', ['as' => 'detailres', 'uses' => 'UsuarioServiciosController@tablaServiciosRes', 'middleware' => 'notAuth']);

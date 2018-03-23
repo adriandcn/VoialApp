@@ -119,7 +119,7 @@ class ServiciosOperadorRepository extends BaseRepository {
     
     
         //Guarda las promociones por usuario_servicio
-    public function storeSearchEngine($usuario_servicio,$search,$tipo_busqueda,$id_tipo,$tags='') {
+    public function storeSearchEngine($usuario_servicio,$search,$tipo_busqueda,$id_tipo) {
 
         $objeto = new $this->search_engine;
         $objeto->id_usuario_servicio = $usuario_servicio;
@@ -127,7 +127,6 @@ class ServiciosOperadorRepository extends BaseRepository {
         $objeto->estado_search = 1;
         $objeto->tipo_busqueda = $tipo_busqueda;
         $objeto->id_tipo = $id_tipo;
-        $objeto->tags = $tags;
         
         $objeto->created_at = \Carbon\Carbon::now()->toDateTimeString();
         $objeto->updated_at = \Carbon\Carbon::now()->toDateTimeString();
@@ -626,7 +625,6 @@ Actualizar tabla de busqueda
             $dataImage = DB::table('images')
                     ->where('id_usuario_servicio', '=', $value->id)
                     ->where('profile_pic', '=', 1)
-                    ->where('id_catalogo_fotografia', '=', 1)
                     ->select('filename')
                     ->get();
             if (count($dataImage) > 0) {
@@ -901,7 +899,7 @@ Actualizar tabla de busqueda
         $promocionU->fecha_hasta = $inputs['fecha_fin'];
         $promocionU->precio_normal = trim($inputs['precio_normal']);
         $promocionU->descuento = trim($inputs['descuento']);
-        $promocionU->codigo_promocion = trim($inputs['codigo_promocion']);
+        $promocionU->codigo_promocion = trim($inputs['codigo']);
         $promocionU->tags = trim($inputs['tags']);
         $promocionU->observaciones_promocion = trim($inputs['observaciones_promocion']);
         // $promocionU->permanente = 0;
@@ -955,28 +953,8 @@ Actualizar tabla de busqueda
     //Entrega el arreglo de promociones por usuario servicio
     public function getPromocionesUsuarioServicio($id_usuario_servicio) {
         $promociones = new $this->promocion;
-        $arrayPromo = $promociones::where('promocion_usuario_servicio.id_usuario_servicio', '=', $id_usuario_servicio)
-                            // ->where('promocion_usuario_servicio.id_catalogo_tipo_fotografia','=',2)
-                            // ->where(function($query){
-                            //      $query->where('images.profile_pic','=',1);
-                            //      $query->orWhereNull('images.profile_pic');
-                            // })
-                            // ->groupBy('promocion_usuario_servicio.id')
-                            // ->select(['promocion_usuario_servicio.*','filename'])
-                            ->orderBy('promocion_usuario_servicio.updated_at', 'DESC')->get();
-        foreach ($arrayPromo as $promotion) {
-            $image = DB::table('images')
-                    ->where('images.profile_pic','=',1)
-                    ->where('images.id_catalogo_fotografia','=',2)
-                    ->where('images.id_auxiliar','=',$promotion->id)
-                    ->get();
-            if (count($image) > 0) {
-                $promotion->filename = $image[0]->filename;
-            }else{
-                $promotion->filename = 'default.png';
-            }
-        }
-        return $arrayPromo;
+        return $promociones::where('id_usuario_servicio', '=', $id_usuario_servicio)->orderBy('updated_at', 'DESC')->get();
+        return $promociones::All();
     }
 
     //Entrega el arreglo de eventos por usuario servicio

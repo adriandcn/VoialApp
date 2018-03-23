@@ -2300,7 +2300,6 @@ class PublicServiceRepository extends BaseRepository {
             $paginated = $this->usuario_servicio
             ->join('images','images.id_usuario_servicio','=','usuario_servicios.id')
             ->where('profile_pic',1)
-            ->where('id_catalogo_fotografia',1)
             ->whereIn('usuario_servicios.id',$arrayId)->paginate($pagination);
             return $paginated;
         }else{
@@ -3507,6 +3506,7 @@ class PublicServiceRepository extends BaseRepository {
             $value->filename = null;
             $image = DB::table('images')
                 ->where('id_usuario_servicio',$value->id)
+                ->where('id_catalogo_fotografia',1)
                 ->where('estado_fotografia',1)
                 ->where('profile_pic',1)
                 ->select('filename')
@@ -3544,7 +3544,7 @@ class PublicServiceRepository extends BaseRepository {
       }
     }
 
-    public function searchInMapTendencias ($lat = null,$lng = null,$radio = 50,$idTendencia = null){
+    public function searchInMap ($lat = null,$lng = null,$radio = 50,$idTendencia = null){
         if ($lat == null || $lat == null) {
             $lat = config('global.latDefault');
             $lng = config('global.lngDefault');
@@ -3600,22 +3600,6 @@ class PublicServiceRepository extends BaseRepository {
                 $serv->filename = 'default_service.png';
             }
             
-        }
-        return $arrayFinded;
-    }
-
-    public function searchInMapByDistance ($lat = null,$lng = null, $radio = 50,$dataList = []){
-        if ($lat == null || $lat == null) {
-            $lat = config('global.latDefault');
-            $lng = config('global.lngDefault');
-        }
-        $arrayFinded = [];
-        foreach ($dataList as $value) {
-            $distance = $this->distance($lat,$lng,$value->latitud_servicio,$value->longitud_servicio,'K');
-            if ($distance < ($radio / 1000)) {
-                $value->distance = $distance;
-                array_push($arrayFinded,  $value);
-            }
         }
         return $arrayFinded;
     }

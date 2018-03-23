@@ -7,12 +7,6 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Satisfechos_Usuario_Servicio;
 use App\Models\Review_Usuario_Servicio;
 use App\Models\Usuario_Servicio;
-
-use App\Models\asignacion;
-use App\Models\asignacion_sesion;
-use App\Models\persona;
-use App\Models\visitorQuery;
-use App\Models\Tendencia;
 use Carbon\Carbon;
 
 class PublicServiceRepository extends BaseRepository {
@@ -32,23 +26,11 @@ class PublicServiceRepository extends BaseRepository {
     protected $satisfechos;
     protected $usuario_servicio;
     protected $review;
-    
-    
-       protected $asignacion;
-       protected $asignacion_sesion;
-       protected $persona;
 
     public function __construct() {
         $this->satisfechos = new Satisfechos_Usuario_Servicio();
         $this->usuario_servicio = new Usuario_Servicio();
         $this->review = new Review_Usuario_Servicio();
-        
-        
-        $this->asignacion = new asignacion();
-        $this->persona = new persona();
-        $this->asignacion_sesion = new asignacion_sesion();
-        $this->visitorQuery = new visitorQuery();
-        $this->tendencia = new Tendencia();
     }
 
 //Entrega el arreglo de los servicios más visitados por provincia
@@ -494,12 +476,6 @@ class PublicServiceRepository extends BaseRepository {
     
      
        //Obtiene los operadores que viajan a esas provincias
-
-    public function getOperadoresList() {
-        $operadoresList = DB::table('usuario_operadores')
-                        ->where('estado_contacto_operador',1)->get();
-        return $operadoresList;
-    }
     public function getOperadores($id_provincia) {
 
 
@@ -2205,25 +2181,34 @@ class PublicServiceRepository extends BaseRepository {
     //Motor de busqueda
     public function getSearchTotal($term) {
 
-        // $query = DB::table('searchengine')
-        //         ->whereRaw("match(search) against ('" . $term . "')")
-        //         ->orWhere('searchengine.search', 'like', "%" . $term)
-        //         ->orWhere('searchengine.search', 'like', $term . "%")
-        //         ->orWhere('searchengine.search', 'like', "%" . $term . "%")
-        //         ->select('searchengine.id_usuario_servicio', 'searchengine.tipo_busqueda')
-        //         ->get();
-        $query = DB::select("SELECT *, MATCH (search) AGAINST (" . "'" . $term . "'" . ") as relevancia FROM searchengine WHERE MATCH (search) AGAINST (" . "'" . $term . "'" . "IN BOOLEAN MODE) ORDER BY relevancia;");
+
+
+        $query = DB::table('searchengine')
+                ->whereRaw("match(search) against ('" . $term . "')")
+                ->orWhere('searchengine.search', 'like', "%" . $term)
+                ->orWhere('searchengine.search', 'like', $term . "%")
+                ->orWhere('searchengine.search', 'like', "%" . $term . "%")
+                ->select('searchengine.id_usuario_servicio', 'searchengine.tipo_busqueda')
+                ->get();
+
+
         return $query;
     }
 
     public function getDespliegueBusqueda($codigos, $pagination, $tipoBusqueda) {
+
         /* Se despliegan las imagenes de los codigos encontrados en las busquedas
-         **/
+         *          */
+
         $array1 = array();
+
         foreach ($codigos as $to) {
+
             if ($to->tipo_busqueda == $tipoBusqueda)
                 $array[] = $to->id_usuario_servicio;
         }
+
+
         $servicio = DB::table('usuario_servicios')
                 ->where('usuario_servicios.estado_servicio', '=', '1')
                 ->where('usuario_servicios.estado_servicio_usuario', '=', '1')
@@ -2231,9 +2216,11 @@ class PublicServiceRepository extends BaseRepository {
                 ->select('usuario_servicios.id')
                 ->orderBy('usuario_servicios.num_visitas', 'desc')
                 ->get();
+
         if ($servicio != null) {
             $array = array();
             $array1 = array();
+
             foreach ($servicio as $to) {
                 $imagenes = DB::table('images')
                         ->where('images.id_auxiliar', '=', $to->id)
@@ -2241,9 +2228,12 @@ class PublicServiceRepository extends BaseRepository {
                         ->where('id_catalogo_fotografia', '=', '1')
                         ->select('images.id')
                         ->first();
+
                 if ($imagenes != null)
                     $array1[] = $imagenes->id;
             }
+
+  
             $imagenes = DB::table('images')
                 ->join('usuario_servicios', 'usuario_servicios.id', '=', 'images.id_usuario_servicio')
                 ->join('ubicacion_geografica', 'usuario_servicios.id_canton', '=', 'ubicacion_geografica.id')
@@ -2254,59 +2244,15 @@ class PublicServiceRepository extends BaseRepository {
                 ->orderBy('usuario_servicios.num_visitas', 'desc')
                 //->orderByRaw('RAND()')
                 ->paginate($pagination);
+
+
+
+
+
+
             return $imagenes;
         }
         return null;
-    }
-
-    // private function searchPadre($idBuscar,$idPadreEnd){
-    //     $dataCatalogo = DB::table('catalogo_servicios')
-    //             ->where('id_catalogo_servicios',$idBuscar)
-    //             ->select('id_padre')
-    //             ->first();
-    //             if ($dataCatalogo->id_padre == $idPadreEnd) {
-    //                 $result = 'ok';
-    //                 echo $result;
-    //             }else{
-    //                 if ($dataCatalogo->id_padre == 0) {
-    //                     $result = 'false';
-    //                     return $result;
-    //                 }else{
-    //                     $this->searchPadre($dataCatalogo->id_padre,$idPadreEnd);
-    //                 }
-    //             }
-    // }
-    public function paginateSearch ($data,$pagination){
-        $arrayId = [];
-        if (count($data) > 0) {
-            foreach ($data as $item) {
-                $id = (property_exists($item, 'id_usuario_servicio')) ? $item->id_usuario_servicio: $item->id;
-                $dataServ = DB::table('usuario_servicios')
-                ->where('id',$id)
-                ->select('id_catalogo_servicio')
-                ->first();
-                $dataCatalogoPadre = DB::table('catalogo_servicios')
-                ->where('id_catalogo_servicios',$dataServ->id_catalogo_servicio)
-                ->select('id_padre')
-                ->first();
-                $dataCatalogoRaiz = DB::table('catalogo_servicios')
-                ->where('id_catalogo_servicios',$dataCatalogoPadre->id_padre)
-                ->select('id_padre')
-                ->first();
-                if ($dataCatalogoRaiz->id_padre == 1) {
-                    array_push($arrayId, $id);
-                }
-            }
-            $paginated = $this->usuario_servicio
-            ->join('images','images.id_usuario_servicio','=','usuario_servicios.id')
-            ->where('profile_pic',1)
-            ->where('id_catalogo_fotografia',1)
-            ->whereIn('usuario_servicios.id',$arrayId)->paginate($pagination);
-            return $paginated;
-        }else{
-            return null;
-        }
-        
     }
 
     
@@ -2616,8 +2562,11 @@ class PublicServiceRepository extends BaseRepository {
 //4:Galapagos
 
 
+
         $id_imagenes = array();
         $final_imagen = array();
+
+
 
         $provincias = DB::table('ubicacion_geografica')
                 ->join('usuario_servicios', 'usuario_servicios.id_provincia', '=', 'ubicacion_geografica.id')
@@ -2625,6 +2574,10 @@ class PublicServiceRepository extends BaseRepository {
                 ->select('usuario_servicios.id')
                 ->take(50)
                 ->get();
+
+
+
+
 
         foreach ($provincias as $provincia) {
             $id_imagenes = DB::table('images')
@@ -2786,43 +2739,18 @@ class PublicServiceRepository extends BaseRepository {
     }
 
     //Entrega el detalle de los servicios
-    public function obtenerDetallesServicio($idServicio) {
-        $servicios = DB::table('usuario_servicios')
-                        ->where('id',$idServicio)
-                        ->first();
-                        // return $servicios;
-        $datosCatalogo = DB::table('catalogo_servicios')
-                        ->where('id_catalogo_servicios',$servicios->id_catalogo_servicio)
-                        ->select('nombre_servicio','id_padre','id_catalogo_servicios')
-                        ->first();
-        $datosPadreCatalogo = DB::table('catalogo_servicios')
-                        ->where('id_catalogo_servicios',$datosCatalogo->id_padre)
-                        ->select('nombre_servicio','id_catalogo_servicios')
-                        ->first();
-        $redesSociales = DB::table('servicio_redes_sociales')
-                        ->join('redes_sociales','redes_sociales.idredes_sociales','=','servicio_redes_sociales.idredes_sociales')
-                        ->select('nombre_red','url','icon')
-                        ->where('id_usuario_servicio',$idServicio)
-                        ->get();
-        $servicios->redes = $redesSociales;
-        $servicios->catPadre = $datosPadreCatalogo->nombre_servicio;
-        $servicios->idcatPadre = $datosPadreCatalogo->id_catalogo_servicios;
-        $servicios->catHijo = $datosCatalogo->nombre_servicio;
-        $servicios->idcatHijo = $datosCatalogo->id_catalogo_servicios;
-        $dataHorario = DB::table('horarios')
-                        ->where('id_usuario_servicio',$idServicio)
-                        ->where('estado',1)
-                        ->get();
-        $servicios->horario = $dataHorario;
-        return $servicios;
-    }
-
-    //Entrega el detalle de los servicios
     public function getServiciosAll() {
+
+
+
         $servicios = DB::table('catalogo_servicios')
                         ->join('usuario_servicios', 'id_catalogo_servicios', '=', 'usuario_servicios.id_catalogo_servicio')
                         ->select('catalogo_servicios.nombre_servicio', 'catalogo_servicios.id_catalogo_servicios', 'catalogo_servicios.nombre_servicio_eng')
                         ->distinct()->get();
+
+
+
+
         return $servicios;
     }
 
@@ -2941,127 +2869,6 @@ class PublicServiceRepository extends BaseRepository {
                 ->first();
         return $atraccion;
     }
-    
-    
-    
-    public function getinstituciones() {
-
-
-        $instituciones = DB::table('institucion')
-                ->where('estado', '=', '1')
-                ->where('Provincia','=','MANABI')
-                ->select('institucion.*')
-                ->get();
-        return $instituciones;
-    }
-    
-    
-    
-     public function getpersonas() {
-
-
-        $personas = DB::table('persona')
-                ->where('estado', '=', "1")
-                ->where('asignado', '=', "0")
-                ->select('persona.*')
-                ->get();
-        return $personas;
-    }
-    
-    
-    
-    
-     public function getAsignadosSesion($institucion,$sesion,$dia) {
-
-
-        $asignados_sesion = DB::table('asignados_sesion')
-                ->where('id_sesion', '=', $sesion)
-                ->where('Num_dia', '=', $dia)
-                  ->where('id_institucion', '=',$institucion)
-                ->select('asignados_sesion.*')
-                ->first();
-        return $asignados_sesion;
-    }
-    
-    
-       //Actualiza el numero de visitas
-    public function saveAsignadosSesion($institucion,$sesion,$dia) {
-
-        //Transformo el arreglo en un solo objeto
-
-       $asignados_sesion = DB::table('asignados_sesion')
-                ->where('id_sesion', '=', $sesion)
-                ->where('Num_dia', '=', $dia)
-                  ->where('id_institucion', '=',$institucion)
-                ->select('asignados_sesion.*')
-                ->first();
-
-
-//return $asignados_sesion;
-        $operador = new $this->asignacion_sesion;
-
-        if($asignados_sesion!=null){
-        $operador::where('id_institucion', $institucion)
-                ->where('id_sesion', $sesion)
-                 ->where('Num_dia', '=', $dia)
-                ->update(['num_asignados' => $asignados_sesion->num_asignados + 1]);
-
-
-        
-        
-        }
-        else
-            
-        {
-            
-             $operador=DB::table('asignados_sesion')->insert(['id_institucion' => $institucion, 
-                                                            'id_sesion' => $sesion, 'Num_dia' => $dia,'num_asignados' => 1]);
-
-        }
-            return $operador;
-    }
-    
-    
-    
-    
-        
-       //Actualiza el numero de visitas
-    public function saveAsignados($institucion,$persona,$sesion,$dia) {
-
-        //Transformo el arreglo en un solo objeto
-
-          DB::table('asignacion')->insert(['id_institucion' => $institucion, 
-                                                            'id_persona' => $persona, 'num_sesion' => $sesion, 'Num_dia' => $dia]);
-
-        return true;
-       
-    }
-    
-    
-         //Actualiza el numero de visitas
-    public function updatePersonaAsignado($persona) {
-
-       
-
-
-        $operador = new $this->persona;
-
-        
-        $operador::where('id', $persona)
-             
-                ->update(['Asignado' => 1]);
-
-
-        return true;
-        
-        
-      
-    }
-    
-    
-    
-    
-    
 
     //Entrega el detalle de la provincia
     public function getCatalogoDetail($id_catalogo) {
@@ -3493,131 +3300,6 @@ class PublicServiceRepository extends BaseRepository {
 
 
         return $itiner;
-    }
-
-    public function getLastServicesCreated() {
-        $campos = ['id','detalle_servicio','nombre_servicio'];
-        $rows = DB::table('usuario_servicios')
-                ->where('estado_servicio_usuario',1)
-                ->select($campos)
-                ->orderBy('usuario_servicios.id', 'DESC')
-                ->limit(3)
-                ->get();
-        foreach ($rows as $value) {
-            $value->filename = null;
-            $image = DB::table('images')
-                ->where('id_usuario_servicio',$value->id)
-                ->where('estado_fotografia',1)
-                ->where('profile_pic',1)
-                ->select('filename')
-                ->get();
-            if (count($image) == 0) {
-               $value->filename = 'default_service.png';
-            }else{
-                $value->filename = $image[0]->filename;
-            }
-        }
-
-        return $rows;
-    }
-
-    public function saveQueryVisitor ($data){
-        $save = $this->visitorQuery->insert($data);
-        return $save;
-    }
-
-    public function distance($lat1, $lon1, $lat2, $lon2, $unit) {
-
-      $theta = $lon1 - $lon2;
-      $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
-      $dist = acos($dist);
-      $dist = rad2deg($dist);
-      $miles = $dist * 60 * 1.1515;
-      $unit = strtoupper($unit);
-
-      if ($unit == "K") {
-      return ($miles * 1.609344);
-      } else if ($unit == "N") {
-      return ($miles * 0.8684);
-      } else {
-      return $miles;
-      }
-    }
-
-    public function searchInMapTendencias ($lat = null,$lng = null,$radio = 50,$idTendencia = null){
-        if ($lat == null || $lat == null) {
-            $lat = config('global.latDefault');
-            $lng = config('global.lngDefault');
-        }
-        if ($idTendencia == null || $idTendencia == '') {
-            $dataList = DB::select('SELECT *
-                                        FROM (
-                                          SELECT 
-                                            *,
-                                            3956 * ACOS(COS(RADIANS(' . $lat . ')) * COS(RADIANS(latitud_servicio)) * COS(RADIANS(' . $lng . ') - RADIANS(longitud_servicio)) + SIN(RADIANS(' . $lat . ')) * SIN(RADIANS(latitud_servicio))) AS distance
-                                          FROM usuario_servicios
-                                          WHERE
-                                            latitud_servicio 
-                                              BETWEEN ' . $lat . ' - (' . $radio . ' / 69) 
-                                              AND ' . $lat . ' + (' . $radio . ' / 69)
-                                            AND longitud_servicio 
-                                              BETWEEN ' . $lng . ' - (' . $radio . ' / (69 * COS(RADIANS(' . $lat . ')))) 
-                                              AND ' . $lng . ' + (' . $radio . ' / (69* COS(RADIANS(' . $lat . '))))
-                                        ) r
-                                        WHERE distance < ' . $radio . '
-                                        ORDER BY distance ASC
-                                        ;
-                                        ');
-        }else{
-            $dataTendencia = $this->tendencia->where('idTendencias',$idTendencia)->select('hashtag')->first();
-            $busquedaTotal = $this->getSearchTotal($dataTendencia->hashtag);
-            $arrayInTotal = [];
-            foreach ($busquedaTotal as $key => $value) {
-                array_push($arrayInTotal, $value->id_usuario_servicio);
-            }
-            $dataList = $this->usuario_servicio
-                        ->whereIn('usuario_servicios.id',$arrayInTotal)->get();
-        }
-        $arrayFinded = [];
-        foreach ($dataList as $value) {
-            $distance = $this->distance($lat,$lng,$value->latitud_servicio,$value->longitud_servicio,'K');
-            if ($distance < ($radio / 1000)) {
-                $value->distance = $distance;
-                array_push($arrayFinded,  $value);
-            }
-        }
-        foreach ($arrayFinded as $serv) {
-            $image = DB::table('images')
-            ->where('id_usuario_servicio','=',$serv->id)
-            ->where('profile_pic','=',1)
-            ->where('images.id_catalogo_fotografia', '=', 1)
-            ->orWhereNull('profile_pic')
-            ->select('filename')
-            ->get();
-            if (count($image) > 0) {
-                $serv->filename = $image[0]->filename;
-            }else{
-                $serv->filename = 'default_service.png';
-            }
-            
-        }
-        return $arrayFinded;
-    }
-
-    public function searchInMapByDistance ($lat = null,$lng = null, $radio = 50,$dataList = []){
-        if ($lat == null || $lat == null) {
-            $lat = config('global.latDefault');
-            $lng = config('global.lngDefault');
-        }
-        $arrayFinded = [];
-        foreach ($dataList as $value) {
-            $distance = $this->distance($lat,$lng,$value->latitud_servicio,$value->longitud_servicio,'K');
-            if ($distance < ($radio / 1000)) {
-                $value->distance = $distance;
-                array_push($arrayFinded,  $value);
-            }
-        }
-        return $arrayFinded;
     }
 
 }

@@ -8,7 +8,7 @@ class Image extends Model
 {
     public static $rules = [
         
-        'file'=>'required|image|mimes:jpeg,jpg'
+        'file'=>'required|image|mimes:jpeg,jpg,png'
     ];
 
     public static $messages = [

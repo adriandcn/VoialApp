@@ -93,7 +93,7 @@
                                 <div class="post-masonry-content">
                                 </div>
                                 <h6 class="servName">
-                                  <a href="{!!asset('/tokenDz$rip')!!}/{{$serv->id_usuario_servicio}}" style="color:white;">{{$serv->nombre_servicio}}</a>
+                                  <a href="{!!asset('/tokenDz$rip')!!}/{{$serv->id_usuario_servicio}}" style="color:white;">{{strtoupper($serv->nombre_servicio)}}</a>
                                 </h6>
                               </div>
                             </div>   

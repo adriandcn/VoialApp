@@ -6,7 +6,7 @@
 {!! HTML::style('css/imageAjax/prettify.css') !!}
 <link rel="stylesheet" type="text/css" href="{{ asset('public_components/components/owl-carousel/owl.carousel.css')}}" media="screen" />
 <link rel="stylesheet" type="text/css" href="{{ asset('public_components/components/owl-carousel/owl.transitions.css')}}" media="screen" />
-
+<input type="hidden" id="idPromotion" value="{{$idPromotion}}">
 @if(isset($ImgPromociones) && count($ImgPromociones)>0)
 {!! Form::open(['url' => route('delete-image1'),  'id'=>'deleteImage']) !!}
 <br><br>
@@ -20,22 +20,15 @@
                 //$url = "images/fullsize/" . $imagen->filename;
                 
                 ?>
-
                 <!--<div class="item-1" style="border: 1px solid black;width: 180px;padding: 5%;margin-right: 20px;"> -->
                 <div class="item-1" style="padding: 5%;">
                     <img src="{!! asset('img/x.png')!!}" onclick='alertaConfirm({!!$imagen->id!!})' style=" width:35px; height:32px; position:absolute; top:2px; right:0px; cursor:pointer;" alt='' />
                     <img src="{{asset($url)}}" href='#' class="img-res"/ width="200" style="    margin-left: 21%;">
-                    
-            
-                    <input type="text" class="form-input" value="{!!$imagen->descripcion_fotografia!!}" name="descripcion_fotografia_{!!$imagen->id!!}" 
-                           style='height: 25px;width: 100%;' placeholder="{{ trans('back/admin.lblDescriptionImage')}}" 
-                           onchange="AjaxSaveDetailsFotografia1('deleteImage','{!!$imagen->id!!}')">
-                    
                       <br>
                     @if($imagen->profile_pic==1)       
-                    Imagen de perfil: <input type='radio' id='ch_{!!$imagen->id!!}' name='ch' checked="checked"  onchange="AjaxSaveDetailsFotografiaProfile('deleteImage','{!!$imagen->id!!}',1)" value= "{!!$imagen->profile_pic!!}"/>
+                    vista previa: <input type='radio' id='ch_{!!$imagen->id!!}' name='ch' checked="checked"  onchange="AjaxSaveDetailsFotografiaProfile('deleteImage','{!!$imagen->id!!}',2)" value= "{!!$imagen->profile_pic!!}"/>
                      @else
-                     Imagen de perfil: <input type='radio' id='ch_{!!$imagen->id!!}' name='ch' onchange="AjaxSaveDetailsFotografiaProfile('deleteImage','{!!$imagen->id!!}',1)" value= "{!!$imagen->profile_pic!!}"/>
+                     vista previa: <input type='radio' id='ch_{!!$imagen->id!!}' name='ch' onchange="AjaxSaveDetailsFotografiaProfile('deleteImage','{!!$imagen->id!!}',2)" value= "{!!$imagen->profile_pic!!}"/>
                      @endif
                 </div>
                 @endforeach 
@@ -77,8 +70,8 @@
             var r = confirm("Está seguro de que desea eliminar esta imagen?");
                     if (r == true) {
             AjaxContainerRetrunMessageImagenRes("deleteImage", id);
-            $("#flag_image").val('1');
-            
+            var idPromotion = $('#idPromotion').val();
+            GetDataAjaxImagenesPromotion(idPromotion);
                     } else {
             txt = "Cancelado";
                     }

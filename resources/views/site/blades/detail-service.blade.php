@@ -63,7 +63,6 @@
             <div class="page-title-text">
               {{$detalles->nombre_servicio}}
             </div>
-            <p class="big">{{$detalles->detalle_servicio}}</p>
           </div>
         </div>
       </section>
@@ -96,6 +95,7 @@
               <div class="post-single">
                 <section class="section-xs bg-white">
                   <div class="shell">
+                    <p class="big" style="text-align: justify;">{{$detalles->detalle_servicio}}</p><br>
                     <div class="panel-custom-group-wrap">
                       <!-- Bootstrap collapse-->
                       <div class="panel-custom-group text-left" id="accordion1" role="tablist">
@@ -205,7 +205,7 @@
                               <div class="item" style=" margin-right: 10px;">
                                 <!-- <div class="cell-sm-3 cell-xs-6 wow rotate-custom rotate-custom-left" data-wow-delay=".15s"> -->
                                     <a class="layouts-link" href="../detailPromotion/{{$promotion->id}}">
-                                      <img class="img-shadow" src="{{asset('/siteStyle/images/catalogo_servicios/bg-home-3-1920x1000.jpg')}}" alt="" width="270" height="393"/>
+                                      <img class="img-shadow" src="{{asset('/images/icon')}}/{{$promotion->filename}}" alt="" width="270" height="393"/>
                                       <div class="eventCard">
                                         <h6 style="margin-top: 1px;">
                                           <i class="fa fa-money"></i>&nbsp;&nbsp;{{$promotion->nombre_promocion}}

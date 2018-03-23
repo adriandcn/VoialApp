@@ -58,7 +58,7 @@ class UsuarioServiciosController extends Controller
         $servicio = $gestionPublic->obtenerDetallesServicio($idServicio);
         $listEventos = $gestion->getEventosUsuarioServicio($idServicio);
         $listPromociones  = $gestion->getPromocionesUsuarioServicio($idServicio);
-        // return response()->json(['data'=>$servicio]);
+        // return response()->json(['data' => $listPromociones]);
         return view('site.blades.events-Promotions-Admin', compact('listEventos', 'servicio','listPromociones'));
     }
 
@@ -68,7 +68,21 @@ class UsuarioServiciosController extends Controller
         $request->session()->put('idUsServ',$idUsuarioServicio);
         $listTypePhoto  = DB::table('catalogo_tipo_fotografia')->get();
         $promotion = [];
-        // return response()->json(['data'=>$idUsuarioServicio]);
+        $formFields['id_usuario_servicio'] = $idUsuarioServicio;
+        $formFields['id_catalogo_tipo_fotografia'] = 2;
+        $formFields['descripcion_promocion'] = 'NA';
+        $formFields['nombre_promocion'] = 'NA';
+        $formFields['estado_promocion'] = 'NA';
+        $formFields['fecha_inicio'] = \Carbon\Carbon::now()->toDateTimeString();
+        $formFields['fecha_fin'] = \Carbon\Carbon::now()->toDateTimeString();
+        $formFields['tags'] = 'NA';
+        $formFields['precio_normal'] = 0;
+        $formFields['descuento'] = 0;
+        $formFields['codigo_promocion'] = 'NA';
+        $formFields['observaciones_promocion'] = 'NA';
+        $objSaved = $gestion->storeNewPromocion($formFields);
+        $request->session()->put('idPromotionAdded',$objSaved->id);
+        // return response()->json(['data'=>$save]);
         return view('site.blades.addEvent', compact('promotion','listTypePhoto'));
     }
 
@@ -571,7 +585,7 @@ class UsuarioServiciosController extends Controller
             $gestion->storeUpdatePromocion($formFields, $Promocion);
             // Gestion de actualizacion de busqueda
             $search = $formFields['nombre_promocion'] . " " . $formFields['descripcion_promocion'] . " " . $formFields['codigo_promocion'] . " " . $formFields['tags'] . " " . $formFields['observaciones_promocion'];
-            $gestion->storeUpdateSerchEngine($Promocion, 1, $formFields['id'], $search);
+            $gestion->storeUpdateSerchEngine($Promocion, 1, $formFields['id'], $search,$formFields['tags']);
             $returnHTML = ('../eventPromotionsAdmin/' . $formFields['id_usuario_servicio']);
             }
           else
@@ -581,7 +595,7 @@ class UsuarioServiciosController extends Controller
             $object = $gestion->storeNewPromocion($formFields);
             // Gestion de nueva de busqueda
             $search = $formFields['nombre_promocion'] . " " . $formFields['descripcion_promocion'] . " " . $formFields['codigo_promocion'];
-            $gestion->storeSearchEngine($formFields['id_usuario_servicio'], $search, 1, $object->id, $formFields['tags']);
+            $gestion->storeSearchEngine($formFields['id_usuario_servicio'], $search, 1, $object->id,$formFields['tags']);
             $returnHTML = ('../eventPromotionsAdmin/' . $formFields['id_usuario_servicio']);
             }
         return response()->json(array(

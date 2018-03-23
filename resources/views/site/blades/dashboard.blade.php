@@ -58,18 +58,14 @@
               <div class="col-xs-12 col-sm-6 col-md-4 isotope-item">
                   <div class="post-masonry post-masonry-short post-content-white bg-post-primary-sec box-skew post-skew-right-bottom post-skew-var-3" style="background: url(images/icon/{{$servicio->filename}});
                           background-size: cover;
-                          background-repeat: no-repeat;">
+                          background-repeat: no-repeat;" onclick="AjaxContainerEdicionServicios(event,{!!$servicio->id!!}, {!!$servicio->id_catalogo_servicios!!});">
                       <div class="post-masonry-content">
                           <h4>
                             <a class="text-white" href="" onclick="AjaxContainerEdicionServicios(event,{!!$servicio->id!!}, {!!$servicio->id_catalogo_servicios!!});"> 
-                              {{ $servicio->nombre_servicio }}
+                              {{ strtoupper($servicio->nombre_servicio) }}
                             </a>
                           </h4>
-                          <div style="overflow-x: hidden;">
-                          {{str_limit($servicio->detalle_servicio, $limit = 500, $end = '...')}}
-                          </div>
                       </div>
-                      <a class="link-position link-primary-sec-2 link-right post-link" href="" onclick="AjaxContainerEdicionServicios(event,{!!$servicio->id!!}, {!!$servicio->id_catalogo_servicios!!});"><i class="fa fa-edit" style="color: white"></i></a>
                   </div>
               </div>
               @endforeach

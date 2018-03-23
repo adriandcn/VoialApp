@@ -132,41 +132,28 @@ function RenderBookingCalendario($id_usuario_operador, $id_usuario_servicio, $ca
 
 
 //retorna un mensaje despues de ejecutar la logica del controller
-function AjaxSaveDetailsFotografiaProfile($formulario, $id) {
+function AjaxSaveDetailsFotografiaProfile($formulario, $id, $type) {
     $('.error').html('');
-
     $("#spinnerSave").show();
-
-
-
     var $form = $('#' + $formulario),
-        data = $form.serialize() + '&ids=' + $id + '&actionImageProfile=update';
+        data = $form.serialize() + '&ids=' + $id + '&actionImageProfile=update' + '&type=' + $type;
     url = $form.attr("action");
     var posting = $.post(url, { formData: data });
     posting.done(function(data) {
         if (data.fail) {
-
-
-
             var errorString = '<ul>';
             $.each(data.errors, function(key, value) {
                 errorString += '<li>' + value + '</li>';
             });
             errorString += '</ul>';
-            $("#target").LoadingOverlay("hide", true);
             //$('#error').html(errorString);
             $('.rowerror').html(errorString);
-
+            $("#spinnerSave").hide();
         }
         if (data.success) {
-            $("#target").LoadingOverlay("hide", true);
             $('.register').fadeOut(); //hiding Reg form
             var successContent = '' + data.message + '';
-
-
-
-
-
+            $("#spinnerSave").hide();
         } //success
     }); //done
 
@@ -2037,7 +2024,7 @@ function searchServ(event, idCatalogo, idSubCatalogo) {
                           min-height: 200px;\
                           cursor: pointer;" onclick="openDetailOnClick(' + id + ')">\
                       <div class="post-masonry-content">\
-                        <h6 class="servName"><a href="' + urlDetail + '" style="color:white;">' + array[i].nombre_servicio + '</a></h6>\
+                        <h6 class="servName"><a href="' + urlDetail + '" style="color:white;">' + array[i].nombre_servicio.toUpperCase() + '</a></h6>\
                       </div>\
                       <br>\
                       <span class="badge" style="color:Wwhite;background: #c26933;">Distancia: ' + parseInt(array[i].distance) + 'Km</span>\
@@ -2098,7 +2085,7 @@ function searchServIni(idCatalogo, idSubCatalogo) {
                           min-height: 200px;\
                           cursor: pointer;" onclick="openDetailOnClick(' + id + ')">\
                       <div class="post-masonry-content">\
-                        <h6 class="servName"><a href="' + urlDetail + '" style="color:white">' + array[i].nombre_servicio + '</a></h6>\
+                        <h6 class="servName"><a href="' + urlDetail + '" style="color:white">' + array[i].nombre_servicio.toUpperCase() + '</a></h6>\
                       </div>\
                       </a>\
                     </div>\
@@ -2148,7 +2135,7 @@ function getLastServicesCreated() {
                           <div class="unit__left">\
                           <a href="' + urlDetail + '" ><img src="' + urlImg + '" alt="" width="70" height="70"/></a></div>\
                           <div class="unit__body">\
-                            <a href="' + urlDetail + '" ><p>' + array[i].nombre_servicio + '</p></a>\
+                            <a href="' + urlDetail + '" ><p>' + array[i].nombre_servicio.toUpperCase() + '</p></a>\
                             <p>' + array[i].detalle_servicio.substring(0, 20) + '...' + '</p>\
                           </div>\
                         </div>\
@@ -2334,7 +2321,7 @@ function searchByMap(event) {
                           min-height: 200px;\
                           cursor: pointer;" onclick="openDetailOnClick(' + id + ')">\
                       <div class="post-masonry-content">\
-                        <h6 class="servName"><a href="' + urlDetail + '" style="color:white;">' + array[i].nombre_servicio + '</a></h6>\
+                        <h6 class="servName"><a href="' + urlDetail + '" style="color:white;">' + array[i].nombre_servicio.toUpperCase() + '</a></h6>\
                       </div><br>\
                     <span class="badge" style="color:Wwhite;background: #c26933;">Distancia: ' + parseInt(array[i].distance) + 'Km</span>\
                     </div>\
@@ -2389,4 +2376,24 @@ function saveEvento(event, idEvent) {
     // }else{
 
     // }
+}
+
+function GetDataAjaxImagenesPromotion(idPromotion) {
+    var url = dirServer + "public/promotionImages/" + idPromotion;
+    $.ajax({
+        type: 'POST',
+        url: url,
+        dataType: 'json',
+        success: function(data) {
+            $("#renderImagesPromotion").html(data.contentImagenes);
+        },
+        error: function(data) {
+            var errors = data.responseJSON;
+            if (errors) {
+                $.each(errors, function(i) {
+                    console.log(errors[i]);
+                });
+            }
+        }
+    });
 }

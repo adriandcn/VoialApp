@@ -29,9 +29,9 @@
       <?php
         if(count($promotion) == 0){
           $promotion = (object) array(
-            'id' => null,
+            'id' => Session::get('idPromotionAdded'),
             'id_usuario_servicio' => '',
-            'id_catalogo_tipo_fotografia' => '',
+            'id_catalogo_tipo_fotografia' => 2,
             'descripcion_promocion' => '',
             'nombre_promocion' => '',
             'estado_promocion' => '',
@@ -50,7 +50,7 @@
           $promotion = (object) array(
             'id' => $promotion[0]->id,
             'id_usuario_servicio' => $promotion[0]->id_usuario_servicio,
-            'id_catalogo_tipo_fotografia' => $promotion[0]->id_catalogo_tipo_fotografia,
+            'id_catalogo_tipo_fotografia' => 2,
             'descripcion_promocion' => $promotion[0]->descripcion_promocion,
             'nombre_promocion' => $promotion[0]->nombre_promocion,
             'estado_promocion' => $promotion[0]->estado_promocion,
@@ -95,7 +95,8 @@
                   <br>
                   <br>
                   <hr>
-                  <br>
+                  <div id="renderImagesPromotion">
+                  </div> 
             </div>
             <div class="cell-md-8">
               <div class="range range-60">
@@ -108,11 +109,11 @@
                         @if(Session::has('idUsServ')) 
                           <input type="hidden" name="id_usuario_servicio" value="{{ Session::get('idUsServ') }}">
                         @endif
-                        <div class="form-wrap">
+                        <!-- <div class="form-wrap">
                           <label class="form-label-outside" for="id_fotografia">
                             <i class="fa fa-image "></i>&nbsp;&nbsp; {{trans('publico/labels.lblPromotionPhoto')}}
                           </label>
-                          <select name="id_parroquia" id="id_parroquia" class='form-control chng'>
+                          <select name="id_auxiliar" id="id_auxiliar" class='form-control chng'>
                           <option value="0"  >Seleccionar</option>
                           @foreach($listTypePhoto as $typePhoto)
                             @if($promotion->id_catalogo_tipo_fotografia == $typePhoto->id)
@@ -122,7 +123,7 @@
                             @endif
                           @endforeach
                           </select>
-                        </div>
+                        </div> -->
                         <div class="form-wrap">
                           <label class="form-label-outside" for="pass">
                             <i class="fa fa-font "></i>&nbsp;&nbsp; {{trans('publico/labels.lblPromotionName')}}
@@ -212,7 +213,7 @@
               <div id="testboxForm" class="foto">
                         <div class="modal-header">
               <h3 class="modal-title" id="exampleModalLabel">{{trans('front/responsive.agregarfoto')}}</h3>
-              <button type="button" class="close" data-dismiss="modal" aria-label="{{trans('front/responsive.cerrar')}}">
+              <button type="button" class="close" data-dismiss="modal" aria-label="{{trans('front/responsive.cerrar')}}" onclick="GetDataAjaxImagenesPromotion('{!! $promotion->id !!}')">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
@@ -222,9 +223,19 @@
               </h4>
               <br>
               <div class="rowerrorM"> </div>
-          {!! Form::open(['url' => route('upload-event'), 'class' => 'dropzone', 'files'=>true, 'id'=>'real-dropzone']) !!}      
+              {!! Form::open(['url' => route('upload-event'), 'class' => 'dropzone', 'files'=>true, 'id'=>'real-dropzone']) !!}      
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <input type="hidden" name="id_usuario_servicio" value="{{$promotion->id_usuario_servicio}}">
+                <input type="hidden" id="id_catalogo_fotografia" name="id_catalogo_fotografia" value="2">
+                @if(Session::has('idUsServ')) 
+                  <input type="hidden" name="id_usuario_servicio" value="{{ Session::get('idUsServ') }}">
+                @else
+                  <input type="hidden" name="id_usuario_servicio" value="{{$promotion->id_usuario_servicio}}">
+                @endif
+                <input type="hidden" id="id_auxiliar" name="id_auxiliar" value="{!!$promotion->id!!}">
+                <input type="hidden" id="user_id" name="user_id" value="{{ Auth::user()->id }}">
+                <input type="hidden" id="descripcion_fotografia" name="descripcion_fotografia" value="{!!$promotion->descripcion_promocion!!}">
+                <input type="hidden" id="es_principal" name="es_principal" value="true">
+                <input type="hidden" id="profile_pic" name="profile_pic" value="0">
                 <div class="form-group">
                      <div class="dz-message">
                       </div>
@@ -236,19 +247,19 @@
             </div>
             {!! Form::close() !!}       
             <div class="modal-footer">
-               <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-check" href="" data-dismiss="modal" id="nextbtn">{{trans('front/responsive.finalizar')}}<span></span></a>
+               <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-check" href="" data-dismiss="modal" id="nextbtn" onclick="GetDataAjaxImagenesPromotion('{!! $promotion->id !!}')">{{trans('front/responsive.finalizar')}}<span></span></a>
             </div>
               </div>
           </div>
         </div>
       </div>
+      <!-- MODAL horario -->
       </section>
       <!-- Page Footer-->
       @include('site.reusable.footer')
       <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
       <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
       <!-- Page Footer-->
-      @include('site.reusable.footer')
       {!! HTML::style('/packages/dropzone/dropzone.css') !!}
       {!! HTML::script('/packages/dropzone/dropzone.js') !!}
       {!! HTML::script('/assets/js/dropzone-config.js') !!} 
@@ -354,5 +365,12 @@
               });
           } 
       </script>
+
+      <!-- @if($promotion->id != null) -->
+        <script type="text/javascript">
+          var idPromotion = {!!$promotion->id!!};
+          GetDataAjaxImagenesPromotion(idPromotion);
+        </script>
+      <!-- @endif -->
   </body>
 </html>

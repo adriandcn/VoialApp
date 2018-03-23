@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Logic\Image\ImageRepository;
 use Illuminate\Support\Facades\Input;
+use App\Repositories\ServiciosOperadorRepository;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Response;
+use DB;
 
 class ImageController extends Controller
 {
@@ -90,12 +94,31 @@ $returnHTML = ('/IguanaTrip/public/');
         }
           if(isset($root_array['actionImageProfile']))
         {
-            $gestion->storeProfileFoto($root_array, $Servicio[0]->id_usuario_servicio,$idImage);
+            if ($root_array['type'] == 1) {
+               $gestion->storeProfileFoto($root_array, $Servicio[0]->id_usuario_servicio,$idImage,$root_array['type']);
+            }
+            if ($root_array['type'] == 2) {
+             $gestion->storeProfileFoto($root_array, $Servicio[0]->id_auxiliar,$idImage,$root_array['type']);
+            }
         }
         else{
         $gestion->storeUpdateEstado($root_array, $Servicio);}
         $returnHTML = ('/edicionServicios');
         return response()->json(array('success' => true, 'redirectto' => $returnHTML));
+    }
+
+    public function promotionImages($idPromotion,ServiciosOperadorRepository $gestion) {
+        $ImgPromociones = DB::table('images')
+                            ->where('id_catalogo_fotografia',2)
+                            ->where('id_auxiliar',$idPromotion)
+                            ->where('estado_fotografia',1)
+                            ->get();
+        $view = View::make('reusable.imagesSectionPromotions')
+            ->with('serverDir', config('global.serverDir'))
+            ->with('idPromotion', $idPromotion)
+            ->with('ImgPromociones', $ImgPromociones);
+        $sections = $view->rendersections();
+        return response()->json($sections);
     }
 
 }

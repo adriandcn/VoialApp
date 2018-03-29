@@ -78,3 +78,7 @@ Route::post('/updateEvent', ['as' => 'AddEventst', 'uses' => 'UsuarioServiciosCo
 Route::get('/detailPromotion/{idPromotion?}', ['as' => 'AddEventst', 'uses' => 'HomePublicController@getDetailPromotion']);
 //blog
 Route::get('/Blog/{idArticle?}', ['as' => 'AddEventst', 'uses' => 'HomePublicController@getViewArticles']);
+
+//MISION VISION POLITICAS
+Route::get('/contacts', ['as' => 'about-us', 'uses' => 'HomePublicController@getViewAboutUs']);
+Route::get('/termsConditions', ['as' => 'about-us', 'uses' => 'HomePublicController@getViewTerms']);

@@ -188,42 +188,35 @@
                     </div>
                   </div>
                 </section>
-                <section class="section-xs bg-white">
-                    <div class="shell shell-inset-xs-15 shell-offset-left-xlg-50">
-                        <div class="heading-group">
-                            <h5><i class="fa fa-money"></i>&nbsp;&nbsp;{{ trans('publico/labels.titlePromotions')}}</h5>
-                        </div>
-                        <div class="range range-50">
-                          @if(count($listPromociones) == 0)
-                            <div class="col-xs-12" style="text-align: center;">
-                              <h4><a href=""><i class="fa fa-frown-o "></i> &nbsp;&nbsp;{{trans('publico/labels.noResult')}}</a></h4>
-                            </div>
-                          @else
-
-                          <div class="owl-carousel owl-theme">
-                            @foreach ($listPromociones as $promotion)
-                              <div class="item" style=" margin-right: 10px;">
-                                <!-- <div class="cell-sm-3 cell-xs-6 wow rotate-custom rotate-custom-left" data-wow-delay=".15s"> -->
-                                    <a class="layouts-link" href="../detailPromotion/{{$promotion->id}}">
-                                      <img class="img-shadow" src="{{asset('/images/icon')}}/{{$promotion->filename}}" alt="" width="270" height="393"/>
-                                      <div class="eventCard">
-                                        <h6 style="margin-top: 1px;">
-                                          <i class="fa fa-money"></i>&nbsp;&nbsp;{{$promotion->nombre_promocion}}
-                                        </h6>
-                                        <hr>
-                                        <h7><i class="fa fa-dot"></i>&nbsp;&nbsp;Fecha: {{$promotion->created_at}}</h7><br>
-                                        <h7><i class="fa fa-dot"></i>&nbsp;&nbsp;Descripción: {{str_limit($promotion->descripcion_promocion, $limit = 15, $end = '...')}}</h7>
-                                        <h7><i class="fa fa-dot"></i>&nbsp;&nbsp;Descuento % : {{$promotion->descuento}}</h7>
-                                      </div>
-                                    </a>
-                                <!-- </div> -->
-                              </div>
-                            @endforeach
+                @if(count($listPromociones) > 0)
+                  <section class="section-xs bg-white">
+                      <div class="shell shell-inset-xs-15 shell-offset-left-xlg-50">
+                          <div class="heading-group">
+                              <h5><i class="fa fa-money"></i>&nbsp;&nbsp;{{ trans('publico/labels.titlePromotions')}}</h5>
                           </div>
-                          @endif
-                        </div>
-                    </div>
-                </section>
+                          <div class="range range-50">
+                            <div class="owl-carousel owl-theme">
+                              @foreach ($listPromociones as $promotion)
+                                <div class="item" style=" margin-right: 10px;">
+                                      <a class="layouts-link" href="../detailPromotion/{{$promotion->id}}">
+                                        <img class="img-shadow" src="{{asset('/images/icon')}}/{{$promotion->filename}}" alt="" width="270" height="393"/>
+                                        <div class="eventCard">
+                                          <h6 style="margin-top: 1px;">
+                                            <i class="fa fa-money"></i>&nbsp;&nbsp;{{$promotion->nombre_promocion}}
+                                          </h6>
+                                          <hr>
+                                          <h7><i class="fa fa-dot"></i>&nbsp;&nbsp;Fecha: {{$promotion->created_at}}</h7><br>
+                                          <h7><i class="fa fa-dot"></i>&nbsp;&nbsp;Descripción: {{str_limit($promotion->descripcion_promocion, $limit = 15, $end = '...')}}</h7>
+                                          <h7><i class="fa fa-dot"></i>&nbsp;&nbsp;Descuento % : {{$promotion->descuento}}</h7>
+                                        </div>
+                                      </a>
+                                </div>
+                              @endforeach
+                            </div>
+                          </div>
+                      </div>
+                  </section>
+                @endif
               </div>
             </div>
           </div>

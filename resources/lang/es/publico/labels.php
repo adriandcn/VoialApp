@@ -116,5 +116,10 @@ return [
     'titleArticles' => 'Artículos recientes',
     'lblFechaDesde' => 'Fecha desde',
     'lblFechaHasta' => 'Fecha hasta',
-    'lblPathPromotions' => 'Promociones'
+    'lblPathPromotions' => 'Promociones',
+    //Contactos
+    'tittleContacts' => 'Información de contacto',
+    'tittleContactsGeneral' => 'Información de general',
+    'tittleTerms' => 'Términos y condiciones',
+    'tittleTermsResumen' => 'Resumen'
 ];

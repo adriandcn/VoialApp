@@ -84,7 +84,7 @@
                     <ul class="rd-navbar-nav">
                       <li><a href="{{asset('/')}}">{{ trans('publico/labels.lblHome')}}<span class="overlay-skew"></span></a>
                       </li>
-                      <li><a href="">{{ trans('publico/labels.lblContact')}}<span class="overlay-skew"></span></a>
+                      <li><a href="{{asset('/contacts')}}">{{ trans('publico/labels.lblContact')}}<span class="overlay-skew"></span></a>
                       <!-- <li><a href="../Blog">{{ trans('publico/labels.lblBlog')}}<span class="overlay-skew"></span></a> -->
                       </li>
                       @if(session('device') == 'mobile')

@@ -56,6 +56,7 @@
       @include('site.reusable.header')
       <!-- Breadcrumbs & Page title-->
       <!-- Breadcrumbs & Page title-->
+
       <section class="page-title breadcrumbs-elements page-title-inset-1">
         <div class="shell">
           <div class="page-title__overlay box-skew box-skew-var-1"><span class="box-skew__item"></span>
@@ -150,6 +151,10 @@
       </section>
       <!-- Page Footer-->
       @include('site.reusable.footer')
+
+      <script type="text/javascript">
+        GetDataAjaxImagenesPromotion("{!!asset('/promotionImages')!!}/1/{!!$promotion->id!!}");
+      </script>
     </div>
     <!-- END PANEL-->
   </body>

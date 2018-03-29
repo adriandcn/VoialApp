@@ -1344,7 +1344,27 @@ function UpdateServicioInfo1($formulario, $id, redirect) {
 }
 
 function GetDataAjaxImagenesRes(url) {
-    console.log(url);
+    $.ajax({
+        type: 'GET',
+        url: url,
+        dataType: 'json',
+        success: function(data) {
+
+            $("#renderPartialImagenes").html(data.contentImagenes);
+
+        },
+        error: function(data) {
+            var errors = data.responseJSON;
+            if (errors) {
+                $.each(errors, function(i) {
+                    console.log(errors[i]);
+                });
+            }
+        }
+    });
+}
+
+function GetDataAjaxImagenesPromotion(url) {
     $.ajax({
         type: 'GET',
         url: url,

@@ -115,5 +115,10 @@ return [
     'lblBlog' => 'Blog',
     'lblFechaDesde' => 'Fecha desde',
     'lblFechaHasta' => 'Fecha hasta',
-    'lblPathPromotions' => 'Promotions'
+    'lblPathPromotions' => 'Promotions',
+    // Contacts
+    'tittleContacts' => 'Contact information',
+    'tittleContactsGeneral' => 'General information',
+    'tittleTerms' => 'Terms and Conditions',
+    'tittleTermsResumen' => 'Summary'
 ];

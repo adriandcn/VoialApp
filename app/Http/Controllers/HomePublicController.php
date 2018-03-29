@@ -1210,4 +1210,14 @@ class HomePublicController extends Controller {
         }
     }
 
+    public function getViewAboutUs()
+    {
+        return view('site.blades.contacts');
+    }
+
+    public function getViewTerms()
+    {
+        return view('site.blades.termsConditions');
+    }
+
 }

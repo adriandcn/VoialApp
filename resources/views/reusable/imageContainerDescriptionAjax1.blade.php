@@ -26,7 +26,7 @@
                     <img src="{!! asset('img/x.png')!!}" onclick='alertaConfirm({!!$imagen->id!!})' style=" width:35px; height:32px; position:absolute; top:2px; right:0px; cursor:pointer;" alt='' />
                     <img src="{{asset($url)}}" href='#' class="img-res"/ width="200" style="    margin-left: 21%;">
                     
-            
+                    <input type="hidden" name="type" value="1">
                     <input type="text" class="form-input" value="{!!$imagen->descripcion_fotografia!!}" name="descripcion_fotografia_{!!$imagen->id!!}" 
                            style='height: 25px;width: 100%;' placeholder="{{ trans('back/admin.lblDescriptionImage')}}" 
                            onchange="AjaxSaveDetailsFotografia1('deleteImage','{!!$imagen->id!!}')">

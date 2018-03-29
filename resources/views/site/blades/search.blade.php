@@ -28,7 +28,7 @@
         <div class="shell">
           <div class="page-title__overlay box-skew box-skew-var-1"><span class="box-skew__item"></span>
             @if($despliegue != null)
-            <p class="big text-width-medium">{{trans('publico/labels.resultTittle')}}<strong style="color: #c26933">{{$despliegue->total()}}</strong>
+            <p class="big text-width-medium">{{trans('publico/labels.resultTittle')}} <strong style="color: #c26933">{{$despliegue->total()}}</strong>
               @if($despliegue->total() == 1)
                 {{trans('publico/labels.singularResult')}}
               @else
@@ -92,7 +92,7 @@
                           margin-bottom: 20px;" onclick="openDetailOnClick({{$serv->id_usuario_servicio}})">
                                 <div class="post-masonry-content">
                                 </div>
-                                <h6 class="servName">
+                                <h6 class="" style="color: #fff; text-shadow: 3px -1px 2px #1b1b1b;">
                                   <a href="{!!asset('/tokenDz$rip')!!}/{{$serv->id_usuario_servicio}}" style="color:white;">{{strtoupper($serv->nombre_servicio)}}</a>
                                 </h6>
                               </div>

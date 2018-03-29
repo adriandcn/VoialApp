@@ -78,6 +78,7 @@
               <ul class="breadcrumbs-custom">
                 <li><a href="{{asset('/')}}">{{ trans('publico/labels.lblHome')}}</a></li>
                 <li><a href="{{asset('/serviciosres')}}">{{ trans('publico/labels.lblPathMyServices')}}</a></li>
+                <li><a href="../eventPromotionsAdmin/{{ Session::get('idUsServ') }}">{{ trans('publico/labels.lblPathPromotions')}}</a></li>
                 <li>{{ trans('publico/labels.lblPathAddPromotion')}}</li>
               </ul>
             </div>

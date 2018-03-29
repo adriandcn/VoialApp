@@ -61,7 +61,7 @@
             <br>
             <hr><br>
             <div class="page-title-text">
-              {{$detalles->nombre_servicio}}
+              {{strtoupper($detalles->nombre_servicio)}}
             </div>
           </div>
         </div>
@@ -110,8 +110,8 @@
                           <div class="panel-custom-collapse collapse in" id="accordion1Collapse1" role="tabpanel" aria-labelledby="accordion1Heading1">
                             <div class="panel-custom-body">
                               {{trans('back/admin.lblDirServicio')}} : <h6 style="font-size: 14px;"> {{$detalles->direccion_servicio}}</h6>
-                                {{trans('back/admin.titleComoLlegarDesdeFormPublico')}} :<h6 style="font-size: 14px; word-break: break-all;"> {{$detalles->como_llegar1_1}}</h6>
-                                {{trans('back/admin.titleComoLlegarServPublico')}}:<h6 style="font-size: 14px; word-break: break-all;"> {{$detalles->como_llegar1}}</h6>
+                                {{trans('back/admin.titleComoLlegarDesdeFormPublico')}} :<h6 style="font-size: 14px; text-align: justify;"> {{$detalles->como_llegar1_1}}</h6>
+                                {{trans('back/admin.titleComoLlegarServPublico')}}:<h6 style="font-size: 14px; text-align: justify;"> {{$detalles->como_llegar1}}</h6>
                             </div>
                           </div>
                         </div>

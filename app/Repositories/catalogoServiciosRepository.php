@@ -327,7 +327,7 @@ class catalogoServiciosRepository extends BaseRepository
             })
 
             ->select($campos_serv)
-
+            ->groupBy('usuario_servicios.id')
 			->get();
 
 		return $finded;

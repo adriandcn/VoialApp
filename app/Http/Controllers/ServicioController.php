@@ -2483,7 +2483,7 @@ public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $aut
                                  $query->orWhereNull('images.profile_pic');
 
                              })
-
+                            ->groupBy('usuario_servicios.id')
                             ->get();
 
         $findedServ = $qServ;
@@ -2496,7 +2496,7 @@ public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $aut
 
         return view('site.blades.servicios-list-level-3', compact('findedServ','padresList','dataCatalogo','dataSubCatalogo'));
 
-        // return response()->json(array('success' => true, 'redirectto' => $findedServ));
+        return response()->json(array('success' => true, 'redirectto' => $findedServ));
 
     }
 
@@ -2551,7 +2551,7 @@ public function edicionServicios(ServiciosOperadorRepository $gestion,Guard $aut
                                  $query->orWhereNull('images.profile_pic');
 
                             })
-
+                            ->groupBy('usuario_servicios.id')
                             ->get();
 
         return $qServ;

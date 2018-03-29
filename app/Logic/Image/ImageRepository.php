@@ -53,7 +53,7 @@ class ImageRepository {
             $sessionImage->id_auxiliar = $form_data['id_auxiliar'];
             $sessionImage->estado_fotografia = 1;
             $sessionImage->user_id = $form_data['user_id'];
-            $sessionImage->es_principal = intval($form_data['es_principal']);
+            $sessionImage->es_principal = intval($form_data['profile_pic']);
             $sessionImage->profile_pic = intval($form_data['profile_pic']);
             $sessionImage->save();
             return Response::json([
@@ -94,7 +94,8 @@ class ImageRepository {
      */
     public function original($photo, $filename) {
         $manager = new ImageManager();
-        $image = $manager->make($photo)->encode('jpg')->save('images/fullsize/' . $filename);
+        $manager->make($photo)->encode('jpg')->save('images/fullsize/' . $filename);
+        $image = File::exists(public_path() . '/images/fullsize/' . $filename);
         return $image;
     }
     /**
@@ -102,9 +103,10 @@ class ImageRepository {
      */
     public function icon($photo, $filename) {
         $manager = new ImageManager();
-        $image = $manager->make($photo)->encode('jpg')->resize(350, null, function($constraint) {
+        $manager->make($photo)->encode('jpg')->resize(350, null, function($constraint) {
                     $constraint->aspectRatio();
                 })->save('images/icon/' . $filename);
+        $image = File::exists(public_path() . '/images/fullsize/' . $filename);
         return $image;
     }
     /**

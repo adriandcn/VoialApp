@@ -6,30 +6,70 @@ $.ajaxSetup({
 
 var dirServer = $('#serverDir').val();
 $('#restoreForm').hide();
-//hace la logica del controller, recibe los datos del formulario y hace un redirect a la pagina enviada desde
-//el controller
-jQuery.fn.ForceNumericOnly =
-    function() {
-        return this.each(function() {
-            $(this).keydown(function(e) {
-                var key = e.charCode || e.keyCode || 0;
-                // allow backspace, tab, delete, enter, arrows, numbers and keypad numbers ONLY
-                // home, end, period, and numpad decimal
-                return (
-                    key == 8 ||
-                    key == 9 ||
-                    key == 13 ||
-                    key == 46 ||
-                    key == 110 ||
-                    key == 111 ||
-                    key == 190 ||
-                    (key >= 35 && key <= 40) ||
-                    (key >= 48 && key <= 57) ||
-                    (key >= 96 && key <= 105));
-            });
+
+$.fn.blockInput = function (options) 
+    {
+        // find inserted or removed characters
+        function findDelta(value, prevValue) 
+        {
+            var delta = '';
+
+            for (var i = 0; i < value.length; i++) {
+                var str = value.substr(0, i) + 
+                    value.substr(i + value.length - prevValue.length);
+
+                if (str === prevValue) delta = 
+                    value.substr(i, value.length - prevValue.length);
+            }
+
+            return delta;
+        }
+
+        function isValidChar(c)
+        {
+            return new RegExp(options.regex).test(c);
+        }
+
+        function isValidString(str)
+        {
+            for (var i = 0; i < str.length; i++)
+            if (!isValidChar(str.substr(i, 1))) return false;
+
+            return true;
+        }
+
+        this.filter('input,textarea').on('input', function ()
+        {
+            var val = this.value,
+                lastVal = $(this).data('lastVal');
+
+            // get inserted chars
+            var inserted = findDelta(val, lastVal);
+            // get removed chars
+            var removed = findDelta(lastVal, val);
+            // determine if user pasted content
+            var pasted = inserted.length > 1 || (!inserted && !removed);
+
+            if (pasted)
+            {
+                if (!isValidString(val)) this.value = lastVal;
+            } 
+            else if (!removed)
+            {
+                if (!isValidChar(inserted)) this.value = lastVal;
+            }
+
+            // store current value as last value
+            $(this).data('lastVal', this.value);
+        }).on('focus', function ()
+        {
+            $(this).data('lastVal', this.value);
         });
+
+        return this;
     };
-$(".numsOnly").ForceNumericOnly();
+
+    $(".numsOnly").blockInput({ regex: '[0-9A-Z/]' });
 
 function AjaxContainerRegistro($formulario) {
     $("#spinnerSave").show();
@@ -2024,7 +2064,7 @@ function searchServ(event, idCatalogo, idSubCatalogo) {
                           min-height: 200px;\
                           cursor: pointer;" onclick="openDetailOnClick(' + id + ')">\
                       <div class="post-masonry-content">\
-                        <h6 class="servName"><a href="' + urlDetail + '" style="color:white;">' + array[i].nombre_servicio.toUpperCase() + '</a></h6>\
+                        <h6 class=""><a href="' + urlDetail + '" style="color: #fff; text-shadow: 3px -1px 2px #1b1b1b;">' + array[i].nombre_servicio.toUpperCase() + '</a></h6>\
                       </div>\
                       <br>\
                       <span class="badge" style="color:Wwhite;background: #c26933;">Distancia: ' + parseInt(array[i].distance) + 'Km</span>\
@@ -2085,7 +2125,7 @@ function searchServIni(idCatalogo, idSubCatalogo) {
                           min-height: 200px;\
                           cursor: pointer;" onclick="openDetailOnClick(' + id + ')">\
                       <div class="post-masonry-content">\
-                        <h6 class="servName"><a href="' + urlDetail + '" style="color:white">' + array[i].nombre_servicio.toUpperCase() + '</a></h6>\
+                        <h6 class=""><a href="' + urlDetail + '" style="color: #fff; text-shadow: 3px -1px 2px #1b1b1b;">' + array[i].nombre_servicio.toUpperCase() + '</a></h6>\
                       </div>\
                       </a>\
                     </div>\
@@ -2263,6 +2303,8 @@ function updateHashtags(event, hashtags, idTendencia) {
     if (hashArray.indexOf(idTendencia) == -1) {
         hashArray.push(idTendencia);
         $('#txtHashtags').val($('#txtHashtags').val() + ' ' + hashtags);
+        var $textarea = $('#txtHashtags');
+        $textarea.scrollTop($textarea[0].scrollHeight);
     }
 }
 
@@ -2321,7 +2363,7 @@ function searchByMap(event) {
                           min-height: 200px;\
                           cursor: pointer;" onclick="openDetailOnClick(' + id + ')">\
                       <div class="post-masonry-content">\
-                        <h6 class="servName"><a href="' + urlDetail + '" style="color:white;">' + array[i].nombre_servicio.toUpperCase() + '</a></h6>\
+                        <h6 class=""><a href="' + urlDetail + '" style="color: #fff; text-shadow: 3px -1px 2px #1b1b1b;">' + array[i].nombre_servicio.toUpperCase() + '</a></h6>\
                       </div><br>\
                     <span class="badge" style="color:Wwhite;background: #c26933;">Distancia: ' + parseInt(array[i].distance) + 'Km</span>\
                     </div>\

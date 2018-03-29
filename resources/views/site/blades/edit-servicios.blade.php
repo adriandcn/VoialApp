@@ -268,12 +268,17 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                       @if (count($tendenciasList) > 0)
                       <div class="cell-sm-12">
                           <div class="form-wrap">
-                            <label class="form-label-outside" for="contact-first-name"><i class="fa fa-star"></i>&nbsp;&nbsp;{{ trans('publico/labels.lblTendencias')}}</label><br>
-                            <div style="display: flex;">
-                                @foreach($tendenciasList as $tendencia)
-                                  <a href="#" class="tooltip" title="{{ trans('back/admin.altTendencias')}}" onclick="updateHashtags(event,'{{$tendencia->hashtag}}','{{$tendencia->idtendencias}}')"><h6 class="text-primary">{{$tendencia->nombre}}&nbsp;/&nbsp;</h6>
-                                  </a>
-                                @endforeach
+                            <label class="form-label-outside" for="contact-first-name">
+                              <i class="fa fa-star"></i>&nbsp;&nbsp;
+                              {{ trans('publico/labels.lblTendencias')}}
+                            </label>
+                            <br>
+                            <div class="owl-carousel owl-theme">
+                              @foreach($tendenciasList as $tendencia)
+                                <div class="item">
+                                  <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-star text-center" onclick="updateHashtags(event,'{{$tendencia->hashtag}}','{{$tendencia->idtendencias}}')" href="" title="{{ trans('back/admin.altTendencias')}}">{{strtoupper($tendencia->nombre)}}<span></span></a>
+                                </div>
+                              @endforeach
                             </div>
                           </div>
                       </div>
@@ -281,7 +286,7 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                       <div class="cell-sm-12">
                           <div class="form-wrap">
                           <label class="form-label-outside" for="contact-first-name"><i class="fa fa-hashtag"></i>&nbsp;&nbsp;{{ trans('back/admin.lblTagServ')}}</label>
-                          <input type="text" name="tags" id="txtHashtags" value="{!!$usuarioServicio->tags!!}" class="form-input tooltip" placeholder="{{ trans('back/admin.placeHolderTagServ')}}" title="{{trans('back/admin.altTagServ')}}">
+                          <textarea class="form-input tooltip" id="txtHashtags" name="tags" placeholder="{{ trans('back/admin.placeHolderTagServ')}}" title="{{trans('back/admin.altTagServ')}}" rows="50">{!!trim($usuarioServicio->tags)!!}</textarea>
                           </div>
                       </div>
                       <div class="cell-sm-6">
@@ -403,6 +408,8 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <input type="hidden" id="id_catalogo_fotografia" name="id_catalogo_fotografia" value="1">
                 <input type="hidden" id="id_usuario_servicio" name="id_usuario_servicio" value="{!!$usuarioServicio->id!!}">
+                <input type="hidden" id="user_id" name="user_id" value="{{ Auth::user()->id }}">
+                <input type="hidden" id="profile_pic" name="profile_pic" value="false">
                 <input type="hidden" id="id_auxiliar" name="id_auxiliar" value="{!!$usuarioServicio->id!!}">
                 <div class="form-group">
                      <div class="dz-message">
@@ -553,7 +560,7 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
           $(document).ready(function () {GetDataAjaxProvincias1("{!!asset('/getProvincias1')!!}/{!!$usuarioServicio->id_provincia!!}/{!!$usuarioServicio->id_canton!!}/{!!$usuarioServicio->id_parroquia!!}");
             });
         </script>
-      @endif    
+      @endif
       <!-- Page Footer-->
       @include('site.reusable.footer')
       {!! HTML::style('/packages/dropzone/dropzone.css') !!}
@@ -658,6 +665,16 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
     $('#precio_hasta').click(function() {
      this.select();
     });
+
+    var owl = $('.owl-carousel');
+          owl.owlCarousel({
+              loop:true,
+              items:3,
+              autoPlay:true,
+              autoPlayTimeout:1000,
+              autoPlayHoverPause:true,
+              margin:10
+          });
 }
       </script>
     <!-- END PANEL-->

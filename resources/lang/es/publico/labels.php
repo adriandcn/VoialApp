@@ -115,5 +115,6 @@ return [
     'lblBlog' => 'Blog',
     'titleArticles' => 'Artículos recientes',
     'lblFechaDesde' => 'Fecha desde',
-    'lblFechaHasta' => 'Fecha hasta'
+    'lblFechaHasta' => 'Fecha hasta',
+    'lblPathPromotions' => 'Promociones'
 ];

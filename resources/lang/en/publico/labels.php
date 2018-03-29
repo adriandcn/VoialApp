@@ -114,5 +114,6 @@ return [
     'lblPromotionCodigo' => 'Promotion code',
     'lblBlog' => 'Blog',
     'lblFechaDesde' => 'Fecha desde',
-    'lblFechaHasta' => 'Fecha hasta'
+    'lblFechaHasta' => 'Fecha hasta',
+    'lblPathPromotions' => 'Promotions'
 ];

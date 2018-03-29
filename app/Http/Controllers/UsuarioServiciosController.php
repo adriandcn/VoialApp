@@ -86,11 +86,12 @@ class UsuarioServiciosController extends Controller
         return view('site.blades.addEvent', compact('promotion','listTypePhoto'));
     }
 
-    public function getViewEdit(ServiciosOperadorRepository $gestion, $idPromotion = null)
+    public function getViewEdit(ServiciosOperadorRepository $gestion, $idPromotion = null, Request $request)
     {
 
         $promotion = $gestion->getPromocion($idPromotion);
         $listTypePhoto  = DB::table('catalogo_tipo_fotografia')->get();
+        $request->session()->put('idUsServ',$promotion[0]->id_usuario_servicio);
         // return response()->json(['data'=>$promotion]);
         return view('site.blades.addEvent', compact('promotion','listTypePhoto'));
     }

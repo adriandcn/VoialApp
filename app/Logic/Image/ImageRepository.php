@@ -25,7 +25,7 @@ class ImageRepository {
             $validator = Validator::make($form_data, Image::$rules, Image::$messages);
             if ($validator->fails()) {
                 return Response::json([
-                            'error' => true,
+                            'error' => $validator->messages()->first(),
                             'message' => $validator->messages()->first(),
                             'code' => 400
                                 ], 400);

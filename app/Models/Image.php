@@ -8,11 +8,12 @@ class Image extends Model
 {
     public static $rules = [
         
-        'file'=>'required|image|mimes:jpeg,jpg,png'
+        'file'=>'required|image|mimes:jpeg,jpg,png|max:6000'
     ];
 
     public static $messages = [
         'file.mimes' => 'Uploaded file is not in image format .jpg',
-        'file.required' => 'Image is required'
+        'file.required' => 'Image is required',
+        'file.max' => 'Tamaño de imagen excedido'
     ];
 }

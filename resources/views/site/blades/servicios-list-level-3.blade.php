@@ -1,48 +1,51 @@
-@if(session('device') == 'mobile')
-  <style type="text/css">
-    article,
-    aside,
-    details,
-    figcaption,
-    figure,
-    footer,
-    header,
-    hgroup,
-    main,
-    menu,
-    nav,
-    section,
-    summary {
-      display: inline-grid !important;
-    }
-  </style>
-@else
-<style type="text/css">
-    article,
-    aside,
-    details,
-    figcaption,
-    figure,
-    footer,
-    header,
-    hgroup,
-    main,
-    menu,
-    nav,
-    section,
-    summary {
-      display: flow-root !important;
-    }
-  </style>
-@endif
 <!DOCTYPE html>
 <html class="wide wow-animation" lang="en">
   <head>
+    <!-- Site Title-->
     <title>Servicios</title>
     @include('site.reusable.head')
+    @if(session('device') == 'mobile')
+      <style type="text/css">
+        article,
+        aside,
+        details,
+        figcaption,
+        figure,
+        footer,
+        header,
+        hgroup,
+        main,
+        menu,
+        nav,
+        section,
+        summary {
+          display: inline-grid !important;
+        }
+      </style>
+    @else
+    <style type="text/css">
+        article,
+        aside,
+        details,
+        figcaption,
+        figure,
+        footer,
+        header,
+        hgroup,
+        main,
+        menu,
+        nav,
+        section,
+        summary {
+          display: flow-root !important;
+        }
+      </style>
+    @endif
   </head>
    <body>
+    <!-- Page-->
     <div class="text-center text-sm-left page">
+      <!-- Page preloader-->
       <div class="page-loader">
         <div>
           <div class="page-loader-body">
@@ -50,11 +53,14 @@
             <div class="center" id="bike-wrapper">
               <div class="centerBike" id="bike"></div>
             </div>
-            <h1>{{ trans('back/admin.loaderPageServicios')}}</h1>
+            <h1>{{trans('publico/labels.tittleLoaderCategoSons')}}</h1>
           </div>
         </div>
       </div>
+      <!-- Page Header-->
+      <!-- Modal-->
       @include('site.reusable.header')
+      <!-- Breadcrumbs & Page title-->
       <section class="page-title breadcrumbs-elements page-title-inset-1">
         <div class="shell">
           <div class="page-title__overlay box-skew box-skew-var-1"><span class="box-skew__item"></span>
@@ -135,7 +141,6 @@
           </div>
         </div>
       </section>
-
       <div class="modal fade" id="filter" tabindex="-1" role="dialog" style="z-index: 99999; background: #00000099;">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -180,20 +185,22 @@
           </div>
         </div>
       </div>
-      <script src="{{ asset('/siteStyle/js/core.min.js')}}"></script>
-      <script src="{{ asset('/siteStyle/js/script.js')}}"></script>
-      <script src="{{ asset('/siteStyle/sweetalert/sweetalert.js')}}"></script>
-      <script src="{{ asset('/siteStyle/js/alertas.js')}}"></script>
-      <script src="{{ asset('/siteStyle/js/Compartido.js')}}"></script> 
+      <!-- Page Footer-->
+      @include('site.reusable.footer')
+      <!-- <script src="{{ asset('/siteStyle/js/core.min.js')}}"></script> -->
+      <!-- <script src="{{ asset('/siteStyle/js/script.js')}}"></script> -->
+      <!-- <script src="{{ asset('/siteStyle/sweetalert/sweetalert.js')}}"></script> -->
+      <!-- <script src="{{ asset('/siteStyle/js/alertas.js')}}"></script> -->
+      <!-- <script src="{{ asset('/siteStyle/js/Compartido.js')}}"></script>  -->
       <script src="{{ asset('/siteStyle/js/bootstrap-switch.js')}}"></script> 
-      <script src="{{ asset('/siteStyle/js/underscore.js')}}"></script>
+      <!-- <script src="{{ asset('/siteStyle/js/underscore.js')}}"></script> -->
       <script type="text/javascript">
         $("[name='my-checkbox']").bootstrapSwitch();
         var idRouteCatalogo = {!!request()->route('idCatalogo')!!};
         var idRouteSubCatalogo = {!!request()->route('idSubCatalogo')!!};
         searchServIni(idRouteCatalogo,idRouteSubCatalogo);
       </script>
-      @include('site.reusable.footer')
     </div>
+    <!-- END PANEL-->
   </body>
 </html>

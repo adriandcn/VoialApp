@@ -117,9 +117,107 @@ return [
     'lblFechaDesde' => 'Fecha desde',
     'lblFechaHasta' => 'Fecha hasta',
     'lblPathPromotions' => 'Promociones',
-    //Contactos
-    'tittleContacts' => 'Información de contacto',
-    'tittleContactsGeneral' => 'Información de general',
-    'tittleTerms' => 'Términos y condiciones',
-    'tittleTermsResumen' => 'Resumen'
+    // Contacts
+    'tittleContacts' => 'información de contacto',
+    'tittleContactsGeneral' => 'información general',
+    'tittleTerms' => 'Términos y Condiciones',
+    'tittleTermsText' => '<p style="text-align: justify;">Estos términos y condiciones del servicio prestado por Voilàpp rigen las relaciones existentes entre todos los involucrados en la plataforma como son, los Usuarios, Clientes, personas naturales o jurídicas que interactúan, registran su información o utilizan espacios publicitarios en Voilàpp.</p>
+
+
+<p style="text-align: justify;">De considerar necesario, Voilàpp podrá colocar condiciones que complementen los servicios que proporciona, como es la utilización de espacios publicitarios, promocionales, generación de información estadística, operativa y otras que pueden resultar de las mediciones y análisis de dicha información.</p>
+
+
+<p style="text-align: justify;">De existir cambios en los términos y condiciones, éstos serán comunicados oportunamente a los Clientes para su revisión, quienes de considerarlo necesario podrán cancelar el registro de su contenido en Voilàpp para su eliminación, caso contrario, Voilàpp considerará aceptado por el Cliente los cambios realizados en los términos y condiciones.</p>
+
+<p style="text-align: justify;">Voilàpp recopila, almacena y procesa la información que fue registrada por los Clientes.</p>
+
+<p style="text-align: justify;">La información que se almacena en Voilàpp y que se presenta a los Usuarios está relacionada con los productos y/o servicios prestados por los Clientes, por tanto, el contenido de la información, la autoría y veracidad de la misma es estrictamente responsabilidad de los Clientes y en ningún caso de Voilàpp.</p>
+
+<p style="text-align: justify;">La información registrada por los Clientes consta de: su nombre o razón social, descripción general de sus productos y/o servicios, dirección y/o ubicación, correo electrónico y/o redes sociales, número(s) telefónico(s) de contacto, fotografías y/o videos, anuncios publicitarios, promociones, artículos escritos de autoría de los Clientes y que están relacionados con su actividad y sean de interés público.</p>
+
+<p style="text-align: justify;">Parte de la información pudo haber sido recopilada y cargada por Voilàpp, sin embargo, para que ésta sea procesada, debió ser revisada y autorizada su publicación mediante la aceptación de su registro por parte del Cliente.</p>
+
+<p style="text-align: justify;">En Voilàpp se puede desplegar anuncios promocionales o publicitarios de propiedad del Cliente que desee utilizar esta plataforma como medio comunicacional, con el fin de facilitar a los Usuarios el tener conocimiento y beneficio de sus productos y/o servicios.</p>
+
+<p style="text-align: justify;">Los Clientes pueden actualizar, cambiar y/o eliminar parte de su información registrada, y si es del caso, solicitar a Voilàpp su eliminación total, cancelando su registro.</p>
+
+<p style="text-align: justify;">En todo caso, el Cliente es el propietario del contenido de su información.</p>
+
+<p style="text-align: justify;">Si existiere del Cliente contenido cubierto por derechos de propiedad intelectual o de autor, como son fotografías, videos, artículos escritos especializados, promociones, anuncios publicitarios, etc.</p>
+
+<p style="text-align: justify;">El Cliente concede <strong>una licencia</strong> de uso no exclusiva, sin cobro de regalías.</p>
+
+<p style="text-align: justify;">Esta <strong>licencia</strong> finaliza en el momento en que el contenido cubierto con los derechos mencionados es eliminado de Voilàpp.</p>
+
+<p style="text-align: justify;">El ingreso de contenido cubierto no obliga a Voilàpp dar compensación alguna o pago por ello.</p>
+
+<p style="text-align: justify;">Voilàpp no se responsabiliza por el uso que pueda hacer un Usuario sobre el contenido cubierto.</p>
+
+<p style="text-align: justify;">Voilàpp se reserva el derecho de colocar contenido cubierto por los derechos mencionados y de considerarlo, solicitará un pago por su ingreso, ya que, de alguna manera, se despliega información que está promocionando al autor o propietario del contenido.</p>
+
+
+<p style="text-align: justify;">Voilàpp se reserva el derecho de eliminar parcial o totalmente la información registrada, sin necesidad del consentimiento del Cliente, de considerarla perjudicial ya sea para Voilàpp o para el Usuario, o en caso de verificarse que no es cierta.</p>
+
+<p style="text-align: justify;">Voilàpp se reserva el derecho de colocar anuncios promocionales o publicitarios de cualquier Cliente en la plataforma, en caso de hacerlo y si el Cliente está de acuerdo, se generará un compromiso de pago por parte del Cliente hacia Voilàpp por colocar dichos anuncios.</p>
+
+<p style="text-align: justify;">Voilàpp será quien cargue el contenido publicitario en la plataforma y el Cliente acepta las <strong>condiciones</strong> aplicables a los anuncio.</p>
+
+<p style="text-align: justify;">Voilàpp no se responsabiliza de los resultados obtenidos por colocar los anuncios publicitarios, o si generó o no beneficio para el Cliente quien contrató el anuncio publicitario.</p>
+
+<p style="text-align: justify;">Voilàpp no proporcionará a los anunciantes el contenido o información específica de los Clientes sin su consentimiento.</p>
+
+<p style="text-align: justify;">El Cliente que desee colocar publicidad en Voilàpp se compromete a no registrar contenido que contenga lenguaje escrito o visual pornográfico o de desnudos, ni que incite a segregación racial, odio o violencia de ningún modo.</p>
+
+<p style="text-align: justify;">También se compromete a no colocar contenido que  incite al consumo de drogas o alcohol, ni que sea discriminatorio, malintencionado o que engañe al público en general.</p>
+
+<p style="text-align: justify;">Así mismo, el Cliente se compromete a no subir archivos con virus o código malicioso alguno, ni publicar comunicaciones comerciales tipo spam.</p>
+
+<p style="text-align: justify;">El Cliente puede crear su cuenta y se compromete a ingresar datos reales, exactos y mantenerlos actualizados en beneficio propio y del público en general.</p>
+
+<p style="text-align: justify;">Además, el Cliente no podrá compartir el acceso a su cuenta ni tomar acción que pueda dañar el contenido de su cuenta registrada, tampoco podrá colocar información confidencial como es financiera o de identidad del Cliente.</p>
+
+<p style="text-align: justify;">Los Clientes pueden crear más de una cuenta únicamente cuando se trate de Clientes asociados o franquicias o que mantengan relaciones directas como sucursales, además, deberán tener la autorización de Voilàpp.</p>
+
+<p style="text-align: justify;"> Voilàpp se reserva el derecho de eliminar o inhabilitar una cuenta o registro si un Cliente ha utilizado el nombre o identificación de otra persona natural o jurídica quien por derecho puede reclamar su propiedad real.</p>
+
+<p style="text-align: justify;">Si el Cliente considera que su eliminación o inhabilitación de su contenido es un error de Voilàpp, podrá comunicarse vía email indicando su caso y justificando la propiedad del contenido.</p>
+
+<p style="text-align: justify;">Se procederá al análisis respectivo con los involucrados y en caso de no existir discrepancias legales se podrá habilitar nuevamente el registro del Cliente.</p>
+
+<p style="text-align: justify;">Cuando un Usuario utiliza Voilàpp, se almacenan datos que generan información relacionada a esa actividad, lo que permitirá analizar sus consultas, medirlas y mejorar el servicio de entrega de información  de Voilàpp.</p>
+
+<p style="text-align: justify;">Voilàpp no se responsabiliza de la información registrada por los Clientes y que se despliega en la plataforma, ni tampoco del manejo personal que los Usuarios o público en general haga con ella.</p>
+
+<p style="text-align: justify;">Cualquier reclamación o disputa que pueda producir una acción legal, será ventilada en los canales legales que rigen las leyes ecuatorianas xxxcccxxx, teniendo como domicilio la ciudad de Quito.</p>
+
+<p style="text-align: justify;">Si existiere una reclamación contra Voilàpp relacionada con el contenido de la información registrada del Cliente o por anuncios publicitarios o promocionales, quien sea el propietario de esta información o anuncio liberará a Voilàpp de la responsabilidad por cualquier daño, perjuicio, pérdida o gasto posible, incluido honorarios judiciales relacionados con la reclamación.</p>
+
+<p style="text-align: justify;">Como se mencionó en párrafos anteriores, Voilàpp no es responsable del contenido, acción o anuncios que los Clientes puedan cargar en la plataforma.</p>
+
+<p style="text-align: justify;">Tampoco es responsable de acciones o usos que realicen los Usuarios o público en general sobre el contenido registrado.</p>
+
+
+<p style="text-align: justify;">En caso de existir algún perjuicio, pérdida o gasto para Voilàpp, de considerarlo necesario,  podrá solicitar al Cliente dueño de la información registrada una indemnización por daños y perjuicios.</p>
+
+<p style="text-align: justify;">Voilàpp aplica estándares de seguridad de la información e intenta ser una plataforma que funcione de manera segura, sin errores, retrasos o interrupciones.</p>
+
+<p style="text-align: justify;">Los términos y condiciones mencionados serán aplicados en nuevas versiones u otras aplicaciones complementarias de Voilàpp, a menos que éstas requieran de términos y condiciones diferentes o adicionales y que serán difundidas en su momento.</p>
+
+<p style="text-align: justify;">Al estar aceptando estos términos y condiciones, el Cliente está autorizando a Voilàpp el uso de su información y da su consentimiento para desplegarla en la plataforma de Voilàpp para conocimiento, acceso y uso del público en general, quien podrá asociar esta información con el nombre o razón social y las fotos de perfil colocadas.</p>
+
+<p style="text-align: justify;">Si el Cliente no acepta estos términos y condiciones, deben cancelar su registro en esta plataforma.</p>
+
+',
+    'tittleTermsResumen' => 'Resumen',
+    'tittleTermsRegistro' => 'Registro en Voilàpp',
+    'tittleTermsRegistroText' => 'Para que un Cliente esté presente en Voilàpp y que su información sea desplegada, es necesario que acepte estos términos y condiciones del servicio que presta Voilàpp.',
+    'tittleTermsUsuarios' => 'Usuarios',
+    'tittleTermsUsuariosText' => 'Llamaremos Usuarios al público en general que pueda acceder gratuitamente a la información de la plataforma Voilàpp utilizando computadora, tablet o cualquier dispositivo móvil. Los Usuarios deben estar conectados a la red de Internet para este acceso.',
+    'tittleTermsClientes' => 'Clientes',
+    'tittleTermsClientesText' => 'Llamaremos Clientes a las personas naturales y/o jurídicas que registren información de sus productos, servicios, anuncios publicitarios, anuncios promocionales, artículos especializados que sean de su propiedad intelectual, fotos, videos y cualquier dato que se pueda desplegar,  observar y utilizar en la plataforma Voilàpp.',
+    'tittleAbout' => '¿ Qué es Voilàpp ?',
+    'tittleAboutText' => 'Voilàpp es una plataforma informativa que permite al público en general obtener información de productos y/o servicios de personas naturales y/o jurídicas que la han registrado para ponerla a su disposición.',
+    'lblEmailsContacts' => 'Emails',
+    'lblPhonesContacts' => 'Teléfonos',
+    'lblAddressContacts' => 'Dirección',
 ];

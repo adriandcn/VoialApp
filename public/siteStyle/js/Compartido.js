@@ -1364,27 +1364,6 @@ function GetDataAjaxImagenesRes(url) {
     });
 }
 
-function GetDataAjaxImagenesPromotion(url) {
-    $.ajax({
-        type: 'GET',
-        url: url,
-        dataType: 'json',
-        success: function(data) {
-
-            $("#renderPartialImagenes").html(data.contentImagenes);
-
-        },
-        error: function(data) {
-            var errors = data.responseJSON;
-            if (errors) {
-                $.each(errors, function(i) {
-                    console.log(errors[i]);
-                });
-            }
-        }
-    });
-}
-
 
 function GetDataAjaxImagenes1(id_usuario_servicio) {
 

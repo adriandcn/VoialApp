@@ -36,20 +36,20 @@
           <h1>{{trans('publico/labels.tittleContacts')}}</h1>
           <div class="range range-50 range-xs-center">
             <div class="cell-xs-6">
-              <div class="panel-custom-group text-left" id="accordion1" role="tablist" aria-multiselectable="true">
+              <div class="panel-custom-group text-left" id="accordionGeneral" role="tablist" aria-multiselectable="true">
                 <div class="panel panel-custom panel-custom-default">
-                  <div class="panel-custom-heading" id="accordion1Heading1" role="tab">
-                    <p class="panel-custom-title"><a role="button" data-toggle="collapse" data-parent="#accordion1" href="#accordion1Collapse1" aria-controls="accordion1Collapse1" aria-expanded="true">{{trans('publico/labels.tittleContactsGeneral')}}</a>
+                  <div class="panel-custom-heading" id="accordion1HeadingGeneral" role="tab">
+                    <p class="panel-custom-title"><a role="button" data-toggle="collapse" data-parent="#accordionGeneral" href="#accordion1CollapseGeneral" aria-controls="accordion1CollapseGeneral" aria-expanded="true">{{trans('publico/labels.tittleContactsGeneral')}}</a>
                     </p>
                   </div>
-                  <div class="panel-custom-collapse collapse in" id="accordion1Collapse1" role="tabpanel" aria-labelledby="accordion1Heading1">
-                    <div class="panel-custom-body" style="background: white;">
+                  <div class="panel-custom-collapse collapse in" id="accordion1CollapseGeneral" role="tabpanel" aria-labelledby="accordion1HeadingGeneral">
+                    <div class="panel-custom-body" style="background: white; color: black !important;">
                       <br>
-                      <p><strong>Emails: </strong></p>
+                      <p><strong>{{trans('publico/labels.lblEmailsContacts')}}: </strong></p>
                       <p><a href="mailto:#">privacy@demolink.org</a> / <a href="mailto:#">privacy@demolink.org</a></p>
-                      <p><strong>Teléfonos: </strong></p>
+                      <p><strong>{{trans('publico/labels.lblPhonesContacts')}}: </strong></p>
                       <p>(+593)999999999) / (2)966558</p>
-                      <p><strong>Direción: </strong></p>
+                      <p><strong>{{trans('publico/labels.lblAddressContacts')}}: </strong></p>
                       <p>Av. 123 </p>
                     </div>
                   </div>
@@ -57,27 +57,51 @@
               </div>
             </div>
             <div class="cell-xs-6">
-              <div class="panel-custom-group text-left" id="accordion1" role="tablist" aria-multiselectable="true">
+              <div class="panel-custom-group text-left" id="accordionAbout" role="tablist" aria-multiselectable="true">
                 <div class="panel panel-custom panel-custom-default">
-                  <div class="panel-custom-heading" id="accordion1Heading1" role="tab">
-                    <p class="panel-custom-title"><a role="button" data-toggle="collapse" data-parent="#accordion1" href="#accordion1Collapse1" aria-controls="accordion1Collapse1" aria-expanded="true">Misión</a>
+                  <div class="panel-custom-heading" id="accordion1HeadingAbaout" role="tab">
+                    <p class="panel-custom-title"><a role="button" data-toggle="collapse" data-parent="#accordionAbout" href="#accordion1CollapseAbout" aria-controls="accordion1CollapseAbout" aria-expanded="true">{{trans('publico/labels.tittleAbout')}}</a>
                     </p>
                   </div>
-                  <div class="panel-custom-collapse collapse in" id="accordion1Collapse1" role="tabpanel" aria-labelledby="accordion1Heading1">
-                    <div class="panel-custom-body" style="background: white;"> <br>
-                      <p style="text-align: justify;">Welcome to our Privacy Policy page! When you use our web site services, you trust us with your information. This Privacy Policy is meant to help you understand what data we collect, why we collect it, and what we do with it. When you share information with us, we can make our services even better for you. For instance, we can show you more relevant search results and ads, help you connect with people or to make sharing with others quicker and easier. As you use our services, we want you to be clear how we`re using information and the ways in which you can protect your privacy.</p>
+                  <div class="panel-custom-collapse collapse in" id="accordion1CollapseAbout" role="tabpanel" aria-labelledby="accordion1HeadingAbaout">
+                    <div class="panel-custom-body" style="background: white; color: black !important;"> <br>
+                      <p style="text-align: justify;">{{trans('publico/labels.tittleAboutText')}}</p>
                     </div>
                   </div>
                 </div>
                 <!-- Bootstrap panel-->
                 <div class="panel panel-custom panel-custom-default">
-                  <div class="panel-custom-heading" id="accordion2Heading2" role="tab">
-                    <p class="panel-custom-title"><a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion2" href="#accordion2Collapse2" aria-controls="accordion2Collapse2">Visión</a>
+                  <div class="panel-custom-heading" id="accordion2HeadingClients" role="tab">
+                    <p class="panel-custom-title"><a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion2" href="#accordion2CollapseClients" aria-controls="accordion2CollapseClients">{{trans('publico/labels.tittleTermsClientes')}}</a>
                     </p>
                   </div>
-                  <div class="panel-custom-collapse collapse" id="accordion2Collapse2" role="tabpanel" aria-labelledby="accordion2Heading2">
-                    <div class="panel-custom-body" style="background: white;"> <br>
-                      <p style="text-align: justify;">Our customers have the right to access, correct and delete personal data relating to them, and to object to the processing of such data, by addressing a written request, at any time. The Company makes every effort to put in place suitable precautions to safeguard the security and privacy of personal data, and to prevent it from being altered, corrupted, destroyed or accessed by unauthorized third parties. However, the Company does not control each andevery risk related to the use of the Internet, and therefore warns the Site users of the potential risks involved in the functioning and use of the Internet.</p>
+                  <div class="panel-custom-collapse collapse" id="accordion2CollapseClients" role="tabpanel" aria-labelledby="accordion2HeadingClients">
+                    <div class="panel-custom-body" style="background: white; color: black !important;"> <br>
+                      <p style="text-align: justify;">{{trans('publico/labels.tittleTermsClientesText')}}</p>
+                    </div>
+                  </div>
+                </div>
+                 <!-- Bootstrap panel-->
+                <div class="panel panel-custom panel-custom-default">
+                  <div class="panel-custom-heading" id="accordion2HeadingUsers" role="tab">
+                    <p class="panel-custom-title"><a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion2" href="#accordion2CollapseUsers" aria-controls="accordion2CollapseUsers">{{trans('publico/labels.tittleTermsUsuarios')}}</a>
+                    </p>
+                  </div>
+                  <div class="panel-custom-collapse collapse" id="accordion2CollapseUsers" role="tabpanel" aria-labelledby="accordion2HeadingUsers">
+                    <div class="panel-custom-body" style="background: white; color: black !important;"> <br>
+                      <p style="text-align: justify;">{{trans('publico/labels.tittleTermsUsuariosText')}}</p>
+                    </div>
+                  </div>
+                </div>
+                <!-- Bootstrap panel-->
+                <div class="panel panel-custom panel-custom-default">
+                  <div class="panel-custom-heading" id="accordion2HeadingRegister" role="tab">
+                    <p class="panel-custom-title"><a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion2" href="#accordion2CollapseRegister" aria-controls="accordion2CollapseRegister">{{trans('publico/labels.tittleTermsRegistro')}}</a>
+                    </p>
+                  </div>
+                  <div class="panel-custom-collapse collapse" id="accordion2CollapseRegister" role="tabpanel" aria-labelledby="accordion2HeadingRegister">
+                    <div class="panel-custom-body" style="background: white; color: black !important;"> <br>
+                      <p style="text-align: justify;">{{trans('publico/labels.tittleTermsRegistroText')}}</p>
                     </div>
                   </div>
                 </div>
@@ -100,11 +124,10 @@
                     </p>
                   </div>
                   <div class="panel-custom-collapse collapse in" id="accordion1Collapse1" role="tabpanel" aria-labelledby="accordion1Heading1">
-                    <div class="panel-custom-body" style="background:white;"><br>
-                      <p style="text-align: justify;">Welcome to our Privacy Policy page! When you use our web site services, you trust us with your information. This Privacy Policy is meant to help you understand what data we collect, why we collect it, and what we do with it. When you share information with us, we can make our services even better for you. For instance, we can show you more relevant search results and ads, help you connect with people or to make sharing with others quicker and easier. As you use our services, we want you to be clear how we`re using information and the ways in which you can protect your privacy.</p>
-                      <p style="text-align: justify;">Welcome to our Privacy Policy page! When you use our web site services, you trust us with your information. This Privacy Policy is meant to help you understand what data we collect, why we collect it, and what we do with it. When you share information with us, we can make our services even better for you. For instance, we can show you more relevant search results and ads, help you connect with people or to make sharing with others quicker and easier. As you use our services, we want you to be clear how we`re using information and the ways in which you can protect your privacy.</p>
-                      <p style="text-align: justify;">Welcome to our Privacy Policy page! When you use our web site services, you trust us with your information. This Privacy Policy is meant to help you understand what data we collect, why we collect it, and what we do with it. When you share information with us, we can make our services even better for you. For instance, we can show you more relevant search results and ads, help you connect with people or to make sharing with others quicker and easier. As you use our services, we want you to be clear how we`re using information and the ways in which you can protect your privacy.</p>
-                      <p style="text-align: justify;">Welcome to our Privacy Policy page! When you use our web site services, you trust us with your information. This Privacy Policy is meant to help you understand what data we collect, why we collect it, and what we do with it. When you share information with us, we can make our services even better for you. For instance, we can show you more relevant search results and ads, help you connect with people or to make sharing with others quicker and easier. As you use our services, we want you to be clear how we`re using information and the ways in which you can protect your privacy.</p>
+                    <div class="panel-custom-body" style="background:white; color: black !important;"><br>
+                      <p style="text-align: justify;">
+                        {!!html_entity_decode(trans('publico/labels.tittleTermsText'))!!}
+                      </p>
                     </div>
                   </div>
                 </div>

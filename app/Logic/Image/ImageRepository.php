@@ -11,11 +11,15 @@ use Illuminate\Http\Request;
 
 class ImageRepository {
     public function upload($form_data) {
+        if ($form_data['id_catalogo_fotografia'] == 1) {
         $numImages = DB::table('images')->where('id_usuario_servicio',$form_data['id_usuario_servicio'])
                     ->where('estado_fotografia',1)
                     ->where('id_catalogo_fotografia',1)
-                    ->get();
-        if (count($numImages) > (config('global.freeImageLimit') - 1)) {
+                    ->count();
+        }else{
+          $numImages = 0;  
+        }
+        if ($numImages > (config('global.freeImageLimit') - 1)) {
             return Response::json([
                         'error' => 'Unicamente esta permitido ' . config('global.freeImageLimit') . ' imagenes por servicio en la version free.' ,
                         'name' => 'imageLimit',

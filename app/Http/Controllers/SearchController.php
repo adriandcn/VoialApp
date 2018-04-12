@@ -14,6 +14,7 @@ use Jenssegers\Agent\Agent;
 use App\Jobs\VerifyReview;
 use Illuminate\Support\Facades\Session;
 use App\Models\Review_Usuario_Servicio;
+use App\Models\Tendencia;
 use GuzzleHttp\Client;
 
 class SearchController extends Controller
@@ -156,7 +157,10 @@ class SearchController extends Controller
 
     public function getTendenciasView($idTendencia)
     {
+        $dataTendencia = Tendencia::find($idTendencia);
         Session::put('idTendenciaSearch', $idTendencia);
+        Session::put('tendenciaData', $dataTendencia);
+        // return response()->json(['data' => Session::get('tendenciaData')]);
         return view('site.blades.tendenciasSearch');
     }
 }

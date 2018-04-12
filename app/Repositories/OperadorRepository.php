@@ -359,7 +359,9 @@ class OperadorRepository extends BaseRepository
 		return $servicio_establecimiento_usuario::rightJoin('catalogo_servicio_establecimiento', function($join) use($id_usuario_servicio){
 					$join->on('catalogo_servicio_establecimiento.id', '=', 'servicio_establecimiento_usuario.id_servicio_est')
 					->where('servicio_establecimiento_usuario.id_usuario_servicio', '=', $id_usuario_servicio);
-				})->where('catalogo_servicio_establecimiento.id_catalogo_servicio',$dataCatalogo->id_padre)
+				})
+				->where('catalogo_servicio_establecimiento.id_catalogo_servicio',$dataCatalogo->id_padre)
+				->where('catalogo_servicio_establecimiento.id_padre',0)
 				->orderBy('catalogo_servicio_establecimiento.id', 'ASC')
 				->get(['catalogo_servicio_establecimiento.id',
 						'catalogo_servicio_establecimiento.nombre_servicio_est',

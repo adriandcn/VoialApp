@@ -74,6 +74,7 @@
               <ul class="breadcrumbs-custom">
                 <li><a href="{{asset('/')}}">{{ trans('publico/labels.lblHome')}}</a></li>
                 <li>{{ trans('publico/labels.lblPathMapSearch')}}</li>
+                <li>{{ session('tendenciaData')->nombre}}</li>
               </ul>
             </div>
           </div>
@@ -107,7 +108,7 @@
       <section class="section-xs bg-white" id="resultsMap" style="display: none;">
         <div class="shell">
           <div class="heading-group" >
-            <h4><i class="fa fa-search"></i> &nbsp;&nbsp;{{ trans('publico/labels.lblResult')}}</h4>
+            <h4><i class="fa fa-search"></i> &nbsp;&nbsp;{{ trans('publico/labels.lblResult')}} ({{ session('tendenciaData')->nombre}})</h4>
           </div>
           <br>
           <div class="isotope grid-masonry text-left column-offset-30" data-isotope-layout="masonry">

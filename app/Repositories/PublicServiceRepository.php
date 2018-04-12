@@ -3507,8 +3507,12 @@ class PublicServiceRepository extends BaseRepository {
             $value->filename = null;
             $image = DB::table('images')
                 ->where('id_usuario_servicio',$value->id)
-                ->where('estado_fotografia',1)
-                ->where('profile_pic',1)
+                ->where(function($query){
+                     $query->where('profile_pic','=',1);
+                     $query->where('id_catalogo_fotografia','=',1);
+                     $query->orWhereNull('profile_pic');
+
+                })
                 ->select('filename')
                 ->get();
             if (count($image) == 0) {
@@ -3589,9 +3593,11 @@ class PublicServiceRepository extends BaseRepository {
         foreach ($arrayFinded as $serv) {
             $image = DB::table('images')
             ->where('id_usuario_servicio','=',$serv->id)
-            ->where('profile_pic','=',1)
-            ->where('images.id_catalogo_fotografia', '=', 1)
-            ->orWhereNull('profile_pic')
+            ->where(function($query){
+                 $query->where('images.profile_pic','=',1);
+                 $query->where('images.id_catalogo_fotografia','=',1);
+                 $query->orWhereNull('images.profile_pic');
+            })
             ->select('filename')
             ->get();
             if (count($image) > 0) {

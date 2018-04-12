@@ -8,6 +8,7 @@ class Tendencia extends Model
 {
     protected $table = 'tendencias';
     public $timestamps = false;
+    protected $primaryKey = 'idtendencias';
     protected $fillable = ['idtendencias', 'nombre', 'descripcion', 'hashtag' ,'status'] ; 
     protected $hidden = ['status'];
 }

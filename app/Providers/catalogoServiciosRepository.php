@@ -154,9 +154,11 @@ class catalogoServiciosRepository extends BaseRepository
 			array_push($arrayEstServ, $value->id_usuario_servicio);
 		}
 		$finded = $usuario_Servicio->leftJoin('images', 'usuario_servicios.id', '=', 'images.id_usuario_servicio')
-			->where('images.profile_pic', '=', 1)
-			->where('images.id_catalogo_fotografia', '=', 1)
-			->orWhereNull('images.profile_pic')
+			->where(function($query){
+                 $query->where('images.profile_pic','=',1);
+                 $query->where('images.id_catalogo_fotografia','=',1);
+                 $query->orWhereNull('images.profile_pic');
+            })
 			->whereIn('usuario_servicios.id', $arrayEstServ)->get();
 		return $finded;
 	}

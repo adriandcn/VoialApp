@@ -6,70 +6,62 @@ $.ajaxSetup({
 
 var dirServer = $('#serverDir').val();
 $('#restoreForm').hide();
+$('#spinnerMoveServ').hide();
 
-$.fn.blockInput = function (options) 
-    {
-        // find inserted or removed characters
-        function findDelta(value, prevValue) 
-        {
-            var delta = '';
+$.fn.blockInput = function(options) {
+    // find inserted or removed characters
+    function findDelta(value, prevValue) {
+        var delta = '';
 
-            for (var i = 0; i < value.length; i++) {
-                var str = value.substr(0, i) + 
-                    value.substr(i + value.length - prevValue.length);
+        for (var i = 0; i < value.length; i++) {
+            var str = value.substr(0, i) +
+                value.substr(i + value.length - prevValue.length);
 
-                if (str === prevValue) delta = 
-                    value.substr(i, value.length - prevValue.length);
-            }
-
-            return delta;
+            if (str === prevValue) delta =
+                value.substr(i, value.length - prevValue.length);
         }
 
-        function isValidChar(c)
-        {
-            return new RegExp(options.regex).test(c);
-        }
+        return delta;
+    }
 
-        function isValidString(str)
-        {
-            for (var i = 0; i < str.length; i++)
+    function isValidChar(c) {
+        return new RegExp(options.regex).test(c);
+    }
+
+    function isValidString(str) {
+        for (var i = 0; i < str.length; i++)
             if (!isValidChar(str.substr(i, 1))) return false;
 
-            return true;
+        return true;
+    }
+
+    this.filter('input,textarea').on('input', function() {
+        var val = this.value,
+            lastVal = $(this).data('lastVal');
+
+        // get inserted chars
+        var inserted = findDelta(val, lastVal);
+        // get removed chars
+        var removed = findDelta(lastVal, val);
+        // determine if user pasted content
+        var pasted = inserted.length > 1 || (!inserted && !removed);
+
+        if (pasted) {
+            if (!isValidString(val)) this.value = lastVal;
+        } else if (!removed) {
+            if (!isValidChar(inserted)) this.value = lastVal;
         }
 
-        this.filter('input,textarea').on('input', function ()
-        {
-            var val = this.value,
-                lastVal = $(this).data('lastVal');
+        // store current value as last value
+        $(this).data('lastVal', this.value);
+    }).on('focus', function() {
+        $(this).data('lastVal', this.value);
+    });
 
-            // get inserted chars
-            var inserted = findDelta(val, lastVal);
-            // get removed chars
-            var removed = findDelta(lastVal, val);
-            // determine if user pasted content
-            var pasted = inserted.length > 1 || (!inserted && !removed);
+    return this;
+};
 
-            if (pasted)
-            {
-                if (!isValidString(val)) this.value = lastVal;
-            } 
-            else if (!removed)
-            {
-                if (!isValidChar(inserted)) this.value = lastVal;
-            }
-
-            // store current value as last value
-            $(this).data('lastVal', this.value);
-        }).on('focus', function ()
-        {
-            $(this).data('lastVal', this.value);
-        });
-
-        return this;
-    };
-
-    $(".numsOnly").blockInput({ regex: '[0-9A-Z/]' });
+$(".numsOnly").blockInput({ regex: '[0-9A-Z/]' });
 
 function AjaxContainerRegistro($formulario) {
     $("#spinnerSave").show();
@@ -2427,6 +2419,85 @@ function GetDataAjaxImagenesPromotion(idPromotion) {
         dataType: 'json',
         success: function(data) {
             $("#renderImagesPromotion").html(data.contentImagenes);
+        },
+        error: function(data) {
+            var errors = data.responseJSON;
+            if (errors) {
+                $.each(errors, function(i) {
+                    console.log(errors[i]);
+                });
+            }
+        }
+    });
+}
+
+$('#btnRegisterDiv').hide();
+$('.segurosList').hide();
+
+$('#accepTermsCheck').on('change', function(e) {
+    console.log();
+    (this.checked) ? $('#btnRegisterDiv').show(): $('#btnRegisterDiv').hide();
+});
+
+
+var getSegurosList = function(idServicio) {
+    var url = dirServer + "public/cleanSeguros/" + idServicio;
+    $.ajax({
+        type: 'POST',
+        url: url,
+        dataType: 'json',
+        success: function(data) {
+            $('.seg_151').find('input[type=checkbox]:checked').removeAttr('checked');
+        },
+        error: function(data) {
+            var errors = data.responseJSON;
+            if (errors) {
+                $.each(errors, function(i) {
+                    console.log(errors[i]);
+                });
+            }
+        }
+    });
+}
+
+$('.checkPropiedades').on('change', function(e) {
+    if ($(this).attr('namePropiedad').toLowerCase() == 'seguros') {
+        if (this.checked) {
+            $('.segurosList').show();
+            $('.seg_151').show();
+            // getSegurosList($(this).val());
+        } else {
+            $('.segurosList').hide();
+            $('.seg_151').hide();
+            getSegurosList($(this).val());
+        }
+    }
+    // (this.checked) ? $('#btnRegisterDiv').show(): $('#btnRegisterDiv').hide();
+});
+
+var idServToCopy = null;
+var setIdServicioTocopy = function(idServicio) {
+    idServToCopy = idServicio;
+}
+
+var moveServTouser = function(event) {
+    var url = dirServer + "public/moveServTouser";
+    $.ajax({
+        type: 'POST',
+        url: url,
+        dataType: 'json',
+        data: { email: $('#email_copyServ').val(), idServ: idServToCopy },
+        success: function(data) {
+            if (!data.success) {
+                $("#form-modal-copy-serv").hide();
+                showAlert('Error!', 'Email no existe', null, 'warning', 'danger');
+            }else{
+                $("#form-modal-copy-serv").hide();
+                showAlert('Error!', 'Servicio movido correctamente', null, 'warning', 'success');
+                setTimeout(function(){
+                    location.reload();
+                },3000);
+            }
         },
         error: function(data) {
             var errors = data.responseJSON;

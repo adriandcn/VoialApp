@@ -9,7 +9,7 @@ return [
     'lblLogIn' => 'Ingresar',
     'lblRegister' => 'Registro',
     'lblLanguage' => 'Espa&ntilde;ol',
-    // Formulario de ingreso
+    // Formulario de ingreso y registro
     'lblUser' => 'Tu email o usuario',
     'lblPass' => 'Tu contrase&ntilde;a',
     'lblName' =>'Nombre',
@@ -18,6 +18,11 @@ return [
     'lblPassword' =>'Contrase&ntilde;a',
     'lblEmailConfirmation' => 'Ingresa nuevamente tu email',
     'moreRelated' => 'Ver más recomendados',
+    'altRegisterPassword' => 'Ingresa tu contraseña, recuerda que debe ser mayor a 6 caracteres Ej: 123Abc18@XYZ',
+    'altRegisterConfirmation' => 'Repite tu email, procura que coicida con el anterior email Ej: juan18@midominio.com',
+    'altRegisterEmail' => 'Ingresa tu email, recuerda que enviaremos un email de confirmación Ej: juan18@midominio.com',
+    'altRegisterUsername' => 'Ingresa tu nombre de usuario con el que ingresaras al sistema Ej: juan18',
+    'altRegisterName' => 'Ingresa tu nombre Ej: Juan',
     //Filtro de servicios
     'catalogoServTitle' => 'Catálogo de servicios',
     'catalogoServDescription' => 'En esta seccion usted puede visualizar los servicios disponibles de una categoria específica',
@@ -220,4 +225,5 @@ return [
     'lblEmailsContacts' => 'Emails',
     'lblPhonesContacts' => 'Teléfonos',
     'lblAddressContacts' => 'Dirección',
+    'lblRegisterTems' => 'Aceptar términos y condiciones'
 ];

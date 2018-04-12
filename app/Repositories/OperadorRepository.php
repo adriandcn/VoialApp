@@ -361,13 +361,14 @@ class OperadorRepository extends BaseRepository
 					->where('servicio_establecimiento_usuario.id_usuario_servicio', '=', $id_usuario_servicio);
 				})
 				->where('catalogo_servicio_establecimiento.id_catalogo_servicio',$dataCatalogo->id_padre)
-				->where('catalogo_servicio_establecimiento.id_padre',0)
+				// ->where('catalogo_servicio_establecimiento.id_padre',0)
 				->orderBy('catalogo_servicio_establecimiento.id', 'ASC')
 				->get(['catalogo_servicio_establecimiento.id',
 						'catalogo_servicio_establecimiento.nombre_servicio_est',
 						'servicio_establecimiento_usuario.estado_servicio_est_us',
 						'servicio_establecimiento_usuario.id_servicio_est',
-						'servicio_establecimiento_usuario.id AS id_servicio_establecimiento_usuario'
+						'servicio_establecimiento_usuario.id AS id_servicio_establecimiento_usuario',
+						'catalogo_servicio_establecimiento.id_padre'
 				]);
 				
 	}

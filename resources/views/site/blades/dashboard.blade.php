@@ -58,13 +58,23 @@
               <div class="col-xs-12 col-sm-6 col-md-4 isotope-item">
                   <div class="post-masonry post-masonry-short post-content-white bg-post-primary-sec box-skew post-skew-right-bottom post-skew-var-3" style="background: url(images/icon/{{$servicio->filename}});
                           background-size: cover;
-                          background-repeat: no-repeat;" onclick="AjaxContainerEdicionServicios(event,{!!$servicio->id!!}, {!!$servicio->id_catalogo_servicios!!});">
+                          background-repeat: no-repeat; cursor: pointer;">
                       <div class="post-masonry-content">
                           <h4>
-                            <a class="text-white" href="" onclick="AjaxContainerEdicionServicios(event,{!!$servicio->id!!}, {!!$servicio->id_catalogo_servicios!!});"> 
+                            <a class="text-white" href="" > 
                               {{ strtoupper($servicio->nombre_servicio) }}
                             </a>
                           </h4>
+                      </div>
+                      <div style="bottom: 20px !important; position: absolute;">
+                        <button class="button-primary button" style="padding: 3px 0px 3px;
+    margin-top: 7px;" type="button" data-toggle="modal" onclick="AjaxContainerEdicionServicios(event,{!!$servicio->id!!}, {!!$servicio->id_catalogo_servicios!!});">
+                                Editar<span></span>
+                        </button>
+                        <button class="button-primary button" style="padding: 3px 0px 3px;
+    margin-top: 7px;" type="button" data-toggle="modal" data-target="#form-modal-copy-serv" onclick="setIdServicioTocopy({!! $servicio->id !!})">
+                                Asignar a usuario<span></span>
+                        </button>
                       </div>
                   </div>
               </div>
@@ -147,6 +157,34 @@
                 <button class="button-primary button" type="button" onclick="AjaxContainerRegistroWithLoad1(event,'form-add-trip','trip')">
                   <div style="display: inline;" id="spinnerSaveTrip"><i class="fa fa-spinner fa-spin"></i></div>
                   {{trans('back/admin.btnSiguiente')}}<span></span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!-- Modal Copy -->
+  <div class="modal modal-custom fade" id="form-modal-copy-serv" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document" style="width: 80%;">
+        <div class="modal-content">
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+          <div class="modal-header">
+            <h5>Ingresar el correo del usuario a mover</h5>
+          </div>
+          <div class="modal-body">
+            <form class="rd-mailform" id="form-add-trip" action="servicios/moveSer">
+              <div class="form-wrap">
+                <label class="form-label-outside" for="email_copyServ"><i class="fa fa-font"></i>&nbsp;&nbsp;Email</label>
+                <input class="form-input tooltip" id="email_copyServ" type="text" name="email_copyServ" title="Ingrese un correo" data-constraints="@Required">
+              </div>
+              <br>
+              <div class="rowErrorServStep1"></div>
+              <div class="button-wrap text-right">
+                <button class="button-primary button" type="button" onclick="moveServTouser(event)">
+                  <div style="display: inline;" id="spinnerMoveServ"><i class="fa fa-spinner fa-spin"></i></div>
+                  Mover<span></span>
                 </button>
               </div>
             </form>

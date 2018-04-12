@@ -9,7 +9,7 @@ return [
     'lblLogIn' => 'Log In',
     'lblRegister' => 'Registration',
     'lblLanguage' => 'Espa&ntilde;ol',
-    // Formulario de ingreso
+    // Formulario de ingreso y registro
     'lblUser' => 'Your email or user',
     'lblPass' => 'Your password',
     'lblName' =>'Name',
@@ -23,6 +23,11 @@ return [
     'btnFilter' => 'Apply filters',
     'noResult' => 'Oops! No results found',
     'servTypes' => 'Types of services',
+    'altRegisterPassword' => 'Enter your password, remember that it must be greater than 6 characters eg: 123Abc18 @ XYZ',
+    'altRegisterConfirmation' => 'Repeat your email, try to match the previous email Ex: juan18@mydomain.com',
+    'altRegisterEmail' => 'Enter your email, remember that we will send a confirmation email Ex: juan18@mydomain.com',
+    'altRegisterUsername' => 'Enter your username with which you will enter the system Ej: juan18',
+    'altRegisterName' => 'Enter your name Ex: Juan',
     //Detalles de Servicio
     'tittleLoaderDetails' => 'Loading ...',
     'saludoDetails' => 'Welcome to',
@@ -223,4 +228,5 @@ Voilàpp reserves the right to place promotional or advertising advertisements o
     'lblEmailsContacts' => 'Emails',
     'lblPhonesContacts' => 'Phones',
     'lblAddressContacts' => 'Address',
+    'lblRegisterTems' => 'Accept terms and conditions'
 ];

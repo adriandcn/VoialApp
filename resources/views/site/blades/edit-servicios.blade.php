@@ -57,6 +57,7 @@
 
 
       <?php
+$showsegList = 'false';
 $prefix = "";
 $operadorName = "";
 $usuarioServicio->id = 0;
@@ -95,7 +96,6 @@ $usuarioServicio->como_llegar1_1 = '';
 $usuarioServicio->como_llegar2_2 = '';
 $usuarioServicio->latitud_servicio = -0.1806532;
 $usuarioServicio->longitud_servicio = -78.46783820000002;
-
 ?>
 
 @foreach ($usuarioServicio as $detalles)
@@ -345,14 +345,22 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                             <!-- <h4 class="section-title">{{ trans('back/admin.titleServIcludesList')}}</h4> -->
                             @endif
                             <div class="tab-container full-width style2">
-                                    <ul style="list-style: none">
+                                <ul style="list-style: none">
                                  @foreach ($catalogoServicioEstablecimiento as $catalogo)
+                                    @if($catalogo->id == 151 && $catalogo->estado_servicio_est_us == 1)
+                                      <?php $showsegList = 'true'; ?>
+                                    @endif
+                                    @if($catalogo->id_padre == 0)
                                     <li style="margin-bottom: 12px;">
-                                        <input class="circulo chng" name="id_servicio_est[]" id="id_servicio_est[]" 
-                                               value="{!!$catalogo->id!!}" type="checkbox" 
-                                               data-labelauty="No brindo este servicio|Si brindo este servicio" {{($catalogo->estado_servicio_est_us <> NULL)?'checked':''}}/>&nbsp;&nbsp;
+                                        <input class="circulo chng checkPropiedades" name="id_servicio_est[]" id="id_servicio_est[]" value="{!!$catalogo->id!!}" type="checkbox" namePropiedad="{!!$catalogo->nombre_servicio_est!!}" data-labelauty="No brindo este servicio|Si brindo este servicio" {{($catalogo->estado_servicio_est_us <> NULL)?'checked':''}}/>&nbsp;&nbsp;
                                         <strong>{!!$catalogo->nombre_servicio_est!!}</strong>
-                                    </li> 
+                                    </li>
+                                    @else
+                                      <li class="seg_{{$catalogo->id_padre}}" style="margin-left: 20px;">
+                                        <input class="circulo chng" name="id_servicio_est[]" id="id_servicio_est[]" value="{!!$catalogo->id!!}" type="checkbox" namePropiedad="{!!$catalogo->nombre_servicio_est!!}" data-labelauty="No brindo este servicio|Si brindo este servicio" {{($catalogo->estado_servicio_est_us <> NULL)?'checked':''}}/>&nbsp;&nbsp;
+                                        <strong>{!!$catalogo->nombre_servicio_est!!}</strong>
+                                      </li>
+                                    @endif
                                 @endforeach    
                                 </ul>
                             </div>
@@ -677,6 +685,15 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
           });
 }
       </script>
+      @if($showsegList == 'true')
+        <script type="text/javascript">
+          $('.seg_151').show();
+        </script>
+      @else
+      <script type="text/javascript">
+        $('.seg_151').hide();
+      </script>
+      @endif
     <!-- END PANEL-->
   </body>
 </html>

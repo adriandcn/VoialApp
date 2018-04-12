@@ -42,27 +42,30 @@
               <form class="rd-mailform" id="formRegister" action="{{$serverDir}}public/auth/registerr">
                         <div class="form-wrap">
                           <label class="form-label-outside" for="login-name-4">{{ trans('publico/labels.lblName')}}</label>
-                          <input class="form-input tooltip" id="login-name-4" type="text" name="name" data-constraints="@Required" title="Ingresa tu nombre Ej: Juan">
+                          <input class="form-input tooltip" id="login-name-4" type="text" name="name" data-constraints="@Required" title="{{trans('publico/labels.altRegisterName')}}">
                         </div>
                         <div class="form-wrap">
                           <label class="form-label-outside" >{{ trans('publico/labels.lblUsername')}}</label>
-                          <input class="form-input tooltip" type="text" name="username" data-constraints="@Required" title="Ingresa tu nombre de usuario con el que ingresaras al sistema Ej: juan18">
+                          <input class="form-input tooltip" type="text" name="username" data-constraints="@Required" title="{{trans('publico/labels.altRegisterUsername')}}">
                         </div>
                         <div class="form-wrap">
                           <label class="form-label-outside" for="login-email-4">{{ trans('publico/labels.lblEmail')}}</label>
-                          <input class="form-input tooltip" id="login-email-4" type="email" name="email" data-constraints="@Email" title="Ingresa tu email, recuerda que enviaremos un email de confirmación Ej: juan18@midominio.com">
+                          <input class="form-input tooltip" id="login-email-4" type="email" name="email" data-constraints="@Email" title="{{trans('publico/labels.altRegisterEmail')}}">
                         </div>
                         <div class="form-wrap">
                           <label class="form-label-outside" >{{ trans('publico/labels.lblEmailConfirmation')}}</label>
-                          <input class="form-input tooltip" id="login-email-confirmation" type="email" name="email_confirmation" data-constraints="@Email" title="Repite tu email, procura que coicida con el anterior email Ej: juan18@midominio.com">
+                          <input class="form-input tooltip" id="login-email-confirmation" type="email" name="email_confirmation" data-constraints="@Email" title="{{trans('publico/labels.altRegisterConfirmation')}}">
                         </div>
                         <div class="form-wrap">
                           <label class="form-label-outside" for="login-password-4">{{ trans('publico/labels.lblPassword')}}</label>
-                          <input class="form-input tooltip" id="login-password-4" type="password" name="password" data-constraints="@Required" title="Ingresa tu contraseña, recuerda que debe ser mayor a 6 caracteres Ej: 123Abc18@XYZ">
+                          <input class="form-input tooltip" id="login-password-4" type="password" name="password" data-constraints="@Required" title="{{trans('publico/labels.altRegisterPassword')}}">
                           <input class="form-input" id="system" type="hidden" name="system" value="VOILAPP">
                         </div>
+                        <div class="form-wrap">
+                          <label class="form-label-outside" for="login-password-4"><input type="checkbox" name="acceptTerms" id="accepTermsCheck" /> <a href="{{asset('/contacts')}}">{{ trans('publico/labels.lblRegisterTems')}}</a></label>
+                        </div>
                         <div class="rowerrorRegister" style="margin-top: 10px"></div>
-                        <div class="group-buttons-3 group-md-justify">
+                        <div class="group-buttons-3 group-md-justify" id="btnRegisterDiv">
                             <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-facebook" href="{{url('/redirect/R')}}" target="_blank">
                                 {{ trans('publico/labels.btnRegisterFacebook')}}
                                 <span></span>

@@ -37,6 +37,8 @@ Route::post('promotionImages/{idpromotion}', ['as' => 'images-promotion', 'uses'
 // --Servicios--
 Route::get('/serviciosres', ['as' => 'detailres', 'uses' => 'UsuarioServiciosController@tablaServiciosRes', 'middleware' => 'notAuth']);
 Route::get('/edicionServicios', ['uses' => 'ServicioController@edicionServicios', 'middleware' => 'notAuth']);
+Route::post('/moveServTouser', ['uses' => 'ServicioController@moveServTouser', 'middleware' => 'notAuth']);
+Route::post('/cleanSeguros/{idService}', ['uses' => 'ServicioController@cleanSeguros', 'middleware' => 'notAuth']);
 Route::get('/editServicios/{id_usuario_op}', ['as' => 'detail', 'uses' => 'UsuarioServiciosController@tablaServicios']);
 Route::post('servicios/DetalleOperador', ['as' => 'upload-postDetalleOperador', 'uses' => 'UsuarioServiciosController@postDetalle']);
 Route::get('/editServicios/{id_usuario_servicio}', ['as' => 'detailServicio', 'uses' => 'UsuarioServiciosController@tablaServicios']);

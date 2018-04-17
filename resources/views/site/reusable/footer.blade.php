@@ -91,6 +91,7 @@
         </div>
       </div>
     </div>
+    <script src="{{ asset('/siteStyle/js/wNumb.js')}}"></script>
     <script src="{{ asset('/siteStyle/js/core.min.js')}}"></script>
     <script src="{{ asset('/siteStyle/js/script.js')}}"></script>
     <script src="{{ asset('/siteStyle/sweetalert/sweetalert.js')}}"></script>

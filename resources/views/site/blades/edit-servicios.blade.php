@@ -356,7 +356,7 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                                         <strong>{!!$catalogo->nombre_servicio_est!!}</strong>
                                     </li>
                                     @else
-                                      <li class="seg_{{$catalogo->id_padre}}" style="margin-left: 20px;">
+                                      <li class="seg_{{$catalogo->id_padre}}" style="margin-left: 20px; margin-bottom: 12px;">
                                         <input class="circulo chng" name="id_servicio_est[]" id="id_servicio_est[]" value="{!!$catalogo->id!!}" type="checkbox" namePropiedad="{!!$catalogo->nombre_servicio_est!!}" data-labelauty="No brindo este servicio|Si brindo este servicio" {{($catalogo->estado_servicio_est_us <> NULL)?'checked':''}}/>&nbsp;&nbsp;
                                         <strong>{!!$catalogo->nombre_servicio_est!!}</strong>
                                       </li>
@@ -585,13 +585,17 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
 
     noUiSlider.create(keypressSlider, {
         start: [0, 100],
-        connect: true,
+        connect: false,
         range: {
             'min': 0,
             'max': 1000
         },
         tooltips: true,
-        step: 1
+        step: 1,
+        format : wNumb({
+            thousand: '.',
+            decimals: 0
+        })
     });
 
     keypressSlider.noUiSlider.on('update', function( values, handle ) {

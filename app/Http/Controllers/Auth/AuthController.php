@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Cookie;
 use Input;
 use Mail;
 use DB;
+use Illuminate\Support\Facades\Session;
 class AuthController extends Controller {
 
     protected $validationRules = [
@@ -333,6 +334,7 @@ class AuthController extends Controller {
             $request->session()->put('user_id',$user->id);
 
             $request->session()->put('user_name', $user->username);
+            Session::put('roleId', $user->rol_id);
            
             $email = $auth->user()->email;
             $nombre = $auth->user()->user_name;

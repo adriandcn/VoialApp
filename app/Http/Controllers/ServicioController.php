@@ -1134,7 +1134,7 @@ class ServicioController extends Controller
     public function getServiciosByChildcatalogo($idCatalogo, $idSubCatalogo, catalogoServiciosRepository $catalogoServicios)
 
         {
-        $campos = ['id_catalogo_servicios', 'nombre_servicio', 'nombre_servicio_eng', 'descripcion'];
+        $campos = ['id_catalogo_servicios', 'nombre_servicio', 'nombre_servicio_eng', 'descripcion','image'];
         $campos_serv = ['usuario_servicios.id', 'nombre_servicio', 'detalle_servicio', 'images.filename', 'id_catalogo_servicio'];
         $dataCatalogo = DB::table('catalogo_servicios')->select($campos)->where('id_catalogo_servicios', $idCatalogo)->first();
         $dataSubCatalogo = DB::table('catalogo_servicios')->select($campos)->where('id_catalogo_servicios', $idSubCatalogo)->first();

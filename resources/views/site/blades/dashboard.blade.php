@@ -24,7 +24,7 @@
       <!-- Modal-->
       @include('site.reusable.header')
       <!-- Breadcrumbs & Page title-->
-      <section class="page-title breadcrumbs-elements page-title-inset-1">
+      <section class="page-title breadcrumbs-elements page-title-inset-1" style="background: white;">
         <div class="shell">
           <div class="page-title__overlay box-skew box-skew-var-1"><span class="box-skew__item"></span>
             <div class="page-title-text">{{ trans('back/admin.saludo')}}, {!!session('user_name')!!}</div>
@@ -71,10 +71,12 @@
     margin-top: 7px;" type="button" data-toggle="modal" onclick="AjaxContainerEdicionServicios(event,{!!$servicio->id!!}, {!!$servicio->id_catalogo_servicios!!});">
                                 Editar<span></span>
                         </button>
+                        @if(Auth::user()->role_id < 3)
                         <button class="button-primary button" style="padding: 3px 0px 3px;
     margin-top: 7px;" type="button" data-toggle="modal" data-target="#form-modal-copy-serv" onclick="setIdServicioTocopy({!! $servicio->id !!})">
                                 Asignar a usuario<span></span>
                         </button>
+                        @endif
                       </div>
                   </div>
               </div>

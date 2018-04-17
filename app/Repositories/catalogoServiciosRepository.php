@@ -125,6 +125,7 @@ class catalogoServiciosRepository extends BaseRepository
 	                            ->where('estado_catalogo_servicios',1)
 
 	                            ->where('id_padre',$value->id_catalogo_servicios)
+	                            ->orderBy('orden','ASC')
 
 	                            ->get();
 

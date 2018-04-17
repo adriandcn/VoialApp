@@ -61,7 +61,7 @@
       <!-- Modal-->
       @include('site.reusable.header')
       <!-- Breadcrumbs & Page title-->
-      <section class="page-title breadcrumbs-elements page-title-inset-1">
+      <section class="page-title breadcrumbs-elements page-title-inset-1" style="background: url('{{asset('/images/Fondos')}}/{{$dataSubCatalogo->image}}');background-position: center; background-size: cover;">
         <div class="shell">
           <div class="page-title__overlay box-skew box-skew-var-1"><span class="box-skew__item"></span>
             <div class="page-title-text">{{$dataSubCatalogo->nombre_servicio}}</div>

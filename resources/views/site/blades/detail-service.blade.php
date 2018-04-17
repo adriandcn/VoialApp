@@ -4,6 +4,11 @@
     <!-- Site Title-->
     <title>Servicios</title>
     @include('site.reusable.head')
+    <meta property="og:url"           content="{{Request::url()}}" />
+    <meta property="og:type"          content="website" />
+    <meta property="og:title"         content="{{strtoupper($detalles->nombre_servicio)}}" />
+    <meta property="og:description"   content="{{$detalles->detalle_servicio}}" />
+    <meta property="og:image"         content="{{asset('/images/fullsize')}}/{{$detalles->filename}}" />
      <style type="text/css">
       .eventCard {
         border-bottom: 1px solid #ccc;
@@ -95,6 +100,9 @@
               <div class="post-single">
                 <section class="section-xs bg-white">
                   <div class="shell">
+                    <div class="fb-share-button" data-href="{{Request::url()}}" data-layout="button" data-size="large" data-mobile-iframe="true">
+                      <a target="_blank" href="{{Request::url()}}" class="fb-xfbml-parse-ignore">Compartir</a>
+                    </div>
                     <p class="big" style="text-align: justify;">{{$detalles->detalle_servicio}}</p><br>
                     <div class="panel-custom-group-wrap">
                       <!-- Bootstrap collapse-->
@@ -184,6 +192,27 @@
                             </div>
                           </div>
                         </div>
+                        <!-- Bootstrap panel-->
+                        <div class="panel panel-custom panel-custom-default">
+                          <div class="panel-custom-heading" id="accordion1Heading3" role="tab">
+                            <p class="panel-custom-title">
+                              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="#accordion1Collapse5" aria-controls="accordion1Collapse5">
+                                <i class="fa fa-list"></i>&nbsp;&nbsp;{{trans('publico/labels.titleEstablecimiento')}}
+                              </a>
+                            </p>
+                          </div>
+                          <div class="panel-custom-collapse collapse" id="accordion1Collapse5" role="tabpanel" aria-labelledby="accordion1Heading3">
+                            <div class="panel-custom-body">
+                              @foreach($listPropiedades as $propiedad)
+                                @if($propiedad->id_servicio_establecimiento_usuario != null)
+                                  <h6 style="font-size: 14px;"> 
+                                    <i class="fa-check"></i>&nbsp;&nbsp;{{$propiedad->nombre_servicio_est}}
+                                  </h6>
+                                @endif
+                              @endforeach
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -265,7 +294,7 @@
       <!-- Page Footer-->
       <script type="text/javascript">
         $(document).ready(function () {
-          GetDataAjaxImagenesRes("{!!asset('/getImagesServicio')!!}/1/{!!$detalles->id!!}");
+          GetDataAjaxImagenesRes("{!!asset('/getImagesServicio')!!}/1/{!!$detalles->id_usuario_servicio!!}");
           var owl = $('.owl-carousel');
           owl.owlCarousel({
               loop:true,
@@ -277,6 +306,15 @@
           });
         });
       </script>
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = 'https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v2.12&appId=164878350792188&autoLogAppEvents=1';
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+        </script>
       @include('site.reusable.footer')
     </div>
     <!-- END PANEL-->

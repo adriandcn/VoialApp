@@ -50,7 +50,7 @@
                     @endif
                   </div>
                   <ul class="list-inline">
-                    @if(session('statut') == 'user')
+                    @if(session('statut') == 'user' || session('statut') == 'admin')
                       <li>
                         <a class="icon fa fa-tachometer text-white" href="{!!asset('/serviciosres')!!}"> 
                           {{ trans('publico/labels.lblDash')}}

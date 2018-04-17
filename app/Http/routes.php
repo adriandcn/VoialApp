@@ -1,20 +1,20 @@
 <?php
-//pruebas
+// pruebas
 Route::get('/test', ['as' => 'publico', 'uses' => 'pruebasCtrl@test']);
-//Lenguaje
+// Lenguaje
 Route::get('language', 'HomeController@language');
-//Login
+// Login
 Route::get('auth/loginr', 'Auth\AuthController@postLoginr');
-//login Facebook
+// login Facebook
 Route::get('/redirect/{typeAction}', 'SocialAuthFacebookController@redirect');
 Route::get('/callback', 'SocialAuthFacebookController@callback');
-//--Home--
+// --Home--
 Route::get('/', ['as' => 'publico', 'uses' => 'HomePublicController@getHome']);
 // Tendencias
 Route::get('/getTend/{idCatalogo}', ['as' => 'clicsTendencias', 'uses' => 'tendenciasController@getTendencias']);
 Route::post('/clicTend', ['as' => 'clicsTendencias', 'uses' => 'tendenciasController@saveClickTendencias']);
 Route::get('/getLastServicesCreated', ['as' => 'publico', 'uses' => 'HomePublicController@getLastServicesCreated']);
-//--Search--
+// --Search--
 Route::get('Search', ['as' => 'min-search', 'uses' => 'SearchController@getSearchTotal']);
 Route::get('searchMap', ['as' => 'map-search', 'uses' => 'SearchController@getViewSearchMap']);
 Route::post('searchAllInMap', ['as' => 'map-search', 'uses' => 'SearchController@searchAllInMap']);
@@ -33,7 +33,6 @@ Route::post('upload', ['as' => 'upload-post', 'uses' => 'ImageController@postUpl
 Route::post('uploadEvent', ['as' => 'upload-event', 'uses' => 'ImageController@postUpload']);
 Route::post('upload/delete', ['as' => 'upload-remove', 'uses' => 'ImageController@deleteUpload']);
 Route::post('promotionImages/{idpromotion}', ['as' => 'images-promotion', 'uses' => 'ImageController@promotionImages']);
-
 // --Servicios--
 Route::get('/serviciosres', ['as' => 'detailres', 'uses' => 'UsuarioServiciosController@tablaServiciosRes', 'middleware' => 'notAuth']);
 Route::get('/edicionServicios', ['uses' => 'ServicioController@edicionServicios', 'middleware' => 'notAuth']);
@@ -68,19 +67,18 @@ Route::get('/getCantones1/{id}/{id_canton}/{id_parroquia}', ['as' => 'cantones1'
 Route::get('/getParroquias1/{id}/{id_parroquia}', ['as' => 'parroquias1', 'uses' => 'UsuarioServiciosController@getParroquias1']);
 // -- Busqueda--
 Route::get('/Search', ['as' => 'SearchIndex', 'uses' => 'SearchController@getTotalSearchInside']);
-
 // Save Horario
 Route::post('/saveHorario', ['as' => 'SearchIndex', 'uses' => 'horarioController@store', 'middleware' => 'notAuth']);
-//Eventos y promociones
+// Eventos y promociones
 Route::get('/eventPromotionsAdmin/{idServicio}', ['as' => 'eventspromotionsAdmin', 'uses' => 'UsuarioServiciosController@getEventos', 'middleware' => 'notAuth']);
 Route::post('/addEventPomotions', ['as' => 'AddEventstPromotions', 'uses' => 'UsuarioServiciosController@store', 'middleware' => 'notAuth']);
 Route::get('/addEvent/{idUsuarioServicio}', ['as' => 'getEventsByService', 'uses' => 'UsuarioServiciosController@getViewAdd', 'middleware' => 'notAuth']);
 Route::get('/editEvent/{idPromotion}', ['as' => 'getEventData', 'uses' => 'UsuarioServiciosController@getViewEdit', 'middleware' => 'notAuth']);
 Route::post('/updateEvent', ['as' => 'AddEventst', 'uses' => 'UsuarioServiciosController@postPromocion', 'middleware' => 'notAuth']);
 Route::get('/detailPromotion/{idPromotion?}', ['as' => 'AddEventst', 'uses' => 'HomePublicController@getDetailPromotion']);
-//blog
+// blog
 Route::get('/Blog/{idArticle?}', ['as' => 'AddEventst', 'uses' => 'HomePublicController@getViewArticles']);
-
-//MISION VISION POLITICAS
+// MISION VISION POLITICAS
 Route::get('/contacts', ['as' => 'about-us', 'uses' => 'HomePublicController@getViewAboutUs']);
 Route::get('/termsConditions', ['as' => 'about-us', 'uses' => 'HomePublicController@getViewTerms']);
+Route::get('sitemap', ['as' => 'site-map', 'uses' => 'siteMapController@genSiteMap']);

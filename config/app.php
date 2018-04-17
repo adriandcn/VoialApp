@@ -147,7 +147,8 @@ return [
 		App\Services\Html\HtmlServiceProvider::class,
         Bestmomo\Filemanager\FilemanagerServiceProvider::class,
         Greggilbert\Recaptcha\RecaptchaServiceProvider::class,
-        'Laravel\Socialite\SocialiteServiceProvider'
+        'Laravel\Socialite\SocialiteServiceProvider',
+        Roumen\Sitemap\SitemapServiceProvider::class,
         
 	],
 

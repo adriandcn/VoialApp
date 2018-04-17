@@ -228,5 +228,6 @@ Voilàpp reserves the right to place promotional or advertising advertisements o
     'lblEmailsContacts' => 'Emails',
     'lblPhonesContacts' => 'Phones',
     'lblAddressContacts' => 'Address',
-    'lblRegisterTems' => 'Accept terms and conditions'
+    'lblRegisterTems' => 'Accept terms and conditions',
+    'titleEstablecimiento' => 'Extra services'
 ];

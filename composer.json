@@ -15,7 +15,8 @@
         "intervention/image": "^2.3",
         "greggilbert/recaptcha": "dev-master",
         "milon/barcode": "^5.3" ,
-        "laravel/socialite": "~2.0" 
+        "laravel/socialite": "~2.0",
+        "roumen/sitemap": "^2.6" 
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

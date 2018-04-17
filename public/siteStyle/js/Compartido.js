@@ -108,14 +108,12 @@ function AjaxContainerRegistro($formulario) {
 function RenderBooking($id_usuario_operador, $id_usuario_servicio) {
 
     var url = "/booking/" + $id_usuario_servicio;
-    console.log(url);
     $.ajax({
         type: 'GET',
         //url: '/booking/'+$id_usuario_servicio,
         url: url,
         data: "",
         success: function(data) {
-            console.log(data);
             //console.log(data.redirectto);
             window.open(data.redirectto, '_blank');
             //window.location.href = data.redirectto;
@@ -138,14 +136,12 @@ function RenderBooking($id_usuario_operador, $id_usuario_servicio) {
 function RenderBookingCalendario($id_usuario_operador, $id_usuario_servicio, $calendar_id) {
 
     var url = "/bookingCalendario/" + $id_usuario_servicio + "/" + $calendar_id;
-    console.log(url);
     $.ajax({
         type: 'GET',
         //url: '/booking/'+$id_usuario_servicio,
         url: url,
         data: "",
         success: function(data) {
-            console.log(data);
             //console.log(data.redirectto);
             window.open(data.redirectto, '_blank');
             //window.location.href = data.redirectto;
@@ -1114,7 +1110,6 @@ function AjaxContainerEdicionServicios(event, $id_usuario_servicio, $id_catalogo
 
     event.preventDefault();
     var url = dirServer + "public/servicios/serviciooperador1/" + $id_usuario_servicio + "/" + $id_catalogo;
-    console.log(url);
     var id = $id_usuario_servicio;
     //alert(id);
     //alert(url);      
@@ -1341,9 +1336,7 @@ function GetDataAjaxImagenesRes(url) {
         url: url,
         dataType: 'json',
         success: function(data) {
-
             $("#renderPartialImagenes").html(data.contentImagenes);
-
         },
         error: function(data) {
             var errors = data.responseJSON;
@@ -1403,7 +1396,6 @@ function AjaxContainerVistaPrevia($id_usuario_servicio) {
         url: url,
         data: "",
         success: function(data) {
-            console.log(data);
             //console.log(data.redirectto);
             window.location.href = data.redirectto;
         },
@@ -1426,8 +1418,6 @@ function AjaxSaveDetailsFotografia1($formulario, $id) {
     var $form = $('#' + $formulario),
         data = $form.serialize() + '&ids=' + $id + '&actionImage=update';
     url = $form.attr("action");
-    console.log(url);
-    console.log(data);
     var posting = $.post(url, { formData: data });
     posting.done(function(data) {
         if (data.fail) {
@@ -1519,7 +1509,6 @@ $('#24_h').on('switchChange.bootstrapSwitch', function(event, state) {
         }
         $('.checkboxDays').bootstrapSwitch('state', true);
     } else {
-        console.log('aqui');
         for (var i = 0; i < 7; i++) {
             // $('#from_time' + i).attr('disabled', 'disabled');
             // $('#to_time' + i).attr('disabled', 'disabled');
@@ -1572,7 +1561,6 @@ function applyFilterDays(item) {
         $('#from_time' + item).val(null);
         $('#to_time' + item).attr('disabled', 'disabled');
         $('#to_time' + item).val(null);
-        console.log(item);
 
     }
 }
@@ -2017,9 +2005,6 @@ var openFilterModal = function(event) {
 
 function searchServ(event, idCatalogo, idSubCatalogo) {
     event.preventDefault();
-    // console.log(filtersServ);
-    // console.log(idCatalogo);
-    // console.log(idSubCatalogo);
     var data = {
         filter: filtersServ,
         idCatalogo: idCatalogo,
@@ -2435,7 +2420,6 @@ $('#btnRegisterDiv').hide();
 $('.segurosList').hide();
 
 $('#accepTermsCheck').on('change', function(e) {
-    console.log();
     (this.checked) ? $('#btnRegisterDiv').show(): $('#btnRegisterDiv').hide();
 });
 

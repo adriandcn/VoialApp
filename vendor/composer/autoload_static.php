@@ -308,6 +308,13 @@ class ComposerStaticInitce62281e682fe637a6f07dfa594e3b24
     );
 
     public static $prefixesPsr0 = array (
+        'R' => 
+        array (
+            'Roumen\\Sitemap' => 
+            array (
+                0 => __DIR__ . '/..' . '/roumen/sitemap/src',
+            ),
+        ),
         'P' => 
         array (
             'Prophecy\\' => 
@@ -422,6 +429,7 @@ class ComposerStaticInitce62281e682fe637a6f07dfa594e3b24
         'App\\Jobs\\SetLocale' => __DIR__ . '/../..' . '/app/Jobs/SetLocale.php',
         'App\\Jobs\\VerifyReview' => __DIR__ . '/../..' . '/app/Jobs/VerifyReview.php',
         'App\\Logic\\Image\\ImageRepository' => __DIR__ . '/../..' . '/app/Logic/Image/ImageRepository.php',
+        'App\\Logic\\Image\\_ImageRepository' => __DIR__ . '/../..' . '/app/Logic/Image/_ImageRepository.php',
         'App\\Models\\Booking\\Detalle_Especialidad' => __DIR__ . '/../..' . '/app/Models/Booking/Detalle_Especialidad.php',
         'App\\Models\\Booking\\Especialidad' => __DIR__ . '/../..' . '/app/Models/Booking/Especialidad.php',
         'App\\Models\\Booking\\MD5' => __DIR__ . '/../..' . '/app/Models/Booking/MD5.php',
@@ -469,17 +477,17 @@ class ComposerStaticInitce62281e682fe637a6f07dfa594e3b24
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
-        'App\\Repositories\\BaseRepository' => __DIR__ . '/../..' . '/app/Repositories/BaseRepository.php',
-        'App\\Repositories\\BlogRepository' => __DIR__ . '/../..' . '/app/Repositories/BlogRepository.php',
-        'App\\Repositories\\CommentRepository' => __DIR__ . '/../..' . '/app/Repositories/CommentRepository.php',
-        'App\\Repositories\\ContactRepository' => __DIR__ . '/../..' . '/app/Repositories/ContactRepository.php',
-        'App\\Repositories\\OperadorRepository' => __DIR__ . '/../..' . '/app/Repositories/OperadorRepository.php',
-        'App\\Repositories\\PublicServiceRepository' => __DIR__ . '/../..' . '/app/Repositories/PublicServiceRepository.php',
-        'App\\Repositories\\RoleRepository' => __DIR__ . '/../..' . '/app/Repositories/RoleRepository.php',
-        'App\\Repositories\\ServiciosOperadorRepository' => __DIR__ . '/../..' . '/app/Repositories/ServiciosOperadorRepository.php',
-        'App\\Repositories\\UserRepository' => __DIR__ . '/../..' . '/app/Repositories/UserRepository.php',
-        'App\\Repositories\\catalogoServiciosRepository' => __DIR__ . '/../..' . '/app/Repositories/catalogoServiciosRepository.php',
-        'App\\Repositories\\redesSocialesRepository' => __DIR__ . '/../..' . '/app/Repositories/redesSocialesRepository.php',
+        'App\\Repositories\\BaseRepository' => __DIR__ . '/../..' . '/app/Providers/BaseRepository.php',
+        'App\\Repositories\\BlogRepository' => __DIR__ . '/../..' . '/app/Providers/BlogRepository.php',
+        'App\\Repositories\\CommentRepository' => __DIR__ . '/../..' . '/app/Providers/CommentRepository.php',
+        'App\\Repositories\\ContactRepository' => __DIR__ . '/../..' . '/app/Providers/ContactRepository.php',
+        'App\\Repositories\\OperadorRepository' => __DIR__ . '/../..' . '/app/Providers/OperadorRepository.php',
+        'App\\Repositories\\PublicServiceRepository' => __DIR__ . '/../..' . '/app/Providers/PublicServiceRepository.php',
+        'App\\Repositories\\RoleRepository' => __DIR__ . '/../..' . '/app/Providers/RoleRepository.php',
+        'App\\Repositories\\ServiciosOperadorRepository' => __DIR__ . '/../..' . '/app/Providers/ServiciosOperadorRepository.php',
+        'App\\Repositories\\UserRepository' => __DIR__ . '/../..' . '/app/Providers/UserRepository.php',
+        'App\\Repositories\\catalogoServiciosRepository' => __DIR__ . '/../..' . '/app/Providers/catalogoServiciosRepository.php',
+        'App\\Repositories\\redesSocialesRepository' => __DIR__ . '/../..' . '/app/Providers/redesSocialesRepository.php',
         'App\\Services\\Html\\FormBuilder' => __DIR__ . '/../..' . '/app/Services/Html/FormBuilder.php',
         'App\\Services\\Html\\HtmlServiceProvider' => __DIR__ . '/../..' . '/app/Services/Html/HtmlServiceProvider.php',
         'App\\Services\\LoremIpsumGenerator' => __DIR__ . '/../..' . '/app/Services/LoremIpsumGenerator.php',
@@ -3158,6 +3166,9 @@ class ComposerStaticInitce62281e682fe637a6f07dfa594e3b24
         'Psy\\VarDumper\\Dumper' => __DIR__ . '/..' . '/psy/psysh/src/Psy/VarDumper/Dumper.php',
         'Psy\\VarDumper\\Presenter' => __DIR__ . '/..' . '/psy/psysh/src/Psy/VarDumper/Presenter.php',
         'Psy\\VarDumper\\PresenterAware' => __DIR__ . '/..' . '/psy/psysh/src/Psy/VarDumper/PresenterAware.php',
+        'Roumen\\Sitemap\\Model' => __DIR__ . '/..' . '/roumen/sitemap/src/Roumen/Sitemap/Model.php',
+        'Roumen\\Sitemap\\Sitemap' => __DIR__ . '/..' . '/roumen/sitemap/src/Roumen/Sitemap/Sitemap.php',
+        'Roumen\\Sitemap\\SitemapServiceProvider' => __DIR__ . '/..' . '/roumen/sitemap/src/Roumen/Sitemap/SitemapServiceProvider.php',
         'SebastianBergmann\\Comparator\\ArrayComparator' => __DIR__ . '/..' . '/sebastian/comparator/src/ArrayComparator.php',
         'SebastianBergmann\\Comparator\\Comparator' => __DIR__ . '/..' . '/sebastian/comparator/src/Comparator.php',
         'SebastianBergmann\\Comparator\\ComparisonFailure' => __DIR__ . '/..' . '/sebastian/comparator/src/ComparisonFailure.php',

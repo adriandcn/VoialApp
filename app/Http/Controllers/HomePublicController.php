@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Response;
 use App\Repositories\PublicServiceRepository;
 use App\Repositories\catalogoServiciosRepository;
 use App\Repositories\ServiciosOperadorRepository;
+use App\Repositories\OperadorRepository;
 use Input;
 use Validator;
 use Jenssegers\Agent\Agent;
@@ -802,14 +803,16 @@ class HomePublicController extends Controller {
 
 
     //Obtiene las descripcion de la atraccion elegida
-    public function getSearchHomeCatalogo(PublicServiceRepository $gestion, $id_catalogo, ServiciosOperadorRepository $gestionServ) {
+    public function getSearchHomeCatalogo(PublicServiceRepository $gestion, $id_catalogo, ServiciosOperadorRepository $gestionServ, OperadorRepository $operadorGestion) {
 
         $detalles = $gestion->obtenerDetallesServicio($id_catalogo);
         $listPromociones = $gestionServ->getPromocionesUsuarioServicio($id_catalogo);
-        // return response()->json(['a' => $$id_catalogo]);
+        $listPropiedades = $operadorGestion->getCatalogoServicioEstablecimientoExistente($detalles->id_catalogo_servicio,$detalles->id_usuario_servicio);
+        // return response()->json(['a' => $listPropiedades]);
         if ($detalles != null) {
             return view('site.blades.detail-service')
                             ->with('detalles', $detalles)
+                            ->with('listPropiedades', $listPropiedades)
                             ->with('listPromociones', $listPromociones);
         } else {
             return redirect('/');

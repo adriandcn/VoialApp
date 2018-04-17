@@ -225,5 +225,6 @@ return [
     'lblEmailsContacts' => 'Emails',
     'lblPhonesContacts' => 'Teléfonos',
     'lblAddressContacts' => 'Dirección',
-    'lblRegisterTems' => 'Aceptar términos y condiciones'
+    'lblRegisterTems' => 'Aceptar términos y condiciones',
+    'titleEstablecimiento' => 'Servicios extras'
 ];

@@ -359,7 +359,7 @@ Actualizar tabla de busqueda
         foreach ($objeto as $servicioBase) {
             
             $operador = new $this->search_engine;
-        $operadorData = $operador::where('id_tipo', $id_tipo)
+            $operadorData = $operador::where('id_tipo', $id_tipo)
                 ->where('tipo_busqueda', '=', $tipo)
                 ->update(['search' => $search]);
         }

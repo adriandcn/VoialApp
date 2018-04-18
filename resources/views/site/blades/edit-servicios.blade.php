@@ -108,8 +108,8 @@ $usuarioServicio->detalle_servicio_eng = trim($detalles->detalle_servicio_eng);
 $usuarioServicio->estado_servicio_usuario = trim($detalles->estado_servicio_usuario);
 $usuarioServicio->id_catalogo_servicio = trim($detalles->id_catalogo_servicio);
 
-$usuarioServicio->precio_desde = trim($detalles->precio_desde);
-$usuarioServicio->precio_hasta = trim($detalles->precio_hasta);
+$usuarioServicio->precio_desde = intval($detalles->precio_desde);
+$usuarioServicio->precio_hasta = intval($detalles->precio_hasta);
 $usuarioServicio->precio_anterior = trim($detalles->precio_anterior);
 $usuarioServicio->precio_actual = trim($detalles->precio_actual);
 $usuarioServicio->descuento_servico = trim($detalles->descuento_servico);
@@ -209,10 +209,10 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                             <i class="fa fa-info"></i>&nbsp;&nbsp;</label>
                         </div>
                       </div>
-                      <div class="cell-sm-12">
+                      <div class="cell-sm-8">
                         <div class="form-wrap">
                            <label class="form-label-outside" for="contact-first-name"><i class="fa fa-money"></i>&nbsp;&nbsp;{{ trans('back/admin.lblRangoPrecio')}}</label>
-                          <div id="keypress"></div>
+                          <div style="margin-left: 20px !important;" id="keypress"></div>
                         </div>
                       </div>
                       <div class="cell-sm-6">
@@ -677,6 +677,10 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
     $('#precio_hasta').click(function() {
      this.select();
     });
+
+    $('#precio_desde').val('{!!$usuarioServicio->precio_desde!!}');
+    $('#precio_hasta').val('{!!$usuarioServicio->precio_hasta!!}');
+    keypressSlider.noUiSlider.set(['{!!$usuarioServicio->precio_desde!!}','{!!$usuarioServicio->precio_hasta!!}']);
 
     var owl = $('.owl-carousel');
           owl.owlCarousel({

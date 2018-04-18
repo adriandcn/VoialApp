@@ -19,16 +19,29 @@
                 </ul>
                 <h4>Links</h4>
                 <ul class="list-marked-2 list-bold list-primary-sec list-xs-inline-block">
-                  <li><a href="#">Link A</a></li>
-                  <li><a href="#">Link B</a></li>
-                  <li><a href="#">Link C</a></li>
-                  <li><a href="#">Link D</a></li>
+                  <li><a href="http://www.cruzroja.org.ec/" target="_new">Cruz Roja Ecuatoriana</a></li>
+                  <li><a href="http://www.salud.gob.ec/" target="_new">Ministerio de Salud Pública del Ecuador</a></li>
+                  <li><a href="http://www.ecu911.gob.ec/" target="_new">911</a></li>
+                  <li><a href="https://www.iess.gob.ec" target="_new">IESS</a></li>
                 </ul>
               </div>
               <div class="cell-md-4 cell-sm-11 wow fadeInUp" data-wow-delay=".4s">
                 <h4>Partners:</h4>
-                <div class="footer-partners group-lg"><a href="#"><img src="{{asset('/siteStyle/images/partners-1-161x49.jpg')}}" alt="" width="161" height="49"/></a><a href="#"><img src="{{asset('/siteStyle/images/partners-2-54x55.jpg')}}" alt="" width="54" height="55"/></a><a href="#"><img src="{{asset('/siteStyle/images/partners-3-105x43.jpg')}}" alt="" width="105" height="43"/></a><a href="#"><img src="{{asset('/siteStyle/images/partners-4-52x55.jpg')}}" alt="" width="52" height="55"/></a><a href="#"><img src="{{asset('/siteStyle/images/partners-5-177x60.jpg')}}" alt="" width="177" height="60"/></a></div>
-                <h4>Newsletter</h4>
+                <div class="footer-partners group-lg">
+                  <a href="https://www.farmaciasmedicity.com/" target="_new">
+                    <img src="{{asset('/siteStyle/images/partners/medicity.jpg')}}" alt="" width="161" height="49"/>
+                  </a>
+                  <a href="https://iwanatrip.com" target="_new">
+                    <img src="{{asset('/siteStyle/images/partners/iwanna.jpg')}}" alt="" width="100" height="55"/>
+                  </a>
+                  <a href="https://bifeychorizo.com/" target="_new">
+                    <img src="{{asset('/siteStyle/images/partners/bife_chorizo.jpg')}}" alt="" width="120" height="50"/>
+                  </a>
+                  <a href="http://www.zona-tecnologica.com/" target="_new">
+                    <img src="{{asset('/siteStyle/images/partners/Zona_tecnologica.jpg')}}" alt="" width="300" height="50"/>
+                  </a>
+                </div>
+                <!-- <h4>Newsletter</h4>
                 <p>Keep up with the latest news and events.</p>
                 <p>Enter your e-mail and subscribe to our newsletter.</p>
                 <form class="rd-mailform form-gray-outline form-button-within-1" data-form-output="form-output-global" data-form-type="subscribe" method="post" action="bat/rd-mailform.php">
@@ -36,7 +49,7 @@
                     <input class="form-input" type="email" name="email" data-constraints="@Email @Required">
                     <button class="button button-transparent" type="submit">Subscribe</button>
                   </div>
-                </form>
+                </form> -->
               </div>
             </div>
           </div>
@@ -44,7 +57,7 @@
         <section class="footer-bottom-panel">
           <div class="shell">
             <div class="wrap-bottom-panel">
-              <p>Downhill &#169; <span id="copyright-year"></span>. <a href="privacy-policy.html">Privacy Policy</a>
+              <p>Voilapp.city &#169; <span id="copyright-year"></span>. <a href="{{asset('/contacts')}}">{{trans('publico/labels.tittleTerms')}}</a>
               </p>
                   <ul class="list-inline">
                     <li><a class="icon fa fa-facebook icon-xxs" href="#"></a></li>

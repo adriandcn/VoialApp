@@ -35,7 +35,7 @@
                     <img src="{{asset('/siteStyle/images/partners/iwanna.jpg')}}" alt="" width="100" height="55"/>
                   </a>
                   <a href="https://bifeychorizo.com/" target="_new">
-                    <img src="{{asset('/siteStyle/images/partners/bife_chorizo.jpg')}}" alt="" width="120" height="50"/>
+                    <img src="{{asset('/siteStyle/images/partners/bife_chorizo.png')}}" alt="" width="120" height="50"/>
                   </a>
                   <a href="http://www.zona-tecnologica.com/" target="_new">
                     <img src="{{asset('/siteStyle/images/partners/Zona_tecnologica.jpg')}}" alt="" width="300" height="50"/>

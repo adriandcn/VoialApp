@@ -53,7 +53,7 @@
                         <h4><a href="single-post.html">{{$servicio->nombre_servicio}}</a></h4>
                         <p>{{$servicio->detalle_servicio}}</p>
                       </div>
-                      <a class="link-position link-primary-sec-2 link-right post-link" href="{!!asset('/tokenDz$rip')!!}/{{$servicio->id}}"><i class="fa fa-info-circle" aria-hidden="true"></i>
+                      <a class="link-position link-primary-sec-2 link-right post-link" href="{!!asset('/detalles-de-servicio')!!}/{{$servicio->id}}"><i class="fa fa-info-circle" aria-hidden="true"></i>
                       </a>
                     </div>
                   </div>

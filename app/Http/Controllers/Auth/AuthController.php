@@ -353,16 +353,16 @@ class AuthController extends Controller {
                 $request->session()->put('tip_oper', $listServicios[0]->id_tipo_operador);
 
 
-                // return redirect('/serviciosres')->with('user', $user->id);
+                // return redirect('/mis-servicios')->with('user', $user->id);
                 // return $data['id_usuario_op'];
-                return response()->json(['error' => false , 'redirectto' => 'serviciosres']);
+                return response()->json(['error' => false , 'redirectto' => 'mis-servicios']);
                 //return redirect('/detalleServiciosRes')->with('user', $user->id);
                 // return ($view);
             } else {
 
                 //return redirect('/myProfileOp')->with('user', $user->id);
                 // return redirect('/aboutus')->with('user', $user->id);
-                return response()->json(['error' => false , 'redirectto' => 'serviciosres']);
+                return response()->json(['error' => false , 'redirectto' => 'mis-servicios']);
                 
             }
         } else {
@@ -482,11 +482,11 @@ class AuthController extends Controller {
 
                 $request->session()->put('operador_id', $operador->id);
                 $request->session()->put('tip_oper', $listServicios[0]->id_tipo_operador);
-                return redirect('/createOperador')->with('user', $user->id);
+                return redirect('/datos-de-operador')->with('user', $user->id);
 
             } else {
 
-              $returnHTML = ('createOperador');//->with('user', $user->id);
+              $returnHTML = ('datos-de-operador');//->with('user', $user->id);
               return response()->json(array('success' => true, 'redirectto' => $returnHTML));
           
             }

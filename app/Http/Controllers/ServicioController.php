@@ -468,7 +468,7 @@ class ServicioController extends Controller
             {
             $operador = $operador_gestion->getOperador($auth->user()->id);
             // if ($operador[0]['direccion_empresa_operador'] != '') {
-            //     return redirect('/serviciosres');
+            //     return redirect('/mis-servicios');
             // }else{
             $view = view('site.blades.create-operador', compact('operador'));
             return $view;
@@ -549,7 +549,7 @@ class ServicioController extends Controller
                 $id_usuario_op = $formFields['id_usuario_op'];
                 $request->session()->put('operador_id', $formFields['id_usuario_op']);
                 $operador = $operador_gestion->update($operadorData);
-                $returnHTML = ('serviciosres');
+                $returnHTML = ('mis-servicios');
                 }
               else
                 {
@@ -557,7 +557,7 @@ class ServicioController extends Controller
                 $request->session()->put('operador_id', $operador->id);
                 $operadores = $operador_gestion->getLastIdInsert($operadorData);
                 $id_usuario_op = $operador->id_usuario_op;
-                $returnHTML = ('serviciosres');
+                $returnHTML = ('mis-servicios');
                 }
             }
         return response()->json(array(
@@ -728,7 +728,7 @@ class ServicioController extends Controller
         $gestion->storeSearchEngine($usuarioServicio, $search, 4, $usuarioServicio);
         $request->session()->put('usu_serviciocrear', $usuarioServicio);
         $request->session()->put('catalogocrear', $formFields['id_catalogo_servicio']);
-        $returnHTML = ('edicionServicios');
+        $returnHTML = ('crear-editar-servicio');
         return response()->json(array(
             'success' => true,
             'redirectto' => $returnHTML
@@ -737,7 +737,7 @@ class ServicioController extends Controller
     public function redirectStep4()
 
         {
-        $returnHTML = ('/serviciosres');
+        $returnHTML = ('/mis-servicios');
         return response()->json(array(
             'success' => true,
             'redirectto' => $returnHTML
@@ -840,7 +840,7 @@ class ServicioController extends Controller
         {
         $request->session()->put('usu_serviciocrear', $id);
         $request->session()->put('catalogocrear', $id_catalogo);
-        $returnHTML = ('/edicionServicios');
+        $returnHTML = ('/crear-editar-servicio');
         return response()->json(array(
             'success' => true,
             'redirectto' => $returnHTML
@@ -1004,7 +1004,7 @@ class ServicioController extends Controller
                 $gestion->storeUpdateSerchEngine($usuarioServicio, 4, $formFields['id'], $search);
                 }
             }
-        $returnHTML = ('/edicionServicios');
+        $returnHTML = ('/crear-editar-servicio');
         return response()->json(array(
             'success' => true,
             'redirectto' => $returnHTML
@@ -1092,7 +1092,7 @@ class ServicioController extends Controller
                 $gestion->storeUpdateSerchEngine($usuarioServicio, 4, $formFields['id'], $search);
                 }
             }
-        $returnHTML = ('serviciosres');
+        $returnHTML = ('mis-servicios');
         return response()->json(array(
             'success' => true,
             'redirectto' => $returnHTML

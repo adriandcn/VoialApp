@@ -392,7 +392,7 @@ cursor: pointer;
   box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
 ">
                                     <div class="product-image">
-                                        <a href="{!!asset('/tokenDz$rip')!!}/4"  onclick="$('.container').LoadingOverlay('show');">
+                                        <a href="{!!asset('/detalles-de-servicio')!!}/4"  onclick="$('.container').LoadingOverlay('show');">
                                             
                                             <img src="{{ asset('img/register/')}}/4.png" alt="">
                                         </a>
@@ -402,10 +402,10 @@ cursor: pointer;
                                     <div class="product-content">
                                     
                                            @if(session('locale') == 'es' )
-                                    <h6 class="product-title"><a href="{!!asset('/tokenDz$rip')!!}/4"  onclick="$('.container').LoadingOverlay('show');">Atracciones en {!!$titulo!!}</a></h6>
+                                    <h6 class="product-title"><a href="{!!asset('/detalles-de-servicio')!!}/4"  onclick="$('.container').LoadingOverlay('show');">Atracciones en {!!$titulo!!}</a></h6>
                                     
                                     @else
-                                    <h6 class="product-title"><a href="{!!asset('/tokenDz$rip')!!}/4"  onclick="$('.container').LoadingOverlay('show');">Attractions in {!!$titulo!!} </a></h6>
+                                    <h6 class="product-title"><a href="{!!asset('/detalles-de-servicio')!!}/4"  onclick="$('.container').LoadingOverlay('show');">Attractions in {!!$titulo!!} </a></h6>
 
                                     @endif
                                         
@@ -418,7 +418,7 @@ cursor: pointer;
   box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
 ">
                                     <div class="product-image">
-                                        <a href="{!!asset('/tokenDz$rip')!!}/1"  onclick="$('.container').LoadingOverlay('show');">
+                                        <a href="{!!asset('/detalles-de-servicio')!!}/1"  onclick="$('.container').LoadingOverlay('show');">
                                             
                                             <img src="{{ asset('img/register/')}}/1.png" alt="">
                                         </a>
@@ -428,10 +428,10 @@ cursor: pointer;
                                     <div class="product-content">
                                     
                                            @if(session('locale') == 'es' )
-                                    <h6 class="product-title"><a href="{!!asset('/tokenDz$rip')!!}/1"  onclick="$('.container').LoadingOverlay('show');">Comidas&Bebidas en {!!$titulo!!}</a></h6>
+                                    <h6 class="product-title"><a href="{!!asset('/detalles-de-servicio')!!}/1"  onclick="$('.container').LoadingOverlay('show');">Comidas&Bebidas en {!!$titulo!!}</a></h6>
                                     
                                     @else
-                                    <h6 class="product-title"><a href="{!!asset('/tokenDz$rip')!!}/1"  onclick="$('.container').LoadingOverlay('show');">Eat&Drink in {!!$titulo!!}</a></h6>
+                                    <h6 class="product-title"><a href="{!!asset('/detalles-de-servicio')!!}/1"  onclick="$('.container').LoadingOverlay('show');">Eat&Drink in {!!$titulo!!}</a></h6>
 
                                     @endif
                                         
@@ -443,7 +443,7 @@ cursor: pointer;
   box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
 ">
                                     <div class="product-image">
-                                        <a href="{!!asset('/tokenDz$rip')!!}/2"  onclick="$('.container').LoadingOverlay('show');">
+                                        <a href="{!!asset('/detalles-de-servicio')!!}/2"  onclick="$('.container').LoadingOverlay('show');">
                                             
                                             <img src="{{ asset('img/register/')}}/2.png" alt="">
                                         </a>
@@ -453,10 +453,10 @@ cursor: pointer;
                                     <div class="product-content">
                                     
                                            @if(session('locale') == 'es' )
-                                    <h6 class="product-title"><a href="{!!asset('/tokenDz$rip')!!}/2"  onclick="$('.container').LoadingOverlay('show');">Alojamiento en {!!$titulo!!}</a></h6>
+                                    <h6 class="product-title"><a href="{!!asset('/detalles-de-servicio')!!}/2"  onclick="$('.container').LoadingOverlay('show');">Alojamiento en {!!$titulo!!}</a></h6>
                                     
                                     @else
-                                    <h6 class="product-title"><a href="{!!asset('/tokenDz$rip')!!}/2"  onclick="$('.container').LoadingOverlay('show');">Sleep in {!!$titulo!!}</a></h6>
+                                    <h6 class="product-title"><a href="{!!asset('/detalles-de-servicio')!!}/2"  onclick="$('.container').LoadingOverlay('show');">Sleep in {!!$titulo!!}</a></h6>
 
                                     @endif
                                         
@@ -478,7 +478,7 @@ cursor: pointer;
                             <div class="icon-box style-side-2 animated box" data-animation-type="fadeInUp" data-animation-delay="0">
                                 <i class="fa fa-map-marker"></i>
                                 <div class="box-content">
-                                    <h4 class="box-title"><a href="{!!asset('/tokenDz$rip')!!}/4"  onclick="$('.parallax').LoadingOverlay('show')">{{ trans('publico/labels.label130AB')}}</a></h4>
+                                    <h4 class="box-title"><a href="{!!asset('/detalles-de-servicio')!!}/4"  onclick="$('.parallax').LoadingOverlay('show')">{{ trans('publico/labels.label130AB')}}</a></h4>
                                     
                                     <p>{{ trans('publico/labels.label133AB')}} {!!$titulo!!} {{ trans('publico/labels.label134AB')}} </p>
 
@@ -489,7 +489,7 @@ cursor: pointer;
                             <div class="icon-box style-side-2 animated box" data-animation-type="fadeInUp" data-animation-delay="0.5">
                                 <i class="fa fa-cutlery"></i>
                                 <div class="box-content">
-                                    <h4 class="box-title"><a href="{!!asset('/tokenDz$rip')!!}/1"  onclick="$('.parallax').LoadingOverlay('show')">{{ trans('publico/labels.label131AB')}}</a></h4>
+                                    <h4 class="box-title"><a href="{!!asset('/detalles-de-servicio')!!}/1"  onclick="$('.parallax').LoadingOverlay('show')">{{ trans('publico/labels.label131AB')}}</a></h4>
                                     {{ trans('publico/labels.label135AB')}} <p>{!!$titulo!!} {{ trans('publico/labels.label136AB')}} </p>
                                     
                                 </div>
@@ -499,7 +499,7 @@ cursor: pointer;
                             <div class="icon-box style-side-2 animated box" data-animation-type="fadeInUp" data-animation-delay="1">
                                 <i class="fa fa-bed"></i>
                                 <div class="box-content">
-                                    <h4 class="box-title"><a href="{!!asset('/tokenDz$rip')!!}/2"  onclick="$('.parallax').LoadingOverlay('show')">{{ trans('publico/labels.label132AB')}}</a></h4>
+                                    <h4 class="box-title"><a href="{!!asset('/detalles-de-servicio')!!}/2"  onclick="$('.parallax').LoadingOverlay('show')">{{ trans('publico/labels.label132AB')}}</a></h4>
                                     <p>{!!$titulo!!} {{ trans('publico/labels.label137AB')}}</p>
                                     
                                 </div>
@@ -680,21 +680,21 @@ cursor: pointer;
                         <div class="features-icon-slider owl-carousel box-lg" data-items="6">
                            
                                 @if(session('locale') == 'es' )
-                                           <a href="{!!asset('/tokenDz$rip')!!}/1"  onclick="$('.parallax').LoadingOverlay('show')" class="feature-icon"><i class="fa fa-cutlery"></i><div style="alignment-baseline: central">Alimentación y bebidas</div></a>
-                            <a href="{!!asset('/tokenDz$rip')!!}/2"  onclick="$('.parallax').LoadingOverlay('show')" class="feature-icon"><i class="fa fa-bed"></i><div style="alignment-baseline: central">Alojamiento</div></a>
-                            <a href="{!!asset('/tokenDz$rip')!!}/3"  onclick="$('.parallax').LoadingOverlay('show')" class="feature-icon"><i class="fa fa-suitcase"></i><div style="alignment-baseline: central">Agencias de viajes</div></a>
-                            <a href="{!!asset('/tokenDz$rip')!!}/4"  onclick="$('.parallax').LoadingOverlay('show')" class="feature-icon"><i class="fa fa-map-marker"></i><div style="alignment-baseline: central">Lugares</div></a>
-                            <a href="{!!asset('/tokenDz$rip')!!}/8"  onclick="$('.parallax').LoadingOverlay('show')" class="feature-icon"><i class="fa fa-hand-scissors-o"></i><div style="alignment-baseline: central">Eventos</div></a>
-                            <a href="{!!asset('/tokenDz$rip')!!}/9"  onclick="$('.parallax').LoadingOverlay('show')" class="feature-icon"><i class="fa fa-users"></i><div style="alignment-baseline: central">Festividades</div></a>
+                                           <a href="{!!asset('/detalles-de-servicio')!!}/1"  onclick="$('.parallax').LoadingOverlay('show')" class="feature-icon"><i class="fa fa-cutlery"></i><div style="alignment-baseline: central">Alimentación y bebidas</div></a>
+                            <a href="{!!asset('/detalles-de-servicio')!!}/2"  onclick="$('.parallax').LoadingOverlay('show')" class="feature-icon"><i class="fa fa-bed"></i><div style="alignment-baseline: central">Alojamiento</div></a>
+                            <a href="{!!asset('/detalles-de-servicio')!!}/3"  onclick="$('.parallax').LoadingOverlay('show')" class="feature-icon"><i class="fa fa-suitcase"></i><div style="alignment-baseline: central">Agencias de viajes</div></a>
+                            <a href="{!!asset('/detalles-de-servicio')!!}/4"  onclick="$('.parallax').LoadingOverlay('show')" class="feature-icon"><i class="fa fa-map-marker"></i><div style="alignment-baseline: central">Lugares</div></a>
+                            <a href="{!!asset('/detalles-de-servicio')!!}/8"  onclick="$('.parallax').LoadingOverlay('show')" class="feature-icon"><i class="fa fa-hand-scissors-o"></i><div style="alignment-baseline: central">Eventos</div></a>
+                            <a href="{!!asset('/detalles-de-servicio')!!}/9"  onclick="$('.parallax').LoadingOverlay('show')" class="feature-icon"><i class="fa fa-users"></i><div style="alignment-baseline: central">Festividades</div></a>
                             
 
                                             @else
-                            <a href="{!!asset('/tokenDz$rip')!!}/1"  onclick="$('.parallax').LoadingOverlay('show')" class="feature-icon"><i class="fa fa-cutlery"></i><div style="alignment-baseline: central">Eat & drink</div></a>
-                            <a href="{!!asset('/tokenDz$rip')!!}/2"  onclick="$('.parallax').LoadingOverlay('show')" class="feature-icon"><i class="fa fa-bed"></i><div style="alignment-baseline: central">Sleep</div></a>
-                            <a href="{!!asset('/tokenDz$rip')!!}/3"  onclick="$('.parallax').LoadingOverlay('show')" class="feature-icon"><i class="fa fa-suitcase"></i><div style="alignment-baseline: central">Travel agency</div></a>
-                            <a href="{!!asset('/tokenDz$rip')!!}/4"  onclick="$('.parallax').LoadingOverlay('show')" class="feature-icon"><i class="fa fa-map-marker"></i><div style="alignment-baseline: central">Places</div></a>
-                            <a href="{!!asset('/tokenDz$rip')!!}/8"  onclick="$('.parallax').LoadingOverlay('show')" class="feature-icon"><i class="fa fa-hand-scissors-o"></i><div style="alignment-baseline: central">Events</div></a>
-                            <a href="{!!asset('/tokenDz$rip')!!}/9"  onclick="$('.parallax').LoadingOverlay('show')" class="feature-icon"><i class="fa fa-users"></i><div style="alignment-baseline: central">Festivities</div></a>
+                            <a href="{!!asset('/detalles-de-servicio')!!}/1"  onclick="$('.parallax').LoadingOverlay('show')" class="feature-icon"><i class="fa fa-cutlery"></i><div style="alignment-baseline: central">Eat & drink</div></a>
+                            <a href="{!!asset('/detalles-de-servicio')!!}/2"  onclick="$('.parallax').LoadingOverlay('show')" class="feature-icon"><i class="fa fa-bed"></i><div style="alignment-baseline: central">Sleep</div></a>
+                            <a href="{!!asset('/detalles-de-servicio')!!}/3"  onclick="$('.parallax').LoadingOverlay('show')" class="feature-icon"><i class="fa fa-suitcase"></i><div style="alignment-baseline: central">Travel agency</div></a>
+                            <a href="{!!asset('/detalles-de-servicio')!!}/4"  onclick="$('.parallax').LoadingOverlay('show')" class="feature-icon"><i class="fa fa-map-marker"></i><div style="alignment-baseline: central">Places</div></a>
+                            <a href="{!!asset('/detalles-de-servicio')!!}/8"  onclick="$('.parallax').LoadingOverlay('show')" class="feature-icon"><i class="fa fa-hand-scissors-o"></i><div style="alignment-baseline: central">Events</div></a>
+                            <a href="{!!asset('/detalles-de-servicio')!!}/9"  onclick="$('.parallax').LoadingOverlay('show')" class="feature-icon"><i class="fa fa-users"></i><div style="alignment-baseline: central">Festivities</div></a>
                             
 
                                             @endif

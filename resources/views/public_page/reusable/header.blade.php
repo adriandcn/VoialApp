@@ -80,9 +80,9 @@
                                         <li class="menu-item-has-children">
                                             <a href="#">{{ trans('publico/labels.label87')}}</a>
                                             <ul class="sub-nav">
-                                                <li><a href="{!!asset('/tokenDz$rip/4')!!}"><i class="fa "></i><span>{{ trans('publico/labels.label88')}}</span></a></li>
-                                                <li><a href="{!!asset('/tokenDz$rip/1')!!}"><i class="fa "></i><span>{{ trans('publico/labels.label89')}}</span></a></li>
-                                                <li><a href="{!!asset('/tokenDz$rip/2')!!}"><i class="fa "></i><span>{{ trans('publico/labels.label90')}}</span></a></li>
+                                                <li><a href="{!!asset('/detalles-de-servicio/4')!!}"><i class="fa "></i><span>{{ trans('publico/labels.label88')}}</span></a></li>
+                                                <li><a href="{!!asset('/detalles-de-servicio/1')!!}"><i class="fa "></i><span>{{ trans('publico/labels.label89')}}</span></a></li>
+                                                <li><a href="{!!asset('/detalles-de-servicio/2')!!}"><i class="fa "></i><span>{{ trans('publico/labels.label90')}}</span></a></li>
                                                 
                                             </ul>
                                         </li>
@@ -168,9 +168,9 @@
                                     <span class="open-subnav"></span>
                                     <a href="#">{{ trans('publico/labels.label87')}}</a>
                                     <ul class="sub-nav">
-                                        <li><a href="{!!asset('/tokenDz$rip/4')!!}">{{ trans('publico/labels.label88')}}</a></li>
-                                        <li><a href="{!!asset('/tokenDz$rip/1')!!}">{{ trans('publico/labels.label89')}}</a></li>
-                                        <li><a href="{!!asset('/tokenDz$rip/2')!!}">{{ trans('publico/labels.label90')}}</a></li>
+                                        <li><a href="{!!asset('/detalles-de-servicio/4')!!}">{{ trans('publico/labels.label88')}}</a></li>
+                                        <li><a href="{!!asset('/detalles-de-servicio/1')!!}">{{ trans('publico/labels.label89')}}</a></li>
+                                        <li><a href="{!!asset('/detalles-de-servicio/2')!!}">{{ trans('publico/labels.label90')}}</a></li>
                                     </ul>
                                 </li>
                                 

@@ -7,6 +7,6 @@ var dirServer = $('#serverDir').val();
 $('#ErrorDiv').hide();
 function getSubcatCatalogServicios($idcatalogo) {
     event.preventDefault();
-    var url = dirServer + "public/catalogoServ/" + $idcatalogo;
+    var url = dirServer + "public/catalogo-de-servicios/" + $idcatalogo;
     window.location = url;
 }

@@ -18,7 +18,7 @@ Route::get('/getLastServicesCreated', ['as' => 'publico', 'uses' => 'HomePublicC
 Route::get('Search', ['as' => 'min-search', 'uses' => 'SearchController@getSearchTotal']);
 Route::get('searchMap', ['as' => 'map-search', 'uses' => 'SearchController@getViewSearchMap']);
 Route::post('searchAllInMap', ['as' => 'map-search', 'uses' => 'SearchController@searchAllInMap']);
-Route::get('tendenciasSearch/{idTendencia}', ['as' => 'tendencias-search', 'uses' => 'SearchController@getTendenciasView']);
+Route::get('busqueda-por-tendencia/{idTendencia}', ['as' => 'tendencias-search', 'uses' => 'SearchController@getTendenciasView']);
 // Auth
 Route::get('/login', ['as' => 'publico', 'uses' => 'HomePublicController@getLoginTemplate']);
 Route::get('/Register', ['as' => 'publico', 'uses' => 'HomePublicController@getRegisterTemplate']);
@@ -34,8 +34,8 @@ Route::post('uploadEvent', ['as' => 'upload-event', 'uses' => 'ImageController@p
 Route::post('upload/delete', ['as' => 'upload-remove', 'uses' => 'ImageController@deleteUpload']);
 Route::post('promotionImages/{idpromotion}', ['as' => 'images-promotion', 'uses' => 'ImageController@promotionImages']);
 // --Servicios--
-Route::get('/serviciosres', ['as' => 'detailres', 'uses' => 'UsuarioServiciosController@tablaServiciosRes', 'middleware' => 'notAuth']);
-Route::get('/edicionServicios', ['uses' => 'ServicioController@edicionServicios', 'middleware' => 'notAuth']);
+Route::get('/mis-servicios', ['as' => 'detailres', 'uses' => 'UsuarioServiciosController@tablaServiciosRes', 'middleware' => 'notAuth']);
+Route::get('/crear-editar-servicio', ['uses' => 'ServicioController@edicionServicios', 'middleware' => 'notAuth']);
 Route::post('/moveServTouser', ['uses' => 'ServicioController@moveServTouser', 'middleware' => 'notAuth']);
 Route::post('/cleanSeguros/{idService}', ['uses' => 'ServicioController@cleanSeguros', 'middleware' => 'notAuth']);
 Route::get('/editServicios/{id_usuario_op}', ['as' => 'detail', 'uses' => 'UsuarioServiciosController@tablaServicios']);
@@ -52,10 +52,10 @@ Route::post('/delete/image/{id}', ['as' => 'delete-image', 'uses' => 'ImageContr
 Route::post('/delete/image1/{id}', ['as' => 'delete-image1', 'uses' => 'ImageController@postDeleteImage1']);
 // --Operadores--
 Route::post('/nuevoOperador', ['as' => 'upload-postoperador1', 'uses' => 'ServicioController@postOperadores1', 'middleware' => 'notAuth']);
-Route::get('createOperador', ['as' => 'createOperador', 'uses' => 'ServicioController@step2res', 'middleware' => 'notAuth']);
-Route::get('/catalogoServ/{idCatalogo}', ['as' => 'getcatalogoServ', 'uses' => 'ServicioController@getServiciosByCatalogo']);
-Route::get('/catalogoServ/{idCatalogo}/{idSubCatalogo}', ['as' => 'getcatalogoServ', 'uses' => 'ServicioController@getServiciosByChildcatalogo']);
-Route::get('/tokenDz$rip/{id_catalogo}', ['as' => 'searchCat', 'uses' => 'HomePublicController@getSearchHomeCatalogo']);
+Route::get('datos-de-operador', ['as' => 'createOperador', 'uses' => 'ServicioController@step2res', 'middleware' => 'notAuth']);
+Route::get('/catalogo-de-servicios/{idCatalogo}', ['as' => 'getcatalogoServ', 'uses' => 'ServicioController@getServiciosByCatalogo']);
+Route::get('/catalogo-de-servicios/{idCatalogo}/{idSubCatalogo}', ['as' => 'getcatalogoServ', 'uses' => 'ServicioController@getServiciosByChildcatalogo']);
+Route::get('/detalles-de-servicio/{id_catalogo}', ['as' => 'searchCat', 'uses' => 'HomePublicController@getSearchHomeCatalogo']);
 Route::post('filterParameters', ['as' => 'filtersCategoria', 'uses' => 'HomePublicController@postFiltersCategoria']);
 Route::get('servicesOf/{id_operador}', ['as' => 'getServiciosByOperador', 'uses' => 'ServicioController@getServiciosByOperador']);
 Route::post('/filterService', ['as' => 'filterService', 'uses' => 'ServicioController@applyServicesFilter']);
@@ -70,12 +70,12 @@ Route::get('/Search', ['as' => 'SearchIndex', 'uses' => 'SearchController@getTot
 // Save Horario
 Route::post('/saveHorario', ['as' => 'SearchIndex', 'uses' => 'horarioController@store', 'middleware' => 'notAuth']);
 // Eventos y promociones
-Route::get('/eventPromotionsAdmin/{idServicio}', ['as' => 'eventspromotionsAdmin', 'uses' => 'UsuarioServiciosController@getEventos', 'middleware' => 'notAuth']);
+Route::get('/administracion-de-promociones/{idServicio}', ['as' => 'eventspromotionsAdmin', 'uses' => 'UsuarioServiciosController@getEventos', 'middleware' => 'notAuth']);
 Route::post('/addEventPomotions', ['as' => 'AddEventstPromotions', 'uses' => 'UsuarioServiciosController@store', 'middleware' => 'notAuth']);
 Route::get('/addEvent/{idUsuarioServicio}', ['as' => 'getEventsByService', 'uses' => 'UsuarioServiciosController@getViewAdd', 'middleware' => 'notAuth']);
-Route::get('/editEvent/{idPromotion}', ['as' => 'getEventData', 'uses' => 'UsuarioServiciosController@getViewEdit', 'middleware' => 'notAuth']);
+Route::get('/crear-editar-promocion/{idPromotion}', ['as' => 'getEventData', 'uses' => 'UsuarioServiciosController@getViewEdit', 'middleware' => 'notAuth']);
 Route::post('/updateEvent', ['as' => 'AddEventst', 'uses' => 'UsuarioServiciosController@postPromocion', 'middleware' => 'notAuth']);
-Route::get('/detailPromotion/{idPromotion?}', ['as' => 'AddEventst', 'uses' => 'HomePublicController@getDetailPromotion']);
+Route::get('/detalles-de-promocion/{idPromotion?}', ['as' => 'AddEventst', 'uses' => 'HomePublicController@getDetailPromotion']);
 // blog
 Route::get('/Blog/{idArticle?}', ['as' => 'AddEventst', 'uses' => 'HomePublicController@getViewArticles']);
 // MISION VISION POLITICAS

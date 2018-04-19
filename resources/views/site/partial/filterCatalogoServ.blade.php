@@ -11,10 +11,10 @@
                           background-size: cover;
                           background-repeat: no-repeat;">
             <div class="post-masonry-content">
-              <h4><a href="{!!asset('/tokenDz$rip')!!}/{{$servicio->id_usuario_servicio}}">{{$servicio->nombre_servicio}}</a></h4>
+              <h4><a href="{!!asset('/detalles-de-servicio')!!}/{{$servicio->id_usuario_servicio}}">{{$servicio->nombre_servicio}}</a></h4>
               <p>{{$servicio->detalle_servicio}}</p>
             </div>
-            <a class="link-position link-primary-sec-2 link-right post-link" href="{!!asset('/tokenDz$rip')!!}/{{$servicio->id_usuario_servicio}}"><i class="fa fa-info-circle" aria-hidden="true"></i>
+            <a class="link-position link-primary-sec-2 link-right post-link" href="{!!asset('/detalles-de-servicio')!!}/{{$servicio->id_usuario_servicio}}"><i class="fa fa-info-circle" aria-hidden="true"></i>
             </a>
           </div>
         </div>

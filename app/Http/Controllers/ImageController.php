@@ -103,7 +103,7 @@ $returnHTML = ('/IguanaTrip/public/');
         }
         else{
         $gestion->storeUpdateEstado($root_array, $Servicio);}
-        $returnHTML = ('/edicionServicios');
+        $returnHTML = ('/crear-editar-servicio');
         return response()->json(array('success' => true, 'redirectto' => $returnHTML));
     }
 

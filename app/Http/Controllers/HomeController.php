@@ -62,7 +62,7 @@ class HomeController extends Controller {
         if ($auth->check()) {
             $user = $auth->user();
            // $view = view('RegistroOperadores.registroStep1'); // revisar debe redirecccionar a otro lado
-            return redirect('/serviciosres')->with('user', $user->id);
+            return redirect('/mis-servicios')->with('user', $user->id);
         } else {
 
             $view = view('responsive.completeRegister');

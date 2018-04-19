@@ -37,7 +37,7 @@
                         @endif
                       </a>
                     @else
-                      <a href="{!!asset('/createOperador')!!}" data-toggle="modal">
+                      <a href="{!!asset('/datos-de-operador')!!}" data-toggle="modal">
                         {!!session('user_name')!!}
                       </a>
                       <a href="{!!asset('/language')!!}">
@@ -52,7 +52,7 @@
                   <ul class="list-inline">
                     @if(session('statut') == 'user' || session('statut') == 'admin')
                       <li>
-                        <a class="icon fa fa-tachometer text-white" href="{!!asset('/serviciosres')!!}"> 
+                        <a class="icon fa fa-tachometer text-white" href="{!!asset('/mis-servicios')!!}"> 
                           {{ trans('publico/labels.lblDash')}}
                         </a>
                       </li>
@@ -98,7 +98,7 @@
                               <ul class="rd-navbar-megamenu">
                                 @if(count($headerCategories) > 0)
                                   @foreach($category->child as $childCat)
-                                    <li><a href="{!!asset('/catalogoServ')!!}/{{$childCat->id_catalogo_servicios}}">{{$childCat->nombre_servicio}}<span class="overlay-skew"></span></a></li>
+                                    <li><a href="{!!asset('/catalogo-de-servicios')!!}/{{$childCat->id_catalogo_servicios}}">{{$childCat->nombre_servicio}}<span class="overlay-skew"></span></a></li>
                                   @endforeach
                                 @endif
                               </ul>
@@ -117,7 +117,7 @@
                               <ul class="rd-megamenu-list">
                                 @if(count($headerCategories) > 0)
                                   @foreach($category->child as $childCat)
-                                    <li><a href="{!!asset('/catalogoServ')!!}/{{$childCat->id_catalogo_servicios}}">{{$childCat->nombre_servicio}}<span class="overlay-skew"></span></a></li>
+                                    <li><a href="{!!asset('/catalogo-de-servicios')!!}/{{$childCat->id_catalogo_servicios}}">{{$childCat->nombre_servicio}}<span class="overlay-skew"></span></a></li>
                                   @endforeach
                                 @endif
                               </ul>

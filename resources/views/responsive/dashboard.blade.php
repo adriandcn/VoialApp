@@ -117,43 +117,43 @@
            </ul>
             <ul class="breadcrumbs" id="dashboard2" style="display:none;">
                 <li><a href="{!!asset('/')!!}"  onclick="$('#target').LoadingOverlay('show')">{{ trans('publico/labels.label1')}}</a></li>
-                <li><a href="{!!asset('/serviciosres')!!}"  onclick="$('#target').LoadingOverlay('show')">{{trans('front/responsive.dashboard')}}</a></li>
+                <li><a href="{!!asset('/mis-servicios')!!}"  onclick="$('#target').LoadingOverlay('show')">{{trans('front/responsive.dashboard')}}</a></li>
                 <li class="active"> {{trans('front/responsive.edicion')}}</li>
             </ul> 
             <ul class="breadcrumbs" id="dashboard3" style="display:none;">
                 <li><a href="{!!asset('/')!!}"  onclick="$('#target').LoadingOverlay('show')">{{ trans('publico/labels.label1')}}</a></li>
-                <li><a href="{!!asset('/serviciosres')!!}"  onclick="$('#target').LoadingOverlay('show')">{{trans('front/responsive.dashboard')}}</a></li>
-                <li><a href="{!!asset('/edicionServicios')!!}"  onclick="$('#target').LoadingOverlay('show')">{{trans('front/responsive.edicion')}}</a></li>
+                <li><a href="{!!asset('/mis-servicios')!!}"  onclick="$('#target').LoadingOverlay('show')">{{trans('front/responsive.dashboard')}}</a></li>
+                <li><a href="{!!asset('/crear-editar-servicio')!!}"  onclick="$('#target').LoadingOverlay('show')">{{trans('front/responsive.edicion')}}</a></li>
                 <li class="active"> {{trans('front/responsive.preview')}}</li>
             </ul>            
             <ul class="breadcrumbs" id="dashboard4" style="display:none;">
                 <li><a href="{!!asset('/')!!}"  onclick="$('#target').LoadingOverlay('show')">{{ trans('publico/labels.label1')}}</a></li>
-                <li><a href="{!!asset('/serviciosres')!!}"  onclick="$('#target').LoadingOverlay('show')">{{trans('front/responsive.dashboard')}}</a></li>
+                <li><a href="{!!asset('/mis-servicios')!!}"  onclick="$('#target').LoadingOverlay('show')">{{trans('front/responsive.dashboard')}}</a></li>
                 <li class="active"> {{trans('front/responsive.informacion')}}</li>
            </ul>
             <ul class="breadcrumbs" id="dashboard5" style="display:none;">
                 <li><a href="{!!asset('/')!!}"  onclick="$('#target').LoadingOverlay('show')">{{ trans('publico/labels.label1')}}</a></li>
-                <li><a href="{!!asset('/serviciosres')!!}"  onclick="$('#target').LoadingOverlay('show')">{{trans('front/responsive.dashboard')}}</a></li>
-                <li><a href="{!!asset('/edicionServicios')!!}"  onclick="$('#target').LoadingOverlay('show')">{{trans('front/responsive.edicion')}}</a></li>
+                <li><a href="{!!asset('/mis-servicios')!!}"  onclick="$('#target').LoadingOverlay('show')">{{trans('front/responsive.dashboard')}}</a></li>
+                <li><a href="{!!asset('/crear-editar-servicio')!!}"  onclick="$('#target').LoadingOverlay('show')">{{trans('front/responsive.edicion')}}</a></li>
                 <li class="active"> {{trans('front/responsive.listapromo')}}</li>
             </ul>
             <ul class="breadcrumbs" id="dashboard6" style="display:none;">
                 <li><a href="{!!asset('/')!!}"  onclick="$('#target').LoadingOverlay('show')">{{ trans('publico/labels.label1')}}</a></li>
-                <li><a href="{!!asset('/serviciosres')!!}"  onclick="$('#target').LoadingOverlay('show')">{{trans('front/responsive.dashboard')}}</a></li>
-                <li><a href="{!!asset('/edicionServicios')!!}"  onclick="$('#target').LoadingOverlay('show')">{{trans('front/responsive.edicion')}}</a></li>
+                <li><a href="{!!asset('/mis-servicios')!!}"  onclick="$('#target').LoadingOverlay('show')">{{trans('front/responsive.dashboard')}}</a></li>
+                <li><a href="{!!asset('/crear-editar-servicio')!!}"  onclick="$('#target').LoadingOverlay('show')">{{trans('front/responsive.edicion')}}</a></li>
                 <li><a href="#" id="listarpromo" onclick="$('#target').LoadingOverlay('show')">{{trans('front/responsive.listapromo')}}</a></li>
                 <li class="active"> {{trans('front/responsive.editpromo')}}</li>
             </ul>
             <ul class="breadcrumbs" id="dashboard7" style="display:none;">
                 <li><a href="{!!asset('/')!!}"  onclick="$('#target').LoadingOverlay('show')">{{ trans('publico/labels.label1')}}</a></li>
-                <li><a href="{!!asset('/serviciosres')!!}"  onclick="$('#target').LoadingOverlay('show')">{{trans('front/responsive.dashboard')}}</a></li>
-                <li><a href="{!!asset('/edicionServicios')!!}"  onclick="$('#target').LoadingOverlay('show')">{{trans('front/responsive.edicion')}}</a></li>
+                <li><a href="{!!asset('/mis-servicios')!!}"  onclick="$('#target').LoadingOverlay('show')">{{trans('front/responsive.dashboard')}}</a></li>
+                <li><a href="{!!asset('/crear-editar-servicio')!!}"  onclick="$('#target').LoadingOverlay('show')">{{trans('front/responsive.edicion')}}</a></li>
                 <li class="active"> {{trans('front/responsive.listaevento')}}</li>
             </ul> 
             <ul class="breadcrumbs" id="dashboard8" style="display:none;">
                 <li><a href="{!!asset('/')!!}"  onclick="$('#target').LoadingOverlay('show')">{{ trans('publico/labels.label1')}}</a></li>
-                <li><a href="{!!asset('/serviciosres')!!}"  onclick="$('#target').LoadingOverlay('show')">{{trans('front/responsive.dashboard')}}</a></li>
-                <li><a href="{!!asset('/edicionServicios')!!}"  onclick="$('#target').LoadingOverlay('show')">{{trans('front/responsive.edicion')}}</a></li>
+                <li><a href="{!!asset('/mis-servicios')!!}"  onclick="$('#target').LoadingOverlay('show')">{{trans('front/responsive.dashboard')}}</a></li>
+                <li><a href="{!!asset('/crear-editar-servicio')!!}"  onclick="$('#target').LoadingOverlay('show')">{{trans('front/responsive.edicion')}}</a></li>
                 <li><a href="#" id="listarevento"  onclick="$('#target').LoadingOverlay('show')">{{trans('front/responsive.listaevento')}}</a></li>
                 <li class="active"> {{trans('front/responsive.editevento')}}</li>
             </ul> 
@@ -179,7 +179,7 @@
                             <div class="col-sm-3 col-md-3">
                                 <h4>{{trans('front/responsive.micuenta')}}</h4>
                                 <ul class="tabs arrow-circle size-medium box">
-                                    <li><a style="border: 0px;margin-left:1%;text-align: left; padding-top: 4%;" class="btn btn-sm style4" onclick="window.location.href = '{!!asset('/serviciosres')!!}'" data-toggle="tab"> {{trans('front/dashboard.menu1')}} </a></li>
+                                    <li><a style="border: 0px;margin-left:1%;text-align: left; padding-top: 4%;" class="btn btn-sm style4" onclick="window.location.href = '{!!asset('/mis-servicios')!!}'" data-toggle="tab"> {{trans('front/dashboard.menu1')}} </a></li>
                                     <li><a style="border: 0px;margin-left:1%;text-align: left; padding-top: 4%;"class="btn btn-sm style4" onclick="window.location.href = '{!!asset('/myinfores')!!}'" data-toggle="tab"> {{trans('front/dashboard.menu2')}} </a></li>
                                     <!--<li><a style="border: 0px;margin-left:1%;text-align: left; padding-top: 4%;"class="btn btn-sm style4" data-toggle="tab">{{trans('front/dashboard.menu3')}}</a></li>
                                     <li><a style="border: 0px;margin-left:1%;text-align: left; padding-top: 4%;"class="btn btn-sm style4" data-toggle="tab">{{trans('front/dashboard.menu4')}}</a></li>

@@ -124,9 +124,9 @@
                                         
                                             @foreach ($servicios as $serv)
                                                @if(session('locale') == 'es' )
-                                                <li><a href="{!!asset('/tokenDz$rip')!!}/{!!$serv->id_catalogo_servicios!!}"  onclick="$('.container').LoadingOverlay('show');">{!!$serv->nombre_servicio!!}</a></li>
+                                                <li><a href="{!!asset('/detalles-de-servicio')!!}/{!!$serv->id_catalogo_servicios!!}"  onclick="$('.container').LoadingOverlay('show');">{!!$serv->nombre_servicio!!}</a></li>
                                             @else
-                                            <li><a href="{!!asset('/tokenDz$rip')!!}/{!!$serv->id_catalogo_servicios!!}"  onclick="$('.container').LoadingOverlay('show');">{!!$serv->nombre_servicio_eng!!}</a></li>
+                                            <li><a href="{!!asset('/detalles-de-servicio')!!}/{!!$serv->id_catalogo_servicios!!}"  onclick="$('.container').LoadingOverlay('show');">{!!$serv->nombre_servicio_eng!!}</a></li>
                                             @endif
                                         @endforeach
                                     </ul>

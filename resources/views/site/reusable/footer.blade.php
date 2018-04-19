@@ -12,7 +12,7 @@
                   @foreach($headerCategories as $category)
                       @if(count($headerCategories) > 0)
                         @foreach($category->child as $childCat)
-                          <li><a href="{!!asset('/catalogoServ')!!}/{{$childCat->id_catalogo_servicios}}">{{$childCat->nombre_servicio}}<span class="overlay-skew"></span></a></li>
+                          <li><a href="{!!asset('/catalogo-de-servicios')!!}/{{$childCat->id_catalogo_servicios}}">{{$childCat->nombre_servicio}}<span class="overlay-skew"></span></a></li>
                         @endforeach
                       @endif
                   @endforeach

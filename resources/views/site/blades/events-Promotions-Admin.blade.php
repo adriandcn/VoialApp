@@ -68,7 +68,7 @@
               <span class="box-skew__item"></span>
               <ul class="breadcrumbs-custom">
                 <li><a href="{{asset('/')}}">{{ trans('publico/labels.lblHome')}}</a></li>
-                <li><a href="{{asset('/serviciosres')}}">{{ trans('publico/labels.lblPathMyServices')}}</a></li>
+                <li><a href="{{asset('/mis-servicios')}}">{{ trans('publico/labels.lblPathMyServices')}}</a></li>
                 <li>{{ trans('publico/labels.lblPathEditPromotionServ')}}</li>
                 <li>{{ $servicio->nombre_servicio}}</li>
               </ul>
@@ -95,7 +95,7 @@
                 @else
                 @foreach ($listPromociones as $promotion)
                   <div class="cell-sm-3 cell-xs-6 wow rotate-custom rotate-custom-left" data-wow-delay=".15s">
-                      <a class="layouts-link" href="../editEvent/{{$promotion->id}}">
+                      <a class="layouts-link" href="../crear-editar-promocion/{{$promotion->id}}">
                         <img class="img-shadow" src="{{asset('/images/icon')}}/{{$promotion->filename}}" alt="" width="270" height="393"/>
                         <div class="eventCard">
                           <h6 style="margin-top: 1px;">

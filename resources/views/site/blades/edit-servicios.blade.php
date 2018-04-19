@@ -47,7 +47,7 @@
               <span class="box-skew__item"></span>
               <ul class="breadcrumbs-custom">
                 <li><a href="{{asset('/')}}">{{ trans('publico/labels.lblHome')}}</a></li>
-                <li><a href="{{asset('/serviciosres')}}">{{ trans('publico/labels.lblPathMyServices')}}</a></li>
+                <li><a href="{{asset('/mis-servicios')}}">{{ trans('publico/labels.lblPathMyServices')}}</a></li>
                 <li>{{ trans('publico/labels.lblPathEditServ')}}</li>
               </ul>
             </div>
@@ -164,7 +164,7 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                   <hr>
                 </div>
               </div>
-              <a class="button button-primary" href="{{asset('/eventPromotionsAdmin')}}/{{$usuarioServicio->id}}">{{ trans('back/admin.lblEvents')}}<span></span>
+              <a class="button button-primary" href="{{asset('/administracion-de-promociones')}}/{{$usuarioServicio->id}}">{{ trans('back/admin.lblEvents')}}<span></span>
               </a>
             </div>
             <div class="cell-md-8">
@@ -377,7 +377,7 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                       <div class="cell-sm-6">
                         <div class="form-inline form-inline-custom">
                           <div class="form-wrap">
-                            <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-arrow-left" href="{{asset('/serviciosres')}}">{{ trans('back/admin.lblBtnBack')}}<span></span></a>
+                            <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-arrow-left" href="{{asset('/mis-servicios')}}">{{ trans('back/admin.lblBtnBack')}}<span></span></a>
                           </div>
                         </div>
                       </div>

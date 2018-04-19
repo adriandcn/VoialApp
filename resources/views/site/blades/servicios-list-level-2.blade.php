@@ -85,9 +85,9 @@
                         background-position: center center !important;
                         background-repeat: no-repeat !important;">
                       <div class="post-masonry-content">
-                        <h4><a href="{!!asset('/catalogoServ')!!}/{{$idCatalogo}}/{{$servicio->id_catalogo_servicios}}">{{strtoupper($servicio->nombre_servicio)}}</a></h4>
+                        <h4><a href="{!!asset('/catalogo-de-servicios')!!}/{{$idCatalogo}}/{{$servicio->id_catalogo_servicios}}">{{strtoupper($servicio->nombre_servicio)}}</a></h4>
                       </div>
-                      <a class="link-position link-primary-sec-2 link-right post-link" href="{!!asset('/catalogoServ')!!}/{{$idCatalogo}}/{{$servicio->id_catalogo_servicios}}"><i class="fa fa-info-circle" aria-hidden="true"></i>
+                      <a class="link-position link-primary-sec-2 link-right post-link" href="{!!asset('/catalogo-de-servicios')!!}/{{$idCatalogo}}/{{$servicio->id_catalogo_servicios}}"><i class="fa fa-info-circle" aria-hidden="true"></i>
                       </a>
                     </div>
                   </div>

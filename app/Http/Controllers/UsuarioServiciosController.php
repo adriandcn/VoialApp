@@ -587,7 +587,7 @@ class UsuarioServiciosController extends Controller
             // Gestion de actualizacion de busqueda
             $search = $formFields['nombre_promocion'] . " " . $formFields['descripcion_promocion'] . " " . $formFields['codigo_promocion'] . " " . $formFields['tags'] . " " . $formFields['observaciones_promocion'];
             $gestion->storeUpdateSerchEngine($Promocion, 1, $formFields['id'], $search,$formFields['tags']);
-            $returnHTML = ('../eventPromotionsAdmin/' . $formFields['id_usuario_servicio']);
+            $returnHTML = ('../administracion-de-promociones/' . $formFields['id_usuario_servicio']);
             }
           else
             { 
@@ -597,7 +597,7 @@ class UsuarioServiciosController extends Controller
             // Gestion de nueva de busqueda
             $search = $formFields['nombre_promocion'] . " " . $formFields['descripcion_promocion'] . " " . $formFields['codigo_promocion'];
             $gestion->storeSearchEngine($formFields['id_usuario_servicio'], $search, 1, $object->id,$formFields['tags']);
-            $returnHTML = ('../eventPromotionsAdmin/' . $formFields['id_usuario_servicio']);
+            $returnHTML = ('../administracion-de-promociones/' . $formFields['id_usuario_servicio']);
             }
         return response()->json(array(
             'success' => true,
@@ -749,7 +749,7 @@ class UsuarioServiciosController extends Controller
             // Gestion de actualizacion de busqueda
             $search = $formFields['nombre_evento'] . " " . $formFields['descripcion_evento'] . " " . $formFields['tags'];
             $gestion->storeUpdateSerchEngine($Evento, 2, $formFields['id'], $search);
-            $returnHTML = ('../eventPromotionsAdmin/' . $formFields['id_usuario_servicio']);
+            $returnHTML = ('../administracion-de-promociones/' . $formFields['id_usuario_servicio']);
             }
           else
             { //logica de insert
@@ -758,7 +758,7 @@ class UsuarioServiciosController extends Controller
             // Gestion de nueva de busqueda
             $search = $formFields['nombre_evento'] . " " . $formFields['descripcion_evento'];
             $gestion->storeSearchEngine($formFields['id_usuario_servicio'], $search, 2, $object->id);
-            $returnHTML = ('../eventPromotionsAdmin/' . $formFields['id_usuario_servicio']);
+            $returnHTML = ('../administracion-de-promociones/' . $formFields['id_usuario_servicio']);
             }
         return response()->json(array(
             'success' => true,
@@ -1332,7 +1332,7 @@ class UsuarioServiciosController extends Controller
             $gestion->storeSearchEngine($formFields['id_usuario_servicio'], $search, 1, $object->id);
             $request->session()->put('id_promocion', $object->id);
             // $returnHTML = ('/promocion1/' . $object->id);$returnHTML = ('/edicionServicios');
-            $returnHTML = ('/edicionPromocion');
+            $returnHTML = ('/crear-editar-servicio');
             }
         return response()->json(array(
             'success' => true,
@@ -1463,7 +1463,7 @@ class UsuarioServiciosController extends Controller
             // $returnHTML = ('/eventos1/'.$object->id);
             $request->session()->put('id_evento', $object->id);
             // $returnHTML = ('/promocion1/' . $object->id);$returnHTML = ('/edicionServicios');
-            $returnHTML = ('/edicionEvento');
+            $returnHTML = ('/crear-editar-servicio');
             }
         return response()->json(array(
             'success' => true,

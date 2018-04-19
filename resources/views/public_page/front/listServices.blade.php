@@ -321,7 +321,7 @@
                                             @endif
                                        
                                             
-                                    <a href="{!!asset('/tokenDz$rip')!!}/{!!$catalogo->id_catalogo_servicios!!}"  onclick="$('.parallax').LoadingOverlay('show')" class="action">view all</a>
+                                    <a href="{!!asset('/detalles-de-servicio')!!}/{!!$catalogo->id_catalogo_servicios!!}"  onclick="$('.parallax').LoadingOverlay('show')" class="action">view all</a>
                                 </div>
                             </div>
                         </div>

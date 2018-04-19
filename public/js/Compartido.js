@@ -1054,7 +1054,7 @@ function AjaxContainerCambioDashboard() {
     
     $("#target").LoadingOverlay("show");
 
-    var url = "/serviciosres";
+    var url = "/mis-servicios";
     window.location.href = url;
     $("#target").LoadingOverlay("hide", true);
 }
@@ -1327,7 +1327,7 @@ function GetDataAjaxImagenes1(id_usuario_servicio) {
             
             
             //$("#renderPartialImagenes").html(data.contentImagenes);
-            window.location.href = "/edicionServicios";
+            window.location.href = "/crear-editar-servicio";
                  
 
         },
@@ -1545,7 +1545,7 @@ function UpdateServicioActivo(url) {
         dataType: 'json',
         success: function (data) {
             //alert(data.redirectto);
-            //window.location.href = "/edicionServicios";
+            //window.location.href = "/crear-editar-servicio";
             $("#target").LoadingOverlay("hide", true);
                  
 
@@ -1710,7 +1710,7 @@ function UpdatePermanente(url) {
         dataType: 'json',
         success: function (data) {
             //alert(data.redirectto);
-            //window.location.href = "/edicionServicios";
+            //window.location.href = "/crear-editar-servicio";
             $("#target").LoadingOverlay("hide", true);
                  
 
@@ -1739,7 +1739,7 @@ function UpdateServicioActivo(url) {
         dataType: 'json',
         success: function (data) {
             //alert(data.redirectto);
-            //window.location.href = "/edicionServicios";
+            //window.location.href = "/crear-editar-servicio";
             $("#target").LoadingOverlay("hide", true);
                  
 
@@ -1768,7 +1768,7 @@ function GetDataAjaxImagenes2(url) {
             
             
             $("#renderPartialImagenes").html(data.contentImagenes);
-            //window.location.href = "/edicionServicios";
+            //window.location.href = "/crear-editar-servicio";
                  
 
         },

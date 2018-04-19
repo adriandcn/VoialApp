@@ -50,12 +50,12 @@
                   </a>
                 </li>
                 <li>
-                  <a href="{{asset('/catalogoServ')}}/{{$detalles->idcatPadre}}">
+                  <a href="{{asset('/catalogo-de-servicios')}}/{{$detalles->idcatPadre}}">
                     {{$detalles->catPadre}}
                   </a>
                 </li>
                 <li>
-                  <a href="{{asset('/catalogoServ')}}/{{$detalles->idcatPadre}}/{{$detalles->idcatHijo}}">
+                  <a href="{{asset('/catalogo-de-servicios')}}/{{$detalles->idcatPadre}}/{{$detalles->idcatHijo}}">
                     {{$detalles->catHijo}}
                   </a>
                 </li>
@@ -227,7 +227,7 @@
                             <div class="owl-carousel owl-theme">
                               @foreach ($listPromociones as $promotion)
                                 <div class="item" style=" margin-right: 10px;">
-                                      <a class="layouts-link" href="../detailPromotion/{{$promotion->id}}">
+                                      <a class="layouts-link" href="../detalles-de-promocion/{{$promotion->id}}">
                                         <img class="img-shadow" src="{{asset('/images/icon')}}/{{$promotion->filename}}" alt="" width="270" height="393"/>
                                         <div class="eventCard">
                                           <h6 style="margin-top: 1px;">

@@ -69,7 +69,7 @@
               <span class="box-skew__item"></span>
               <ul class="breadcrumbs-custom">
                 <li><a href="{{asset('/')}}">{{ trans('publico/labels.lblHome')}}</a></li>
-                <li><a href="{!!asset('/tokenDz$rip')!!}/{{$servicioData->id}}">{{$servicioData->nombre_servicio}}</a></li>
+                <li><a href="{!!asset('/detalles-de-servicio')!!}/{{$servicioData->id}}">{{$servicioData->nombre_servicio}}</a></li>
                 <li>{{$promotion->nombre_promocion}}</li>
               </ul>
             </div>

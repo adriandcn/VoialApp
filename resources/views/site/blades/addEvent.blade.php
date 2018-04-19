@@ -77,8 +77,8 @@
               <span class="box-skew__item"></span>
               <ul class="breadcrumbs-custom">
                 <li><a href="{{asset('/')}}">{{ trans('publico/labels.lblHome')}}</a></li>
-                <li><a href="{{asset('/serviciosres')}}">{{ trans('publico/labels.lblPathMyServices')}}</a></li>
-                <li><a href="../eventPromotionsAdmin/{{ Session::get('idUsServ') }}">{{ trans('publico/labels.lblPathPromotions')}}</a></li>
+                <li><a href="{{asset('/mis-servicios')}}">{{ trans('publico/labels.lblPathMyServices')}}</a></li>
+                <li><a href="../administracion-de-promociones/{{ Session::get('idUsServ') }}">{{ trans('publico/labels.lblPathPromotions')}}</a></li>
                 <li>{{ trans('publico/labels.lblPathAddPromotion')}}</li>
               </ul>
             </div>
@@ -190,12 +190,12 @@
                             {{ trans('publico/labels.lblbtnSave')}}
                             <span></span></button>
                           @if(Session::has('idUsServ')) 
-                          <a class="button-primary button" href="../eventPromotionsAdmin/{{ Session::get('idUsServ') }}">
+                          <a class="button-primary button" href="../administracion-de-promociones/{{ Session::get('idUsServ') }}">
                             {{ trans('publico/labels.lblBtnCancel')}}
                             <span></span>
                           </a>
                           @else
-                          <a class="button-primary button" href="../eventPromotionsAdmin/{{ Session::get('idUsServ') }}">
+                          <a class="button-primary button" href="../administracion-de-promociones/{{ Session::get('idUsServ') }}">
                             {{ trans('publico/labels.lblBtnCancel')}}
                             <span></span>
                           </a>

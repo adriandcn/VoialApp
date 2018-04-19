@@ -1099,7 +1099,7 @@ function AjaxContainerCambioDashboard() {
 
     $("#spinnerSave").show();
 
-    var url = "/serviciosres";
+    var url = "/mis-servicios";
     window.location.href = url;
     $("#target").LoadingOverlay("hide", true);
 }
@@ -1364,7 +1364,7 @@ function GetDataAjaxImagenes1(id_usuario_servicio) {
 
 
             //$("#renderPartialImagenes").html(data.contentImagenes);
-            window.location.href = "/edicionServicios";
+            window.location.href = "/crear-editar-servicio";
 
 
         },
@@ -1656,7 +1656,7 @@ function sendSearch(s) {
 function sendSearchTendencias(event, idTendencia) {
     event.preventDefault();
     // var txtS = s.replace(/#/g,'+');
-    var url = dirServer + 'public/tendenciasSearch/' + idTendencia;
+    var url = dirServer + 'public/busqueda-por-tendencia/' + idTendencia;
     window.location = url;
 }
 
@@ -1750,7 +1750,7 @@ function UpdateServicioActivo(url) {
         dataType: 'json',
         success: function(data) {
             //alert(data.redirectto);
-            //window.location.href = "/edicionServicios";
+            //window.location.href = "/crear-editar-servicio";
             $("#target").LoadingOverlay("hide", true);
 
 
@@ -1916,7 +1916,7 @@ function UpdatePermanente(url) {
         dataType: 'json',
         success: function(data) {
             //alert(data.redirectto);
-            //window.location.href = "/edicionServicios";
+            //window.location.href = "/crear-editar-servicio";
             $("#target").LoadingOverlay("hide", true);
 
 
@@ -1945,7 +1945,7 @@ function UpdateServicioActivo(url) {
         dataType: 'json',
         success: function(data) {
             //alert(data.redirectto);
-            //window.location.href = "/edicionServicios";
+            //window.location.href = "/crear-editar-servicio";
             $("#target").LoadingOverlay("hide", true);
         },
         error: function(data) {
@@ -1970,7 +1970,7 @@ function GetDataAjaxImagenes2(url) {
         dataType: 'json',
         success: function(data) {
             $("#renderPartialImagenes").html(data.contentImagenes);
-            //window.location.href = "/edicionServicios";
+            //window.location.href = "/crear-editar-servicio";
         },
         error: function(data) {
             var errors = data.responseJSON;
@@ -2032,7 +2032,7 @@ function searchServ(event, idCatalogo, idSubCatalogo) {
                 var image = (array[i].filename != null) ? array[i].filename : 'default_service.png';
                 var url = dirServer + 'public/';
                 var urlImg = url + 'images/fullsize/' + image;
-                var urlDetail = url + 'tokenDz$rip/' + id;
+                var urlDetail = url + 'detalles-de-servicio/' + id;
                 var htmlString = '<div class="col-xs-12 col-sm-6 col-md-4 isotope-item" style=" padding-bottom: 25px;">\
                     <div class="post-masonry post-masonry-short post-content-white bg-post-2 bg-image post-skew-right-top post-skew-var-4" style="background: url(' + urlImg + ');\
                           background-size: cover;\
@@ -2093,7 +2093,7 @@ function searchServIni(idCatalogo, idSubCatalogo) {
                 var image = (array[i].filename != null) ? array[i].filename : 'default_service.png';
                 var url = dirServer + 'public/';
                 var urlImg = url + 'images/fullsize/' + image;
-                var urlDetail = url + 'tokenDz$rip/' + id;
+                var urlDetail = url + 'detalles-de-servicio/' + id;
                 var htmlString = '<div class="col-xs-12 col-sm-6 col-md-4 isotope-item" style=" padding-bottom: 25px;">\
                     <div class="post-masonry post-masonry-short post-content-white bg-post-2 bg-image post-skew-right-top post-skew-var-4" style="background: url(' + urlImg + ');\
                           background-size: cover;\
@@ -2122,7 +2122,7 @@ function searchServIni(idCatalogo, idSubCatalogo) {
 }
 
 function openDetailOnClick(idServ) {
-    var url = dirServer + 'public/tokenDz$rip/' + idServ;
+    var url = dirServer + 'public/detalles-de-servicio/' + idServ;
     window.location.href = url;
 }
 
@@ -2145,7 +2145,7 @@ function getLastServicesCreated() {
                 }
                 var url = dirServer + 'public/';
                 var urlImg = url + 'images/fullsize/' + array[i].filename;
-                var urlDetail = url + 'tokenDz$rip/' + id;
+                var urlDetail = url + 'detalles-de-servicio/' + id;
                 var htmlString = '<div class="post-mini post-footer">\
                         <div class="unit unit-horizontal unit-spacing-xs">\
                           <div class="unit__left">\
@@ -2331,7 +2331,7 @@ function searchByMap(event) {
                 }
                 var url = dirServer + 'public/';
                 var urlImg = url + 'images/fullsize/' + array[i].filename;
-                var urlDetail = url + 'tokenDz$rip/' + id;
+                var urlDetail = url + 'detalles-de-servicio/' + id;
                 var htmlString = '<div class="col-xs-12 col-sm-6 col-md-4 isotope-item" style=" padding-bottom: 25px;">\
                     <div class="post-masonry post-masonry-short post-content-white bg-post-2 bg-image post-skew-right-top post-skew-var-4" style="background: url(' + urlImg + ');\
                           background-size: cover;\

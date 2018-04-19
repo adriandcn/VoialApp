@@ -703,7 +703,7 @@
                             <div class="social-wrap">
                                         <div class="social-icons box size-lg style3">
                                     @if(session('statut')!='visitor')
-                                    <a href="{!!asset('/serviciosres')!!}"  onclick="$('.container').LoadingOverlay('show');" class="social-icon"><label>{{utf8_encode( trans('publico/labels.label151'))}}</label> <i class="fa fa-plus has-circle"  data-toggle="tooltip" data-placement="top" title=""></i></a>                        
+                                    <a href="{!!asset('/mis-servicios')!!}"  onclick="$('.container').LoadingOverlay('show');" class="social-icon"><label>{{utf8_encode( trans('publico/labels.label151'))}}</label> <i class="fa fa-plus has-circle"  data-toggle="tooltip" data-placement="top" title=""></i></a>                        
                                 @else
                                     <a href="{!!asset('/login')!!}"  onclick="$('.container').LoadingOverlay('show');" class="social-icon"><label>{{utf8_encode( trans('publico/labels.label151'))}}</label> <i class="fa fa-plus has-circle"  data-toggle="tooltip" data-placement="top" title=""></i></a>                        
                                     @endif

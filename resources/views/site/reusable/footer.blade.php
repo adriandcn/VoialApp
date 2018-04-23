@@ -38,7 +38,7 @@
                     <img src="{{asset('/siteStyle/images/partners/bife_chorizo.png')}}" alt="" width="120" height="50"/>
                   </a>
                   <a href="http://www.zona-tecnologica.com/" target="_new">
-                    <img src="{{asset('/siteStyle/images/partners/Zona_tecnologica.jpg')}}" alt="" width="300" height="50"/>
+                    <img src="{{asset('/siteStyle/images/partners/Zona_tecnologica.png')}}" alt="" width="300" height="50"/>
                   </a>
                 </div>
                 <!-- <h4>Newsletter</h4>

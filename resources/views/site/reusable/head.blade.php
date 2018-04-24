@@ -42,3 +42,11 @@
             box-shadow: inset 0 0 1px #c26933, inset 0 1px 7px #c26933, 0 3px 6px -3px #BBB;
         }
      </style>
+    <link rel="apple-touch-icon" href="{{ asset('siteStyle/images/fav/Logo Voilapp Appicono 60x60-02.png')}}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('siteStyle/images/fav/Logo Voilapp Appicono 76x76-02.png')}}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('siteStyle/images/fav/Logo Voilapp Appicono 120x120-03.png')}}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('siteStyle/images/fav/Logo Voilapp Appicono 120x120-03.png')}}">
+    <link rel="icon" sizes="180x180" href="{{ asset('siteStyle/images/fav/Logo Voilapp Appicono 180x180-04.png')}}">
+    
+    <!-- <link rel="shortcut icon" href="{{asset('/siteStyle/images/favicon.ico')}}" /> -->
+    <!-- <link rel="apple-touch-icon" href="{{asset('/siteStyle/images/favicon.png')}}" /> -->

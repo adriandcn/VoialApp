@@ -24,6 +24,12 @@
       <!-- Modal-->
       @include('site.reusable.header')
       <!-- Breadcrumbs & Page title-->
+      @if(Auth::user())
+          <script>
+          window.location = $('#serverDir').val() + "public/mis-servicios";
+        </script>
+      @endif
+
       @if(session('device') != 'mobile')
         <br>
         <br>

@@ -3,7 +3,7 @@
 return [
     //voilapp
     'lblSearch' => 'Search',
-    'saludo' => 'Welcome to Voilapp.city',
+    'saludo' => 'Your Virtual <img src="http://voilappbeta.com/public/siteStyle/images/cruz_roja.png" width="50" style="margin-left: 10px; margin-right: 10px;"> Health assistant',
     'appDescription' => 'We help you find registered medical and health services, with a
     easy access by its geolocated reference and arrival address.',
     'lblLogIn' => 'Log In',
@@ -218,5 +218,5 @@ return [
     'lblPhonesContacts' => 'Phones',
     'lblAddressContacts' => 'Address',
     'lblRegisterTems' => 'Accept terms and conditions',
-    'titleEstablecimiento' => 'Extra services'
+    'titleEstablecimiento' => 'Facilities'
 ];

@@ -2,7 +2,7 @@
 <html class="wide wow-animation" lang="es">
   <head>
     <!-- Site Title-->
-    <title>VoialApp | Inicio </title>
+    <title>VoilApp</title>
     @include('site.reusable.head')
 
    <!--  <script>
@@ -50,7 +50,7 @@
                     <div class="cell-lg-6 cell-md-7 cell-sm-8" data-caption-animate="fadeInUp" data-caption-delay="100">
                       <div class="swiper__overlay swiper-overlay-end box-skew-var-2"><span class="box-skew__item"></span>
                         <div class="swiper-overlay-item-1">
-                          <h1>{{trans('publico/labels.saludo')}}</h1>
+                          <h1>{!!html_entity_decode(trans('publico/labels.saludo'))!!}</h1>
                           <h6>{{trans('publico/labels.appDescription')}}</h6>
                         </div>
                       </div>

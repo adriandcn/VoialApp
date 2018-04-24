@@ -3,7 +3,7 @@
 return [
     //voilapp
     'lblSearch' => 'Buscar',
-    'saludo' => 'Bienvenido a Voilapp.city',
+    'saludo' => 'Tu asistente en <img src="http://voilappbeta.com/public/siteStyle/images/cruz_roja.png" width="50" style="margin-left: 10px; margin-right: 10px;"> Salud virtual',
     'appDescription' => 'Te ayuda a encontrar servicios médicos y de salud registrados, disponiendo de un
     acceso fácil por su referencia geolocalizada y direccionamiento de llegada.',
     'lblLogIn' => 'Ingresar',
@@ -220,5 +220,5 @@ return [
     'lblPhonesContacts' => 'Teléfonos',
     'lblAddressContacts' => 'Dirección',
     'lblRegisterTems' => 'Aceptar términos y condiciones',
-    'titleEstablecimiento' => 'Servicios extras'
+    'titleEstablecimiento' => 'Facilidades'
 ];

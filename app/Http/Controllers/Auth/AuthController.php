@@ -374,12 +374,13 @@ class AuthController extends Controller {
         
     }
     
-    public function sendActivationEmail($data){
+     public function sendActivationEmail($data){
         $correo_enviar = $data['email'];
         $nombre = $data['nombre'];
-        Mail::send('emails.auth.verify', $data, function($message) use ($correo_enviar,$nombre)
+        Mail::send('site.emails.activation', $data, function($message) use ($correo_enviar,$nombre)
         {
-            $message->from("info@voilappbeta.com",'VoilApp');
+            $message->from(env('MAIL_USERNAME'),'VoilApp.city');
+
             $message->to($correo_enviar,$nombre)->subject('Verifica tu cuenta');
         });
     }
@@ -464,14 +465,19 @@ class AuthController extends Controller {
             $email = $auth->user()->email;
             $nombre = $auth->user()->email;
             // Datos de email de activacion
-            $data = [
+             $data = [
+
                         'email' => $formFields['email'],
                         'nombre' => $formFields['name'],
+                        'urlPage'   => config('global.serverDir'),
+                        'title' => trans('front/verify.email-title'),
+                        'body' => trans('front/verify.email-body'),
+                        'link' => trans('front/verify.email-link'),
+                        'linkPD' => trans('front/verify.email-msg-link'),
                         'confirmation_code' => $confirmation_code,
-                        // 'link' => config('global.serverDir') . 'activate?c='.$confirmation_code,
-                        'title'  => trans('front/verify.ReviewEmail'),
-                        'intro'  => trans('front/verify.email-intro'),
-                        'link'   => trans('front/verify.email-link')
+                        'linkUnsuscribe' => trans('front/verify.email-unsubscribe'),
+                        'footer' => trans('front/verify.email-footer')
+
                     ];
             $this->sendActivationEmail($data);
 

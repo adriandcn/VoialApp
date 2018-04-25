@@ -1,10 +1,20 @@
 <?php
+return [
 
-return  [
-'email-title' => 'NOTIFICATION OF REGISTRATION',
-'email-link' => 'Agree',
-'email-msg-link' => 'To finish with the registration, CLICK on this LINK.',
-'email-unsubscribe' => 'Unsubscribe',
-'email-body' => 'We welcome you to a part of Voilàpp, together we can help users to know your products and / or services, easily their decision and what they need, be covered in a comfortable, complete and efficient way . ',
-'email-footer' => 'Voilàpp.city.com sent this email because it entered this address for its registration and can be part of the group Voilàpp.city.com'
+	'email-title' => 'NOTIFICACIÓN DE REGISTRO',
+
+	'email-link' => 'De acuerdo',
+	'okConfirmation' => 'Gracias por registrarte',
+
+	'email-msg-link' => 'Para finalizar con el registro, hacer CLICK en este LINK.',
+
+	'email-unsubscribe' => 'Unsubscribe',
+
+	'email-body' => 'Te damos la bienvenida a ser parte de Voilàpp, juntos podremos ayudar a que los usuarios conozcan tus productos y/o servicios, facilitaremos su decisión y esperamos que sus necesidades sean cubiertas de manera cómoda, completa y eficiente.',
+
+	'email-footer' => 'Voilàpp.city.com envió este correo electrónico porque ingresaste esta dirección para tu registro y poder ser parte del grupo Voilàpp.city.com'
+
 ];
+
+
+

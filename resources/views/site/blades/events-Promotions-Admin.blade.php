@@ -78,7 +78,7 @@
       </section>
       <section class="section-xs bg-white">
           <div class="shell shell-inset-xs-15 shell-offset-left-xlg-50">
-              <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-plus" href="../addEvent/{{$servicio->id}}">
+              <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-plus" href="{{asset('/crear-editar-promocion')}}/{{$servicio->id}}">
                 {{ trans('publico/labels.lblBtnAddPromotion')}}<span></span>
               </a>
               <br>

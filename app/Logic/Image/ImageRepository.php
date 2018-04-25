@@ -74,7 +74,7 @@ class ImageRepository {
             $imageToken = substr(sha1(mt_rand()), 0, 5);
             return $filename . '-' . $imageToken;
         }
-        return $filename;
+        return uniqid();
     }
     public function storeDescrFoto($inputs, $usuario_servicio,$id) {
         DB::table('images')

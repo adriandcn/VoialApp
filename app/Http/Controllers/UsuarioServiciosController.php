@@ -52,9 +52,9 @@ class UsuarioServiciosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getEventos(Guard $auth, $idServicio, ServiciosOperadorRepository $gestion,PublicServiceRepository $gestionPublic)
+    public function getEventos(Guard $auth, $idServicio, ServiciosOperadorRepository $gestion,PublicServiceRepository $gestionPublic,Request $request)
     {
-
+        $request->session()->put('idUsServ',$idServicio);
         $servicio = $gestionPublic->obtenerDetallesServicio($idServicio);
         $listEventos = $gestion->getEventosUsuarioServicio($idServicio);
         $listPromociones  = $gestion->getPromocionesUsuarioServicio($idServicio);
@@ -62,10 +62,17 @@ class UsuarioServiciosController extends Controller
         return view('site.blades.events-Promotions-Admin', compact('listEventos', 'servicio','listPromociones'));
     }
 
-    public function getViewAdd(ServiciosOperadorRepository $gestion, $idUsuarioServicio = null,Request $request)
+    public function getViewAdd(ServiciosOperadorRepository $gestion, $idPromotion = null,Request $request)
     {
 
-        $request->session()->put('idUsServ',$idUsuarioServicio);
+        $promotion = $gestion->getPromocion($idPromotion);
+        if (count($promotion) > 0) {
+            $promotion = $gestion->getPromocion($idPromotion);
+            $listTypePhoto  = DB::table('catalogo_tipo_fotografia')->get();
+            $request->session()->put('idUsServ',$promotion[0]->id_usuario_servicio);
+            return view('site.blades.addEvent', compact('promotion','listTypePhoto'));
+        }
+        $idUsuarioServicio = $request->session()->get('idUsServ');
         $listTypePhoto  = DB::table('catalogo_tipo_fotografia')->get();
         $promotion = [];
         $formFields['id_usuario_servicio'] = $idUsuarioServicio;

@@ -176,7 +176,7 @@ class _ImageRepository {
 
 
 
-        return $filename;
+        return uniqid();
 
     }
 

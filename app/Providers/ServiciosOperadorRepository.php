@@ -899,7 +899,7 @@ Actualizar tabla de busqueda
         $promocionU->fecha_hasta = $inputs['fecha_fin'];
         $promocionU->precio_normal = trim($inputs['precio_normal']);
         $promocionU->descuento = trim($inputs['descuento']);
-        $promocionU->codigo_promocion = trim($inputs['codigo']);
+        $promocionU->codigo_promocion = trim($inputs['codigo_promocion']);
         $promocionU->tags = trim($inputs['tags']);
         $promocionU->observaciones_promocion = trim($inputs['observaciones_promocion']);
         // $promocionU->permanente = 0;

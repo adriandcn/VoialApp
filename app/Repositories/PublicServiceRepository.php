@@ -2788,7 +2788,7 @@ class PublicServiceRepository extends BaseRepository {
     //Entrega el detalle de los servicios
     public function obtenerDetallesServicio($idServicio) {
         $servicios = DB::table('usuario_servicios')
-                        ->join('images','images.id_usuario_servicio','=','usuario_servicios.id')
+                        ->leftJoin('images','images.id_usuario_servicio','=','usuario_servicios.id')
                         ->where(function($query){
                              $query->where('profile_pic','=',1);
                              $query->where('id_catalogo_fotografia','=',1);
@@ -2796,7 +2796,6 @@ class PublicServiceRepository extends BaseRepository {
                         })
                         ->where('usuario_servicios.id',$idServicio)
                         ->first();
-                        // return $servicios;
         $datosCatalogo = DB::table('catalogo_servicios')
                         ->where('id_catalogo_servicios',$servicios->id_catalogo_servicio)
                         ->select('nombre_servicio','id_padre','id_catalogo_servicios')

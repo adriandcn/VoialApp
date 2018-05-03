@@ -218,5 +218,14 @@ return [
     'lblPhonesContacts' => 'Phones',
     'lblAddressContacts' => 'Address',
     'lblRegisterTems' => 'Accept terms and conditions',
-    'titleEstablecimiento' => 'Facilities'
+    'titleEstablecimiento' => 'Facilities',
+
+    'titleNews' => 'News',
+    'msgNews' => 'Keep up with the latest news and services.',
+    'msgRegisterNews' => 'Enter your e-mail and subscribe to our newsletter.',
+    'btnRegisterNews' => 'Subscribe',
+    'lblRangeSendNewsTitle' => 'Shipping time',
+    'lblRangeSendNewsWeek' => 'Weekly',
+    'lblRangeSendNewsBiWeek' => 'Biweekly',
+    'lblRangeSendNewsMonth' => 'Monthly'
 ];

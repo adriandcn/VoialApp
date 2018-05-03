@@ -94,8 +94,6 @@ function AjaxContainerRegistro($formulario) {
 
         } //success
 
-
-
     });
 }
 
@@ -2475,12 +2473,12 @@ var moveServTouser = function(event) {
             if (!data.success) {
                 $("#form-modal-copy-serv").hide();
                 showAlert('Error!', 'Email no existe', null, 'warning', 'danger');
-            }else{
+            } else {
                 $("#form-modal-copy-serv").hide();
                 showAlert('Error!', 'Servicio movido correctamente', null, 'warning', 'success');
-                setTimeout(function(){
+                setTimeout(function() {
                     location.reload();
-                },3000);
+                }, 3000);
             }
         },
         error: function(data) {
@@ -2492,4 +2490,76 @@ var moveServTouser = function(event) {
             }
         }
     });
+}
+
+var loadNewTags = function(e, idCatalogo, idSubCatalogo) {
+    console.log(idCatalogo);
+    console.log(idSubCatalogo);
+    $('#spinnerSaveNews').css('display','none');
+    $('#spinnerNewsTags').show();
+    $('#email_news').val($('#emailNews').val());
+    var url = dirServer + "public/catalogoNews";
+    $.ajax({
+        type: 'POST',
+        url: url,
+        dataType: 'json',
+        data: { idCatalogo: idCatalogo, idSubCatalogo: idSubCatalogo },
+        success: function(data) {
+            var array = data.list;
+            var htmlResult = '';
+            for (var i = 0; i < array.length; i++) {
+                var htmlString = '<div class="col-sm-4">\
+                      <div class="form-wrap">\
+                        <label class="form-label-outside" for="contact-first-name-2" style="color: #c26933ba;">' + array[i].name + '</label>\
+                        <span class="badge" style="background-color: transparent;"><input type="checkbox" name="checkbox-news[]" value="' + array[i].id_newsletter + '" id="' + array[i].id_newsletter + '" data-size="mini" data-on-color="success" data-on-text="Si" data-off-text="No" class="checkboxDays" checked></span><br>\
+                      </div>\
+                    </div>';
+                htmlResult = htmlResult + htmlString;
+            }
+            $('#NewsTagList').html(htmlResult);
+            $('#spinnerNewsTags').hide();
+            $("[name='checkbox-news[]']").bootstrapSwitch();
+        },
+        error: function(data) {
+            $('#spinnerNewsTags').hide();
+            var errors = data.responseJSON;
+            if (errors) {
+                $.each(errors, function(i) {
+                    console.log(errors[i]);
+                });
+            }
+        }
+    });
+}
+
+var registerClientToNews = function() {
+    $('#spinnerSaveNews').css('display','inline');
+    $('#form-modal-subscribe-news').modal('show');
+    event.preventDefault();
+    var $form = $('#form-subscribe-news'),
+        data = $form.serialize(),
+        url = $form.attr("action");
+    var posting = $.post(url, { formData: data });
+    posting.done(function(data) {
+        if (data.errors) {
+            if (data.errors[0] == 'emptyEmail') {
+                showAlert('Error!', 'Ingresa un email', null, 'warning', 'danger');
+                $('#form-modal-subscribe-news').modal('hide');
+            };
+            if (data.errors[0] == 'emailRegistered') {
+                showAlert('Error!', 'Este email ya se encuentra registrado', null, 'warning', 'danger');
+                $('#form-modal-subscribe-news').modal('hide');
+            };
+            if (data.errors[0] == 'emptyTags') {
+                showAlert('Error!', 'Selecione mínimo una categoría', null, 'warning', 'danger');
+                $('#form-modal-subscribe-news').modal('hide');
+            };
+        }
+        if (!data.errors) {
+            showAlert('Registro completado correctamente!', '', null, 'success', 'success');
+            $('#form-modal-subscribe-news').modal('hide');
+        }
+
+    });
+
 }

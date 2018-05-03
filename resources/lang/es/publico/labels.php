@@ -220,5 +220,13 @@ return [
     'lblPhonesContacts' => 'Teléfonos',
     'lblAddressContacts' => 'Dirección',
     'lblRegisterTems' => 'Aceptar términos y condiciones',
-    'titleEstablecimiento' => 'Facilidades'
+    'titleEstablecimiento' => 'Facilidades',
+    'titleNews' => 'Noticias',
+    'msgNews' => 'Manténgase al día con las últimas noticias y servicios.',
+    'msgRegisterNews' => 'Ingrese su correo electrónico y suscríbase a nuestro boletín.',
+    'btnRegisterNews' => 'Suscribirse',
+    'lblRangeSendNewsTitle' => 'Tiempo de envío',
+    'lblRangeSendNewsWeek' => 'Semanal',
+    'lblRangeSendNewsBiWeek' => 'Quincenal',
+    'lblRangeSendNewsMonth' => 'Mensual'
 ];

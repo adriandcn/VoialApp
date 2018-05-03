@@ -41,15 +41,18 @@
                     <img src="{{asset('/siteStyle/images/partners/Zona_tecnologica.png')}}" alt="" width="300" height="50"/>
                   </a>
                 </div>
-                <!-- <h4>Newsletter</h4>
-                <p>Keep up with the latest news and events.</p>
-                <p>Enter your e-mail and subscribe to our newsletter.</p>
-                <form class="rd-mailform form-gray-outline form-button-within-1" data-form-output="form-output-global" data-form-type="subscribe" method="post" action="bat/rd-mailform.php">
-                  <div class="form-wrap">
-                    <input class="form-input" type="email" name="email" data-constraints="@Email @Required">
-                    <button class="button button-transparent" type="submit">Subscribe</button>
-                  </div>
-                </form> -->
+                {{Route::current()->getName()}}
+                @if(Route::current()->getName() == 'getcatalogoServ')
+                  <h4>{{trans('publico/labels.titleNews')}}</h4>
+                  <p>{{trans('publico/labels.msgNews')}}</p>
+                  <p>{{trans('publico/labels.msgRegisterNews')}}</p>
+                  <form class="rd-mailform form-gray-outline form-button-within-1" data-form-output="form-output-global" data-form-type="subscribe" method="post" action="{{asset('/subscribeNews')}}">
+                    <div class="form-wrap">
+                      <input class="form-input" type="email" id="emailNews" data-constraints="@Email @Required" style="color: white;">
+                      <button class="button button-transparent" type="button" data-toggle="modal" data-target="#form-modal-subscribe-news" onclick="loadNewTags(event,{{ Request::route('idCatalogo') }},{{ Request::route('idSubCatalogo') }})">{{trans('publico/labels.btnRegisterNews')}}</button>
+                    </div>
+                  </form>
+                @endif
               </div>
             </div>
           </div>
@@ -100,6 +103,48 @@
           <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
           <div class="pswp__caption">
             <div class="pswp__caption__cent"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal Add News -->
+  <div class="modal modal-custom fade" id="form-modal-subscribe-news" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document" style="width: 80%;">
+        <div class="modal-content">
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+          <div class="modal-header">
+            <h5>{{ trans('back/admin.lblAddService')}}</h5>
+          </div>
+          <div class="modal-body">
+            <form class="rd-mailform" id="form-subscribe-news" action="{{asset('/registerUserToNews')}}">
+              <div class="form-wrap">
+                <label class="form-label-outside" for="email_news"><i class="fa fa-font"></i>&nbsp;&nbsp;{{ trans('back/admin.lblEmailServ')}}</label>
+                <input class="form-input tooltip" id="email_news" type="email" name="email_news" title="{{ trans('back/admin.altNombre')}}" data-constraints="@Required">
+              </div>
+              <div class="form-wrap">
+                <label class="form-label-outside" for="email_news"><i class="fa fa-font"></i>&nbsp;&nbsp;{{ trans('publico/labels.lblRangeSendNewsTitle')}}</label>
+                <fieldset id="group2">
+                    {{ trans('publico/labels.lblRangeSendNewsWeek')}} <input type="radio" value="8" name="range" checked>
+                    {{ trans('publico/labels.lblRangeSendNewsBiWeek')}} <input type="radio" value="15" name="range">
+                    {{ trans('publico/labels.lblRangeSendNewsMonth')}} <input type="radio" value="30" name="range">
+                </fieldset>
+              </div>
+              <div class="form-wrap">
+                <label class="form-label-outside" for="register-password-4"><i class="fa fa-list"></i>&nbsp;&nbsp;{{ trans('back/admin.lblDescriptionServ')}}</label>
+               <div style="display: inline;" id="spinnerNewsTags">Cargando ... <i class="fa fa-spinner fa-spin"></i></div>
+               <divclass="row">
+                 <div id="NewsTagList"></div>
+               </div>
+              </div>
+              <br>
+              <div class="rowErrorServStep1"></div>
+              <div class="button-wrap text-right">
+                <button class="button-primary button" type="button" onclick="registerClientToNews(event,'form-add-trip','trip')">
+                  <div style="display: inline;" id="spinnerSaveNews"><i class="fa fa-spinner fa-spin"></i></div>
+                  {{trans('publico/labels.btnRegisterNews')}}<span></span>
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>

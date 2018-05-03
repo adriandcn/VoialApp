@@ -59,6 +59,8 @@ Route::get('/detalles-de-servicio/{id_catalogo}', ['as' => 'searchCat', 'uses' =
 Route::post('filterParameters', ['as' => 'filtersCategoria', 'uses' => 'HomePublicController@postFiltersCategoria']);
 Route::get('servicesOf/{id_operador}', ['as' => 'getServiciosByOperador', 'uses' => 'ServicioController@getServiciosByOperador']);
 Route::post('/filterService', ['as' => 'filterService', 'uses' => 'ServicioController@applyServicesFilter']);
+Route::post('/catalogoNews', ['as' => 'catalogoNews', 'uses' => 'NewsController@getNewByCatalog']);
+Route::post('/registerUserToNews', ['as' => 'registerUserToNews', 'uses' => 'NewsController@registerUserToNews']);
 // ********************************************************//
 //    PARA LAS PROVINCIAS, CANTONES Y PARROQUIAS          //
 // ********************************************************//

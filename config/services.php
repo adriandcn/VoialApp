@@ -36,7 +36,7 @@ return [
 	'facebook' => [
 	    'client_id' => '164878350792188',
 	    'client_secret' => '3cb85024126bf4f4eebf6907d1fae47d',
-	    'redirect' => 'http://localhost/voialApp/public/callback',
+	    'redirect' => 'https://voilapp.city/public/callback',
 	],
 
 ];

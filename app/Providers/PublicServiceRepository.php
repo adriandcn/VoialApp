@@ -2786,6 +2786,10 @@ class PublicServiceRepository extends BaseRepository {
 
     //Entrega el detalle de los servicios
     public function obtenerDetallesServicio($idServicio) {
+        $oneImage = DB::table('images')->where('estado_fotografia',1)->where('id_auxiliar',$idServicio)->count();
+        if ($oneImage == 1) {
+            DB::table('images')->where('estado_fotografia',1)->where('id_auxiliar',$idServicio)->update(['profile_pic' => 1]);
+        }
         $servicios = DB::table('usuario_servicios')
                         ->leftJoin('images','images.id_usuario_servicio','=','usuario_servicios.id')
                         ->where(function($query){

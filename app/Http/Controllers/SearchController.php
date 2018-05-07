@@ -145,7 +145,7 @@ class SearchController extends Controller
             }else{
                 $despliegue = [];
             }
-            // return response()->json(['data' => $busquedaTotal]);
+            // return response()->json(['data' => $despliegue->items()]);
             return View('site.blades.search', compact(
                 'despliegue'
             ));

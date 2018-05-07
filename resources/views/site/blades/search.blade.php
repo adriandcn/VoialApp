@@ -81,8 +81,8 @@
                       <br>
                       <br>
                     </div>
-                    @if(count($despliegue) > 0 || $despliegue != null)
-                          @foreach ($despliegue as $serv)
+                    @if($despliegue->total() > 0 || $despliegue != null)
+                          @foreach ($despliegue->items() as $serv)
                              <div class="col-xs-12 col-sm-6 col-md-4 isotope-item">
                               <div class="post-masonry post-masonry-short post-content-white bg-post-2 bg-image  post-skew-right-top post-skew-var-4" style="background: url(images/fullsize/{{$serv->filename}});
                           background-size: cover;

@@ -625,6 +625,7 @@ Actualizar tabla de busqueda
             $dataImage = DB::table('images')
                     ->where('id_usuario_servicio', '=', $value->id)
                     ->where('profile_pic', '=', 1)
+                    ->where('estado_fotografia', '=', 1)
                     ->select('filename')
                     ->get();
             if (count($dataImage) > 0) {

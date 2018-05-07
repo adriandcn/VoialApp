@@ -2205,14 +2205,14 @@ class PublicServiceRepository extends BaseRepository {
     //Motor de busqueda
     public function getSearchTotal($term) {
 
-        // $query = DB::table('searchengine')
-        //         ->whereRaw("match(search) against ('" . $term . "')")
-        //         ->orWhere('searchengine.search', 'like', "%" . $term)
-        //         ->orWhere('searchengine.search', 'like', $term . "%")
-        //         ->orWhere('searchengine.search', 'like', "%" . $term . "%")
-        //         ->select('searchengine.id_usuario_servicio', 'searchengine.tipo_busqueda')
-        //         ->get();
-        $query = DB::select("SELECT *, MATCH (search) AGAINST (" . "'" . $term . "'" . ") as relevancia FROM searchengine WHERE MATCH (search) AGAINST (" . "'" . $term . "'" . "IN BOOLEAN MODE) ORDER BY relevancia;");
+        $query = DB::table('searchengine')
+                ->whereRaw("match(search) against ('" . $term . "')")
+                ->orWhere('searchengine.search', 'like', "%" . $term)
+                ->orWhere('searchengine.search', 'like', $term . "%")
+                ->orWhere('searchengine.search', 'like', "%" . $term . "%")
+                ->select('searchengine.id_usuario_servicio', 'searchengine.tipo_busqueda')
+                ->get();
+        // $query = DB::select("SELECT *, MATCH (search) AGAINST (" . "'" . $term . "'" . ") as relevancia FROM searchengine WHERE MATCH (search) AGAINST (" . "'" . $term . "'" . "IN BOOLEAN MODE) ORDER BY relevancia;");
         return $query;
     }
 
@@ -2281,6 +2281,7 @@ class PublicServiceRepository extends BaseRepository {
         if (count($data) > 0) {
             foreach ($data as $item) {
                 $id = (property_exists($item, 'id_usuario_servicio')) ? $item->id_usuario_servicio: $item->id;
+                $id = intval($id);
                 $dataServ = DB::table('usuario_servicios')
                 ->where('id',$id)
                 ->select('id_catalogo_servicio')
@@ -2297,10 +2298,19 @@ class PublicServiceRepository extends BaseRepository {
                     array_push($arrayId, $id);
                 }
             }
+            // $paginated = $this->usuario_servicio
             $paginated = $this->usuario_servicio
-            ->join('images','images.id_usuario_servicio','=','usuario_servicios.id')
-            ->where('profile_pic',1)
-            ->whereIn('usuario_servicios.id',$arrayId)->paginate($pagination);
+            ->select(['usuario_servicios.*','filename'])
+            ->leftJoin('images','images.id_auxiliar','=','usuario_servicios.id')
+            ->whereIn('usuario_servicios.id',$arrayId)
+            ->where(function($query){
+                 $query->where('images.profile_pic','=',1);
+                 // $query->where('images.estado_fotografia','=',1);
+                 $query->where('images.id_catalogo_fotografia','=',1);
+                 $query->orWhereNull('images.profile_pic');
+            })
+            // ->havingRaw('aggregate >= 0')
+            ->paginate($pagination);
             return $paginated;
         }else{
             return null;
@@ -2786,7 +2796,10 @@ class PublicServiceRepository extends BaseRepository {
 
     //Entrega el detalle de los servicios
     public function obtenerDetallesServicio($idServicio) {
-        $oneImage = DB::table('images')->where('estado_fotografia',1)->where('id_auxiliar',$idServicio)->count();
+        $oneImage = DB::table('images')
+                    ->where('estado_fotografia',1)
+                    ->where('id_auxiliar',$idServicio)
+                    ->count();
         if ($oneImage == 1) {
             DB::table('images')->where('estado_fotografia',1)->where('id_auxiliar',$idServicio)->update(['profile_pic' => 1]);
         }
@@ -2797,6 +2810,7 @@ class PublicServiceRepository extends BaseRepository {
                              $query->where('id_catalogo_fotografia','=',1);
                              $query->orWhereNull('profile_pic');
                         })
+                        ->select(['usuario_servicios.*','filename'])
                         ->where('usuario_servicios.id',$idServicio)
                         ->first();
                         // return $servicios;
@@ -2814,6 +2828,7 @@ class PublicServiceRepository extends BaseRepository {
                         ->where('id_usuario_servicio',$idServicio)
                         ->get();
         $servicios->redes = $redesSociales;
+        $servicios->id_usuario_servicio = $servicios->id;
         $servicios->catPadre = $datosPadreCatalogo->nombre_servicio;
         $servicios->idcatPadre = $datosPadreCatalogo->id_catalogo_servicios;
         $servicios->catHijo = $datosCatalogo->nombre_servicio;
@@ -3515,10 +3530,15 @@ class PublicServiceRepository extends BaseRepository {
         foreach ($rows as $value) {
             $value->filename = null;
             $image = DB::table('images')
-                ->where('id_usuario_servicio',$value->id)
-                ->where('id_catalogo_fotografia',1)
-                ->where('estado_fotografia',1)
-                ->where('profile_pic',1)
+                ->where('id_auxiliar',$value->id)
+                ->where('estado_fotografia','=',1)
+                ->where('profile_pic','=',1)
+                ->where('id_catalogo_fotografia','=',1)
+                // ->where(function($query){
+                //      $query->where('profile_pic','=',1);
+                //      $query->where('id_catalogo_fotografia','=',1);
+                //      $query->orWhereNull('profile_pic');
+                // })
                 ->select('filename')
                 ->get();
             if (count($image) == 0) {
@@ -3554,7 +3574,7 @@ class PublicServiceRepository extends BaseRepository {
       }
     }
 
-    public function searchInMap ($lat = null,$lng = null,$radio = 50,$idTendencia = null){
+    public function searchInMapTendencias ($lat = null,$lng = null,$radio = 50,$idTendencia = null){
         if ($lat == null || $lat == null) {
             $lat = config('global.latDefault');
             $lng = config('global.lngDefault');
@@ -3599,9 +3619,12 @@ class PublicServiceRepository extends BaseRepository {
         foreach ($arrayFinded as $serv) {
             $image = DB::table('images')
             ->where('id_usuario_servicio','=',$serv->id)
-            ->where('profile_pic','=',1)
-            ->where('images.id_catalogo_fotografia', '=', 1)
-            ->orWhereNull('profile_pic')
+            ->where(function($query){
+                 $query->where('images.profile_pic','=',1);
+                 $query->where('estado_fotografia', '=', 1);
+                 $query->where('images.id_catalogo_fotografia','=',1);
+                 $query->orWhereNull('images.profile_pic');
+            })
             ->select('filename')
             ->get();
             if (count($image) > 0) {
@@ -3610,6 +3633,22 @@ class PublicServiceRepository extends BaseRepository {
                 $serv->filename = 'default_service.png';
             }
             
+        }
+        return $arrayFinded;
+    }
+
+    public function searchInMapByDistance ($lat = null,$lng = null, $radio = 50,$dataList = []){
+        if ($lat == null || $lat == null) {
+            $lat = config('global.latDefault');
+            $lng = config('global.lngDefault');
+        }
+        $arrayFinded = [];
+        foreach ($dataList as $value) {
+            $distance = $this->distance($lat,$lng,$value->latitud_servicio,$value->longitud_servicio,'K');
+            if ($distance < ($radio / 1000)) {
+                $value->distance = $distance;
+                array_push($arrayFinded,  $value);
+            }
         }
         return $arrayFinded;
     }

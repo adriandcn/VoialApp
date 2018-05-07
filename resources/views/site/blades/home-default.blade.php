@@ -149,7 +149,7 @@
             <div class="post-video post-video-var-1 context-dark">
               <div class="post-video__image"><img src="{{asset('/siteStyle/images/video-1-1920x649.jpg')}}" alt="" width="1920" height="649"/>
               </div>
-              <div class="post-video__body"><a class="link-control post-video__control" data-lightbox="iframe" href="https://www.youtube.com/watch?v=MwdrGkA315Y"><span class="link-control__inner"></span></a>
+              <div class="post-video__body"><a class="link-control post-video__control" data-lightbox="iframe" href="https://www.youtube.com/embed/lb6PHOfY39w"><span class="link-control__inner"></span></a>
                 <div class="post-video__caption">
                   <h1><a href="single-video.html">Our Latest Video</a></h1>
                   <h6>BeFaster Autumn MTB Series</h6>
@@ -162,7 +162,7 @@
             <div class="post-video post-video-var-1 context-dark">
               <div class="post-video__image"><img src="{{asset('/siteStyle/images/video-2-1920x649.jpg')}}" alt="" width="1920" height="649"/>
               </div>
-              <div class="post-video__body"><a class="link-control post-video__control" data-lightbox="iframe" href="https://www.youtube.com/watch?v=b1jxeI1oruM"><span class="link-control__inner"></span></a>
+              <div class="post-video__body"><a class="link-control post-video__control" data-lightbox="iframe" href="https://www.youtube.com/embed/lb6PHOfY39w"><span class="link-control__inner"></span></a>
                 <div class="post-video__caption">
                   <h1><a href="single-video.html">Our Latest Video</a></h1>
                   <h6>British 4X Series final 2017</h6>
@@ -175,7 +175,7 @@
             <div class="post-video post-video-var-1 context-dark">
               <div class="post-video__image"><img src="{{asset('/siteStyle/images/video-3-1920x649.jpg')}}" alt="" width="1920" height="649"/>
               </div>
-              <div class="post-video__body"><a class="link-control post-video__control" data-lightbox="iframe" href="https://www.youtube.com/watch?v=x2UPwp201k0"><span class="link-control__inner"></span></a>
+              <div class="post-video__body"><a class="link-control post-video__control" data-lightbox="iframe" href="https://www.youtube.com/embed/lb6PHOfY39w"><span class="link-control__inner"></span></a>
                 <div class="post-video__caption">
                   <h1><a href="single-video.html">Our Latest Video</a></h1>
                   <h6>Fabio Wibmer Rides Saalbach</h6>

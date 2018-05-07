@@ -626,6 +626,7 @@ Actualizar tabla de busqueda
             $dataImage = DB::table('images')
                     ->where('id_usuario_servicio', '=', $value->id)
                     ->where('profile_pic', '=', 1)
+                    ->where('estado_fotografia', '=', 1)
                     ->where('id_catalogo_fotografia', '=', 1)
                     ->select('filename')
                     ->get();
@@ -959,6 +960,7 @@ Actualizar tabla de busqueda
                             // ->where('promocion_usuario_servicio.id_catalogo_tipo_fotografia','=',2)
                             // ->where(function($query){
                             //      $query->where('images.profile_pic','=',1);
+                            //      $query->where('images.estado_fotografia','=',1);
                             //      $query->orWhereNull('images.profile_pic');
                             // })
                             // ->groupBy('promocion_usuario_servicio.id')

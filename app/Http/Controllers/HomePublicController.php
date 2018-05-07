@@ -807,7 +807,7 @@ class HomePublicController extends Controller {
 
         $detalles = $gestion->obtenerDetallesServicio($id_catalogo);
         $listPromociones = $gestionServ->getPromocionesUsuarioServicio($id_catalogo);
-        $listPropiedades = $operadorGestion->getCatalogoServicioEstablecimientoExistente($detalles->id_catalogo_servicio,$detalles->id_usuario_servicio);
+        $listPropiedades = $operadorGestion->getCatalogoServicioEstablecimientoExistente($detalles->id_catalogo_servicio,$detalles->id);
         // return response()->json(['a' => $listPropiedades]);
         if ($detalles != null) {
             return view('site.blades.detail-service')

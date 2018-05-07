@@ -323,6 +323,7 @@ class catalogoServiciosRepository extends BaseRepository
 
 			->where(function($query){
                  $query->where('images.profile_pic','=',1);
+                 $query->where('images.estado_fotografia','=',1);
                  $query->where('images.id_catalogo_fotografia','=',1);
                  $query->orWhereNull('images.profile_pic');
             })

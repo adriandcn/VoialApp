@@ -228,5 +228,6 @@ return [
     'lblRangeSendNewsTitle' => 'Tiempo de envío',
     'lblRangeSendNewsWeek' => 'Semanal',
     'lblRangeSendNewsBiWeek' => 'Quincenal',
-    'lblRangeSendNewsMonth' => 'Mensual'
+    'lblRangeSendNewsMonth' => 'Mensual',
+    'titleHashtags' => 'Etiquetas'
 ];

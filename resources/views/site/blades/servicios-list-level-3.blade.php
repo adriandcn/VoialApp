@@ -73,7 +73,7 @@
               <span class="box-skew__item"></span>
               <ul class="breadcrumbs-custom">
                 <li><a href="{{asset('/')}}">{{ trans('publico/labels.lblHome')}}</a></li>
-                <li><a href="{{asset('/')}}catalogoServ/{{$dataCatalogo->id_catalogo_servicios}}">{{$dataCatalogo->nombre_servicio}}</a></li>
+                <li><a href="{{asset('/')}}catalogo-de-servicios/{{$dataCatalogo->id_catalogo_servicios}}">{{$dataCatalogo->nombre_servicio}}</a></li>
                 <li>{{$dataSubCatalogo->nombre_servicio}}</li>
                 <!-- <li>{{ trans('publico/labels.lblPathServicioList')}}</li> -->
               </ul>

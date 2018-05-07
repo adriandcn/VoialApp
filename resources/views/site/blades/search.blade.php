@@ -89,11 +89,11 @@
                           background-repeat: no-repeat;
                           min-height: 200px;
                           cursor: pointer;
-                          margin-bottom: 20px;" onclick="openDetailOnClick({{$serv->id_usuario_servicio}})">
+                          margin-bottom: 20px;" onclick="openDetailOnClick({{$serv->id}})">
                                 <div class="post-masonry-content">
                                 </div>
                                 <h6 class="" style="color: #fff; text-shadow: 3px -1px 2px #1b1b1b;">
-                                  <a href="{!!asset('/detalles-de-servicio')!!}/{{$serv->id_usuario_servicio}}" style="color:white;">{{strtoupper($serv->nombre_servicio)}}</a>
+                                  <a href="{!!asset('/detalles-de-servicio')!!}/{{$serv->id}}" style="color:white;">{{strtoupper($serv->nombre_servicio)}}</a>
                                 </h6>
                               </div>
                             </div>   

@@ -227,5 +227,6 @@ return [
     'lblRangeSendNewsTitle' => 'Shipping time',
     'lblRangeSendNewsWeek' => 'Weekly',
     'lblRangeSendNewsBiWeek' => 'Biweekly',
-    'lblRangeSendNewsMonth' => 'Monthly'
+    'lblRangeSendNewsMonth' => 'Monthly',
+    'titleHashtags' => 'Tags'
 ];

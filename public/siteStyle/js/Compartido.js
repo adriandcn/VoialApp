@@ -2027,6 +2027,7 @@ function searchServ(event, idCatalogo, idSubCatalogo) {
                 } else {
                     id = array[i].id;
                 }
+                console.log(array[i]);
                 var image = (array[i].filename != null) ? array[i].filename : 'default_service.png';
                 var url = dirServer + 'public/';
                 var urlImg = url + 'images/fullsize/' + image;

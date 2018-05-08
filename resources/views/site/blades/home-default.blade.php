@@ -142,14 +142,23 @@
     <br>
     @endforeach
     <br>
+    <?php $arrayVideos = [
+        ['img'=>'video-1-1920x649.jpg','url' => 'https://www.youtube.com/embed/lb6PHOfY39w']
+      ]; ?>
     <section class="section-skew skew-4-elem section-skew-var-2 wow fadeInUp" data-wow-delay=".2s"><span class="section-skew__item"></span><span class="section-skew__item"></span>
         <!-- Owl Carousel-->
         <div class="owl-carousel video-carousel owl-nav-variant-3" data-items="1" data-stage-padding="0" data-margin="0" data-mouse-drag="false" data-nav="false" data-nav-custom="#owl-carousel-nav" data-dots="true">
+          @foreach ($arrayVideos as $vid)
           <div class="owl-item">
             <div class="post-video post-video-var-1 context-dark">
-              <div class="post-video__image"><img src="{{asset('/siteStyle/images/video-1-1920x649.jpg')}}" alt="" width="1920" height="649"/>
+              <div class="post-video__image"><img src="{{asset('/siteStyle/images/')}}/{{$vid['img']}}" alt="" width="1920" height="649"/>
               </div>
-              <div class="post-video__body"><a class="link-control post-video__control" data-lightbox="iframe" href="https://www.youtube.com/embed/lb6PHOfY39w"><span class="link-control__inner"></span></a>
+             <!--  <iframe src="https://www.youtube.com/embed/O-HsW142T5g" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+              </iframe> -->
+              <div class="post-video__body">
+                <a class="link-control post-video__control" onclick="openModalVideo(event,'{{$vid["url"]}}')">
+                  <span class="link-control__inner"></span>
+                </a>
                 <div class="post-video__caption">
                   <h1><a href="single-video.html">Our Latest Video</a></h1>
                   <h6>BeFaster Autumn MTB Series</h6>
@@ -158,35 +167,23 @@
               </div>
             </div>
           </div>
-          <div class="owl-item">
-            <div class="post-video post-video-var-1 context-dark">
-              <div class="post-video__image"><img src="{{asset('/siteStyle/images/video-2-1920x649.jpg')}}" alt="" width="1920" height="649"/>
-              </div>
-              <div class="post-video__body"><a class="link-control post-video__control" data-lightbox="iframe" href="https://www.youtube.com/embed/lb6PHOfY39w"><span class="link-control__inner"></span></a>
-                <div class="post-video__caption">
-                  <h1><a href="single-video.html">Our Latest Video</a></h1>
-                  <h6>British 4X Series final 2017</h6>
-                  <time class="heading-6" datetime="2017-09-22">22 September, 2017</time>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="owl-item">
-            <div class="post-video post-video-var-1 context-dark">
-              <div class="post-video__image"><img src="{{asset('/siteStyle/images/video-3-1920x649.jpg')}}" alt="" width="1920" height="649"/>
-              </div>
-              <div class="post-video__body"><a class="link-control post-video__control" data-lightbox="iframe" href="https://www.youtube.com/embed/lb6PHOfY39w"><span class="link-control__inner"></span></a>
-                <div class="post-video__caption">
-                  <h1><a href="single-video.html">Our Latest Video</a></h1>
-                  <h6>Fabio Wibmer Rides Saalbach</h6>
-                  <time class="heading-6" datetime="2017-09-22">22 September, 2017</time>
-                </div>
-              </div>
-            </div>
-          </div>
+           @endforeach
         </div>
-        <div class="custom-navigation" id="owl-carousel-nav"><a class="prev material-icons-keyboard_backspace"></a><a class="next material-icons-keyboard_backspace"></a></div>
+        <!-- <div class="custom-navigation" id="owl-carousel-nav"><a class="prev material-icons-keyboard_backspace"></a><a class="next material-icons-keyboard_backspace"></a></div> -->
     </section>
+    @if(session('device') == 'mobile')
+      <div class="modal fade" id="modal-full-video" role="dialog" style="z-index: 9999;background: rgba(0, 0, 0, 0.64);">
+      <iframe src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style=" margin-top: 40%;  width: 100%;   height: 50%;" id="videoIframe">
+      </iframe>
+       <button title="Close (Esc)" type="button" class="mfp-close" data-dismiss="modal">×</button>
+    </div>
+    @else
+      <div class="modal fade" id="modal-full-video" role="dialog" style="z-index: 9999;background: rgba(0, 0, 0, 0.64);">
+        <iframe src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style=" margin-top: 5%;  width: 100%;   height: 80%;" id="videoIframe">
+        </iframe>
+         <button title="Close (Esc)" type="button" class="mfp-close" data-dismiss="modal">×</button>
+      </div>
+    @endif
     <br>
       <!-- Page Footer-->
       <script src="{{ asset('/siteStyle/js/procesos/catalogoServicios.js')}}"></script>
@@ -215,6 +212,12 @@
           });
         </script>
       @endif
+      <script type="text/javascript">
+        function openModalVideo(e,url){
+          $('#videoIframe').attr('src',url);
+          $('#modal-full-video').modal('show');
+        }
+      </script>
     </div>
     <!-- END PANEL-->
   </body>

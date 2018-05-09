@@ -58,7 +58,8 @@ class ImageRepository {
             $sessionImage->estado_fotografia = 1;
             $sessionImage->user_id = $form_data['user_id'];
             $sessionImage->es_principal = intval($form_data['profile_pic']);
-            $sessionImage->profile_pic = intval($form_data['profile_pic']);
+            $isProfile = ($numImages == 0) ? 1 : intval($form_data['profile_pic']);
+            $sessionImage->profile_pic = $isProfile;
             $sessionImage->save();
             return Response::json([
                         'error' => false,

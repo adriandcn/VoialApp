@@ -96,8 +96,8 @@ return [
     'altPage' => 'Dasboard',
     'altTendencias' => 'Haz clic sobre la tendencia para que tu servicio pueda ser encontrado más fácilmente',
     'lblRangoPrecio' => 'Rango de precios',
-    'altSearchRadio' => 'Ingresa el radio de búsqueda Ej:50',
-    'lblSearchRadio' => 'Radio de búsqueda (metros)',
+    'altSearchRadio' => 'Ingresa el radio de búsqueda Ej:1,2..',
+    'lblSearchRadio' => 'Radio de búsqueda (kilómetros)',
     'altSearchMap' => 'Haz clic sobre el mapa para marcar la ubicación desde donde se va a buscar',
     'placeHolderSearchboxUbicacion' => 'Sitio o sector a ubicar',
 ];

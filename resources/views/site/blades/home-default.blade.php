@@ -153,8 +153,6 @@
             <div class="post-video post-video-var-1 context-dark">
               <div class="post-video__image"><img src="{{asset('/siteStyle/images/')}}/{{$vid['img']}}" alt="" width="1920" height="649"/>
               </div>
-             <!--  <iframe src="https://www.youtube.com/embed/O-HsW142T5g" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
-              </iframe> -->
               <div class="post-video__body">
                 <a class="link-control post-video__control" onclick="openModalVideo(event,'{{$vid["url"]}}')">
                   <span class="link-control__inner"></span>

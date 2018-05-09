@@ -83,7 +83,7 @@
       <?php
         $latitud_servicio = -0.1806532;
         $longitud_servicio = -78.46783820000002;
-        $radio = 100;
+        $radio = 0;
       ?>
       <section class="section-xs bg-white">
         <div class="shell">

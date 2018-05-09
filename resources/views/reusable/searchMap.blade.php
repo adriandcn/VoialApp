@@ -99,7 +99,7 @@
         });
 
         google.maps.event.addListener(searchCircle, 'radius_changed', function () {
-            $('#radioSearch').val(parseInt(searchCircle.getRadius()));
+            $('#radioSearch').val(parseInt(searchCircle.getRadius())/1000);
         });
 
         // google.maps.event.addListener(searchCircle, 'center_changed', function () {
@@ -110,7 +110,7 @@
         //     // marker.setPosition(new google.maps.LatLng(lat,lng));
         // });
      $('#radioSearch').keyup(function(){
-        searchCircle.setRadius(parseInt($('#radioSearch').val()));
+        searchCircle.setRadius(parseInt($('#radioSearch').val()) * 1000);
      });
     }
 </script>

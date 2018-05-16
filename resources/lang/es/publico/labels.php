@@ -229,5 +229,6 @@ return [
     'lblRangeSendNewsWeek' => 'Semanal',
     'lblRangeSendNewsBiWeek' => 'Quincenal',
     'lblRangeSendNewsMonth' => 'Mensual',
-    'titleHashtags' => 'Etiquetas'
+    'titleHashtags' => 'Etiquetas',
+    'showMore' => 'Ver más'
 ];

@@ -347,12 +347,12 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                             <div class="tab-container full-width style2">
                                 <ul style="list-style: none">
                                  @foreach ($catalogoServicioEstablecimiento as $catalogo)
-                                    @if($catalogo->id == 151 && $catalogo->estado_servicio_est_us == 1)
+                                    @if(($catalogo->id == 151 || $catalogo->id == 258 || $catalogo->id == 204 || $catalogo->id == 207) && $catalogo->estado_servicio_est_us == 1)
                                       <?php $showsegList = 'true'; ?>
                                     @endif
                                     @if($catalogo->id_padre == 0)
                                     <li style="margin-bottom: 12px;">
-                                        <input class="circulo chng checkPropiedades" name="id_servicio_est[]" id="id_servicio_est[]" value="{!!$catalogo->id!!}" type="checkbox" namePropiedad="{!!$catalogo->nombre_servicio_est!!}" data-labelauty="No brindo este servicio|Si brindo este servicio" {{($catalogo->estado_servicio_est_us <> NULL)?'checked':''}}/>&nbsp;&nbsp;
+                                        <input class="circulo chng checkPropiedades" name="id_servicio_est[]" id="id_servicio_est[]" value="{!!$catalogo->id!!}" type="checkbox" namePropiedad="{!!$catalogo->nombre_servicio_est!!}" idToTree="{!!$catalogo->id!!}" data-labelauty="No brindo este servicio|Si brindo este servicio" {{($catalogo->estado_servicio_est_us <> NULL)?'checked':''}}/>&nbsp;&nbsp;
                                         <strong>{!!$catalogo->nombre_servicio_est!!}</strong>
                                     </li>
                                     @else
@@ -696,10 +696,16 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
       @if($showsegList == 'true')
         <script type="text/javascript">
           $('.seg_151').show();
+          $('.seg_258').show();
+          $('.seg_204').show();
+          $('.seg_207').show();
         </script>
       @else
       <script type="text/javascript">
         $('.seg_151').hide();
+        $('.seg_258').hide();
+        $('.seg_204').hide();
+        $('.seg_207').hide();
       </script>
       @endif
     <!-- END PANEL-->

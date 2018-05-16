@@ -1127,10 +1127,43 @@ class ServicioController extends Controller
         $padresList = DB::table('catalogo_servicios')->select($campos)->where('id_padre', $idCatalogo)->where('estado_catalogo_servicios', 1)->get();
         $findedServ = [];
         $tendenciasList = $catalogoServicios->getTendencias($idCatalogo);
-        $catalogoServicios = $catalogoServicios->recursiveList($padresList, 1);
-        return view('site.blades.servicios-list-level-2', compact('catalogoServicios', 'idCatalogo', 'dataCatalogo', 'tendenciasList'));
-        // return response()->json(array('success' => true, 'redirectto' => $catalogoServicios));
+        $campos = ['id_catalogo_servicios','nombre_servicio','nombre_servicio_eng','nivel','id_padre','image'];
+        $exceptCatalogolist = DB::table('catalogo_servicios')
+                                ->select($campos)
+                                ->where('estado_catalogo_servicios',1)
+                                ->where('id_padre',$idCatalogo)
+                                ->orderBy('orden','ASC')
+                                ->limit(4)
+                                ->get();
+        $exceptCatalogo = array_pluck($exceptCatalogolist,'id_catalogo_servicios');
+        $catalogoServiciosExtra = DB::table('catalogo_servicios')
+                                ->select($campos)
+                                ->where('estado_catalogo_servicios',1)
+                                ->where('id_padre',$idCatalogo)
+                                ->whereNotIn('id_catalogo_servicios',$exceptCatalogo)
+                                ->orderBy('nombre_servicio','ASC')
+                                ->get();
+        return view('site.blades.servicios-list-level-2', compact('catalogoServiciosExtra','exceptCatalogolist', 'idCatalogo', 'dataCatalogo', 'tendenciasList'));
+        // return response()->json(array('success' => true, 'exceptCatalogo' => $exceptCatalogolist ,'catalogoServiciosExtra' => $catalogoServiciosExtra));
         }
+    public function loadMoreCatalogo(Request $request){
+        $exceptCatalogo = DB::table('catalogo_servicios')
+                                ->select(['id_catalogo_servicios'])
+                                ->where('estado_catalogo_servicios',1)
+                                ->where('id_padre',$request->idCatalogo)
+                                ->orderBy('orden','ASC')
+                                ->limit(4)
+                                ->get();
+        $exceptCatalogo = array_pluck($exceptCatalogo,'id_catalogo_servicios');
+        $catalogoServicios = DB::table('catalogo_servicios')
+                                ->select(['id_catalogo_servicios','nombre_servicio','nombre_servicio_eng','nivel','id_padre','image'])
+                                ->where('estado_catalogo_servicios',1)
+                                ->where('id_padre',$request->idCatalogo)
+                                ->whereNotIn('id_catalogo_servicios',$exceptCatalogo)
+                                ->orderBy('nombre_servicio','ASC')
+                                ->get();
+        return response()->json(array('success' => true, 'list' => $catalogoServicios));
+    }
     public function getServiciosByChildcatalogo($idCatalogo, $idSubCatalogo, catalogoServiciosRepository $catalogoServicios)
 
         {

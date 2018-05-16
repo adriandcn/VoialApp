@@ -228,5 +228,6 @@ return [
     'lblRangeSendNewsWeek' => 'Weekly',
     'lblRangeSendNewsBiWeek' => 'Biweekly',
     'lblRangeSendNewsMonth' => 'Monthly',
-    'titleHashtags' => 'Tags'
+    'titleHashtags' => 'Tags',
+    'showMore' => 'Show more'
 ];

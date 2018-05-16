@@ -52,13 +52,14 @@
           <div class="row">
               <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="isotope-filters isotope-filters-horizontal tabs-custom tabs-horizontal">
-                  <ul class="nav-custom nav-custom-tabs">                @foreach($tendenciasList as $tendencia)
-                    <li>
-                      <a href="#" onclick="sendSearchTendencias(event,'{{$tendencia->idtendencias}}')">{{$tendencia->nombre}}
-                      </a>
-                      <span></span>
-                    </li>
-                  @endforeach
+                  <ul class="nav-custom nav-custom-tabs">                
+                    @foreach($tendenciasList as $tendencia)
+                      <li>
+                        <a href="#" onclick="sendSearchTendencias(event,'{{$tendencia->idtendencias}}')">{{$tendencia->nombre}}
+                        </a>
+                        <span></span>
+                      </li>
+                    @endforeach
                   </ul>
                 </div>
               </div>
@@ -73,12 +74,16 @@
           </div>
           <div class="isotope grid-masonry text-left column-offset-30" data-isotope-layout="masonry">
             <div class="row">
-              @if(count($catalogoServicios) == 0)
+              @if(count($exceptCatalogolist) == 0)
                 <div class="col-xs-12" style="text-align: center;">
-                  <h4><a href="single-post.html"><i class="fa fa-frown-o "></i> &nbsp;&nbsp;{{trans('publico/labels.noResult')}}</a></h4>
+                  <h4>
+                    <a href="">
+                      <i class="fa fa-frown-o "></i> &nbsp;&nbsp;{{trans('publico/labels.noResult')}}
+                    </a>
+                  </h4>
                 </div>
               @else
-                @foreach($catalogoServicios as $servicio)
+                @foreach($exceptCatalogolist as $servicio)
                   <div class="col-xs-12 col-sm-6 col-md-4 isotope-item">
                     <div class="post-masonry post-masonry-short post-content-white bg-post-2 bg-image" style="background: url('{!!asset('/images/Fondos/')!!}/{{$servicio->image}}')!important;
                         background-size: cover !important;
@@ -97,6 +102,47 @@
           </div>
         </div>
       </section>
+
+      <section class="section-xs bg-white" id="resultsMoreCatalogos">
+        <div class="shell">
+          <div class="isotope grid-masonry text-left column-offset-30" data-isotope-layout="masonry">
+            <div class="row">
+              @if(count($catalogoServiciosExtra) == 0)
+                <div class="col-xs-12" style="text-align: center;">
+                  <h4>
+                    <a href="">
+                      <i class="fa fa-frown-o "></i> &nbsp;&nbsp;{{trans('publico/labels.noResult')}}
+                    </a>
+                  </h4>
+                </div>
+              @else
+                @foreach($catalogoServiciosExtra as $servicioextre)
+                  <div class="col-xs-12 col-sm-6 col-md-4 isotope-item">
+                    <div class="post-masonry post-masonry-short post-content-white bg-post-2 bg-image" style="background: url('{!!asset('/images/Fondos/')!!}/{{$servicioextre->image}}')!important;
+                        background-size: cover !important;
+                        background-position: center center !important;
+                        background-repeat: no-repeat !important;">
+                      <div class="post-masonry-content">
+                        <h4><a href="{!!asset('/catalogo-de-servicios')!!}/{{$idCatalogo}}/{{$servicioextre->id_catalogo_servicios}}">{{strtoupper($servicioextre->nombre_servicio)}}</a></h4>
+                      </div>
+                      <a class="link-position link-primary-sec-2 link-right post-link" href="{!!asset('/catalogo-de-servicios')!!}/{{$idCatalogo}}/{{$servicioextre->id_catalogo_servicios}}"><i class="fa fa-info-circle" aria-hidden="true"></i>
+                      </a>
+                    </div>
+                  </div>
+                @endforeach
+              @endif
+            </div>
+          </div>
+        </div>
+      </section>
+
+                <div class="col-xs-12" style="text-align: center;">
+            <h4>
+              <a href="" onclick="showMoreCatalogos(event,{{$idCatalogo}})">
+                <i class="fa fa-plus"></i> &nbsp;&nbsp;{{trans('publico/labels.showMore')}}
+              </a>
+            </h4>
+          </div>
 
       <!-- Page Footer-->
       @include('site.reusable.footer')

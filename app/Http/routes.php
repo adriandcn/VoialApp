@@ -54,6 +54,7 @@ Route::post('/delete/image1/{id}', ['as' => 'delete-image1', 'uses' => 'ImageCon
 Route::post('/nuevoOperador', ['as' => 'upload-postoperador1', 'uses' => 'ServicioController@postOperadores1', 'middleware' => 'notAuth']);
 Route::get('datos-de-operador', ['as' => 'createOperador', 'uses' => 'ServicioController@step2res', 'middleware' => 'notAuth']);
 Route::get('/catalogo-de-servicios/{idCatalogo}', ['as' => 'getcatalogoServ', 'uses' => 'ServicioController@getServiciosByCatalogo']);
+Route::post('/loadMoreCatalogo', ['as' => 'getcatalogoServ', 'uses' => 'ServicioController@loadMoreCatalogo']);
 Route::get('/catalogo-de-servicios/{idCatalogo}/{idSubCatalogo}', ['as' => 'getcatalogoServ', 'uses' => 'ServicioController@getServiciosByChildcatalogo']);
 Route::get('/detalles-de-servicio/{id_catalogo}', ['as' => 'searchCat', 'uses' => 'HomePublicController@getSearchHomeCatalogo']);
 Route::post('filterParameters', ['as' => 'filtersCategoria', 'uses' => 'HomePublicController@postFiltersCategoria']);

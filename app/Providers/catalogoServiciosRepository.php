@@ -106,41 +106,25 @@ class catalogoServiciosRepository extends BaseRepository
 
 	{	
 
-		if ($level == null) {
-
-			$maxLevel = DB::table('catalogo_servicios')->max('nivel');
-
-			$level = $maxLevel;
-
-		}
-
-		if ($this->level < $level) {
-
-			foreach ($padresList as $value) {
-
-		        $childList = DB::table('catalogo_servicios')
-
-	                            ->select($this->campos)
-
-	                            ->where('estado_catalogo_servicios',1)
-
-	                            ->where('id_padre',$value->id_catalogo_servicios)
-	                            ->orderBy('orden','ASC')
-
-	                            ->get();
-
-				$value->child = $childList;
-
-				$this->level++;
-
-				$this->recursiveList($childList,$level);
-
-			}
-
-		}
-
-		return $padresList;
-
+		// if ($level == null) {
+		// 	$maxLevel = DB::table('catalogo_servicios')->max('nivel');
+		// 	$level = $maxLevel;
+		// }
+		// if ($this->level < $level) {
+		// 	foreach ($padresList as $value) {
+		//         $childList = DB::table('catalogo_servicios')
+	 //                            ->select($this->campos)
+	 //                            ->where('estado_catalogo_servicios',1)
+	 //                            ->where('id_padre',$value->id_catalogo_servicios)
+	 //                            ->orderBy('orden','ASC')
+	 //                            ->limit(4)
+	 //                            ->get();
+		// 		$value->child = $childList;
+		// 		$this->level++;
+		// 		$this->recursiveList($childList,$level);
+		// 	}
+		// }
+		// return $padresList;
 	}
 
 

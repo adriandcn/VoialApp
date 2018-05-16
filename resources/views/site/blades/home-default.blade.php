@@ -66,7 +66,33 @@
           <div class="swiper-button-next fa-arrow-right"></div>
         </div>
       </section>
-      <section class="section-xs bg-white">
+      <br>
+    @foreach ($serviciosList as $servicio)
+    <section>
+        <div class="parallax-container">
+          <div class="material-parallax parallax">
+            <img src="{{asset('/images/Fondos/')}}/{{$servicio->image}}" alt="" width="1920" height="1000"/>
+          </div>
+          <div class="parallax-content section-lg context-dark">
+            <div class="shell">
+              <div class="range range-30">
+                <div class="cell-sm-3 cell-xs-6">
+                  <div class="box-counter box-counter-inset">
+                    <a href="" onclick="getSubcatCatalogServicios('{{$servicio->id_catalogo_servicios}}')">
+                      <h1>{{$servicio->nombre_servicio}}</h1>
+                    </a>
+                    <p class="box-counter-title"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </section>
+    <br>
+    @endforeach
+    <br>
+    <section class="section-xs bg-white">
         <div class="shell">
           <div class="heading-group">
             <h1>Sponsor 1</h1>
@@ -98,50 +124,11 @@
                   </div><a class="link-position link-primary-sec-2 link-right post-link" href="single-post.html">+</a>
                 </div>
               </div>
-              <!-- @foreach ($operadores as $operador)
-              <div class="col-xs-12 col-sm-6 col-md-4 isotope-item">
-                <div class="post-masonry post-masonry-short post-content-white bg-post-2 bg-image box-skew post-skew-right-top post-skew-var-4">
-                  <div class="post-masonry-content">
-                    <h4><a href="#">{{$operador->nombre_empresa_operador}}</a></h4>
-                   <strong>Nombre: {{$operador->nombre_contacto_operador_1}}</strong> <br>
-                   <strong>Teléfono: {{$operador->telf_contacto_operador_1}}</strong><br> 
-                   <strong>Email: {{$operador->email_contacto_operador}}</strong> <br>
-                   <strong>Dirección: {{$operador->direccion_empresa_operador}}</strong> 
-                  </div>
-                  <a class="link-position link-primary-sec-2 link-right post-link" href="{!!asset('/servicesOf')!!}/{{$operador->id_usuario_op}}"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
-                </div>
-              </div>
-              @endforeach -->
             </div>
           </div>
           <div class="wrap-button text-center text-md-right"><a class="button button-sm button-primary" href="blog.html">{{trans('publico/labels.moreRelated')}}<span></span></a></div>
         </div>
       </section>
-    @foreach ($serviciosList as $servicio)
-    <section>
-        <div class="parallax-container">
-          <div class="material-parallax parallax">
-            <img src="{{asset('/images/Fondos/')}}/{{$servicio->image}}" alt="" width="1920" height="1000"/>
-          </div>
-          <div class="parallax-content section-lg context-dark">
-            <div class="shell">
-              <div class="range range-30">
-                <div class="cell-sm-3 cell-xs-6">
-                  <div class="box-counter box-counter-inset">
-                    <a href="" onclick="getSubcatCatalogServicios('{{$servicio->id_catalogo_servicios}}')">
-                      <h1>{{$servicio->nombre_servicio}}</h1>
-                    </a>
-                    <p class="box-counter-title"></p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-    </section>
-    <br>
-    @endforeach
-    <br>
     <?php $arrayVideos = [
         ['img'=>'video-1-1920x649.jpg','url' => 'https://www.youtube.com/embed/lb6PHOfY39w']
       ]; ?>

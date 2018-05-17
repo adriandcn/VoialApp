@@ -136,14 +136,18 @@
         </div>
       </section>
 
-                <div class="col-xs-12" style="text-align: center;">
+                <section>
+                  <div class="row">
+                    <div class="col-xs-12" style="text-align: center;">
             <h4>
               <a href="" onclick="showMoreCatalogos(event,{{$idCatalogo}})">
                 <i class="fa fa-plus"></i> &nbsp;&nbsp;{{trans('publico/labels.showMore')}}
               </a>
             </h4>
           </div>
-
+                  </div>
+                </section>
+<br>
       <!-- Page Footer-->
       @include('site.reusable.footer')
     </div>

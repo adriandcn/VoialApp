@@ -1034,7 +1034,7 @@ class ServicioController extends Controller
             'detalle_servicio' => $formFields['detalle_servicio'],
             'detalle_servicio_eng' => $formFields['detalle_servicio_eng'],
             'precio_desde' => $formFields['precio_desde'],
-            'precio_hasta' => $formFields['precio_hasta'],
+            'precio_hasta' => $formFields['precio_desde'],
             //              'precio_anterior' => $formFields['precio_anterior'],
             //              'precio_actual' => $formFields['precio_actual'],
             //              'descuento_servico' => $formFields['descuento_servico'],

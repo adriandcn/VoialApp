@@ -35,7 +35,7 @@
       <!-- Modal-->
       @include('site.reusable.header')
       <!-- Breadcrumbs & Page title-->
-      <section class="page-title breadcrumbs-elements page-title-inset-1">
+      <section class="page-title breadcrumbs-elements page-title-inset-1" style="    background: white;">
         <div class="shell">
           <div class="page-title__overlay box-skew box-skew-var-1"><span class="box-skew__item"></span>
             <div class="page-title-text">{{ trans('back/admin.saludo')}}, {!!session('user_name')!!}</div>
@@ -108,7 +108,7 @@ $usuarioServicio->detalle_servicio_eng = trim($detalles->detalle_servicio_eng);
 $usuarioServicio->estado_servicio_usuario = trim($detalles->estado_servicio_usuario);
 $usuarioServicio->id_catalogo_servicio = trim($detalles->id_catalogo_servicio);
 
-$usuarioServicio->precio_desde = intval($detalles->precio_desde);
+$usuarioServicio->precio_desde = $detalles->precio_desde;
 $usuarioServicio->precio_hasta = intval($detalles->precio_hasta);
 $usuarioServicio->precio_anterior = trim($detalles->precio_anterior);
 $usuarioServicio->precio_actual = trim($detalles->precio_actual);
@@ -209,7 +209,22 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                             <i class="fa fa-info"></i>&nbsp;&nbsp;</label>
                         </div>
                       </div>
-                      <div class="cell-sm-8">
+                      <div class="cell-sm-12">
+                        <div class="form-wrap">
+                           <label class="form-label-outside" for="contact-first-name"><i class="fa fa-money"></i>&nbsp;&nbsp;{{ trans('back/admin.lblRangoPrecio')}}</label>
+                        <select name="precio_desde" id="precio_desde" class="form-control chng" style="height: 40px;width: 100%;">
+                                <option value="">No mostrar</option>
+                                <option value="">No mostrar</option>
+                                <option value="$">$</option>
+                                <option value="$$">$$</option>
+                                <option value="$$$">$$$</option>
+                         </select>
+                          <script type="text/javascript">
+                             $("#precio_desde").val("{!!$usuarioServicio->precio_desde!!}");
+                          </script>
+                        </div>
+                      </div>
+                      <!-- <div class="cell-sm-8">
                         <div class="form-wrap">
                            <label class="form-label-outside" for="contact-first-name"><i class="fa fa-money"></i>&nbsp;&nbsp;{{ trans('back/admin.lblRangoPrecio')}}</label>
                           <div style="margin-left: 20px !important;" id="keypress"></div>
@@ -220,13 +235,13 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                            <label class="form-label-outside" for="contact-first-name"><i class="fa fa-money"></i>&nbsp;&nbsp;{{ trans('back/admin.lblPrecioDesde')}}</label>
                           <input type="number" id="precio_desde" name="precio_desde" value="{!!$usuarioServicio->precio_desde!!}" class="form-input tooltip numsOnly" title="{{ trans('back/admin.altPrecioDesde')}}" placeholder="{{ trans('back/admin.placeHolderPDesde')}}">
                         </div>
-                      </div>
-                      <div class="cell-sm-6">
+                      </div> -->
+                      <!-- <div class="cell-sm-6">
                         <div class="form-wrap">
                           <label class="form-label-outside" for="contact-first-name"><i class="fa fa-money"></i>&nbsp;&nbsp;{{ trans('back/admin.lblPrecioHasta')}}</label>
                           <input type="number" id="precio_hasta" name="precio_hasta" value="{!!$usuarioServicio->precio_hasta!!}" class="form-input tooltip numsOnly" placeholder="{{ trans('back/admin.placeHolderPHasta')}}" title="{{ trans('back/admin.altPrecioHasta')}}">
                         </div>
-                      </div>
+                      </div> -->
                       <div class="cell-sm-6">
                           <div class="form-wrap">
                           <label class="form-label-outside" for="contact-first-name"><i class="fa fa-calendar"></i>&nbsp;&nbsp;{{ trans('back/admin.tittleHorario')}}</label>

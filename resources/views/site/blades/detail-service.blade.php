@@ -158,6 +158,7 @@
                           </div>
                         </div>
                         <!-- Bootstrap panel-->
+                        @if($detalles->precio_desde != null && $detalles->precio_desde != '')
                         <div class="panel panel-custom panel-custom-default">
                           <div class="panel-custom-heading" id="accordion1Heading4" role="tab">
                             <p class="panel-custom-title">
@@ -168,11 +169,11 @@
                           </div>
                           <div class="panel-custom-collapse collapse" id="accordion1Collapse4" role="tabpanel" aria-labelledby="accordion1Heading4">
                             <div class="panel-custom-body">
-                              {{trans('publico/labels.lblPrecioFrom')}} : <h6 style="font-size: 14px;"> {{$detalles->precio_desde}}</h6>
-                                {{trans('publico/labels.lblPrecioTo')}} : <h6 style="font-size: 14px;">{{$detalles->precio_hasta}}</h6>
+                              <h1> {{$detalles->precio_desde}}</h1>
                             </div>
                           </div>
                         </div>
+                        @endif
                         <!-- Bootstrap panel-->
                         <div class="panel panel-custom panel-custom-default">
                           <div class="panel-custom-heading" id="accordion1Heading5" role="tab">

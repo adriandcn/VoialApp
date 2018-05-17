@@ -2564,49 +2564,11 @@ var registerClientToNews = function() {
     });
 
 }
-$('#resultsMoreCatalogos').hide();
+$('#resultsMoreCatalogos').css("visibility", "hidden");
+$('#resultsMoreCatalogos').css("height", "10px");
 var showMoreCatalogos = function(event,idCatalogo){
     console.log(idCatalogo);
     event.preventDefault();
-    $('#resultsMoreCatalogos').show();
-    // var url = dirServer + "public/loadMoreCatalogo";
-    // $.ajax({
-    //     type: 'POST',
-    //     url: url,
-    //     dataType: 'json',
-    //     data: { idCatalogo: idCatalogo },
-    //     success: function(data) {
-    //         console.log(data);
-    //         var array = data.list;
-    //         var htmlResult = '';
-    //         for (var i = 0; i < array.length; i++) {
-    //             var image = dirServer + 'public/images/Fondos/' + array[i].image;
-    //             var urlDetail = dirServer + 'public/catalogo-de-servicios/' + idCatalogo + '/' + array[i].id_catalogo_servicios;
-    //             var nameServicio = array[i].nombre_servicio.toUpperCase();
-    //             var htmlString = '<div class="col-xs-12 col-sm-6 col-md-4 isotope-item" >\
-    //                                     <div class="post-masonry post-masonry-short post-content-white bg-post-2 bg-image" style="background: url(' + image + ')!important;\
-    //                                     background-size: cover !important;\
-    //                                     background-position: center center !important;\
-    //                                     background-repeat: no-repeat !important;">\
-    //                                   <div class="post-masonry-content">\
-    //                                     <h4><a href="' + urlDetail + '">' + nameServicio + '</a></h4>\
-    //                                   </div>\
-    //                                   <a class="link-position link-primary-sec-2 link-right post-link" href="' + urlDetail + '"><i class="fa fa-info-circle" aria-hidden="true"></i>\
-    //                                   </a>\
-    //                                 </div>\
-    //                             </div>';
-    //             htmlResult = htmlResult + htmlString;
-    //         }
-    //         $('#htmlNewCatalogos').html(htmlResult);
-    //         $('#resultsMoreCatalogos').show();
-    //     },
-    //     error: function(data) {
-    //         var errors = data.responseJSON;
-    //         if (errors) {
-    //             $.each(errors, function(i) {
-    //                 console.log(errors[i]);
-    //             });
-    //         }
-    //     }
-    // });
+    $('#resultsMoreCatalogos').css("visibility", "");
+    $('#resultsMoreCatalogos').css("height","");
 }

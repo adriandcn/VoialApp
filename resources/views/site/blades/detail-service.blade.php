@@ -103,7 +103,13 @@
                     <div class="fb-share-button" data-href="{{Request::url()}}" data-layout="button" data-size="large" data-mobile-iframe="true">
                       <a target="_blank" href="{{Request::url()}}" class="fb-xfbml-parse-ignore">Compartir</a>
                     </div>
-                    <p class="big" style="text-align: justify;">{{$detalles->detalle_servicio}}</p><br>
+                    <section class="bg-white">
+                      <div class="shell">
+                        <div class="range range-50">
+                            <p class="big cell-md-12" style="text-align: justify;">{{$detalles->detalle_servicio}}</p>
+                        </div>
+                      </div>
+                    </section>
                     <div class="panel-custom-group-wrap">
                       <!-- Bootstrap collapse-->
                       <div class="panel-custom-group text-left" id="accordion1" role="tablist">

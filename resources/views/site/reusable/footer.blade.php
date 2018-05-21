@@ -28,9 +28,6 @@
               <div class="cell-md-4 cell-sm-11 wow fadeInUp" data-wow-delay=".4s">
                 <h4>Partners:</h4>
                 <div class="footer-partners group-lg">
-                  <a href="https://www.farmaciasmedicity.com/" target="_new">
-                    <img src="{{asset('/siteStyle/images/partners/medicity.jpg')}}" alt="" width="161" height="49"/>
-                  </a>
                   <a href="https://iwanatrip.com" target="_new">
                     <img src="{{asset('/siteStyle/images/partners/iwanna.jpg')}}" alt="" width="100" height="55"/>
                   </a>
@@ -41,7 +38,6 @@
                     <img src="{{asset('/siteStyle/images/partners/Zona_tecnologica.png')}}" alt="" width="300" height="50"/>
                   </a>
                 </div>
-                {{Route::current()->getName()}}
                 @if(Route::current()->getName() == 'getcatalogoServ')
                   <h4>{{trans('publico/labels.titleNews')}}</h4>
                   <p>{{trans('publico/labels.msgNews')}}</p>

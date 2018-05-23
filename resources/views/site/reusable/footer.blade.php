@@ -38,7 +38,7 @@
                     <img src="{{asset('/siteStyle/images/partners/Zona_tecnologica.png')}}" alt="" width="300" height="50"/>
                   </a>
                 </div>
-                @if(Route::current()->getName() == 'getcatalogoServ')
+                <!-- @if(Route::current()->getName() == 'getcatalogoServ')
                   <h4>{{trans('publico/labels.titleNews')}}</h4>
                   <p>{{trans('publico/labels.msgNews')}}</p>
                   <p>{{trans('publico/labels.msgRegisterNews')}}</p>
@@ -48,7 +48,7 @@
                       <button class="button button-transparent" type="button" data-toggle="modal" data-target="#form-modal-subscribe-news" onclick="loadNewTags(event,{{ Request::route('idCatalogo') }},{{ Request::route('idSubCatalogo') }})">{{trans('publico/labels.btnRegisterNews')}}</button>
                     </div>
                   </form>
-                @endif
+                @endif -->
               </div>
             </div>
           </div>

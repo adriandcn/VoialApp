@@ -71,7 +71,13 @@
           </div>
         </div>
       </section>
-
+      <section class="bg-white">
+        <div class="shell">
+          <div class="range range-50">
+              <p class="big cell-md-12" style="text-align: justify;">{{$detalles->detalle_servicio}}</p>
+          </div>
+        </div>
+      </section>
       <section class="section-sm section-md-bottom-50 bg-white">
         <div class="shell">
           <div class="range range-50 range-center">
@@ -103,13 +109,6 @@
                     <div class="fb-share-button" data-href="{{Request::url()}}" data-layout="button" data-size="large" data-mobile-iframe="true">
                       <a target="_blank" href="{{Request::url()}}" class="fb-xfbml-parse-ignore">Compartir</a>
                     </div>
-                    <section class="bg-white">
-                      <div class="shell">
-                        <div class="range range-50">
-                            <p class="big cell-md-12" style="text-align: justify;">{{$detalles->detalle_servicio}}</p>
-                        </div>
-                      </div>
-                    </section>
                     <div class="panel-custom-group-wrap">
                       <!-- Bootstrap collapse-->
                       <div class="panel-custom-group text-left" id="accordion1" role="tablist">
@@ -129,23 +128,25 @@
                             </div>
                           </div>
                         </div>
-                        <!-- Bootstrap panel-->
-                        <div class="panel panel-custom panel-custom-default">
-                          <div class="panel-custom-heading" id="accordionHHeading2" role="tab">
-                            <p class="panel-custom-title">
-                              <a role="button" data-toggle="collapse" data-parent="#accordion1" href="#accordionHCollapse2" aria-controls="accordionHCollapse2" aria-expanded="true"><i class="fa fa-calendar"></i>&nbsp;&nbsp;{{trans('publico/labels.lblHorario')}}
-                              </a>
-                            </p>
-                          </div>
-                          <div class="panel-custom-collapse collapse" id="accordionHCollapse2" role="tabpanel" aria-labelledby="accordionHHeading2">
-                            <div class="panel-custom-body">
-                              <!-- {{trans('publico/labels.lblHorario')}} : -->
-                              @foreach($detalles->horario as $horario)
-                                <h6 style="font-size: 14px;">{{$horario->dia}} : <br>{{trans('publico/labels.lblFromHorario')}} : {{$horario->desde}}, {{trans('publico/labels.lblToHorario')}} : {{$horario->hasta}} </h6>
-                              @endforeach
+                        @if(count($detalles->horario) > 0)
+                          <!-- Bootstrap panel-->
+                          <div class="panel panel-custom panel-custom-default">
+                            <div class="panel-custom-heading" id="accordionHHeading2" role="tab">
+                              <p class="panel-custom-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion1" href="#accordionHCollapse2" aria-controls="accordionHCollapse2" aria-expanded="true"><i class="fa fa-calendar"></i>&nbsp;&nbsp;{{trans('publico/labels.lblHorario')}}
+                                </a>
+                              </p>
+                            </div>
+                            <div class="panel-custom-collapse collapse" id="accordionHCollapse2" role="tabpanel" aria-labelledby="accordionHHeading2">
+                              <div class="panel-custom-body">
+                                <!-- {{trans('publico/labels.lblHorario')}} : -->
+                                @foreach($detalles->horario as $horario)
+                                  <h6 style="font-size: 14px;">{{$horario->dia}} : <br>{{trans('publico/labels.lblFromHorario')}} : {{$horario->desde}}, {{trans('publico/labels.lblToHorario')}} : {{$horario->hasta}} </h6>
+                                @endforeach
+                              </div>
                             </div>
                           </div>
-                        </div>
+                        @endif
                         <!-- Bootstrap panel-->
                         <div class="panel panel-custom panel-custom-default">
                           <div class="panel-custom-heading" id="accordion1Heading3" role="tab">
@@ -181,6 +182,7 @@
                         </div>
                         @endif
                         <!-- Bootstrap panel-->
+                        @if(count($detalles->redes) > 0)
                         <div class="panel panel-custom panel-custom-default">
                           <div class="panel-custom-heading" id="accordion1Heading5" role="tab">
                             <p class="panel-custom-title">
@@ -199,6 +201,8 @@
                             </div>
                           </div>
                         </div>
+                        @endif
+                        @if(count($listPropiedades) > 0)
                         <!-- Bootstrap panel-->
                         <div class="panel panel-custom panel-custom-default">
                           <div class="panel-custom-heading" id="accordion1Heading6" role="tab">
@@ -226,12 +230,13 @@
                             </div>
                           </div>
                         </div>
+                        @endif
                         <!-- Bootstrap panel-->
                         <?php
                           $tagsNoSpaces = str_replace(' ', '', $detalles->tags);
                           $tagsList = explode('#', $tagsNoSpaces);
                         ?>
-                        @if( count($tagsList) > 0)
+                        @if( count($tagsList) > 0 && $tagsNoSpaces != '')
                           <div class="panel panel-custom panel-custom-default">
                             <div class="panel-custom-heading" id="accordion1Heading7" role="tab">
                               <p class="panel-custom-title">

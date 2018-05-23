@@ -136,7 +136,7 @@ class SearchController extends Controller
                     $despliegue = null;
                     if ($busquedaTotal != null)
                     {
-                        $despliegue = $gestion->paginateSearch($busquedaTotal,6);
+                        $despliegue = $gestion->paginateSearch($busquedaTotal,12);
                     }
                 }else{
                     $despliegue = [];

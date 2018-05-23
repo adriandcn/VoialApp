@@ -57,8 +57,10 @@
               @foreach ($listServiciosAll as $servicio)
               <div class="col-xs-12 col-sm-6 col-md-4 isotope-item">
                   <div class="post-masonry post-masonry-short post-content-white bg-post-primary-sec box-skew post-skew-right-bottom post-skew-var-3" style="background: url(images/fullsize/{{$servicio->filename}});
-                          background-size: cover;
-                          background-repeat: no-repeat; cursor: pointer;">
+                          background-size: contain;
+                          background-repeat: no-repeat;
+                          cursor: pointer;
+                          background-position: center;">
                       <div class="post-masonry-content">
                           <h4>
                             <a class="text-white" href="" > 

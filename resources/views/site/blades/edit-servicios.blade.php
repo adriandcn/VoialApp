@@ -212,9 +212,9 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                       <div class="cell-sm-12">
                         <div class="form-wrap">
                            <label class="form-label-outside" for="contact-first-name"><i class="fa fa-money"></i>&nbsp;&nbsp;{{ trans('back/admin.lblRangoPrecio')}}</label>
-                        <select name="precio_desde" id="precio_desde" class="form-control chng" style="height: 40px;width: 100%;">
+                        <select name="precio_desde" id="precio_desde" class="form-control chng" style="height: 40px;width: 100%; border: 1px solid #cccccc;">
                                 <option value="">No mostrar</option>
-                                <option value="">No mostrar</option>
+                                <option value="No">No mostrar</option>
                                 <option value="$">$</option>
                                 <option value="$$">$$</option>
                                 <option value="$$$">$$$</option>

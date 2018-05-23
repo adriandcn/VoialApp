@@ -165,7 +165,7 @@
                           </div>
                         </div>
                         <!-- Bootstrap panel-->
-                        @if($detalles->precio_desde != null && $detalles->precio_desde != '')
+                        @if($detalles->precio_desde != null && $detalles->precio_desde != '' && $detalles->precio_desde != 'No')
                         <div class="panel panel-custom panel-custom-default">
                           <div class="panel-custom-heading" id="accordion1Heading4" role="tab">
                             <p class="panel-custom-title">

@@ -45,7 +45,7 @@
             zoom: 15
         });
 
-        var marker = new google.maps.Marker({
+        var markerSearch = new google.maps.Marker({
             position: {
                 lat: latitud,
                 lng: longitud
@@ -74,7 +74,7 @@
             var i, place;
             for (i = 0; place = places[i]; i++) {
                 bounds.extend(place.geometry.location);
-                marker.setPosition(place.geometry.location);
+                markerSearch.setPosition(place.geometry.location);
                 searchCircle.setCenter(place.geometry.location);
             }
             map.fitBounds(bounds);
@@ -85,15 +85,15 @@
             var position = e.latLng;
             var lat = e.latLng.lat();
             var lng = e.latLng.lng();
-            marker.setPosition(position);
+            markerSearch.setPosition(position);
             searchCircle.setCenter(position);
             $('#latitud_servicio').val(lat);
             $('#longitud_servicio').val(lng);
         });
-        google.maps.event.addListener(marker, 'position_changed', function () {
-            var lat = marker.getPosition().lat();
-            var lng = marker.getPosition().lng;
-            searchCircle.setCenter(marker.getPosition());
+        google.maps.event.addListener(markerSearch, 'position_changed', function () {
+            var lat = markerSearch.getPosition().lat();
+            var lng = markerSearch.getPosition().lng;
+            searchCircle.setCenter(markerSearch.getPosition());
             $('#latitud_servicio').val(lat);
             $('#longitud_servicio').val(lng);
         });
@@ -107,7 +107,7 @@
         //     var lng = searchCircle.getCenter().lng();
         //     console.log(lat);
         //     console.log(lng);
-        //     // marker.setPosition(new google.maps.LatLng(lat,lng));
+        //     // markerSearch.setPosition(new google.maps.LatLng(lat,lng));
         // });
      $('#radioSearch').keyup(function(){
         searchCircle.setRadius(parseInt($('#radioSearch').val()) * 1000);

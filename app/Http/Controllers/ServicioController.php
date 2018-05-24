@@ -41,14 +41,15 @@ use Illuminate\Support\Facades\View;
 //use App\Models\Catalogo_Servicio;
 
 
-class ServicioController extends Controller 
+class ServicioController extends Controller
+
     {
     protected $validationRules = ['nombre_empresa_operador' => 'required|max:255', 'nombre_contacto_operador_1' => 'required|max:255', 'direccion_empresa_operador' => 'required|max:255', 'email_contacto_operador' => 'required|max:255', 'telf_contacto_operador_1' => 'required|max:255'];
     protected $validationRulesServicios = [
     // 'detalle_servicio' => 'required|max:100000000',
     // 'nombre_servicio' => 'required|max:100000000'
     ];
-    protected $messages = ['nombre_contacto_operador_1.required' => 'El nombre del contacto es requerido', 'direccion_empresa_operador.required' => 'La dirección del contacto es requerido', 'email_contacto_operador.required' => 'El email del contacto es requerido', 'telf_contacto_operador_1.required' => 'El teléfono del contacto es requerido', 'detalle_servicio.required' => 'El detalle del servicio es requerido', 'nombre_servicio.required' => 'El nombre del servicio es requerido'];
+    protected $messages = ['nombre_contacto_operador_1.required' => 'El nombre del contacto es requerido', 'direccion_empresa_operador.required' => 'La direcciÃ³n del contacto es requerido', 'email_contacto_operador.required' => 'El email del contacto es requerido', 'telf_contacto_operador_1.required' => 'El telÃ©fono del contacto es requerido', 'detalle_servicio.required' => 'El detalle del servicio es requerido', 'nombre_servicio.required' => 'El nombre del servicio es requerido'];
     protected $validationUsuarioServicios = ['nombre_servicio' => 'required|max:255|',
     // 'detalle_servicio' => 'required|max:255|',
     // 'precio_desde' => 'required|max:255',
@@ -772,6 +773,8 @@ class ServicioController extends Controller
         // $contadorCalendario = DB::table('booking_abcalendar_calendars')->where('id_usuario_servicio', '=', $usuarioServicio[0]['id'] )->count();
         // return response()->json(['d' => $catalogoServicioEstablecimiento]);
         $tendenciasList = $catalogoServRep->getTendencias();
+        $horarios = DB::table('horarios')->where('id_usuario_servicio',$id)->where('estado',1)->select(['idhorarios','dia','desde','hasta'])->get();
+        // return response()->json(['d' => $horarios]);
         if ($calendarios != Array())
             {
             // if($contadorCalendario[0]->contador != ""){
@@ -792,7 +795,7 @@ class ServicioController extends Controller
             //             'id_catalogo', 'ImgPromociones', 'Servicio' ,'calendarios',
             //             'contadorCalendario','arrayDeIds','calendarioConNombre','reservacionesConNombre',
             //             'imagenes','atraccion','promociones','eventos'));
-            return view('site.blades.edit-servicios', compact('redesServicio', 'usuarioServicio', 'catalogoServicioEstablecimiento', 'id_catalogo', 'ImgPromociones', 'Servicio', 'calendarios', 'contadorCalendario', 'arrayDeIds', 'calendarioConNombre', 'reservacionesConNombre', 'imagenes', 'atraccion', 'promociones', 'eventos', 'tendenciasList'));
+            return view('site.blades.edit-servicios', compact('redesServicio', 'usuarioServicio', 'catalogoServicioEstablecimiento', 'id_catalogo', 'ImgPromociones', 'Servicio', 'calendarios', 'contadorCalendario', 'arrayDeIds', 'calendarioConNombre', 'reservacionesConNombre', 'imagenes', 'atraccion', 'promociones', 'eventos', 'tendenciasList','horarios'));
             }
           else
             {
@@ -800,41 +803,46 @@ class ServicioController extends Controller
             //             'id_catalogo', 'ImgPromociones', 'Servicio','calendarios','imagenes',
             //             'atraccion','promociones','eventos'));
             // return $redesServicio;
-            return view('site.blades.edit-servicios', compact('redesServicio', 'usuarioServicio', 'catalogoServicioEstablecimiento', 'id_catalogo', 'ImgPromociones', 'Servicio', 'calendarios', 'imagenes', 'atraccion', 'promociones', 'eventos', 'tendenciasList'));
+            return view('site.blades.edit-servicios', compact('redesServicio', 'usuarioServicio', 'catalogoServicioEstablecimiento', 'id_catalogo', 'ImgPromociones', 'Servicio', 'calendarios', 'imagenes', 'atraccion', 'promociones', 'eventos', 'tendenciasList','horarios'));
             }
         }
-    public function cleanSeguros(Request $request,$idServicioEstablecimiento)
-    {
+    public function cleanSeguros(Request $request, $idServicioEstablecimiento)
+
+        {
         $id = session('usu_serviciocrear');
         $id_catalogo = session('catalogocrear');
         $operador_gestion = new OperadorRepository();
-        $catalogoServicioEstablecimiento = DB::table('catalogo_servicio_establecimiento')->where('id_padre',$idServicioEstablecimiento)->select('id')->get('id');
+        $catalogoServicioEstablecimiento = DB::table('catalogo_servicio_establecimiento')->where('id_padre', $idServicioEstablecimiento)->select('id')->get('id');
         $arrayDelete = [];
-        foreach ($catalogoServicioEstablecimiento as $item) {
+        foreach($catalogoServicioEstablecimiento as $item)
+            {
             array_push($arrayDelete, $item->id);
-        }
-        DB::table('servicio_establecimiento_usuario')->whereIn('id_servicio_est',$arrayDelete)->delete();
+            }
+        DB::table('servicio_establecimiento_usuario')->whereIn('id_servicio_est', $arrayDelete)->delete();
         return response()->json(array(
             'success' => true
         ));
-    }
-
+        }
     public function moveServTouser(Request $request)
-    {
+
+        {
         $updated = false;
-        $existOperador = DB::table('users')->where('email',$request->email)->select('id')->count();
-        if ($existOperador == 0) {
+        $existOperador = DB::table('users')->where('email', $request->email)->select('id')->count();
+        if ($existOperador == 0)
+            {
             return response()->json(array(
                 'success' => false
             ));
-        }else{
-            $dataOperador = DB::table('usuario_operadores')->where('email_contacto_operador',$request->email)->select('id_usuario_op')->first();
-            $updated = DB::table('usuario_servicios')->where('id',$request->idServ)->update(['id_usuario_operador' => $dataOperador->id_usuario_op ]);
+            }
+          else
+            {
+            $dataOperador = DB::table('usuario_operadores')->where('email_contacto_operador', $request->email)->select('id_usuario_op')->first();
+            $updated = DB::table('usuario_servicios')->where('id', $request->idServ)->update(['id_usuario_operador' => $dataOperador->id_usuario_op]);
             return response()->json(array(
-                'success' => ($updated == 0)?true:false
+                'success' => ($updated == 0) ? true : false
             ));
+            }
         }
-    }
     public function step4crear(Request $request, $id, $id_catalogo)
 
         {
@@ -1127,47 +1135,28 @@ class ServicioController extends Controller
         $padresList = DB::table('catalogo_servicios')->select($campos)->where('id_padre', $idCatalogo)->where('estado_catalogo_servicios', 1)->get();
         $findedServ = [];
         $tendenciasList = $catalogoServicios->getTendencias($idCatalogo);
-        $campos = ['id_catalogo_servicios','nombre_servicio','nombre_servicio_eng','nivel','id_padre','image'];
-        $exceptCatalogolist = DB::table('catalogo_servicios')
-                                ->select($campos)
-                                ->where('estado_catalogo_servicios',1)
-                                ->where('id_padre',$idCatalogo)
-                                ->orderBy('orden','ASC')
-                                ->limit(4)
-                                ->get();
-        $exceptCatalogo = array_pluck($exceptCatalogolist,'id_catalogo_servicios');
-        $catalogoServiciosExtra = DB::table('catalogo_servicios')
-                                ->select($campos)
-                                ->where('estado_catalogo_servicios',1)
-                                ->where('id_padre',$idCatalogo)
-                                ->whereNotIn('id_catalogo_servicios',$exceptCatalogo)
-                                ->orderBy('nombre_servicio','ASC')
-                                ->get();
-        return view('site.blades.servicios-list-level-2', compact('catalogoServiciosExtra','exceptCatalogolist', 'idCatalogo', 'dataCatalogo', 'tendenciasList'));
+        $campos = ['id_catalogo_servicios', 'nombre_servicio', 'nombre_servicio_eng', 'nivel', 'id_padre', 'image'];
+        $exceptCatalogolist = DB::table('catalogo_servicios')->select($campos)->where('estado_catalogo_servicios', 1)->where('id_padre', $idCatalogo)->orderBy('orden', 'ASC')->limit(4)->get();
+        $exceptCatalogo = array_pluck($exceptCatalogolist, 'id_catalogo_servicios');
+        $catalogoServiciosExtra = DB::table('catalogo_servicios')->select($campos)->where('estado_catalogo_servicios', 1)->where('id_padre', $idCatalogo)->whereNotIn('id_catalogo_servicios', $exceptCatalogo)->orderBy('nombre_servicio', 'ASC')->get();
+        return view('site.blades.servicios-list-level-2', compact('catalogoServiciosExtra', 'exceptCatalogolist', 'idCatalogo', 'dataCatalogo', 'tendenciasList'));
         // return response()->json(array('success' => true, 'exceptCatalogo' => $exceptCatalogolist ,'catalogoServiciosExtra' => $catalogoServiciosExtra));
         }
-    public function loadMoreCatalogo(Request $request){
-        $exceptCatalogo = DB::table('catalogo_servicios')
-                                ->select(['id_catalogo_servicios'])
-                                ->where('estado_catalogo_servicios',1)
-                                ->where('id_padre',$request->idCatalogo)
-                                ->orderBy('orden','ASC')
-                                ->limit(4)
-                                ->get();
-        $exceptCatalogo = array_pluck($exceptCatalogo,'id_catalogo_servicios');
-        $catalogoServicios = DB::table('catalogo_servicios')
-                                ->select(['id_catalogo_servicios','nombre_servicio','nombre_servicio_eng','nivel','id_padre','image'])
-                                ->where('estado_catalogo_servicios',1)
-                                ->where('id_padre',$request->idCatalogo)
-                                ->whereNotIn('id_catalogo_servicios',$exceptCatalogo)
-                                ->orderBy('nombre_servicio','ASC')
-                                ->get();
-        return response()->json(array('success' => true, 'list' => $catalogoServicios));
-    }
+    public function loadMoreCatalogo(Request $request)
+
+        {
+        $exceptCatalogo = DB::table('catalogo_servicios')->select(['id_catalogo_servicios'])->where('estado_catalogo_servicios', 1)->where('id_padre', $request->idCatalogo)->orderBy('orden', 'ASC')->limit(4)->get();
+        $exceptCatalogo = array_pluck($exceptCatalogo, 'id_catalogo_servicios');
+        $catalogoServicios = DB::table('catalogo_servicios')->select(['id_catalogo_servicios', 'nombre_servicio', 'nombre_servicio_eng', 'nivel', 'id_padre', 'image'])->where('estado_catalogo_servicios', 1)->where('id_padre', $request->idCatalogo)->whereNotIn('id_catalogo_servicios', $exceptCatalogo)->orderBy('nombre_servicio', 'ASC')->get();
+        return response()->json(array(
+            'success' => true,
+            'list' => $catalogoServicios
+        ));
+        }
     public function getServiciosByChildcatalogo($idCatalogo, $idSubCatalogo, catalogoServiciosRepository $catalogoServicios)
 
         {
-        $campos = ['id_catalogo_servicios', 'nombre_servicio', 'nombre_servicio_eng', 'descripcion','image'];
+        $campos = ['id_catalogo_servicios', 'nombre_servicio', 'nombre_servicio_eng', 'descripcion', 'image'];
         $campos_serv = ['usuario_servicios.id', 'nombre_servicio', 'detalle_servicio', 'images.filename', 'id_catalogo_servicio'];
         $dataCatalogo = DB::table('catalogo_servicios')->select($campos)->where('id_catalogo_servicios', $idCatalogo)->first();
         $dataSubCatalogo = DB::table('catalogo_servicios')->select($campos)->where('id_catalogo_servicios', $idSubCatalogo)->first();

@@ -3644,8 +3644,8 @@ class PublicServiceRepository extends BaseRepository {
         }
         $arrayFinded = [];
         foreach ($dataList as $value) {
-            $distance = $this->distance($lat,$lng,$value->latitud_servicio,$value->longitud_servicio,'K');
-            if ($distance < ($radio / 1000)) {
+            $distance = $this->distance($lat,$lng,$value->latitud_servicio,$value->longitud_servicio,"NN");
+            if ($distance <= $radio) {
                 $value->distance = $distance;
                 array_push($arrayFinded,  $value);
             }

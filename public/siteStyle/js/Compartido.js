@@ -2073,7 +2073,6 @@ function searchServ(event, idCatalogo, idSubCatalogo) {
 function searchServIni(idCatalogo, idSubCatalogo) {
     var data = { filter: filtersServ, idCatalogo: idCatalogo, idSubCatalogo: idSubCatalogo };
     var url = dirServer + 'public/filterService';
-
     $.ajax({
         type: 'POST',
         url: url,
@@ -2082,7 +2081,16 @@ function searchServIni(idCatalogo, idSubCatalogo) {
         success: function(r) {
             var htmlResult = '';
             var array = r.data;
+            var iconDir = dirServer + 'public/images/marker.png';
             for (var i = 0; i < array.length; i++) {
+                var latServ = parseFloat(array[i].latitud_servicio);
+                var longServ = parseFloat(array[i].longitud_servicio);
+                var marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(latServ,longServ),
+                    map: map,
+                    title: 'Hello World!',
+                    icon: iconDir
+                });
                 var id;
                 if (array[i].id_usuario_servicio) {
                     id = array[i].id_usuario_servicio;

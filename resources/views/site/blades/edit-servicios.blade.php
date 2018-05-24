@@ -214,7 +214,7 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                            <label class="form-label-outside" for="contact-first-name"><i class="fa fa-money"></i>&nbsp;&nbsp;{{ trans('back/admin.lblRangoPrecio')}}</label>
                         <select name="precio_desde" id="precio_desde" class="form-control chng" style="height: 40px;width: 100%; border: 1px solid #cccccc;">
                                 <option value="">No mostrar</option>
-                                <option value="No">No mostrar</option>
+                                <option value="No" selected>No mostrar</option>
                                 <option value="$">$</option>
                                 <option value="$$">$$</option>
                                 <option value="$$$">$$$</option>
@@ -465,7 +465,8 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                       ['id' => '4' , 'nombre' => 'Viernes'],
                       ['id' => '5' , 'nombre' => 'Sabado'],
                       ['id' => '6' , 'nombre' => 'Domingo']
-                    ]
+                    ];
+        $hasvalue = false;
       ?>
       <div class="modal fade" id="form-modal-horario" tabindex="-1" role="dialog" style="z-index: 99999; background: #00000099;">
 
@@ -480,22 +481,52 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
               </div>
               <div class="modal-body">
                 <form class="rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="bat/rd-mailform.php">
+                  @if(count($horarios) > 0)
                   <div class="form-wrap">
                         <label class="form-label-outside" for="contact-first-name-2" style="color: #c26933ba;">24 Horas</label>
-                        <span class="badge" style="background-color: transparent;"><input type="checkbox" name="my-checkbox" id="24_h" data-size="mini" data-on-color="success" data-on-text="Si" data-off-text="No"></span>
+                        <span class="badge" style="background-color: transparent;"><input type="checkbox" name="my-checkbox" id="24_h" data-size="mini" data-on-color="success" data-on-text="Si" data-off-text="No" checked></span>
                   </div>
+                  @else
+                    <div class="form-wrap">
+                          <label class="form-label-outside" for="contact-first-name-2" style="color: #c26933ba;">24 Horas</label>
+                          <span class="badge" style="background-color: transparent;"><input type="checkbox" name="my-checkbox" id="24_h" data-size="mini" data-on-color="success" data-on-text="Si" data-off-text="No"></span>
+                    </div>
+                  @endif
                   <div class="range range-15">
                     @foreach($diasList as $dia)
-                    <div class="cell-sm-4">
-                      <div class="form-wrap" style="border: 1px solid #c26933ba; padding: 10px;">
-                        <label class="form-label-outside" for="contact-first-name-2" style="color: #c26933ba;">{{$dia['nombre']}}</label>
-                        <span class="badge" style="background-color: transparent;"><input type="checkbox" name="my-checkbox" id="{{$dia['id']}}" data-size="mini" data-on-color="success" data-on-text="Si" data-off-text="No" class="checkboxDays"></span><br>
-                        <div style="color: #2f6890;">Desde:</div>
-                        <input class="form-input" id="from_time{{$dia['id']}}" type="time" step="900" disabled>
-                        <div style="color: #2f6890;">Hasta:</div>
-                        <input class="form-input" id="to_time{{$dia['id']}}" type="time" step="900" disabled>
+
+                    @foreach($horarios as $hdia)
+                      @if($dia['nombre'] == $hdia->dia)
+                        <?php 
+                          $hasvalue = true;
+                          $valueHDesde = $hdia->desde;
+                          $valueHHasta = $hdia->hasta;
+                         ?>
+                      @endif
+                    @endforeach 
+                    @if(!$hasvalue)
+                      <div class="cell-sm-4">
+                        <div class="form-wrap" style="border: 1px solid #c26933ba; padding: 10px;">
+                          <label class="form-label-outside" for="contact-first-name-2" style="color: #c26933ba;">{{$dia['nombre']}}</label>
+                          <span class="badge" style="background-color: transparent;"><input type="checkbox" name="my-checkbox" id="{{$dia['id']}}" data-size="mini" data-on-color="success" data-on-text="Si" data-off-text="No" class="checkboxDays"></span><br>
+                          <div style="color: #2f6890;">Desde:</div>
+                          <input class="form-input" id="from_time{{$dia['id']}}" type="time" step="900" disabled>
+                          <div style="color: #2f6890;">Hasta:</div>
+                          <input class="form-input" id="to_time{{$dia['id']}}" type="time" step="900" disabled>
+                        </div>
                       </div>
-                    </div>
+                      @else
+                      <div class="cell-sm-4">
+                        <div class="form-wrap" style="border: 1px solid #c26933ba; padding: 10px;">
+                          <label class="form-label-outside" for="contact-first-name-2" style="color: #c26933ba;">{{$dia['nombre']}}</label>
+                          <span class="badge" style="background-color: transparent;"><input type="checkbox" name="my-checkbox" id="{{$dia['id']}}" data-size="mini" data-on-color="success" data-on-text="Si" data-off-text="No" class="checkboxDays" checked></span><br>
+                          <div style="color: #2f6890;">Desde:</div>
+                          <input class="form-input" id="from_time{{$dia['id']}}" type="time" step="900" value="{{$valueHDesde}}">
+                          <div style="color: #2f6890;">Hasta:</div>
+                          <input class="form-input" id="to_time{{$dia['id']}}" type="time" step="900" value="{{$valueHHasta}}">
+                        </div>
+                      </div>
+                    @endif
                     @endforeach 
                   </div>
                 </form>

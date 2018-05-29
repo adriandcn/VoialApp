@@ -367,13 +367,16 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                                     @endif
                                     @if($catalogo->id_padre == 0)
                                     <li style="margin-bottom: 12px;">
-                                        <input class="circulo chng checkPropiedades" name="id_servicio_est[]" id="id_servicio_est[]" value="{!!$catalogo->id!!}" type="checkbox" namePropiedad="{!!$catalogo->nombre_servicio_est!!}" idToTree="{!!$catalogo->id!!}" data-labelauty="No brindo este servicio|Si brindo este servicio" {{($catalogo->estado_servicio_est_us <> NULL)?'checked':''}}/>&nbsp;&nbsp;
-                                        <strong>{!!$catalogo->nombre_servicio_est!!}</strong>
+                                        <label>
+                                          <input class="circulo chng checkPropiedades" name="id_servicio_est[]" id="id_servicio_est[]" value="{!!$catalogo->id!!}" type="checkbox" namePropiedad="{!!$catalogo->nombre_servicio_est!!}" idToTree="{!!$catalogo->id!!}" data-labelauty="No brindo este servicio|Si brindo este servicio" {{($catalogo->estado_servicio_est_us <> NULL)?'checked':''}}/>&nbsp;&nbsp;{!!$catalogo->nombre_servicio_est!!}
+                                        </label>
                                     </li>
                                     @else
                                       <li class="seg_{{$catalogo->id_padre}}" style="margin-left: 20px; margin-bottom: 12px;">
-                                        <input class="circulo chng" name="id_servicio_est[]" id="id_servicio_est[]" value="{!!$catalogo->id!!}" type="checkbox" namePropiedad="{!!$catalogo->nombre_servicio_est!!}" data-labelauty="No brindo este servicio|Si brindo este servicio" {{($catalogo->estado_servicio_est_us <> NULL)?'checked':''}}/>&nbsp;&nbsp;
-                                        <strong>{!!$catalogo->nombre_servicio_est!!}</strong>
+                                        <label>
+                                          <input class="circulo chng" name="id_servicio_est[]" id="id_servicio_est[]" value="{!!$catalogo->id!!}" type="checkbox" namePropiedad="{!!$catalogo->nombre_servicio_est!!}" data-labelauty="No brindo este servicio|Si brindo este servicio" {{($catalogo->estado_servicio_est_us <> NULL)?'checked':''}}/>&nbsp;&nbsp;
+                                          {!!$catalogo->nombre_servicio_est!!}
+                                        </label>
                                       </li>
                                     @endif
                                 @endforeach    
@@ -455,99 +458,6 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
           </div>
         </div>
       </div>
-      <!-- MODAL horario -->
-      <?php 
-        $diasList = [
-                      ['id' => '0' , 'nombre' => 'Lunes'],
-                      ['id' => '1' , 'nombre' => 'Martes'],
-                      ['id' => '2' , 'nombre' => 'Miercoles'],
-                      ['id' => '3' , 'nombre' => 'Jueves'],
-                      ['id' => '4' , 'nombre' => 'Viernes'],
-                      ['id' => '5' , 'nombre' => 'Sabado'],
-                      ['id' => '6' , 'nombre' => 'Domingo']
-                    ];
-        $hasvalue = false;
-      ?>
-      <div class="modal fade" id="form-modal-horario" tabindex="-1" role="dialog" style="z-index: 99999; background: #00000099;">
-
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
-              <div class="modal-header">
-                <h5>{{trans('back/admin.lblHorarioInput')}}</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="{{trans('front/responsive.cerrar')}}">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <form class="rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="bat/rd-mailform.php">
-                  @if(count($horarios) > 0)
-                  <div class="form-wrap">
-                        <label class="form-label-outside" for="contact-first-name-2" style="color: #c26933ba;">24 Horas</label>
-                        <span class="badge" style="background-color: transparent;"><input type="checkbox" name="my-checkbox" id="24_h" data-size="mini" data-on-color="success" data-on-text="Si" data-off-text="No" checked></span>
-                  </div>
-                  @else
-                    <div class="form-wrap">
-                          <label class="form-label-outside" for="contact-first-name-2" style="color: #c26933ba;">24 Horas</label>
-                          <span class="badge" style="background-color: transparent;"><input type="checkbox" name="my-checkbox" id="24_h" data-size="mini" data-on-color="success" data-on-text="Si" data-off-text="No"></span>
-                    </div>
-                  @endif
-                  <div class="range range-15">
-                    @foreach($diasList as $dia)
-
-                    @foreach($horarios as $hdia)
-                      @if($dia['nombre'] == $hdia->dia)
-                        <?php 
-                          $hasvalue = true;
-                          $valueHDesde = $hdia->desde;
-                          $valueHHasta = $hdia->hasta;
-                         ?>
-                      @endif
-                    @endforeach 
-                    @if(!$hasvalue)
-                      <div class="cell-sm-4">
-                        <div class="form-wrap" style="border: 1px solid #c26933ba; padding: 10px;">
-                          <label class="form-label-outside" for="contact-first-name-2" style="color: #c26933ba;">{{$dia['nombre']}}</label>
-                          <span class="badge" style="background-color: transparent;"><input type="checkbox" name="my-checkbox" id="{{$dia['id']}}" data-size="mini" data-on-color="success" data-on-text="Si" data-off-text="No" class="checkboxDays"></span><br>
-                          <div style="color: #2f6890;">Desde:</div>
-                          <input class="form-input" id="from_time{{$dia['id']}}" type="time" step="900" disabled>
-                          <div style="color: #2f6890;">Hasta:</div>
-                          <input class="form-input" id="to_time{{$dia['id']}}" type="time" step="900" disabled>
-                        </div>
-                      </div>
-                      @else
-                      <div class="cell-sm-4">
-                        <div class="form-wrap" style="border: 1px solid #c26933ba; padding: 10px;">
-                          <label class="form-label-outside" for="contact-first-name-2" style="color: #c26933ba;">{{$dia['nombre']}}</label>
-                          <span class="badge" style="background-color: transparent;"><input type="checkbox" name="my-checkbox" id="{{$dia['id']}}" data-size="mini" data-on-color="success" data-on-text="Si" data-off-text="No" class="checkboxDays" checked></span><br>
-                          <div style="color: #2f6890;">Desde:</div>
-                          <input class="form-input" id="from_time{{$dia['id']}}" type="time" step="900" value="{{$valueHDesde}}">
-                          <div style="color: #2f6890;">Hasta:</div>
-                          <input class="form-input" id="to_time{{$dia['id']}}" type="time" step="900" value="{{$valueHHasta}}">
-                        </div>
-                      </div>
-                    @endif
-                    @endforeach 
-                  </div>
-                </form>
-              </div>
-              <div class="modal-footer">
-                <div class="col-md-6">
-                  <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-close" href="#" data-dismiss="modal" id="btnCloseModalH">
-                      {{trans('front/responsive.cerrar')}}
-                      <span></span>
-                  </a>
-                </div>
-                <div class="col-md-6">
-                  <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-floppy-o" href="#" onclick="saveHorario(event,{{$usuarioServicio->id}})">
-                      {{trans('back/admin.lblBtnSave')}}
-                      <span></span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-      </div>
     <style type="text/css">
       .sweet-alert{
         z-index: 99999999;
@@ -611,7 +521,90 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
         </script>
       @else
         <script>
-          $(document).ready(function () {GetDataAjaxProvincias1("{!!asset('/getProvincias1')!!}/{!!$usuarioServicio->id_provincia!!}/{!!$usuarioServicio->id_canton!!}/{!!$usuarioServicio->id_parroquia!!}");
+          var filtersDays = [];
+          var filtersH = [];
+          $(document).ready(function () {
+            GetDataAjaxProvincias1("{!!asset('/getProvincias1')!!}/{!!$usuarioServicio->id_provincia!!}/{!!$usuarioServicio->id_canton!!}/{!!$usuarioServicio->id_parroquia!!}");
+
+            $('.checkboxDays').on('switchChange.bootstrapSwitch', function(event, state) {
+                applyFilterDays(event.currentTarget.id,state);
+            });
+
+            $('#24_h').on('switchChange.bootstrapSwitch', function(event, state) {
+                if (state) {
+                    for (var i = 0; i < 7; i++) {
+                        // $('#to_time' + i).removeAttr('disabled');
+                        // $('#from_time' + i).removeAttr('disabled');
+                        $('#from_time' + i).val('23:59');
+                        $('#to_time' + i).val('23:59');
+                        var exist = false;
+                        filtersH.forEach(function(val, key) {
+                            if (val.d == i) {
+                                exist = true;
+                            }
+                        });
+                        if (!exist) {
+                            var obj = { d: i, desde: $('#to_time' + i).val(), hasta: $('#to_time' + i).val() };
+                            filtersH.push(obj);
+                        }
+                    }
+                    $('.checkboxDays').bootstrapSwitch('state', true);
+                } else {
+                    for (var i = 0; i < 7; i++) {
+                        // $('#from_time' + i).attr('disabled', 'disabled');
+                        // $('#to_time' + i).attr('disabled', 'disabled');
+                        $('#from_time' + i).val(null);
+                        $('#to_time' + i).val(null);
+                    }
+                    $('.checkboxDays').bootstrapSwitch('state', false);
+                }
+            });
+
+            function applyFilterDays(item,state) {
+                if (!_.contains(filtersDays, item)) {
+                    filtersDays.push(item);
+                    $('#from_time' + item).removeAttr('disabled');
+                    $('#to_time' + item).removeAttr('disabled');
+                    $('#from_time' + item).change(function() {
+                        var index = _.where(filtersH, { 'd': item });
+                        if (index.length == 0) {
+                            var obj = { d: item, desde: $('#from_time' + item).val() };
+                            filtersH.push(obj);
+                        } else {
+                            filtersH.forEach(function(val, key) {
+                                if (val.d == item) {
+                                    filtersH[key].desde = $('#from_time' + item).val();
+                                }
+                            });
+
+                        }
+                    });
+                    $('#to_time' + item).change(function() {
+                        var index = _.where(filtersH, { 'd': item });
+                        if (index.length == 0) {
+                            var obj = { d: item, hasta: $('#to_time' + item).val() };
+                            filtersH.push(obj);
+                        } else {
+                            filtersH.forEach(function(val, key) {
+                                if (val.d == item) {
+                                    filtersH[key].hasta = $('#to_time' + item).val();
+                                }
+                            });
+
+                        }
+                    });
+
+                } else {
+                    filtersDays = _.without(filtersDays, item);
+                    // filtersH.splice(parseInt(item), 1);
+                    filtersH = _.filter(filtersH, function(itemArray) { return parseInt(itemArray.d) !== parseInt(item); });
+                    $('#from_time' + item).attr('disabled', 'disabled');
+                    $('#from_time' + item).val(null);
+                    $('#to_time' + item).attr('disabled', 'disabled');
+                    $('#to_time' + item).val(null);
+
+                }
+            }
             });
         </script>
       @endif
@@ -621,6 +614,97 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
       {!! HTML::script('/packages/dropzone/dropzone.js') !!}
       {!! HTML::script('/assets/js/dropzone-config.js') !!} 
     </div>
+    <!-- MODAL horario -->
+      <?php 
+        $diasList = [
+                      ['id' => '0' , 'nombre' => 'Lunes'],
+                      ['id' => '1' , 'nombre' => 'Martes'],
+                      ['id' => '2' , 'nombre' => 'Miercoles'],
+                      ['id' => '3' , 'nombre' => 'Jueves'],
+                      ['id' => '4' , 'nombre' => 'Viernes'],
+                      ['id' => '5' , 'nombre' => 'Sabado'],
+                      ['id' => '6' , 'nombre' => 'Domingo']
+                    ];
+      ?>
+      <div class="modal fade" id="form-modal-horario" tabindex="-1" role="dialog" style="z-index: 99999; background: #00000099;">
+
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+              <div class="modal-header">
+                <h5>{{trans('back/admin.lblHorarioInput')}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="{{trans('front/responsive.cerrar')}}">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form class="rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="bat/rd-mailform.php">
+                    <div class="form-wrap">
+                          <label class="form-label-outside" for="contact-first-name-2" style="color: #c26933ba;">24 Horas</label>
+                          <span class="badge" style="background-color: transparent;"><input type="checkbox" name="my-checkbox" id="24_h" data-size="mini" data-on-color="success" data-on-text="Si" data-off-text="No"></span>
+                    </div>
+                  <div class="range range-15">
+                    @foreach($diasList as $dia)
+                      <?php $hasvalue = false; ?>
+                    @foreach($horarios as $hdia)
+                      @if($dia['nombre'] == $hdia->dia)
+                        <?php 
+                          $hasvalue = true;
+                          $valueHDesde = $hdia->desde;
+                          $valueHHasta = $hdia->hasta;
+                         ?>
+                      @endif
+                    @endforeach 
+                      <div class="cell-sm-4">
+                        <div class="form-wrap" style="border: 1px solid #c26933ba; padding: 10px;">
+                          <label class="form-label-outside" for="contact-first-name-2" style="color: #c26933ba;">{{$dia['nombre']}}</label>
+                          <span class="badge" style="background-color: transparent;">
+                            <input type="checkbox" name="my-checkbox" id="{{$dia['id']}}" data-size="mini" data-on-color="success" data-on-text="Si" data-off-text="No" class="checkboxDays">
+                          </span><br>
+                          <div style="color: #2f6890;">Desde:</div>
+                          <input class="form-input" id="from_time{{$dia['id']}}" type="time" step="900" disabled>
+                          <div style="color: #2f6890;">Hasta:</div>
+                          <input class="form-input" id="to_time{{$dia['id']}}" type="time" step="900" disabled>
+                        </div>
+                      </div>
+                      @if($hasvalue)
+                       <script type="text/javascript">
+                          var idDayFromTxt = '#from_time' + '{!!$dia["id"]!!}';
+                          var idDayToTxt = '#to_time' + '{!!$dia["id"]!!}';
+                          var idDayCheck = '#' + '{!!$dia["id"]!!}';
+                          var idDayFromVal = '{!!$valueHDesde!!}';
+                          var idDayToVal = '{!!$valueHHasta!!}';
+                          $(idDayCheck).bootstrapSwitch('state', true);
+                          $(idDayFromTxt).removeAttr('disabled');
+                          $(idDayFromTxt).val(idDayFromVal);
+                          $(idDayToTxt).removeAttr('disabled');
+                          $(idDayToTxt).val(idDayToVal);
+                          filtersDays.push('{!!$dia["id"]!!}');
+                          var obj = { d: '{!!$dia["id"]!!}', desde: $(idDayFromTxt).val(),hasta: $(idDayToTxt).val() };
+                          filtersH.push(obj);
+                        </script>
+                      @endif
+                    @endforeach 
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <div class="col-md-6">
+                  <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-close" href="#" data-dismiss="modal" id="btnCloseModalH">
+                      {{trans('front/responsive.cerrar')}}
+                      <span></span>
+                  </a>
+                </div>
+                <div class="col-md-6">
+                  <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-floppy-o" href="#" onclick="saveHorario(event,{{$usuarioServicio->id}})">
+                      {{trans('back/admin.lblBtnSave')}}
+                      <span></span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
       <script type="text/javascript">
         $("[name='my-checkbox']").bootstrapSwitch();
         if (noUiSlider) {
@@ -730,12 +814,24 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
 
     var owl = $('.owl-carousel');
           owl.owlCarousel({
+              stagePadding: 50,
               loop:true,
-              items:3,
+              // items:3,
               autoPlay:true,
               autoPlayTimeout:1000,
               autoPlayHoverPause:true,
-              margin:10
+              margin:10,
+              responsive:{
+                  0:{
+                      items:1
+                  },
+                  600:{
+                      items:3
+                  },
+                  1000:{
+                      items:5
+                  }
+              }
           });
 }
       </script>

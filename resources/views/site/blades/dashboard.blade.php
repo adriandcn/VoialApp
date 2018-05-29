@@ -69,13 +69,14 @@
                           </h4>
                       </div>
                       <div style="bottom: 20px !important; position: absolute;">
-                        <button class="button-primary button" style="padding: 3px 0px 3px;
-    margin-top: 7px;" type="button" data-toggle="modal" onclick="AjaxContainerEdicionServicios(event,{!!$servicio->id!!}, {!!$servicio->id_catalogo_servicios!!});">
+                        <button class="button-primary button" style="padding: 3px 0px 3px; margin-top: 7px;" type="button" data-toggle="modal" onclick="AjaxContainerEdicionServicios(event,{!!$servicio->id!!}, {!!$servicio->id_catalogo_servicios!!});">
+                                Escribir post<span></span>
+                        </button>
+                        <button class="button-primary button" style="padding: 3px 0px 3px; margin-top: 7px;" type="button" data-toggle="modal" onclick="AjaxContainerEdicionServicios(event,{!!$servicio->id!!}, {!!$servicio->id_catalogo_servicios!!});">
                                 Editar<span></span>
                         </button>
                         @if(Auth::user()->role_id < 3)
-                        <button class="button-primary button" style="padding: 3px 0px 3px;
-    margin-top: 7px;" type="button" data-toggle="modal" data-target="#form-modal-copy-serv" onclick="setIdServicioTocopy({!! $servicio->id !!})">
+                        <button class="button-primary button" style="padding: 3px 0px 3px; margin-top: 7px;" type="button" data-toggle="modal" data-target="#form-modal-copy-serv" onclick="setIdServicioTocopy({!! $servicio->id !!})">
                                 Asignar a usuario<span></span>
                         </button>
                         @endif

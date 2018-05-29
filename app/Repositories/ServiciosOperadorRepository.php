@@ -16,6 +16,7 @@ use App\Models\Eventos_usuario_Servicio;
 use App\Models\Invitaciones_Amigos;
 use App\Models\UbicacionGeografica;
 use App\Models\Image;
+use App\Models\Post;
 use Illuminate\Support\Facades\DB;
 use App\Models\SearchEngine;
 use App\Models\Control_dahsboard;
@@ -73,6 +74,7 @@ class ServiciosOperadorRepository extends BaseRepository {
          $this->especialidad_u = new Especialidad();
         $this->booking_u = new VerificacionBooking();
         $this->control_u = new Control_dahsboard();
+        $this->post = new Post();
        
     }
 
@@ -986,7 +988,53 @@ Actualizar tabla de busqueda
         $eventos = new $this->eventos;
         return $eventos::where('id_usuario_servicio', '=', $id_usuario_servicio)->orderBy('updated_at', 'DESC')->get();
         return $eventos::All();
-    }  
+    }
+
+    //Entrega el arreglo de post por usuario servicio
+    public function getPostUsuarioServicio($id_usuario_servicio) {
+        $postList = new $this->post;
+        return $postList::where('id_usuario_servicio', '=', $id_usuario_servicio)->orderBy('updated_at', 'DESC')->get();
+        return $postList::All();
+    }
+
+     // Save post
+    public function savePost($id_usuario_servicio,$data,$idPost = null) {
+        if ($idPost != null) {
+            $post = new $this->post->find($idPost);
+            $post->title = $data['title']; 
+            $post->slug = $data['slug']; 
+            $post->image = $data['image']; 
+            $post->html = $data['html'];
+            $post->date_ini = $data['date_ini'];
+            $post->date_fin = $data['date_fin'];
+            // $post->views = $data['views']; 
+            $post->status = $data['status']; 
+            // $post->id_usuario_servicio = $data['id_usuario_servicio']; 
+            // $post->created_at = date("Y/m/d HH:mm:ss"); 
+            // $post->updated_at = date("Y/m/d H:i:s");
+        }else{
+            $post = new $this->post;
+            $post->title = $data['title']; 
+            $post->slug = $data['slug']; 
+            $post->image = $data['image']; 
+            $post->html = $data['html']; 
+            $post->date_ini = $data['date_ini'];
+            $post->date_fin = $data['date_fin'];
+            $post->views = 0; 
+            $post->status = 1; 
+            $post->id_usuario_servicio = $id_usuario_servicio; 
+            // $post->created_at = date("Y/m/d H:i:s");
+            // $post->updated_at = date("Y/m/d H:i:s"); 
+        }
+        $exist = $this->post->whereNull('title')->whereNull('image')->count();
+        if ($exist == 0) {
+          $post->save();
+        }else{
+          $post = $this->post->whereNull('title')->whereNull('image')->first();
+        }
+        return $post;
+
+    }
 
 
 

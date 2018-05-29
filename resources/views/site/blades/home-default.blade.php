@@ -130,7 +130,7 @@
         </div>
       </section>
     <?php $arrayVideos = [
-        ['img'=>'video-1-1920x649.jpg','url' => 'https://www.youtube.com/embed/lb6PHOfY39w']
+        ['img'=>'Q_salud.png','url' => 'https://www.youtube.com/embed/lb6PHOfY39w']
       ]; ?>
     <section class="section-skew skew-4-elem section-skew-var-2 wow fadeInUp" data-wow-delay=".2s"><span class="section-skew__item"></span><span class="section-skew__item"></span>
         <!-- Owl Carousel-->
@@ -145,9 +145,9 @@
                   <span class="link-control__inner"></span>
                 </a>
                 <div class="post-video__caption">
-                  <h1><a href="single-video.html">Our Latest Video</a></h1>
-                  <h6>BeFaster Autumn MTB Series</h6>
-                  <time class="heading-6" datetime="2017-09-22">22 September, 2017</time>
+                  <h1><a href="single-video.html">¿ Qué es la salud ?</a></h1>
+                  <!-- <h6>BeFaster Autumn MTB Series</h6> -->
+                  <!-- <time class="heading-6" datetime="2017-09-22">22 September, 2017</time> -->
                 </div>
               </div>
             </div>

@@ -1130,6 +1130,32 @@ function AjaxContainerEdicionServicios(event, $id_usuario_servicio, $id_catalogo
     });
 }
 
+function AjaxContainerEdicionServicios(event, $id_usuario_servicio, $id_catalogo) {
+
+    $("#spinnerSave").show();
+
+    event.preventDefault();
+    var url = dirServer + "public/postList/" + $id_usuario_servicio + "/" + $id_catalogo;
+    var id = $id_usuario_servicio;    
+    $.ajax({
+        type: 'GET',
+        url: url,
+        data: "",
+        success: function(data) {
+            //alert(data.redirectto);
+            window.location.href = dirServer + 'public/' + data.redirectto;
+        },
+        error: function(data) {
+            var errors = data.responseJSON;
+            if (errors) {
+                $.each(errors, function(i) {
+                    console.log(errors[i]);
+                });
+            }
+        }
+    });
+}
+
 function AjaxContainerInfoOperador() {
 
     $("#spinnerSave").show();
@@ -1480,88 +1506,6 @@ function GetDataAjaxCantones1(url) {
     });
 }
 
-$('.checkboxDays').on('switchChange.bootstrapSwitch', function(event, state) {
-    applyFilterDays(event.currentTarget.id);
-});
-
-var filtersDays = [];
-var filtersH = [];
-
-$('#24_h').on('switchChange.bootstrapSwitch', function(event, state) {
-    if (state) {
-        for (var i = 0; i < 7; i++) {
-            // $('#to_time' + i).removeAttr('disabled');
-            // $('#from_time' + i).removeAttr('disabled');
-            $('#from_time' + i).val('23:59');
-            $('#to_time' + i).val('23:59');
-            var exist = false;
-            filtersH.forEach(function(val, key) {
-                if (val.d == i) {
-                    exist = true;
-                }
-            });
-            if (!exist) {
-                var obj = { d: i, desde: $('#to_time' + i).val(), hasta: $('#to_time' + i).val() };
-                filtersH.push(obj);
-            }
-        }
-        $('.checkboxDays').bootstrapSwitch('state', true);
-    } else {
-        for (var i = 0; i < 7; i++) {
-            // $('#from_time' + i).attr('disabled', 'disabled');
-            // $('#to_time' + i).attr('disabled', 'disabled');
-            $('#from_time' + i).val(null);
-            $('#to_time' + i).val(null);
-        }
-        $('.checkboxDays').bootstrapSwitch('state', false);
-    }
-});
-
-function applyFilterDays(item) {
-    if (!_.contains(filtersDays, item)) {
-        filtersDays.push(item);
-        $('#from_time' + item).removeAttr('disabled');
-        $('#to_time' + item).removeAttr('disabled');
-        $('#from_time' + item).change(function() {
-            var index = _.where(filtersH, { 'd': item });
-            if (index.length == 0) {
-                var obj = { d: item, desde: $('#from_time' + item).val() };
-                filtersH.push(obj);
-            } else {
-                filtersH.forEach(function(val, key) {
-                    if (val.d == item) {
-                        filtersH[key].desde = $('#from_time' + item).val();
-                    }
-                });
-
-            }
-        });
-        $('#to_time' + item).change(function() {
-            var index = _.where(filtersH, { 'd': item });
-            if (index.length == 0) {
-                var obj = { d: item, hasta: $('#to_time' + item).val() };
-                filtersH.push(obj);
-            } else {
-                filtersH.forEach(function(val, key) {
-                    if (val.d == item) {
-                        filtersH[key].hasta = $('#to_time' + item).val();
-                    }
-                });
-
-            }
-        });
-
-    } else {
-        filtersDays = _.without(filtersDays, item);
-        // filtersH.splice(parseInt(item), 1);
-        filtersH = _.filter(filtersH, function(itemArray) { return parseInt(itemArray.d) !== parseInt(item); });
-        $('#from_time' + item).attr('disabled', 'disabled');
-        $('#from_time' + item).val(null);
-        $('#to_time' + item).attr('disabled', 'disabled');
-        $('#to_time' + item).val(null);
-
-    }
-}
 
 function saveHorario(event, idServicio) {
     event.preventDefault();
@@ -2456,7 +2400,7 @@ $('.checkPropiedades').on('change', function(e) {
         if (this.checked) {
             $('.segurosList').show();
             $('.seg_' + $(this).attr('idToTree')).show();
-            // getSegurosList($(this).val());
+            getSegurosList($(this).val());
         } else {
             $('.segurosList').hide();
             $('.seg_' + $(this).attr('idToTree')).hide();

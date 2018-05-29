@@ -774,7 +774,7 @@ class ServicioController extends Controller
         // return response()->json(['d' => $catalogoServicioEstablecimiento]);
         $tendenciasList = $catalogoServRep->getTendencias();
         $horarios = DB::table('horarios')->where('id_usuario_servicio',$id)->where('estado',1)->select(['idhorarios','dia','desde','hasta'])->get();
-        // return response()->json(['d' => $horarios]);
+        // return response()->json(['d' => $catalogoServicioEstablecimiento]);
         if ($calendarios != Array())
             {
             // if($contadorCalendario[0]->contador != ""){

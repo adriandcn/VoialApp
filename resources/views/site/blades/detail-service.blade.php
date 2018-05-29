@@ -340,6 +340,7 @@
           GetDataAjaxImagenesRes("{!!asset('/getImagesServicio')!!}/1/{!!$detalles->id_usuario_servicio!!}");
           var owl = $('.owl-carousel');
           owl.owlCarousel({
+              stagePadding: 50,
               loop:true,
               items:3,
               autoPlay:true,

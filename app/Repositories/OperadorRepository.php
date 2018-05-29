@@ -363,6 +363,7 @@ class OperadorRepository extends BaseRepository
 				->where('catalogo_servicio_establecimiento.id_catalogo_servicio',$dataCatalogo->id_padre)
 				// ->where('catalogo_servicio_establecimiento.id_padre',0)
 				->orderBy('catalogo_servicio_establecimiento.id', 'ASC')
+				// ->groupBy('servicio_establecimiento_usuario.id_servicio_est')
 				->get(['catalogo_servicio_establecimiento.id',
 						'catalogo_servicio_establecimiento.nombre_servicio_est',
 						'servicio_establecimiento_usuario.estado_servicio_est_us',

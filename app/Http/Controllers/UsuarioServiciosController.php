@@ -22,6 +22,8 @@ use App\Jobs\InviteFriendsMail;
 use Illuminate\Contracts\Auth\Guard;
 use \Crypt;
 use DB;
+use App\Models\Post;
+
 class UsuarioServiciosController extends Controller
 
     {
@@ -1674,4 +1676,42 @@ class UsuarioServiciosController extends Controller
         $request->session()->put('id_usuario_servicio_promo', $id_usuario_servicio);
         return redirect('/listarPromocion');
     }
+
+    public function getPostList($id_usuario_servicio, $idCatalogo, Request $request, ServiciosOperadorRepository $gestion)
+    {
+        $request->session()->put('id_usuario_servicio_post', $id_usuario_servicio);
+        $returnHTML = 'listado-de-post';
+        return response()->json(array(
+            'success' => true,
+            'redirectto' => $returnHTML
+        ));
     }
+
+    public function addEditPost(Request $request, PublicServiceRepository $gestionPublic,ServiciosOperadorRepository $gestion)
+    {
+        $idUserServBlog = $request->session()->get('id_usuario_servicio_post');        
+        $servicio = $gestionPublic->obtenerDetallesServicio($idUserServBlog);
+        $listPost  = $gestion->getPostUsuarioServicio($idUserServBlog);
+        return view('site.blades.listarPosts', compact('servicio','listPost'));
+    }
+
+    public function getViewaddEditPost($idUsuarioServ,$idPost = null,ServiciosOperadorRepository $gestion,Request $request)
+    {
+        if ($idPost == 'nw') {
+            $data = [];
+            $data['title'] = null;
+            $data['slug'] = null;
+            $data['image'] = null;
+            $data['html'] = null;
+            $data['date_ini'] = date("Y/m/d");
+            $data['date_fin'] = date("Y/m/d");
+            $postData = $gestion->savePost($idUsuarioServ,$data,null);
+        }else{
+            $postData = Post::find($idPost);
+        }
+        // return response()->json(['data'=>$postData]);
+        $request->session()->put('idPostAdded',$postData->id);
+        return view('site.blades.addEditPost', compact('postData'));
+    }
+
+}

@@ -31,41 +31,29 @@
           $postData = (object) array(
             'id' => Session::get('idPostAdded'),
             'id_usuario_servicio' => '',
-            'id_catalogo_tipo_fotografia' => 2,
-            'descripcion_promocion' => '',
-            'nombre_promocion' => '',
-            'estado_promocion' => '',
-            'fecha_desde' => '',
-            'fecha_hasta' => '',
-            'fecha_desde_hasta' => date("Y-m-d") . ' - ' . date("Y-m-d"),
-            'tags' => '',
-            'precio_normal' => '',
-            'descuento' => 0,
-            'codigo_promocion' => '',
-            'observaciones_promocion' => '',
-            'created_at' => '',
-            'updated_at' => ''
+            // 'id_catalogo_tipo_fotografia' => 2,
+            'html' => '',
+            'title' => '',
+            'status' => 1,
+            'date_ini' => '',
+            'date_fin' => '',
+            'date_ini_hasta' => date("Y-m-d") . ' - ' . date("Y-m-d")
           );
         }else{
           $postData = (object) array(
             'id' => $postData->id,
             'id_usuario_servicio' => $postData->id_usuario_servicio,
-            'id_catalogo_tipo_fotografia' => 2,
-            'descripcion_promocion' => $postData->descripcion_promocion,
-            'nombre_promocion' => $postData->nombre_promocion,
-            'estado_promocion' => $postData->estado_promocion,
-            'fecha_desde' => $postData->fecha_desde,
-            'fecha_hasta' => $postData->fecha_hasta,
-            'fecha_desde_hasta' => $postData->fecha_desde . ' - ' .$postData->fecha_hasta,
-            'tags' => $postData->tags,
-            'precio_normal' => $postData->precio_normal,
-            'descuento' => $postData->descuento,
-            'codigo_promocion' => $postData->codigo_promocion,
-            'observaciones_promocion' => $postData->observaciones_promocion
+            // 'id_catalogo_tipo_fotografia' => 2,
+            'html' => $postData->html,
+            'title' => $postData->title,
+            'status' => $postData->status,
+            'date_ini' => $postData->date_ini,
+            'date_fin' => $postData->date_fin,
+            'date_ini_hasta' => $postData->date_ini . ' - ' .$postData->date_fin
           );
         }
       ?>
-      <section class="page-title breadcrumbs-elements page-title-inset-1">
+      <section class="page-title breadcrumbs-elements page-title-inset-1" style="background: white;">
         <div class="shell">
           <div class="page-title__overlay box-skew box-skew-var-1"><span class="box-skew__item"></span>
             <div class="page-title-text">{{ trans('publico/labels.lblPostAdminAdd')}}</div>
@@ -78,7 +66,7 @@
               <ul class="breadcrumbs-custom">
                 <li><a href="{{asset('/')}}">{{ trans('publico/labels.lblHome')}}</a></li>
                 <li><a href="{{asset('/mis-servicios')}}">{{ trans('publico/labels.lblPathMyServices')}}</a></li>
-                <li><a href="../administracion-de-promociones/{{ Session::get('idUsServ') }}">{{ trans('publico/labels.lblPathPosts')}}</a></li>
+                <li><a href="{{asset('/listado-de-post')}}">{{ trans('publico/labels.lblPathPosts')}}</a></li>
                 <li>{{ trans('publico/labels.lblPathAddPost')}}</li>
               </ul>
             </div>
@@ -86,20 +74,20 @@
         </div>
       </section>
       <section class="section-xs bg-white">
-        <form class="rd-mailform" id="formAddEvent" action="{{$serverDir}}public/updateEvent" method="POST">
+        <form class="rd-mailform" id="formAddPost" action="{{$serverDir}}public/saveEditPost" method="POST">
         <div class="shell">
           <div class="range range-50">
             <div class="cell-md-3">
-                  <a class="button button-primary tooltip button-icon button-icon-sm button-icon-right fa-plus" title="{{ trans('back/admin.altAddImage')}}" href="" data-toggle="modal" data-target="#foto">
+                  <!-- <a class="button button-primary tooltip button-icon button-icon-sm button-icon-right fa-plus" title="{{ trans('back/admin.altAddImage')}}" href="" data-toggle="modal" data-target="#foto">
                     {{ trans('back/admin.lblAddImagePost')}}<span></span>
                   </a>
                   <br>
                   <br>
                   <hr>
                   <div id="renderImagesPost">
-                  </div> 
+                  </div>  -->
             </div>
-            <div class="cell-md-8">
+            <div class="cell-md-12">
               <div class="range range-60">
                 <div class="cell-lg-10">
                   <h6><i class="fa fa-plus"></i> {{trans('publico/labels.lblAddPost')}}</h6>
@@ -110,77 +98,47 @@
                         @if(Session::has('idUsServ')) 
                           <input type="hidden" name="id_usuario_servicio" value="{{ Session::get('idUsServ') }}">
                         @endif
-                        <div class="form-wrap">
+                        <div class="form-wrap col-md-8">
                           <label class="form-label-outside" for="pass">
-                            <i class="fa fa-font "></i>&nbsp;&nbsp; {{trans('publico/labels.lblPostName')}}
+                            <i class="fa fa-font "></i>&nbsp;&nbsp; {{trans('publico/labels.lblPostTitle')}}
                           </label>
-                          <input class="form-input" id="pass" type="text" name="nombre_promocion" value="{{$postData->nombre_promocion}}">
+                          <input class="form-input" id="pass" type="text" name="title" value="{{$postData->title}}">
                         </div>
-                        <div class="form-wrap">
-                          <label class="form-label-outside" for="descripcion_promocion">
-                            <i class="fa fa-font "></i>&nbsp;&nbsp; {{trans('publico/labels.lblPostDescripion')}}
-                          </label>
-                          <input class="form-input" id="descripcion_promocion" type="text" name="descripcion_promocion" value="{{$postData->descripcion_promocion}}">
-                        </div>
-                        <div class="form-wrap">
-                          <label class="form-label-outside" for="observaciones_promocion">
-                            <i class="fa fa-eye "></i>&nbsp;&nbsp; {{trans('publico/labels.lblPostObservations')}}
-                          </label>
-                          <input class="form-input" id="observaciones_promocion" type="text" name="observaciones_promocion" value="{{$postData->observaciones_promocion}}">
-                        </div>
-                        <div class="form-wrap">
+                        <div class="form-wrap col-md-4">
                           <label class="form-label-outside" for="contact-first-name">
-                            <i class="fa fa-lightbulb-o "></i>&nbsp;&nbsp;{{ trans('publico/labels.lblPostStatus')}}
+                            <i class="fa fa-lightbulb-o "></i>&nbsp;&nbsp;{{ trans('publico/labels.lblPromotionStatus')}}
                           </label><br>
-                          <input  class="tooltip checkboxDays" type="checkbox" id='estado_promocion' name="estado_promocion" data-size="mini" data-on-color="success" data-on-text="Si" data-off-text="No" checked="{{$postData->estado_promocion}}">
+                          <input  class="tooltip checkboxDays" type="checkbox" id='status' name="status" data-size="mini" data-on-color="success" data-on-text="Si" data-off-text="No" checked="{{$postData->status}}">
                         </div>
-                        <div class="form-wrap">
-                          <label class="form-label-outside" for="fecha_desde_hasta">
+                        <div class="form-wrap col-md-12">
+                          <label class="form-label-outside" for="date_ini_hasta">
                             <i class="fa fa-calendar"></i>&nbsp;&nbsp; {{trans('publico/labels.lblPostDate')}}
                           </label>
-                          <input class="form-input" id="fecha_desde_hasta" type="text" name="daterange" value="{{$postData->fecha_desde_hasta}}">
+                          <input class="form-input" id="date_ini_hasta" type="text" name="daterange" value="{{$postData->date_ini_hasta}}">
                         </div>
-                        <div class="form-wrap">
-                          <label class="form-label-outside" for="tags">
-                            <i class="fa fa-hashtag "></i>&nbsp;&nbsp; {{trans('publico/labels.lblPostTags')}}
+                        <div class="form-wrap col-md-12">
+                          <label class="form-label-outside" for="html">
+                            <i class="fa fa-font "></i>&nbsp;&nbsp; {{trans('publico/labels.lblPostDescripion')}}
                           </label>
-                          <input class="form-input" id="tags" type="text" name="tags" value="{{$postData->tags}}">
-                        </div>
-                        <div class="form-wrap">
-                          <label class="form-label-outside" for="precio_normal">
-                            <i class="fa fa-hashtag "></i>&nbsp;&nbsp; {{trans('publico/labels.lblPostPrecioNormal')}}
-                          </label>
-                          <input class="form-input numsOnly" id="precio_normal" type="text" name="precio_normal" value="{{$postData->precio_normal}}">
-                        </div>
-                        <div class="form-wrap">
-                          <label class="form-label-outside" for="descuento">
-                            <i class="fa fa-hashtag "></i>&nbsp;&nbsp; {{trans('publico/labels.lblPromoDescuento')}}
-                          </label>
-                          <input class="form-input" id="descuentotxt" type="text" name="descuento" value="{{$postData->descuento}}">
-                          <br>
-                          <div id="slideDescuento"></div>
-                        </div>
-                        <div class="form-wrap">
-                          <label class="form-label-outside" for="codigo_promocion">
-                            <i class="fa fa-hashtag "></i>&nbsp;&nbsp; {{trans('publico/labels.lblPostCodigo')}}
-                          </label>
-                          <input class="form-input" id="codigo_promocion" type="text" name="codigo_promocion" value="{{$postData->codigo_promocion}}">
+                          <textarea name="html" id="html" rows="10" cols="80">
+                              {{$postData->html}}
+                          </textarea>
                         </div>
                         <div class="rowerrorPost" style="margin-top: 10px;"></div>
-                        <div class="group-buttons-3 group-md-justify">
-                          <button class="button button-facebook button-icon button-icon-sm button-icon-right fa-plus" type="submit" onclick="saveEvento(event,'{{$postData->id}}')">
-                            <div style="display: inline;" id="spinnerSave">
+                        <div class="group-buttons-3 group-md-justify col-md-12">
+                          <button class="button button-facebook button-icon button-icon-sm button-icon-right fa-plus" type="submit" onclick="savePost(event,'{{$postData->id}}')">
+                            <div style="display: inline;" id="spinnerSavePost">
                               <i class="fa fa-spinner fa-spin"></i>
                             </div>
                             {{ trans('publico/labels.lblbtnSave')}}
                             <span></span></button>
                           @if(Session::has('idUsServ')) 
-                          <a class="button-primary button" href="../administracion-de-promociones/{{ Session::get('idUsServ') }}">
+                          <a class="button-primary button" href="{{asset('/listado-de-post')}}">
                             {{ trans('publico/labels.lblBtnCancel')}}
                             <span></span>
                           </a>
                           @else
-                          <a class="button-primary button" href="../administracion-de-promociones/{{ Session::get('idUsServ') }}">
+                          <a class="button-primary button" href="{{asset('/listado-de-post')}}">
                             {{ trans('publico/labels.lblBtnCancel')}}
                             <span></span>
                           </a>
@@ -219,7 +177,7 @@
                 @endif
                 <input type="hidden" id="id_auxiliar" name="id_auxiliar" value="{!!$postData->id!!}">
                 <input type="hidden" id="user_id" name="user_id" value="{{ Auth::user()->id }}">
-                <input type="hidden" id="descripcion_fotografia" name="descripcion_fotografia" value="{!!$postData->descripcion_promocion!!}">
+                <input type="hidden" id="descripcion_fotografia" name="descripcion_fotografia" value="{!!$postData->html!!}">
                 <input type="hidden" id="es_principal" name="es_principal" value="true">
                 <input type="hidden" id="profile_pic" name="profile_pic" value="0">
                 <div class="form-group">
@@ -248,7 +206,8 @@
       <!-- Page Footer-->
       {!! HTML::style('/packages/dropzone/dropzone.css') !!}
       {!! HTML::script('/packages/dropzone/dropzone.js') !!}
-      {!! HTML::script('/assets/js/dropzone-config.js') !!} 
+      {!! HTML::script('/assets/js/dropzone-config.js') !!}
+      <script src="{{ asset('/siteStyle/js/ckeditor/ckeditor.js')}}"></script>
       <script type="text/javascript">
         $('input[name="daterange"]').daterangepicker(
           {
@@ -256,100 +215,8 @@
                 format: 'YYYY-MM-DD'
               }
           });
-        $("[name='estado_promocion']").bootstrapSwitch();
-        //Slide descuento
-          if (noUiSlider) {
-              var keypressSliderDescuento = document.getElementById('slideDescuento');
-              var inputDescuento = document.getElementById('descuentotxt');
-              var inputsPost = [inputDescuento];
-
-              noUiSlider.create(keypressSliderDescuento, {
-                  start: {{$postData->descuento}},
-                  tooltips: true,
-                  step: 5,
-                  range: {
-                    'min': 0,
-                    'max': 50
-                  }
-              });
-
-              keypressSliderDescuento.noUiSlider.on('update', function( values, handle ) {
-                  inputsPost[handle].value = values[handle];
-              });
-
-              function setSliderHandle(i, value) {
-                  var r = [null,null];
-                  r[i] = value;
-                  keypressSliderDescuento.noUiSlider.set(r);
-              }
-
-              // Listen to keydown events on the input field.
-              inputsPost.forEach(function(input, handle) {
-
-                  input.addEventListener('change', function(){
-                      setSliderHandle(handle, this.value);
-                  });
-
-                  input.addEventListener('keydown', function( e ) {
-
-                      var values = keypressSliderDescuento.noUiSlider.get();
-                      var value = Number(values[handle]);
-
-                      // [[handle0_down, handle0_up], [handle1_down, handle1_up]]
-                      var steps = keypressSliderDescuento.noUiSlider.steps();
-
-                      // [down, up]
-                      var step = steps[handle];
-
-                      var position;
-
-                      // 13 is enter,
-                      // 38 is key up,
-                      // 40 is key down.
-                      switch ( e.which ) {
-
-                          case 13:
-                              setSliderHandle(handle, this.value);
-                              break;
-
-                          case 38:
-
-                              // Get step to go increase slider value (up)
-                              position = step[1];
-
-                              // false = no step is set
-                              if ( position === false ) {
-                                  position = 1;
-                              }
-
-                              // null = edge of slider
-                              if ( position !== null ) {
-                                  setSliderHandle(handle, value + position);
-                              }
-
-                              break;
-
-                          case 40:
-
-                              position = step[0];
-
-                              if ( position === false ) {
-                                  position = 1;
-                              }
-
-                              if ( position !== null ) {
-                                  setSliderHandle(handle, value - position);
-                              }
-
-                              break;
-                      }
-                  });
-              });
-
-              $('#inputDescuento').click(function() {
-               this.select();
-              });
-          } 
+        $("[name='status']").bootstrapSwitch();
+        CKEDITOR.replace( 'html' );
       </script>
 
       <!-- @if($postData->id != null) -->

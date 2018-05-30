@@ -69,7 +69,7 @@
                           </h4>
                       </div>
                       <div style="bottom: 20px !important; position: absolute;">
-                        <button class="button-primary button" style="padding: 3px 0px 3px; margin-top: 7px;" type="button" data-toggle="modal" onclick="AjaxContainerEdicionServicios(event,{!!$servicio->id!!}, {!!$servicio->id_catalogo_servicios!!});">
+                        <button class="button-primary button" style="padding: 3px 0px 3px; margin-top: 7px;" type="button" data-toggle="modal" onclick="AjaxListadoPosts(event,{!!$servicio->id!!}, {!!$servicio->id_catalogo_servicios!!});">
                                 Escribir post<span></span>
                         </button>
                         <button class="button-primary button" style="padding: 3px 0px 3px; margin-top: 7px;" type="button" data-toggle="modal" onclick="AjaxContainerEdicionServicios(event,{!!$servicio->id!!}, {!!$servicio->id_catalogo_servicios!!});">

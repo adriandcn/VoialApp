@@ -229,5 +229,18 @@ return [
     'lblRangeSendNewsBiWeek' => 'Biweekly',
     'lblRangeSendNewsMonth' => 'Monthly',
     'titleHashtags' => 'Tags',
-    'showMore' => 'Show more'
+    'showMore' => 'Show more',
+    //Post
+    'lblPostAdmin' => 'List of publications',
+    'PostsDescription' => '',
+    'lblPathEditPostServ' => 'List of publications',
+    'lblBtnAddPost' => 'Add Post',
+    'titlePosts' => 'Publications created',
+    'lblPathPosts' => 'Publications',
+    'lblPathAddPost' => 'Add / Edit publication',
+    'lblAddPost' => 'Post Data',
+    'lblPostTitle' => 'Title of the post',
+    'lblPostDate' => 'Start and End of the Post',
+    'lblPostDescripion' => 'Description of the post',
+    'lblPostAdminAdd' => 'Add / Edit Post',
 ];

@@ -1000,15 +1000,14 @@ Actualizar tabla de busqueda
      // Save post
     public function savePost($id_usuario_servicio,$data,$idPost = null) {
         if ($idPost != null) {
-            $post = new $this->post->find($idPost);
-            $post->title = $data['title']; 
-            $post->slug = $data['slug']; 
+            $post = $this->post->find($idPost);
+            $post->title = $data['title'];
             $post->image = $data['image']; 
             $post->html = $data['html'];
             $post->date_ini = $data['date_ini'];
-            $post->date_fin = $data['date_fin'];
-            // $post->views = $data['views']; 
-            $post->status = $data['status']; 
+            $post->date_fin = $data['date_fin']; 
+            $post->status = intval($data['status']);
+            $post->save();
             // $post->id_usuario_servicio = $data['id_usuario_servicio']; 
             // $post->created_at = date("Y/m/d HH:mm:ss"); 
             // $post->updated_at = date("Y/m/d H:i:s");

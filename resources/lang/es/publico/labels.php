@@ -230,5 +230,18 @@ return [
     'lblRangeSendNewsBiWeek' => 'Quincenal',
     'lblRangeSendNewsMonth' => 'Mensual',
     'titleHashtags' => 'Etiquetas',
-    'showMore' => 'Ver más'
+    'showMore' => 'Ver más',
+    //Post
+    'lblPostAdmin' => 'Listado de posts',
+    'PostsDescription' => '',
+    'lblPathEditPostServ' => 'Listado de posts',
+    'lblBtnAddPost' => 'Añadir Post',
+    'titlePosts' => 'Posts creados',
+    'lblPathPosts' => 'Posts',
+    'lblPathAddPost' => 'Añadir / Editar Post',
+    'lblAddPost' => 'Datos del Post',
+    'lblPostTitle' => 'Título del post',
+    'lblPostDate' => 'Inicio y Fin del Post',
+    'lblPostDescripion' => 'Descripción del post',
+    'lblPostAdminAdd' => 'Añadir/Editar Post',
 ];

@@ -1130,7 +1130,7 @@ function AjaxContainerEdicionServicios(event, $id_usuario_servicio, $id_catalogo
     });
 }
 
-function AjaxContainerEdicionServicios(event, $id_usuario_servicio, $id_catalogo) {
+function AjaxListadoPosts(event, $id_usuario_servicio, $id_catalogo) {
 
     $("#spinnerSave").show();
 
@@ -1818,33 +1818,6 @@ function GuardarPromo($formulario, $id) {
 
 }
 
-// function AjaxContainerEdicionServicios($id_usuario_servicio,$id_catalogo) {
-
-//     $("#spinnerSave").show();
-
-//     event.preventDefault();
-//     var url = "/servicios/serviciooperador1/"+$id_usuario_servicio+"/"+$id_catalogo;
-//     var id = $id_usuario_servicio;
-//     //alert(id);
-//     //alert(url);      
-//         $.ajax({
-//         type: 'GET',
-//         url: url,
-//         data:"",
-//         success: function (data) {
-//             //alert(data.redirectto);
-//             window.location.href = data.redirectto;
-//         },
-//         error: function (data) {
-//             var errors = data.responseJSON;
-//             if (errors) {
-//                 $.each(errors, function (i) {
-//                     console.log(errors[i]);
-//                 });
-//             }
-//         }
-//     });
-// }
 
 
 function UpdatePermanente(url) {
@@ -2345,6 +2318,42 @@ function saveEvento(event, idEvent) {
     // }else{
 
     // }
+}
+
+$('#spinnerSavePost').hide();
+
+function getFormData($form){
+    var unindexed_array = $form.serializeArray();
+    var indexed_array = {};
+
+    $.map(unindexed_array, function(n, i){
+        indexed_array[n['name']] = n['value'];
+    });
+
+    return indexed_array;
+}
+function savePost(event, idEvent) {
+    event.preventDefault();
+    $('#spinnerSavePost').show();
+    var $form = $('#formAddPost'),
+        data = getFormData($form),
+        url = $form.attr("action");
+    var valueHtml = CKEDITOR.instances['html'].getData();
+    data.html = valueHtml;
+    $.ajax({
+        type: 'POST',
+        url: url,
+        dataType: 'json',
+        data:data,
+        success: function(data) {
+            $('#spinnerSavePost').hide();
+            window.location.href = dirServer + 'public/' + data.redirectto;
+        },
+        error: function(data) {
+            showAlert('Error!', 'Ha ocurrido un error, intentalo nuevamente', null, 'warning', 'danger');
+            $('#spinnerSavePost').hide();
+        }
+    });
 }
 
 function GetDataAjaxImagenesPromotion(idPromotion) {

@@ -967,18 +967,17 @@ Actualizar tabla de busqueda
         return $postList::All();
     }
 
+    
     // Save post
-    public function savePost($id_usuario_servicio,$data,$idPost = null) {
+    public function savePost($id_usuario_servicio = null,$data = [],$idPost = null) {
         if ($idPost != null) {
-            $post = new $this->post->find($idPost);
-            $post->title = $data['title']; 
-            $post->slug = $data['slug']; 
+            $post = $this->post->find($idPost);
+            $post->title = $data['title'];
             $post->image = $data['image']; 
             $post->html = $data['html'];
             $post->date_ini = $data['date_ini'];
-            $post->date_fin = $data['date_fin'];
-            // $post->views = $data['views']; 
-            $post->status = $data['status']; 
+            $post->date_fin = $data['date_fin']; 
+            $post->status = $data['status'];
             // $post->id_usuario_servicio = $data['id_usuario_servicio']; 
             // $post->created_at = date("Y/m/d HH:mm:ss"); 
             // $post->updated_at = date("Y/m/d H:i:s");
@@ -992,7 +991,7 @@ Actualizar tabla de busqueda
             $post->date_fin = $data['date_fin'];
             $post->views = 0; 
             $post->status = 1; 
-            $post->id_usuario_servicio = $id_usuario_servicio; 
+            $post->id_usuario_servicio = $id_usuario_servicio;
             // $post->created_at = date("Y/m/d H:i:s");
             // $post->updated_at = date("Y/m/d H:i:s"); 
         }

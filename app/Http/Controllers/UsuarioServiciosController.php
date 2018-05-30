@@ -1695,6 +1695,21 @@ class UsuarioServiciosController extends Controller
         return view('site.blades.listarPosts', compact('servicio','listPost'));
     }
 
+    public function saveEditPost(Request $request, ServiciosOperadorRepository $gestion)
+    {
+        $formFields = $request->all();
+        // parse_str($inputData, $formFields);
+        $formFields['image'] = null;
+        $dateSplit = explode(" - ", $formFields['daterange']);
+        $date_desde = $dateSplit[0];
+        $date_hasta = $dateSplit[1];
+        $formFields['date_ini'] = $date_desde;
+        $formFields['date_fin'] = $date_hasta;
+        $saved = $gestion->savePost($formFields['id_usuario_servicio'],$formFields,$formFields['id']);
+        return response()->json(['success' => true, 'redirectto' => 'listado-de-post']);
+        // return view('site.blades.listarPosts', compact('servicio','listPost'));
+    }
+
     public function getViewaddEditPost($idUsuarioServ,$idPost = null,ServiciosOperadorRepository $gestion,Request $request)
     {
         if ($idPost == 'nw') {

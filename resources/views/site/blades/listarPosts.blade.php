@@ -56,7 +56,7 @@
       @include('site.reusable.header')
       <!-- Breadcrumbs & Page title-->
       <!-- Breadcrumbs & Page title-->
-      <section class="page-title breadcrumbs-elements page-title-inset-1">
+      <section class="page-title breadcrumbs-elements page-title-inset-1" style="background: white;">
         <div class="shell">
           <div class="page-title__overlay box-skew box-skew-var-1"><span class="box-skew__item"></span>
             <div class="page-title-text">{{ trans('publico/labels.lblPostAdmin')}}</div>
@@ -85,7 +85,7 @@
               <br>
               <hr>
               <div class="heading-group">
-                  <h5><i class="fa fa-money"></i>&nbsp;&nbsp;{{ trans('publico/labels.titlePosts')}}</h5>
+                  <h5><i class="fa fa-clipboard"></i>&nbsp;&nbsp;{{ trans('publico/labels.titlePosts')}}</h5>
               </div>
               <div class="range range-50">
                 @if(count($listPost) == 0)
@@ -95,16 +95,14 @@
                 @else
                 @foreach ($listPost as $post)
                   <div class="cell-sm-3 cell-xs-6 wow rotate-custom rotate-custom-left" data-wow-delay=".15s">
-                      <a class="layouts-link" href="../crear-editar-post/{{$post->id_usuario_servicio}}/{{$post->id}}">
+                      <a class="layouts-link" href="{{asset('/crear-editar-post')}}/{{$post->id_usuario_servicio}}/{{$post->id}}">
                         <img class="img-shadow" src="{{asset('/images/icon')}}/{{$post->filename}}" alt="" width="270" height="393"/>
                         <div class="eventCard">
                           <h6 style="margin-top: 1px;">
-                            <i class="fa fa-money"></i>&nbsp;&nbsp;{{$post->nombre_promocion}}
+                            <i class="fa fa-clipboard"></i>&nbsp;&nbsp;{{$post->title}}
                           </h6>
                           <hr>
                           <h7><i class="fa fa-dot"></i>&nbsp;&nbsp;Fecha: {{$post->created_at}}</h7><br>
-                          <h7><i class="fa fa-dot"></i>&nbsp;&nbsp;Descripción: {{str_limit($post->descripcion_promocion, $limit = 15, $end = '...')}}</h7>
-                          <h7><i class="fa fa-dot"></i>&nbsp;&nbsp;Descuento % : {{$post->descuento}}</h7>
                         </div>
                       </a>
                   </div>

@@ -960,6 +960,17 @@ Actualizar tabla de busqueda
         return $promociones::All();
     }
 
+    //Entrega el arreglo de posts por usuario servicio
+    public function getPostsUsuarioServicio($id_usuario_servicio) {
+        $posts = new $this->post;
+        $arrayPosts = $posts::where('id_usuario_servicio', '=', $id_usuario_servicio)
+                             ->where('status',1)
+                             ->orderBy('updated_at', 'DESC')
+                             ->get();
+        return $arrayPosts;
+    }
+
+
     //Entrega el arreglo de post por usuario servicio
     public function getPostUsuarioServicio($id_usuario_servicio) {
         $postList = new $this->post;

@@ -57,7 +57,7 @@
       <!-- Breadcrumbs & Page title-->
       <!-- Breadcrumbs & Page title-->
 
-      <section class="page-title breadcrumbs-elements page-title-inset-1">
+      <section class="page-title breadcrumbs-elements page-title-inset-1" style="background: white;">
         <div class="shell">
           <div class="page-title__overlay box-skew box-skew-var-1"><span class="box-skew__item"></span>
             <div class="page-title-text">{{$promotion->nombre_promocion}}</div>

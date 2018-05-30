@@ -114,7 +114,8 @@ class SearchController extends Controller
             if ($request->has('s')) {
                 if ($request->s != '') {
                     $term = $request->s;
-                    $busquedaTotal = $gestion->getSearchTotal($term);
+                    $busquedaTotal = $gestion->getSearchTotal($term,[4]);
+                    $busquedaTotalPosts = $gestion->getSearchTotal($term,[5]);
                     //save search
                     $query['ip'] =  $this->getIp();
                     $query['query'] = $request->s;
@@ -133,10 +134,15 @@ class SearchController extends Controller
                         $query['canton'] = null;
                     }
                     $gestion->saveQueryVisitor($query);
-                    $despliegue = null;
+                    $despliegue = [];
+                    $desplieguePosts = [];
                     if ($busquedaTotal != null)
                     {
                         $despliegue = $gestion->paginateSearch($busquedaTotal,12);
+                    }
+                    if ($busquedaTotalPosts != null)
+                    {
+                        $desplieguePosts = $gestion->paginateSearchPosts($busquedaTotalPosts,12);
                     }
                 }else{
                     $despliegue = [];
@@ -145,9 +151,10 @@ class SearchController extends Controller
             }else{
                 $despliegue = [];
             }
-            // return response()->json(['data' => $despliegue->items()]);
+            // return response()->json(['data' => $desplieguePosts->items()]);
             return View('site.blades.search', compact(
-                'despliegue'
+                'despliegue',
+                'desplieguePosts'
             ));
         }
     public function postSearch(Request $request, PublicServiceRepository $gestion)

@@ -81,36 +81,89 @@
                       <br>
                       <br>
                     </div>
-                    @if($despliegue != null)
-                        @if($despliegue->total() > 0)
-                              @foreach ($despliegue->items() as $serv)
+                    <div class="col-lg-12">
+                      <h3>SERVICIOS</h3>
+                      <hr>
+                      <br>
+                        @if($despliegue != null)
+                            @if($despliegue->total() > 0)
+                                  @foreach ($despliegue->items() as $serv)
+                                     <div class="col-xs-12 col-sm-6 col-md-4 isotope-item">
+                                      <div class="post-masonry post-masonry-short post-content-white bg-post-2 bg-image  post-skew-right-top post-skew-var-4" style="background: url('images/fullsize/{{($serv->filename != null) ?$serv->filename:'default_service.png'}}');
+                                  background-size: cover;
+                                  background-repeat: no-repeat;
+                                  min-height: 200px;
+                                  cursor: pointer;
+                                  margin-bottom: 20px;" onclick="openDetailOnClick({{$serv->id}})">
+                                        <div class="post-masonry-content">
+                                        </div>
+                                        <h6 class="" style="color: #fff; text-shadow: 3px -1px 2px #1b1b1b;">
+                                          <a href="{!!asset('/detalles-de-servicio')!!}/{{$serv->id}}" style="color:white;">{{strtoupper($serv->nombre_servicio)}}</a>
+                                        </h6>
+                                      </div>
+                                    </div>   
+                                  @endforeach
+                                  @if ($despliegue->lastPage() > 1)
+                                      <ul class="pagination">
+                                          <li class="{{ ($despliegue->currentPage() == 1) ? ' disabled' : '' }}">
+                                              <a href="{{ $despliegue->url(1) }}&s={{app('request')->input('s')}}">Atras</a>
+                                          </li>
+                                          @for ($i = 1; $i <= $despliegue->lastPage(); $i++)
+                                              <li class="{{ ($despliegue->currentPage() == $i) ? ' active' : '' }}">
+                                                  <a href="{{ $despliegue->url($i) }}&s={{app('request')->input('s')}}">{{ $i }}</a>
+                                              </li>
+                                          @endfor
+                                          <li class="{{ ($despliegue->currentPage() == $despliegue->lastPage()) ? ' disabled' : '' }}">
+                                              <a href="{{ $despliegue->url($despliegue->currentPage()+1) }}&s={{app('request')->input('s')}}" >Siguiente</a>
+                                          </li>
+                                      </ul>
+                                  @endif
+                              @else
+                               <div class="col-xs-12" style="text-align: center;">
+                                <h4><a href=""><i class="fa fa-frown-o "></i> &nbsp;&nbsp;{{trans('publico/labels.noResult')}}</a></h4>
+                              </div>
+                            @endif
+                          @else
+                             <div class="col-xs-12" style="text-align: center;">
+                              <h4><a href=""><i class="fa fa-frown-o "></i> &nbsp;&nbsp;{{trans('publico/labels.noResult')}}</a></h4>
+                            </div>
+                          @endif
+                    </div>
+                    <div class="col-lg-12">
+                        <!-- despliegue posts -->
+                      <h3>POSTS</h3>
+                      <hr>
+                      <br>
+                      @if($desplieguePosts != null)
+                        @if($desplieguePosts->total() > 0)
+                              @foreach ($desplieguePosts->items() as $post)
                                  <div class="col-xs-12 col-sm-6 col-md-4 isotope-item">
-                                  <div class="post-masonry post-masonry-short post-content-white bg-post-2 bg-image  post-skew-right-top post-skew-var-4" style="background: url('images/fullsize/{{($serv->filename != null) ?$serv->filename:'default_service.png'}}');
-                              background-size: cover;
+                                  <div class="post-masonry post-masonry-short post-content-white bg-post-2 bg-image  post-skew-right-top post-skew-var-4" style="background: url('images/{{($post->filename != null) ?$post->filename:'PostIcon.png'}}');
+                              background-size: contain;
                               background-repeat: no-repeat;
                               min-height: 200px;
                               cursor: pointer;
-                              margin-bottom: 20px;" onclick="openDetailOnClick({{$serv->id}})">
+                              margin-bottom: 20px;" onclick="openDetailOnClick({{$post->id}})">
                                     <div class="post-masonry-content">
                                     </div>
                                     <h6 class="" style="color: #fff; text-shadow: 3px -1px 2px #1b1b1b;">
-                                      <a href="{!!asset('/detalles-de-servicio')!!}/{{$serv->id}}" style="color:white;">{{strtoupper($serv->nombre_servicio)}}</a>
+                                      <a href="{!!asset('/detalles-de-post')!!}/{{$post->id}}" style="color:white;">{{strtoupper($post->title)}}</a>
                                     </h6>
                                   </div>
                                 </div>   
                               @endforeach
-                              @if ($despliegue->lastPage() > 1)
+                              @if ($desplieguePosts->lastPage() > 1)
                                   <ul class="pagination">
-                                      <li class="{{ ($despliegue->currentPage() == 1) ? ' disabled' : '' }}">
-                                          <a href="{{ $despliegue->url(1) }}&s={{app('request')->input('s')}}">Atras</a>
+                                      <li class="{{ ($desplieguePosts->currentPage() == 1) ? ' disabled' : '' }}">
+                                          <a href="{{ $desplieguePosts->url(1) }}&s={{app('request')->input('s')}}">Atras</a>
                                       </li>
-                                      @for ($i = 1; $i <= $despliegue->lastPage(); $i++)
-                                          <li class="{{ ($despliegue->currentPage() == $i) ? ' active' : '' }}">
-                                              <a href="{{ $despliegue->url($i) }}&s={{app('request')->input('s')}}">{{ $i }}</a>
+                                      @for ($i = 1; $i <= $desplieguePosts->lastPage(); $i++)
+                                          <li class="{{ ($desplieguePosts->currentPage() == $i) ? ' active' : '' }}">
+                                              <a href="{{ $desplieguePosts->url($i) }}&s={{app('request')->input('s')}}">{{ $i }}</a>
                                           </li>
                                       @endfor
-                                      <li class="{{ ($despliegue->currentPage() == $despliegue->lastPage()) ? ' disabled' : '' }}">
-                                          <a href="{{ $despliegue->url($despliegue->currentPage()+1) }}&s={{app('request')->input('s')}}" >Siguiente</a>
+                                      <li class="{{ ($desplieguePosts->currentPage() == $desplieguePosts->lastPage()) ? ' disabled' : '' }}">
+                                          <a href="{{ $desplieguePosts->url($desplieguePosts->currentPage()+1) }}&s={{app('request')->input('s')}}" >Siguiente</a>
                                       </li>
                                   </ul>
                               @endif
@@ -124,6 +177,7 @@
                           <h4><a href=""><i class="fa fa-frown-o "></i> &nbsp;&nbsp;{{trans('publico/labels.noResult')}}</a></h4>
                         </div>
                       @endif
+                      </div>
                   <!-- </form> -->
                 </div>
               </div>

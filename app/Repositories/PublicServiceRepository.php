@@ -13,6 +13,7 @@ use App\Models\asignacion_sesion;
 use App\Models\persona;
 use App\Models\visitorQuery;
 use App\Models\Tendencia;
+use App\Models\Post;
 use Carbon\Carbon;
 
 class PublicServiceRepository extends BaseRepository {
@@ -49,6 +50,7 @@ class PublicServiceRepository extends BaseRepository {
         $this->asignacion_sesion = new asignacion_sesion();
         $this->visitorQuery = new visitorQuery();
         $this->tendencia = new Tendencia();
+        $this->post = new Post();
     }
 
 //Entrega el arreglo de los servicios más visitados por provincia
@@ -2203,13 +2205,15 @@ class PublicServiceRepository extends BaseRepository {
     }
 
     //Motor de busqueda
-    public function getSearchTotal($term) {
-
+    public function getSearchTotal($term,$arrayType = []) {
         $query = DB::table('searchengine')
                 ->whereRaw("match(search) against ('" . $term . "')")
-                ->orWhere('searchengine.search', 'like', "%" . $term)
-                ->orWhere('searchengine.search', 'like', $term . "%")
-                ->orWhere('searchengine.search', 'like', "%" . $term . "%")
+                ->whereIn('tipo_busqueda',$arrayType)
+                ->where(function($query) use($term){
+                    $query->orWhere('searchengine.search', 'like', "%" . $term);
+                    $query->orWhere('searchengine.search', 'like', $term . "%");
+                    $query->orWhere('searchengine.search', 'like', "%" . $term . "%");
+                })
                 ->select('searchengine.id_usuario_servicio', 'searchengine.tipo_busqueda')
                 ->get();
         // $query = DB::select("SELECT *, MATCH (search) AGAINST (" . "'" . $term . "'" . ") as relevancia FROM searchengine WHERE MATCH (search) AGAINST (" . "'" . $term . "'" . "IN BOOLEAN MODE) ORDER BY relevancia;");
@@ -2310,6 +2314,41 @@ class PublicServiceRepository extends BaseRepository {
                  $query->orWhereNull('images.profile_pic');
             })
             // ->havingRaw('aggregate >= 0')
+            ->paginate($pagination);
+            return $paginated;
+        }else{
+            return null;
+        }
+        
+    }
+
+    public function paginateSearchPosts ($data,$pagination){
+        $arrayId = [];
+        if (count($data) > 0) {
+            foreach ($data as $item) {
+                $id = $item->id_usuario_servicio;
+                $id = intval($id);
+                $itemPost = DB::table('posts')->where('id',$id)->first();
+                if (count($itemPost) > 0) {
+                    $dataServ = DB::table('usuario_servicios')
+                    ->where('id',$itemPost->id_usuario_servicio)
+                    ->select('id_catalogo_servicio')
+                    ->first();
+                    $dataCatalogoPadre = DB::table('catalogo_servicios')
+                    ->where('id_catalogo_servicios',$dataServ->id_catalogo_servicio)
+                    ->select('id_padre')
+                    ->first();
+                    $dataCatalogoRaiz = DB::table('catalogo_servicios')
+                    ->where('id_catalogo_servicios',$dataCatalogoPadre->id_padre)
+                    ->select('id_padre')
+                    ->first();
+                    if ($dataCatalogoRaiz->id_padre == 1) {
+                        array_push($arrayId, $id);
+                    }
+                }
+            }
+            $paginated = $this->post
+            ->whereIn('id',$arrayId)
             ->paginate($pagination);
             return $paginated;
         }else{

@@ -807,13 +807,15 @@ class HomePublicController extends Controller {
 
         $detalles = $gestion->obtenerDetallesServicio($id_catalogo);
         $listPromociones = $gestionServ->getPromocionesUsuarioServicio($id_catalogo);
+        $listPosts = $gestionServ->getPostsUsuarioServicio($id_catalogo);
         $listPropiedades = $operadorGestion->getCatalogoServicioEstablecimientoExistente($detalles->id_catalogo_servicio,$detalles->id);
-        // return response()->json(['a' => $listPropiedades]);
+        // return response()->json(['a' => $listPosts]);
         if ($detalles != null) {
             return view('site.blades.detail-service')
                             ->with('detalles', $detalles)
                             ->with('listPropiedades', $listPropiedades)
-                            ->with('listPromociones', $listPromociones);
+                            ->with('listPromociones', $listPromociones)
+                            ->with('listPosts', $listPosts);
         } else {
             return redirect('/');
         }

@@ -289,6 +289,47 @@
                       </div>
                   </section>
                 @endif
+                <style type="text/css">
+                  .post-card{
+                    overflow: hidden;
+                    height: 150px;
+                    border-top: 1px solid #cdcdcd;
+                    border-left: 1px solid #cdcdcd;
+                    border-right: 1px solid #cdcdcd;
+                    padding: 10px;
+                  }
+                </style>
+                @if(count($listPosts) > 0)
+                  <section class="section-xs bg-white">
+                      <div class="shell shell-inset-xs-15 shell-offset-left-xlg-50">
+                          <div class="heading-group">
+                              <h5><i class="fa fa-clipboard"></i>&nbsp;&nbsp;{{ trans('publico/labels.lblPathPosts')}}</h5>
+                          </div>
+                          <div class="range range-50">
+                            <div class="owl-carousel owl-theme">
+                              @foreach ($listPosts as $post)
+                                <div class="item" style=" margin-right: 10px;">
+                                      <a class="layouts-link" href="../detalles-de-post/{{$post->id}}">
+                                        <!-- <img class="img-shadow" src="{{asset('/images/icon')}}/{{$post->filename}}" alt="" width="270" height="393"/> -->
+                                        <!-- <h7><i class="fa fa-dot"></i>&nbsp;&nbsp;Descripción: {{str_limit($post->html, $limit = 15, $end = '...')}}</h7> -->
+                                        <div class="post-card">
+                                          {!!html_entity_decode($post->html)!!}
+                                        </div>
+                                        <div class="eventCard">
+                                          <h6 style="margin-top: 1px;">
+                                            <i class="fa fa-clipboard"></i>&nbsp;&nbsp;{{$post->title}}
+                                          </h6>
+                                          <hr>
+                                          <h7><i class="fa fa-dot"></i>&nbsp;&nbsp;Fecha: {{$post->created_at}}</h7><br>
+                                        </div>
+                                      </a>
+                                </div>
+                              @endforeach
+                            </div>
+                          </div>
+                      </div>
+                  </section>
+                @endif
               </div>
             </div>
           </div>

@@ -1707,17 +1707,28 @@ class UsuarioServiciosController extends Controller
         $formFields['date_fin'] = $date_hasta;
         $saved = $gestion->savePost($formFields['id_usuario_servicio'],$formFields,$formFields['id']);
         return response()->json(['success' => true, 'redirectto' => 'listado-de-post']);
-        // return view('site.blades.listarPosts', compact('servicio','listPost'));
+    }
+
+    public function getPostDetails($idPost, ServiciosOperadorRepository $gestion)
+    {
+        $postDetails = $gestion->postDetailsById($idPost);
+        if (count($postDetails) > 0) {
+            $servicioData =DB::table('usuario_servicios')->where('id',$postDetails->id_usuario_servicio)->select(['id','nombre_servicio'])->first();
+        }else{
+            return view('errors.404');
+        }
+        // return response()->json(['data' => $postDetails]);
+        return view('site.blades.postDetails', compact('postDetails','servicioData'));
     }
 
     public function getViewaddEditPost($idUsuarioServ,$idPost = null,ServiciosOperadorRepository $gestion,Request $request)
     {
         if ($idPost == 'nw') {
             $data = [];
-            $data['title'] = null;
+            $data['title'] = '';
             $data['slug'] = null;
             $data['image'] = null;
-            $data['html'] = null;
+            $data['html'] = '';
             $data['date_ini'] = date("Y/m/d");
             $data['date_fin'] = date("Y/m/d");
             $postData = $gestion->savePost($idUsuarioServ,$data,null);
@@ -1727,6 +1738,39 @@ class UsuarioServiciosController extends Controller
         // return response()->json(['data'=>$postData]);
         $request->session()->put('idPostAdded',$postData->id);
         return view('site.blades.addEditPost', compact('postData'));
+    }
+
+    public function getLastPostCreated($idUsuarioServ,ServiciosOperadorRepository $gestion,Request $request)
+    {
+        $lastPosts = $gestion->lastPostCreated($idUsuarioServ,5);
+        $view = View::make('reusable.recentPosts')->with('lastPosts', $lastPosts);
+        if ($request->ajax())
+            {
+            $sections = $view->rendersections();
+            return Response::json($sections);
+            // return  Response::json($sections['contentPanel']);
+            }
+          else
+            {
+            return $view;
+            }
+        return response()->json(['data'=>$lastPosts]);
+    }
+
+    public function getPopularPosts($idUsuarioServ,ServiciosOperadorRepository $gestion,Request $request)
+    {
+        $lastPosts = $gestion->popularPost($idUsuarioServ,5);
+        $view = View::make('reusable.popularPosts')->with('lastPosts', $lastPosts);
+        if ($request->ajax())
+            {
+            $sections = $view->rendersections();
+            return Response::json($sections);
+            }
+          else
+            {
+            return $view;
+            }
+        return response()->json(['data'=>$lastPosts]);
     }
 
 }

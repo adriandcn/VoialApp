@@ -983,6 +983,30 @@ Actualizar tabla de busqueda
         return $arrayPromo;
     }
 
+    //Entrega el arreglo de posts por usuario servicio
+    public function getPostsUsuarioServicio($id_usuario_servicio) {
+        $posts = new $this->post;
+        $arrayPosts = $posts::where('id_usuario_servicio', '=', $id_usuario_servicio)
+                             ->where('status',1)
+                             ->orderBy('updated_at', 'DESC')
+                             ->get();
+        return $arrayPosts;
+    }
+
+    //Entrega el arreglo de posts por usuario servicio
+    public function postDetailsById($idPost) {
+        $posts = $this->post;
+        //update views
+        $postUpdate = $this->post->find($idPost);
+        $views = $postUpdate->views;
+        $postUpdate->views = $postUpdate->views + 1;
+        $postUpdate->save();
+        $details = $posts::where('id', '=', $idPost)
+                             ->where('status',1)
+                             ->first();
+        return $details;
+    }
+
     //Entrega el arreglo de eventos por usuario servicio
     public function getEventosUsuarioServicio($id_usuario_servicio) {
         $eventos = new $this->eventos;
@@ -1034,6 +1058,27 @@ Actualizar tabla de busqueda
         return $post;
 
     }
+
+    public function lastPostCreated($id_usuario_servicio,$data,$limit = 5) {
+        $recentPost = $this->post->where('status',1)
+                        ->where('id_usuario_servicio',$id_usuario_servicio)
+                        ->orderBy('created_at','DESC')
+                        ->limit($limit)
+                        ->get();
+        return $recentPost;
+    }
+
+    public function popularPost($id_usuario_servicio,$data,$limit = 5) {
+        $recentPost = $this->post
+                        ->where('status',1)
+                        ->where('id_usuario_servicio',$id_usuario_servicio)
+                        ->orderBy('views','DESC')
+                        ->limit($limit)
+                        ->get();
+        return $recentPost;
+    }
+
+
 
 
 

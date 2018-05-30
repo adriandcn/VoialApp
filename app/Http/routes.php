@@ -89,6 +89,9 @@ Route::get('sitemap', ['as' => 'site-map', 'uses' => 'siteMapController@genSiteM
 //Posts
 Route::get('/postList/{idUsuarioServicio}/{idCatalogo}', ['as' => 'postList', 'uses' => 'UsuarioServiciosController@getPostList', 'middleware' => 'notAuth']);
 Route::post('/addEditPost', ['as' => 'addEditPost', 'uses' => 'UsuarioServiciosController@addEditPost', 'middleware' => 'notAuth']);
+Route::get('/detalles-de-post/{idPost}', ['as' => 'detalles-de-post', 'uses' => 'UsuarioServiciosController@getPostDetails']);
+Route::post('/getLastPostCreated/{idUserServ}', ['as' => 'detalles-de-post', 'uses' => 'UsuarioServiciosController@getLastPostCreated']);
+Route::post('/getPopularPost/{idUserServ}', ['as' => 'detalles-de-post', 'uses' => 'UsuarioServiciosController@getPopularPosts']);
 Route::post('/saveEditPost', ['as' => 'saveEditPost', 'uses' => 'UsuarioServiciosController@saveEditPost', 'middleware' => 'notAuth']);
 Route::get('/listado-de-post', ['as' => 'listado-post', 'uses' => 'UsuarioServiciosController@addEditPost', 'middleware' => 'notAuth']);
 Route::get('/crear-editar-post/{idUsuarioServ}/{idPost?}', ['as' => 'crear-editar-post', 'uses' => 'UsuarioServiciosController@getViewaddEditPost', 'middleware' => 'notAuth']);

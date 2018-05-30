@@ -2090,6 +2090,38 @@ function getLastServicesCreated() {
     });
 }
 
+function AjacGetRecentPosts(id_usuario_servicio) {
+    var url = dirServer + 'public/getLastPostCreated/' + id_usuario_servicio;
+    $.ajax({
+        type: 'POST',
+        url: url,
+        dataType: 'json',
+        data: {},
+        success: function(r) {
+            $('#recentPosts').html(r.recentPost);
+        },
+        error: function(e) {
+            console.log(e)
+        }
+    });
+}
+
+function AjacGetPopularPosts(id_usuario_servicio) {
+    var url = dirServer + 'public/getPopularPost/' + id_usuario_servicio;
+    $.ajax({
+        type: 'POST',
+        url: url,
+        dataType: 'json',
+        data: {},
+        success: function(r) {
+            $('#popularPosts').html(r.popularPost);
+        },
+        error: function(e) {
+            console.log(e)
+        }
+    });
+}
+
 $('#spinnerRestore').hide();
 
 function showRestorePassword(event) {

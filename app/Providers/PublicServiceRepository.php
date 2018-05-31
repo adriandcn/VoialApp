@@ -2204,13 +2204,19 @@ class PublicServiceRepository extends BaseRepository {
     //Motor de busqueda
     public function getSearchTotal($term,$arrayType = []) {
         $query = DB::table('searchengine')
-                ->whereRaw("match(search) against ('" . $term . "')")
-                ->whereIn('tipo_busqueda',$arrayType)
+                // ->whereRaw("match(search) against ('" . $term . "')")
                 ->where(function($query) use($term){
-                    $query->orWhere('searchengine.search', 'like', "%" . $term);
-                    $query->orWhere('searchengine.search', 'like', $term . "%");
-                    $query->orWhere('searchengine.search', 'like', "%" . $term . "%");
+                    $query->orWhere('id', 'like',"%{$term}%");
+                    $query->orWhere('id_usuario_servicio', 'like',"%{$term}%");
+                    $query->orWhere('search', 'like',"%{$term}%");
+                    $query->orWhere('estado_search', 'like',"%{$term}%");
+                    $query->orWhere('tags', 'like',"%{$term}%");
+                    $query->orWhere('created_at', 'like',"%{$term}%");
+                    $query->orWhere('updated_at', 'like',"%{$term}%");
+                    $query->orWhere('tipo_busqueda', 'like',"%{$term}%");
+                    $query->orWhere('id_tipo', 'like',"%{$term}%");
                 })
+                ->whereIn('tipo_busqueda',$arrayType)
                 ->select('searchengine.id_usuario_servicio', 'searchengine.tipo_busqueda')
                 ->get();
         // $query = DB::select("SELECT *, MATCH (search) AGAINST (" . "'" . $term . "'" . ") as relevancia FROM searchengine WHERE MATCH (search) AGAINST (" . "'" . $term . "'" . "IN BOOLEAN MODE) ORDER BY relevancia;");

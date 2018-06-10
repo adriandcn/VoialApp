@@ -45,51 +45,7 @@
 
       <!-- Tabs & Accordions-->
 
-     
-      <section class="section-xs bg-white">
-        <div class="shell">
-          <div class="heading-group">
-            <h1><i class="fa fa-user"></i> &nbsp;&nbsp;{{ trans('back/admin.lblMyServices')}}</h1>
-            <h6 class="text-regular">{{ trans('back/admin.descriptionMyServices')}}</h6>
-          </div>
-          <div class="isotope grid-masonry text-left column-offset-30" data-isotope-layout="masonry">
-            <div class="row">
-              @foreach ($listServiciosAll as $servicio)
-              <div class="col-xs-12 col-sm-6 col-md-4 isotope-item">
-                  <div class="post-masonry post-masonry-short post-content-white bg-post-primary-sec box-skew post-skew-right-bottom post-skew-var-3" style="background: url(images/fullsize/{{$servicio->filename}});
-                          background-size: contain;
-                          background-repeat: no-repeat;
-                          cursor: pointer;
-                          background-position: center;">
-                      <div class="post-masonry-content">
-                          <h4>
-                            <a class="text-white" href="" > 
-                              {{ strtoupper($servicio->nombre_servicio) }}
-                            </a>
-                          </h4>
-                      </div>
-                      <div style="bottom: 20px !important; position: absolute;">
-                        <button class="button-primary button" style="padding: 3px 0px 3px; margin-top: 7px;" type="button" data-toggle="modal" onclick="AjaxListadoPosts(event,{!!$servicio->id!!}, {!!$servicio->id_catalogo_servicios!!});">
-                                Escribir post<span></span>
-                        </button>
-                        <button class="button-primary button" style="padding: 3px 0px 3px; margin-top: 7px;" type="button" data-toggle="modal" onclick="AjaxContainerEdicionServicios(event,{!!$servicio->id!!}, {!!$servicio->id_catalogo_servicios!!});">
-                                Editar<span></span>
-                        </button>
-                        @if(Auth::user()->role_id < 3)
-                        <button class="button-primary button" style="padding: 3px 0px 3px; margin-top: 7px;" type="button" data-toggle="modal" data-target="#form-modal-copy-serv" onclick="setIdServicioTocopy({!! $servicio->id !!})">
-                                Asignar a usuario<span></span>
-                        </button>
-                        @endif
-                      </div>
-                  </div>
-              </div>
-              @endforeach
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      <section class="section-xs bg-white">
+           <section class="section-xs bg-white">
         <div class="shell">
           <div class="heading-group">
             <h1><i class="fa fa-list"></i> &nbsp;&nbsp;{{ trans('back/admin.lblServicesList')}}</h1>
@@ -136,6 +92,49 @@
           </section>
         </div>
       </section>
+      <section class="section-xs bg-white">
+        <div class="shell">
+          <div class="heading-group">
+            <h1><i class="fa fa-user"></i> &nbsp;&nbsp;{{ trans('back/admin.lblMyServices')}}</h1>
+            <h6 class="text-regular">{{ trans('back/admin.descriptionMyServices')}}</h6>
+          </div>
+          <div class="isotope grid-masonry text-left column-offset-30" data-isotope-layout="masonry">
+            <div class="row">
+              @foreach ($listServiciosAll as $servicio)
+              <div class="col-xs-12 col-sm-6 col-md-4 isotope-item">
+                  <div class="post-masonry post-masonry-short post-content-white bg-post-primary-sec box-skew post-skew-right-bottom post-skew-var-3" style="background: url(images/fullsize/{{$servicio->filename}});
+                          background-size: contain;
+                          background-repeat: no-repeat;
+                          cursor: pointer;
+                          background-position: center;">
+                      <div class="post-masonry-content">
+                          <h4>
+                            <a class="text-white" href="" > 
+                              {{ strtoupper($servicio->nombre_servicio) }}
+                            </a>
+                          </h4>
+                      </div>
+                      <div style="bottom: 20px !important; position: absolute;">
+                        <button class="button-primary button" style="padding: 3px 0px 3px; margin-top: 7px;" type="button" data-toggle="modal" onclick="AjaxListadoPosts(event,{!!$servicio->id!!}, {!!$servicio->id_catalogo_servicios!!});">
+                                Escribir post<span></span>
+                        </button>
+                        <button class="button-primary button" style="padding: 3px 0px 3px; margin-top: 7px;" type="button" data-toggle="modal" onclick="AjaxContainerEdicionServicios(event,{!!$servicio->id!!}, {!!$servicio->id_catalogo_servicios!!});">
+                                Editar<span></span>
+                        </button>
+                        @if(Auth::user()->role_id < 3)
+                        <button class="button-primary button" style="padding: 3px 0px 3px; margin-top: 7px;" type="button" data-toggle="modal" data-target="#form-modal-copy-serv" onclick="setIdServicioTocopy({!! $servicio->id !!})">
+                                Asignar a usuario<span></span>
+                        </button>
+                        @endif
+                      </div>
+                  </div>
+              </div>
+              @endforeach
+            </div>
+          </div>
+        </div>
+      </section>
+      
 <!-- Modal Add -->
   <div class="modal modal-custom fade" id="form-modal-add-trip" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document" style="width: 80%;">

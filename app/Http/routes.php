@@ -1,6 +1,6 @@
 <?php
 // pruebas
-Route::get('/test', ['as' => 'publico', 'uses' => 'pruebasCtrl@bulkHospitals']);
+// Route::get('/test', ['as' => 'publico', 'uses' => 'pruebasCtrl@bulkHospitals']);
 // Lenguaje
 Route::get('language', 'HomeController@language');
 // Login

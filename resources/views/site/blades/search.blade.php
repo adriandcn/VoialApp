@@ -108,7 +108,7 @@
                                           <li class="{{ ($despliegue->currentPage() == 1) ? ' disabled' : '' }}">
                                               <a href="{{ $despliegue->url(1) }}&s={{app('request')->input('s')}}">Atras</a>
                                           </li>
-                                          @for ($i = 1; $i <= $despliegue->lastPage(); $i++)
+                                          @for ($i = 1; $i <= 3; $i++)
                                               <li class="{{ ($despliegue->currentPage() == $i) ? ' active' : '' }}">
                                                   <a href="{{ $despliegue->url($i) }}&s={{app('request')->input('s')}}">{{ $i }}</a>
                                               </li>
@@ -129,8 +129,7 @@
                             </div>
                           @endif
                     </div>
-                    <div class="col-lg-12">
-                        <!-- despliegue posts -->
+<!--                     <div class="col-lg-12">
                       <h3>POSTS</h3>
                       <hr>
                       <br>
@@ -177,7 +176,7 @@
                           <h4><a href=""><i class="fa fa-frown-o "></i> &nbsp;&nbsp;{{trans('publico/labels.noResult')}}</a></h4>
                         </div>
                       @endif
-                      </div>
+                    </div> -->
                   <!-- </form> -->
                 </div>
               </div>

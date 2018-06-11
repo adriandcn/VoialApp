@@ -1712,7 +1712,7 @@ class UsuarioServiciosController extends Controller
     public function getPostDetails($idPost, ServiciosOperadorRepository $gestion)
     {
         $postDetails = $gestion->postDetailsById($idPost);
-        if (count($postDetails) != null) {
+        if (count($postDetails) > 0) {
             $servicioData =DB::table('usuario_servicios')->where('id',$postDetails->id_usuario_servicio)->select(['id','nombre_servicio'])->first();
         }else{
             return view('errors.404');

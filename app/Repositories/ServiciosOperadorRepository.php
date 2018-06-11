@@ -1001,10 +1001,10 @@ Actualizar tabla de busqueda
         $views = $postUpdate->views;
         $postUpdate->views = $postUpdate->views + 1;
         $postUpdate->save();
-        // $details = $posts::where('id', '=', $idPost)
-        //                      ->where('status',1)
-        //                      ->first();
-        return $postUpdate;
+        $details = $posts::where('id', '=', $idPost)
+                             ->where('status',1)
+                             ->first();
+        return $details;
     }
 
     //Entrega el arreglo de eventos por usuario servicio

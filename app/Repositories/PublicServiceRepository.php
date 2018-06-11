@@ -2296,19 +2296,20 @@ class PublicServiceRepository extends BaseRepository {
                 ->where('id',$id)
                 ->select('id_catalogo_servicio')
                 ->first();
-                $dataCatalogoPadre = DB::table('catalogo_servicios')
-                ->where('id_catalogo_servicios',$dataServ->id_catalogo_servicio)
-                ->select('id_padre')
-                ->first();
-                $dataCatalogoRaiz = DB::table('catalogo_servicios')
-                ->where('id_catalogo_servicios',$dataCatalogoPadre->id_padre)
-                ->select('id_padre')
-                ->first();
-                if ($dataCatalogoRaiz->id_padre == 1) {
-                    array_push($arrayId, $id);
+                if ($dataServ != null) {
+                    $dataCatalogoPadre = DB::table('catalogo_servicios')
+                    ->where('id_catalogo_servicios',$dataServ->id_catalogo_servicio)
+                    ->select('id_padre')
+                    ->first();
+                    $dataCatalogoRaiz = DB::table('catalogo_servicios')
+                    ->where('id_catalogo_servicios',$dataCatalogoPadre->id_padre)
+                    ->select('id_padre')
+                    ->first();
+                    if ($dataCatalogoRaiz->id_padre == 1) {
+                        array_push($arrayId, $id);
+                    }
                 }
             }
-            // $paginated = $this->usuario_servicio
             $paginated = $this->usuario_servicio
             ->select(['usuario_servicios.*','filename'])
             ->leftJoin('images','images.id_auxiliar','=','usuario_servicios.id')

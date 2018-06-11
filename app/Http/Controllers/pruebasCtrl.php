@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Repositories\catalogoServiciosRepository;
 use App\Models\Usuario_Servicio;
+use App\Models\Servicio_Establecimiento_Usuario;
 use App\Models\SearchEngine;
 use DB;
 
@@ -35,8 +36,8 @@ class pruebasCtrl extends Controller
                 // echo $value['Nombre del Establecimiento'];
                 $serv = new Usuario_Servicio();
                 $serv->id_usuario_operador = 70;
-                $serv->id_catalogo_servicio = $value['id_catalogo'];
-                $serv->detalle_servicio = $value['Nombre del Establecimiento'];
+                $serv->id_catalogo_servicio = $value['id_especialidad'];
+                $serv->detalle_servicio = '';
                 $serv->precio_desde = null;
                 // $serv->precio_hasta = $value['precio_hasta'];
                 // $serv->precio_anterior = $value['precio_anterior'];
@@ -66,10 +67,10 @@ class pruebasCtrl extends Controller
                 // $serv->observaciones = $value['observaciones'];
                 $serv->telefono = $value['Telefonos_contacto'];
                 $serv->id_provincia = 0;
-                $serv->como_llegar1 = $value['Dirección'];
-                $serv->como_llegar2_2 = $value['Dirección'];
-                $serv->como_llegar1_1 = $value['Dirección'];
-                $serv->como_llegar2 = $value['Dirección'];
+                $serv->como_llegar1 = '';
+                $serv->como_llegar2_2 = '';
+                $serv->como_llegar1_1 = '';
+                $serv->como_llegar2 = '';
                 $serv->id_padre = 0;
                 $serv->fecha_ultima_visita = date("Y/m/d");
                 // $serv->horario = $value['horario'];
@@ -79,6 +80,30 @@ class pruebasCtrl extends Controller
                 $serv->cantidad_fotos = 5;
                 $serv->save();
                 $idSaved = $serv->id;
+                if ($value['ASEGURADORA 1'] != "" || $value['ASEGURADORA 2'] != "") {
+                    $existSeguros = Servicio_Establecimiento_Usuario::where('id_servicio_est',151)->where('id_usuario_servicio',$idSaved)->count();
+                    if ($existSeguros == 0) {
+                        $newSeguros = new Servicio_Establecimiento_Usuario();
+                        $newSeguros->id_usuario_servicio = $idSaved;
+                        $newSeguros->id_servicio_est = 151;
+                        $newSeguros->estado_servicio_est_us = 1;
+                        $newSeguros->save();
+                    }
+                }
+                if ($value['ASEGURADORA 1'] != "") {
+                    $newSeguros = new Servicio_Establecimiento_Usuario();
+                    $newSeguros->id_usuario_servicio = $idSaved;
+                    $newSeguros->id_servicio_est = $value['ASEGURADORA 1'];
+                    $newSeguros->estado_servicio_est_us = 1;
+                    $newSeguros->save();
+                }
+                if ($value['ASEGURADORA 2'] != "") {
+                    $newSeguros = new Servicio_Establecimiento_Usuario();
+                    $newSeguros->id_usuario_servicio = $idSaved;
+                    $newSeguros->id_servicio_est = $value['ASEGURADORA 2'];
+                    $newSeguros->estado_servicio_est_us = 1;
+                    $newSeguros->save();
+                }
                 $arrayItem = [
                     'id' => $idSaved,
                     'search' => $serv->nombre_servicio . ' ' . $serv->detalle_servicio . ' ' . $serv->tags,

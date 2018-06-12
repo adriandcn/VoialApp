@@ -841,6 +841,8 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
           $('.seg_258').show();
           $('.seg_204').show();
           $('.seg_207').show();
+          $('.seg_310').show();
+          $('.seg_313').show();
         </script>
       @else
       <script type="text/javascript">
@@ -848,6 +850,8 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
         $('.seg_258').hide();
         $('.seg_204').hide();
         $('.seg_207').hide();
+        $('.seg_310').hide();
+        $('.seg_313').hide();
       </script>
       @endif
     <!-- END PANEL-->

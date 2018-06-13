@@ -159,7 +159,7 @@
                             <div class="panel-custom-body">
                               {{trans('publico/labels.lblPhone')}} : <h6 style="font-size: 14px;"> {{$detalles->telefono}}</h6>
                               {{trans('publico/labels.lblWebPage')}} : <h6 style="font-size: 14px;">
-                                <a href="{{$detalles->pagina_web}}" target="_new">{{$detalles->pagina_web}}</a></h6>
+                                <a href="{{(strpos($detalles->pagina_web,'http') === false)?'http://' . $detalles->pagina_web : $detalles->pagina_web}}" target="_new">{{$detalles->pagina_web}}</a></h6>
                               {{trans('publico/labels.lblEmail')}} :<h6 style="font-size: 14px;"> {{$detalles->correo_contacto}}</h6>
                             </div>
                           </div>

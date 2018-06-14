@@ -203,13 +203,10 @@ class catalogoServiciosRepository extends BaseRepository
 		foreach ($padresList as $value) {
 
 	        $childList = DB::table('catalogo_servicios')
-
                             ->select($this->campos)
-
                             ->where('estado_catalogo_servicios',1)
-
                             ->where('id_padre',$value->id_catalogo_servicios)
-
+                            ->orderBy('nombre_servicio','ASC')
                             ->get();
 
             // Cargar mensaje                

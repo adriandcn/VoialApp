@@ -1037,6 +1037,12 @@ class ServicioController extends Controller
         if (!isset($formFields['id_provincia'])) $formFields['id_provincia'] = 0;
         if (!isset($formFields['id_canton'])) $formFields['id_canton'] = 0;
         if (!isset($formFields['id_parroquia'])) $formFields['id_parroquia'] = 0;
+        if (array_key_exists('prev_cita', $formFields)) {
+            $prev_cita = ($formFields['prev_cita'] == 'true') ? 1 : 0;
+        }else{
+            $prev_cita = 0;
+        }
+        
         $usuarioServicioData = array(
             'nombre_servicio' => $formFields['nombre_servicio'],
             'detalle_servicio' => $formFields['detalle_servicio'],
@@ -1049,11 +1055,12 @@ class ServicioController extends Controller
             'direccion_servicio' => $formFields['direccion_servicio'],
             'correo_contacto' => $formFields['correo_contacto'],
             'pagina_web' => $formFields['pagina_web'],
+            'previa_cita' => $prev_cita,
             //              'nombre_comercial' => $formFields['nombre_comercial'],
             'tags' => $formFields['tags'],
             //              'descuento_clientes' => $formFields['descuento_clientes'],
-            'tags' => $formFields['tags'],
-            //              'observaciones' => $formFields['observaciones'],
+            // 'tags' => $formFields['tags'],
+            'observaciones' => $formFields['observaciones'],
             'telefono' => $formFields['telefono'],
             'latitud_servicio' => $formFields['latitud_servicio'],
             'longitud_servicio' => $formFields['longitud_servicio'],

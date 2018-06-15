@@ -46,11 +46,15 @@
                     <div class="panel-custom-body" style="background: white; color: black !important;">
                       <br>
                       <p><strong>{{trans('publico/labels.lblEmailsContacts')}}: </strong></p>
-                      <p><a href="mailto:#">privacy@demolink.org</a> / <a href="mailto:#">privacy@demolink.org</a></p>
+                      <p><a href="mailto:salud@voilapp.city">salud@voilapp.city</a></p>
                       <p><strong>{{trans('publico/labels.lblPhonesContacts')}}: </strong></p>
-                      <p>(+593)999999999) / (2)966558</p>
+                      <p>
+                      098 360 8073 <br>
+                      099 945 5276 <br>
+                      099 822 9942 <br>
+                      </p>
                       <p><strong>{{trans('publico/labels.lblAddressContacts')}}: </strong></p>
-                      <p>Av. 123 </p>
+                      <p>El Batán - Quito - Ecuador</p>
                     </div>
                   </div>
                 </div>

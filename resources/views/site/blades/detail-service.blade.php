@@ -139,10 +139,19 @@
                             </div>
                             <div class="panel-custom-collapse collapse" id="accordionHCollapse2" role="tabpanel" aria-labelledby="accordionHHeading2">
                               <div class="panel-custom-body">
+                                @if($detalles->previo_cita == 1)
+                                  <h6 style="font-size: 16px; color: #3aa9ed;"><i class="fa fa-calendar"></i> &nbsp;&nbsp; {{trans('publico/labels.lblPrevioCita')}}</h6>
+                                @endif <br>
                                 <!-- {{trans('publico/labels.lblHorario')}} : -->
-                                @foreach($detalles->horario as $horario)
-                                  <h6 style="font-size: 14px;">{{$horario->dia}} : <br>{{trans('publico/labels.lblFromHorario')}} : {{$horario->desde}}, {{trans('publico/labels.lblToHorario')}} : {{$horario->hasta}} </h6>
-                                @endforeach
+                                <table>
+                                  @foreach($detalles->horario as $horario)
+                                  <tr>
+                                    <td><h6 style="font-size: 14px;">{{$horario->dia}}</h6></td>
+                                    <td><span style="margin-left: 20px; margin-right: 10px;    color: #2f6890;">{{$horario->desde}}</span></td>
+                                    <td><span style="margin-left: 20px; margin-right: 10px;   color: #c26933;">{{$horario->hasta}}</span></td>
+                                  </tr>
+                                  @endforeach
+                                </table>
                               </div>
                             </div>
                           </div>

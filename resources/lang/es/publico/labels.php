@@ -244,4 +244,5 @@ return [
     'lblPostDate' => 'Inicio y Fin del Post',
     'lblPostDescripion' => 'Descripción del post',
     'lblPostAdminAdd' => 'Añadir/Editar Post',
+    'lblPrevioCita' => 'Previa cita',
 ];

@@ -1136,7 +1136,7 @@ function AjaxListadoPosts(event, $id_usuario_servicio, $id_catalogo) {
 
     event.preventDefault();
     var url = dirServer + "public/postList/" + $id_usuario_servicio + "/" + $id_catalogo;
-    var id = $id_usuario_servicio;    
+    var id = $id_usuario_servicio;
     $.ajax({
         type: 'GET',
         url: url,
@@ -1333,7 +1333,7 @@ function UpdateServicioInfo1($formulario, $id, redirect) {
     var $form = $('#' + $formulario),
         data = $form.serialize();
     var url = dirServer + "public/uploadServiciosRes1";
-    var posting = $.post(url, { formData: data });
+    var posting = $.post(url, { formData: data + '&prev_cita=' + $('#prev_cita').bootstrapSwitch('state') });
     posting.done(function(data) {
         if (data.fail) {
             var errorString = '<ul>';
@@ -2003,7 +2003,7 @@ function searchServIni(idCatalogo, idSubCatalogo) {
                 var latServ = parseFloat(array[i].latitud_servicio);
                 var longServ = parseFloat(array[i].longitud_servicio);
                 var marker = new google.maps.Marker({
-                    position: new google.maps.LatLng(latServ,longServ),
+                    position: new google.maps.LatLng(latServ, longServ),
                     map: map,
                     title: 'Hello World!',
                     icon: iconDir
@@ -2354,16 +2354,17 @@ function saveEvento(event, idEvent) {
 
 $('#spinnerSavePost').hide();
 
-function getFormData($form){
+function getFormData($form) {
     var unindexed_array = $form.serializeArray();
     var indexed_array = {};
 
-    $.map(unindexed_array, function(n, i){
+    $.map(unindexed_array, function(n, i) {
         indexed_array[n['name']] = n['value'];
     });
 
     return indexed_array;
 }
+
 function savePost(event, idEvent) {
     event.preventDefault();
     $('#spinnerSavePost').show();
@@ -2376,7 +2377,7 @@ function savePost(event, idEvent) {
         type: 'POST',
         url: url,
         dataType: 'json',
-        data:data,
+        data: data,
         success: function(data) {
             $('#spinnerSavePost').hide();
             window.location.href = dirServer + 'public/' + data.redirectto;
@@ -2489,7 +2490,7 @@ var moveServTouser = function(event) {
 var loadNewTags = function(e, idCatalogo, idSubCatalogo) {
     console.log(idCatalogo);
     console.log(idSubCatalogo);
-    $('#spinnerSaveNews').css('display','none');
+    $('#spinnerSaveNews').css('display', 'none');
     $('#spinnerNewsTags').show();
     $('#email_news').val($('#emailNews').val());
     var url = dirServer + "public/catalogoNews";
@@ -2527,7 +2528,7 @@ var loadNewTags = function(e, idCatalogo, idSubCatalogo) {
 }
 
 var registerClientToNews = function() {
-    $('#spinnerSaveNews').css('display','inline');
+    $('#spinnerSaveNews').css('display', 'inline');
     $('#form-modal-subscribe-news').modal('show');
     event.preventDefault();
     var $form = $('#form-subscribe-news'),
@@ -2559,9 +2560,9 @@ var registerClientToNews = function() {
 }
 $('#resultsMoreCatalogos').css("visibility", "hidden");
 $('#resultsMoreCatalogos').css("height", "10px");
-var showMoreCatalogos = function(event,idCatalogo){
+var showMoreCatalogos = function(event, idCatalogo) {
     console.log(idCatalogo);
     event.preventDefault();
     $('#resultsMoreCatalogos').css("visibility", "");
-    $('#resultsMoreCatalogos').css("height","");
+    $('#resultsMoreCatalogos').css("height", "");
 }

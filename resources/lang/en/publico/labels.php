@@ -243,4 +243,5 @@ return [
     'lblPostDate' => 'Start and End of the Post',
     'lblPostDescripion' => 'Description of the post',
     'lblPostAdminAdd' => 'Add / Edit Post',
+    'lblPrevioCita' => 'By appointment',
 ];

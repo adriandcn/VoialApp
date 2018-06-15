@@ -91,6 +91,7 @@ $usuarioServicio->id_usuario_operador = '';
 $usuarioServicio->id_padre = '';
 
 $usuarioServicio->fecha_ingreso = '';
+$usuarioServicio->previo_cita = 0;
 $usuarioServicio->fecha_fin = '';
 $usuarioServicio->como_llegar1_1 = '';
 $usuarioServicio->como_llegar2_2 = '';
@@ -135,6 +136,7 @@ $usuarioServicio->como_llegar2_2 = $detalles->como_llegar2_2;
 $usuarioServicio->fecha_ingreso = $detalles->fecha_ingreso;
 $usuarioServicio->fecha_fin = $detalles->fecha_fin;
 $usuarioServicio->id_padre = $detalles->id_padre;
+$usuarioServicio->previo_cita = intval($detalles->previo_cita);
 
 
 $usuarioServicio->observaciones = trim($detalles->observaciones);
@@ -199,6 +201,13 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                           <label class="form-label-outside" for="descriptionEn">
                             <i class="fa fa-list"></i>&nbsp;&nbsp;{{ trans('back/admin.lblServDescriptionEng')}}</label>
                           <textarea class="form-input tooltip" id="descriptionEn" name="detalle_servicio_eng" data-constraints="@Required" title="{{ trans('back/admin.altServDescriptionEng')}}">{{$usuarioServicio[0]->detalle_servicio_eng}}</textarea>
+                        </div>
+                      </div>
+                      <div class="cell-xs-12">
+                        <div class="form-wrap">
+                          <label class="form-label-outside" for="observaciones">
+                            <i class="fa fa-list"></i>&nbsp;&nbsp;{{ trans('back/admin.lblPromotionObservations')}}</label>
+                          <textarea class="form-input tooltip" id="observaciones" name="observaciones" data-constraints="@Required" title="{{ trans('back/admin.altServDescriptionEng')}}">{{$usuarioServicio[0]->observaciones}}</textarea>
                         </div>
                       </div>
                       <div class="cell-xs-12">
@@ -560,6 +569,10 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                 }
             });
 
+            $('#prev_cita').on('switchChange.bootstrapSwitch', function(event, state) {
+                UpdateServicioInfo1('form-update-serv', 'optional',false);
+            });
+
             function applyFilterDays(item,state) {
                 if (!_.contains(filtersDays, item)) {
                     filtersDays.push(item);
@@ -639,6 +652,10 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
               </div>
               <div class="modal-body">
                 <form class="rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="bat/rd-mailform.php">
+                    <div class="form-wrap">
+                          <label class="form-label-outside" for="contact-first-name-2" style="color: #c26933ba;">Previa cita.</label>
+                          <span class="badge" style="background-color: transparent;"><input type="checkbox" name="my-checkbox" id="prev_cita" data-size="mini" data-on-color="success" data-on-text="Si" data-off-text="No"></span>
+                    </div>
                     <div class="form-wrap">
                           <label class="form-label-outside" for="contact-first-name-2" style="color: #c26933ba;">24 Horas</label>
                           <span class="badge" style="background-color: transparent;"><input type="checkbox" name="my-checkbox" id="24_h" data-size="mini" data-on-color="success" data-on-text="Si" data-off-text="No"></span>
@@ -853,6 +870,11 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
         $('.seg_310').hide();
         $('.seg_313').hide();
       </script>
+      @endif
+      @if($detalles->previo_cita == 1)
+        <script type="text/javascript">
+          $('#prev_cita').bootstrapSwitch('state',true);
+        </script>
       @endif
     <!-- END PANEL-->
   </body>

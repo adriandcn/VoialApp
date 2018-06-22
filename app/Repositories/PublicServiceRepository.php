@@ -2882,6 +2882,7 @@ class PublicServiceRepository extends BaseRepository {
         $dataHorario = DB::table('horarios')
                         ->where('id_usuario_servicio',$idServicio)
                         ->where('estado',1)
+                        ->orderBy('orden','ASC')
                         ->get();
         $servicios->horario = $dataHorario;
         return $servicios;

@@ -1179,7 +1179,7 @@ class UsuarioServiciosController extends Controller
         // return response()->json(['abc' => $catalogoServicios]);
         $controlDashboard = $gestion->getControlDashboard(session('operador_id'));
         $listServiciosAll = $gestion->getServiciosOperadorAll(session('operador_id'));
-        // return response()->json(['abc' => $listServiciosAll]);
+        // return response()->json(['abc' => $listServiciosAll->total()]);
         return view('site.blades.dashboard', compact('listServiciosUnicos', 'listServiciosAll', 'data', "operador", 'controlDashboard','catalogoServicios'));
         }
     public function getAllServicios1($id_usuario_servicio, Request $request, ServiciosOperadorRepository $gestion)

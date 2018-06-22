@@ -18,6 +18,7 @@ Route::get('/getLastServicesCreated', ['as' => 'publico', 'uses' => 'HomePublicC
 Route::get('Search', ['as' => 'min-search', 'uses' => 'SearchController@getSearchTotal']);
 Route::get('searchMap', ['as' => 'map-search', 'uses' => 'SearchController@getViewSearchMap']);
 Route::post('searchAllInMap', ['as' => 'map-search', 'uses' => 'SearchController@searchAllInMap']);
+Route::post('searchAllInMapTendencias', ['as' => 'map-search', 'uses' => 'SearchController@searchAllInMapTendencias']);
 Route::get('busqueda-por-tendencia/{idTendencia}', ['as' => 'tendencias-search', 'uses' => 'SearchController@getTendenciasView']);
 // Auth
 Route::get('/login', ['as' => 'publico', 'uses' => 'HomePublicController@getLoginTemplate']);

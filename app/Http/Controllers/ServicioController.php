@@ -766,7 +766,7 @@ class ServicioController extends Controller
         // ***********************************************************************//
         $promociones = $gestion->getPromocionesUsuarioServicio($id);
         $eventos = $gestion->getEventosUsuarioServicio($id);
-        // return response()->json(['data' => $id]);
+        // return response()->json(['data' => $atraccion]);
         $calendarios = DB::table('booking_abcalendar_calendars')->where('id_usuario_servicio', '=', $usuarioServicio[0]['id'])->get();
         // $calendarios1 = DB::table('booking_abcalendar_calendars')->where('id_usuario_servicio', '=', '57' )->get();
         // $contadorCalendario = DB::select('SELECT COUNT(id_usuario_servicio) AS contador FROM booking_abcalendar_calendars WHERE id_usuario_servicio ='.$usuarioServicio[0]['id'])->get();
@@ -1056,6 +1056,7 @@ class ServicioController extends Controller
             'correo_contacto' => $formFields['correo_contacto'],
             'pagina_web' => $formFields['pagina_web'],
             'previa_cita' => $prev_cita,
+            'institucion' => (array_key_exists('institucion',$formFields))?$formFields['institucion']:null,
             //              'nombre_comercial' => $formFields['nombre_comercial'],
             'tags' => $formFields['tags'],
             //              'descuento_clientes' => $formFields['descuento_clientes'],

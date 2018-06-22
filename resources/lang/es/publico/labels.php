@@ -245,4 +245,5 @@ return [
     'lblPostDescripion' => 'Descripción del post',
     'lblPostAdminAdd' => 'Añadir/Editar Post',
     'lblPrevioCita' => 'Previa cita',
+    'lblSearchAll' => 'Buscar todos',
 ];

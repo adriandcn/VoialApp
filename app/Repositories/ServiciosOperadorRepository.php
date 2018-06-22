@@ -623,8 +623,8 @@ Actualizar tabla de busqueda
                         ->where('estado_servicio', '=', 1)
                         ->select('usuario_servicios.nombre_servicio','usuario_servicios.detalle_servicio', 
                             'catalogo_servicios.id_catalogo_servicios', 'usuario_servicios.id', 'usuario_servicios.estado_servicio_usuario', 'usuario_servicios.id_usuario_operador')
-                        ->get();
-        foreach ($list as $value) {
+                        ->paginate(10);
+        foreach ($list->items() as $value) {
             $dataImage = DB::table('images')
                     ->where('id_usuario_servicio', '=', $value->id)
                     ->where('profile_pic', '=', 1)

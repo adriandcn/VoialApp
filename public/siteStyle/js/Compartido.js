@@ -1944,7 +1944,6 @@ function searchServ(event, idCatalogo, idSubCatalogo) {
                 } else {
                     id = array[i].id;
                 }
-                console.log(array[i]);
                 var image = (array[i].filename != null) ? array[i].filename : 'default_service.png';
                 var url = dirServer + 'public/';
                 var urlImg = url + 'images/fullsize/' + image;
@@ -2032,6 +2031,14 @@ function searchServIni(idCatalogo, idSubCatalogo) {
                   </div>';
                 htmlResult = htmlResult + htmlString;
             }
+
+            if (array.length == 0) {
+                var htmlString = '<div class="col-xs-12 text-center text-default">\
+                        <h4 style="color:#c26933;"><i class="fa fa-frown-o "></i> &nbsp;&nbsp;Ups!! No se han encontrado resultados</h4>\
+                      </div>';
+                htmlResult = htmlResult + htmlString;
+            }
+
             $('#findedFilter').html(htmlResult);
             $('#initialRows').hide();
         },
@@ -2317,6 +2324,55 @@ function searchByMap(event) {
     });
 }
 
+function searchServIniTendencias() {
+    $("#spinnerSearch").show();
+    var url = dirServer + "public/searchAllInMapTendencias";
+    $.ajax({
+        type: 'POST',
+        url: url,
+        data: {},
+        success: function(r) {
+            var htmlResult = '';
+            var array = r.data;
+            for (var i = 0; i < array.length; i++) {
+                var id;
+                if (array[i].id_usuario_servicio) {
+                    id = array[i].id_usuario_servicio;
+                } else {
+                    id = array[i].id;
+                }
+                var url = dirServer + 'public/';
+                var urlImg = url + 'images/fullsize/' + array[i].filename;
+                var urlDetail = url + 'detalles-de-servicio/' + id;
+                var htmlString = '<div class="col-xs-12 col-sm-6 col-md-4 isotope-item" style=" padding-bottom: 25px;">\
+                    <div class="post-masonry post-masonry-short post-content-white bg-post-2 bg-image post-skew-right-top post-skew-var-4" style="background: url(' + urlImg + ');\
+                          background-size: cover;\
+                          background-repeat: no-repeat;\
+                          min-height: 200px;\
+                          cursor: pointer;" onclick="openDetailOnClick(' + id + ')">\
+                      <div class="post-masonry-content">\
+                        <h6 class=""><a href="' + urlDetail + '" style="color: #fff; text-shadow: 3px -1px 2px #1b1b1b;">' + array[i].nombre_servicio.toUpperCase() + '</a></h6>\
+                      </div><br>\
+                    <span class="badge" style="color:Wwhite;background: #c26933;">Distancia: ' + parseInt(array[i].distance) + 'Km</span>\
+                    </div>\
+                  </div>';
+                htmlResult = htmlResult + htmlString;
+            }
+            if (array.length == 0) {
+                var htmlString = '<div class="col-xs-12 text-center text-default">\
+                        <h4 style="color:#c26933;"><i class="fa fa-frown-o "></i> &nbsp;&nbsp;Ups!! No se han encontrado resultados</h4>\
+                      </div>';
+                htmlResult = htmlResult + htmlString;
+            }
+            $('#findedFilterMap').html(htmlResult);
+            $("#resultsMap").fadeIn();
+        },
+        error: function(e) {
+            console.log(e);
+        }
+    });
+}
+
 // Eventos
 $('#spinnerSave').hide();
 
@@ -2449,7 +2505,6 @@ $('.checkPropiedades').on('change', function(e) {
             getSegurosList($(this).val());
         }
     }
-    // (this.checked) ? $('#btnRegisterDiv').show(): $('#btnRegisterDiv').hide();
 });
 
 var idServToCopy = null;
@@ -2561,7 +2616,6 @@ var registerClientToNews = function() {
 $('#resultsMoreCatalogos').css("visibility", "hidden");
 $('#resultsMoreCatalogos').css("height", "10px");
 var showMoreCatalogos = function(event, idCatalogo) {
-    console.log(idCatalogo);
     event.preventDefault();
     $('#resultsMoreCatalogos').css("visibility", "");
     $('#resultsMoreCatalogos').css("height", "");

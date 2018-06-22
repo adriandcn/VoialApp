@@ -87,21 +87,30 @@
       ?>
       <section class="section-xs bg-white">
         <div class="shell">
-          <div class="heading-group">
-            <h4><i class="fa fa-map"></i> &nbsp;&nbsp;{{ trans('publico/labels.lblMap')}}</h4>
+          <div class="row">
+            <?php
+                $latitud_servicio = -0.1806532;
+                $longitud_servicio = -78.46783820000002;
+                $radio = 500;
+              ?>
+              <div class="col-xs-12 col-sm-12 isotope-item">
+                @include('reusable.searchMap', ['latitud_servicio' =>$latitud_servicio ,'longitud_servicio'=>$longitud_servicio,'radio'=>$radio]) 
+              </div>
           </div>
-          <div class="isotope grid-masonry text-left column-offset-30" data-isotope-layout="masonry">
-            <div class="row">
-                  <div class="col-xs-12 col-sm-12 isotope-item">
-                    @include('reusable.searchMap', ['latitud_servicio' =>$latitud_servicio ,'longitud_servicio'=>$longitud_servicio,'radio'=>$radio]) 
-                  </div>
-                  <div class="col-xs-12 col-sm-12 isotope-item text-right">
-                    <a class="button button-primary button-icon button-icon-sm button-icon-right fa-search" href="" onclick="searchByMap(event)" id="btnSearchMap">
-                      {{trans('publico/labels.lblSearch')}}<span></span>
-                    </a>
-                  </div>
+          <div class="row">
+            <div class="col-md-6"></div>
+            <div class="col-md-6">
+              <div class="group-buttons-3 group-md-justify">
+                <a class="button button-primary button-icon button-icon-sm button-icon-right fa-search" onclick="startAllServicesTendencia(event)">
+                  {{trans('publico/labels.lblSearchAll')}}<span></span>
+                </a>
+                <a class="button button-primary button-icon button-icon-sm button-icon-right fa-search" onclick="searchByMap(event)" id="btnSearchMap">
+                  {{trans('publico/labels.lblSearch')}}<span></span>
+                </a>
+            </div>
             </div>
           </div>
+          <div id="sectionResult"></div>
         </div>
       </section>
 
@@ -129,7 +138,11 @@
       <!-- Page Footer-->
       @include('site.reusable.footer')
       <script type="text/javascript">
-        $('#btnSearchMap').click();
+        // $('#btnSearchMap').click();
+        function startAllServicesTendencia(event){
+          searchServIniTendencias(null);
+        }
+        startAllServicesTendencia();
       </script>
     </div>
     <!-- END PANEL-->

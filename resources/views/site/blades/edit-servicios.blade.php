@@ -97,6 +97,7 @@ $usuarioServicio->como_llegar1_1 = '';
 $usuarioServicio->como_llegar2_2 = '';
 $usuarioServicio->latitud_servicio = -0.1806532;
 $usuarioServicio->longitud_servicio = -78.46783820000002;
+$usuarioServicio->institucion = '';
 ?>
 
 @foreach ($usuarioServicio as $detalles)
@@ -136,6 +137,7 @@ $usuarioServicio->como_llegar2_2 = $detalles->como_llegar2_2;
 $usuarioServicio->fecha_ingreso = $detalles->fecha_ingreso;
 $usuarioServicio->fecha_fin = $detalles->fecha_fin;
 $usuarioServicio->id_padre = $detalles->id_padre;
+$usuarioServicio->institucion = $detalles->institucion;
 $usuarioServicio->previo_cita = intval($detalles->previo_cita);
 
 
@@ -205,17 +207,17 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                       </div>
                       <div class="cell-xs-12">
                         <div class="form-wrap">
-                          <label class="form-label-outside" for="observaciones">
-                            <i class="fa fa-list"></i>&nbsp;&nbsp;{{ trans('back/admin.lblPromotionObservations')}}</label>
-                          <textarea class="form-input tooltip" id="observaciones" name="observaciones" data-constraints="@Required" title="{{ trans('back/admin.altServDescriptionEng')}}">{{$usuarioServicio[0]->observaciones}}</textarea>
-                        </div>
-                      </div>
-                      <div class="cell-xs-12">
-                        <div class="form-wrap">
                           <label class="form-label-outside" for="contact-message">
                             <i class="fa fa-info"></i>&nbsp;&nbsp;{{ trans('back/admin.tittleServiceInfo')}}</label><br>
                             <label class="form-label-outside" id="msgPrecioError" for="contact-message" style="color: red;">
                             <i class="fa fa-info"></i>&nbsp;&nbsp;</label>
+                        </div>
+                      </div>
+                      <div class="cell-sm-6">
+                        <div class="form-wrap">
+                          <label class="form-label-outside" for="contact-first-name"><i class="fa fa-building "></i>&nbsp;&nbsp;{{ trans('back/admin.lblInstitucion')}}</label>
+                          <input  class="form-input tooltip" type="text" id='institucion' 
+                                   name="institucion" value="{!!$usuarioServicio->institucion!!}" title="{{ trans('back/admin.altInstitucion')}}">
                         </div>
                       </div>
                       <div class="cell-sm-12">
@@ -263,6 +265,13 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                           <input type="text tooltip" name="telefono" value="{!!$usuarioServicio->telefono!!}" class="form-input tooltip numsOnly" title="{{ trans('back/admin.altTelefonoServ')}}" placeholder="{{ trans('back/admin.placeHolderPhoneEdit')}}">
                           <input type="hidden" name="flag_image" id="flag_image">
                           </div>
+                      </div>
+                      <div class="cell-xs-12">
+                        <div class="form-wrap">
+                          <label class="form-label-outside" for="observaciones">
+                            <i class="fa fa-list"></i>&nbsp;&nbsp;{{ trans('publico/labels.lblPromotionObservations')}}</label>
+                          <textarea class="form-input tooltip" id="observaciones" name="observaciones" data-constraints="@Required" title="{{ trans('back/admin.altObservaciones')}}">{{$usuarioServicio[0]->observaciones}}</textarea>
+                        </div>
                       </div>
                       <div class="cell-sm-6">
                           <div class="form-wrap">
@@ -370,20 +379,34 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                             @endif
                             <div class="tab-container full-width style2">
                                 <ul style="list-style: none">
+                                  <?php 
+                                    $arrayShowEstablecimiento = [];
+                                    $arrayNotShowEstablecimiento = [];
+                                  ?>
                                  @foreach ($catalogoServicioEstablecimiento as $catalogo)
-                                    @if(($catalogo->id == 151 || $catalogo->id == 258 || $catalogo->id == 204 || $catalogo->id == 207) && $catalogo->estado_servicio_est_us == 1)
-                                      <?php $showsegList = 'true'; ?>
+                                    @if((strtolower($catalogo->nombre_servicio_est) == 'pago' || strtolower($catalogo->nombre_servicio_est) == 'seguros') && $catalogo->estado_servicio_est_us == 1)
+                                      <?php 
+                                        $showsegList = 'true';
+                                        $showListId = '.seg_' . $catalogo->id;
+                                        array_push($arrayShowEstablecimiento, $showListId);
+                                      ?>
+                                    @endif
+                                    @if((strtolower($catalogo->nombre_servicio_est) == 'pago' || strtolower($catalogo->nombre_servicio_est) == 'seguros') && $catalogo->estado_servicio_est_us == null)
+                                      <?php
+                                        $showNotListId = '.seg_' . $catalogo->id;
+                                        array_push($arrayNotShowEstablecimiento, $showNotListId);
+                                      ?>
                                     @endif
                                     @if($catalogo->id_padre == 0)
                                     <li style="margin-bottom: 12px;">
                                         <label>
-                                          <input class="circulo chng checkPropiedades" name="id_servicio_est[]" id="id_servicio_est[]" value="{!!$catalogo->id!!}" type="checkbox" namePropiedad="{!!$catalogo->nombre_servicio_est!!}" idToTree="{!!$catalogo->id!!}" data-labelauty="No brindo este servicio|Si brindo este servicio" {{($catalogo->estado_servicio_est_us <> NULL)?'checked':''}}/>&nbsp;&nbsp;{!!$catalogo->nombre_servicio_est!!}
+                                          <input class="circulo chng checkPropiedades" name="id_servicio_est[]" id="id_servicio_est[]" value="{!!$catalogo->id!!}" onchange="UpdateServicioInfo1('form-update-serv', 'optional',false);" type="checkbox" namePropiedad="{!!$catalogo->nombre_servicio_est!!}" idToTree="{!!$catalogo->id!!}" data-labelauty="No brindo este servicio|Si brindo este servicio" {{($catalogo->estado_servicio_est_us <> NULL)?'checked':''}}/>&nbsp;&nbsp;{!!$catalogo->nombre_servicio_est!!}
                                         </label>
                                     </li>
                                     @else
                                       <li class="seg_{{$catalogo->id_padre}}" style="margin-left: 20px; margin-bottom: 12px;">
                                         <label>
-                                          <input class="circulo chng" name="id_servicio_est[]" id="id_servicio_est[]" value="{!!$catalogo->id!!}" type="checkbox" namePropiedad="{!!$catalogo->nombre_servicio_est!!}" data-labelauty="No brindo este servicio|Si brindo este servicio" {{($catalogo->estado_servicio_est_us <> NULL)?'checked':''}}/>&nbsp;&nbsp;
+                                          <input class="circulo chng" name="id_servicio_est[]" id="id_servicio_est[]" onchange="UpdateServicioInfo1('form-update-serv', 'optional',false);" value="{!!$catalogo->id!!}" type="checkbox" namePropiedad="{!!$catalogo->nombre_servicio_est!!}" data-labelauty="No brindo este servicio|Si brindo este servicio" {{($catalogo->estado_servicio_est_us <> NULL)?'checked':''}} />&nbsp;&nbsp;
                                           {!!$catalogo->nombre_servicio_est!!}
                                         </label>
                                       </li>
@@ -852,25 +875,18 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
           });
 }
       </script>
-      @if($showsegList == 'true')
-        <script type="text/javascript">
-          $('.seg_151').show();
-          $('.seg_258').show();
-          $('.seg_204').show();
-          $('.seg_207').show();
-          $('.seg_310').show();
-          $('.seg_313').show();
-        </script>
-      @else
+      @foreach ($arrayNotShowEstablecimiento as $showNotItem)
       <script type="text/javascript">
-        $('.seg_151').hide();
-        $('.seg_258').hide();
-        $('.seg_204').hide();
-        $('.seg_207').hide();
-        $('.seg_310').hide();
-        $('.seg_313').hide();
+        var idShowNot = '{!! $showNotItem !!}';
+          $(idShowNot).hide();
       </script>
-      @endif
+      @endforeach
+      @foreach ($arrayShowEstablecimiento as $showItem)
+      <script type="text/javascript">
+        var idShow = '{!! $showItem !!}';
+          $(idShow).show();
+      </script>
+      @endforeach
       @if($detalles->previo_cita == 1)
         <script type="text/javascript">
           $('#prev_cita').bootstrapSwitch('state',true);

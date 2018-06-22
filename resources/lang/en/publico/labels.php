@@ -244,4 +244,5 @@ return [
     'lblPostDescripion' => 'Description of the post',
     'lblPostAdminAdd' => 'Add / Edit Post',
     'lblPrevioCita' => 'By appointment',
+    'lblSearchAll' => 'Search all',
 ];

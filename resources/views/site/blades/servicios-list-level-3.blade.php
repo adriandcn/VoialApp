@@ -106,18 +106,26 @@
             <?php
                 $latitud_servicio = -0.1806532;
                 $longitud_servicio = -78.46783820000002;
-                $radio = 100;
+                $radio = 500;
               ?>
               <div class="col-xs-12 col-sm-12 isotope-item">
                 @include('reusable.searchMap', ['latitud_servicio' =>$latitud_servicio ,'longitud_servicio'=>$longitud_servicio,'radio'=>$radio]) 
               </div>
-              <div class="col-xs-12 col-sm-12 isotope-item text-right">
+          </div>
+          <div class="row">
+            <div class="col-md-6"></div>
+            <div class="col-md-6">
+              <div class="group-buttons-3 group-md-justify">
+                <a class="button button-primary button-icon button-icon-sm button-icon-right fa-search" onclick="startAllServices()">
+                  {{trans('publico/labels.lblSearchAll')}}<span></span>
+                </a>
                 <a class="button button-primary button-icon button-icon-sm button-icon-right fa-search" href="" onclick="searchServ(event,{{request()->route('idCatalogo')}},{{request()->route('idSubCatalogo')}})" id="btnSearchMap">
                   {{trans('publico/labels.lblSearch')}}<span></span>
                 </a>
-              </div>
+            </div>
+            </div>
           </div>
-                <div id="sectionResult"></div>
+          <div id="sectionResult"></div>
         </div>
       </section>
       <section class="section-xs bg-white">
@@ -198,7 +206,10 @@
         $("[name='my-checkbox']").bootstrapSwitch();
         var idRouteCatalogo = {!!request()->route('idCatalogo')!!};
         var idRouteSubCatalogo = {!!request()->route('idSubCatalogo')!!};
-        searchServIni(idRouteCatalogo,idRouteSubCatalogo);
+        function startAllServices(){
+          searchServIni(idRouteCatalogo,idRouteSubCatalogo);
+        }
+        startAllServices();
       </script>
     </div>
     <!-- END PANEL-->

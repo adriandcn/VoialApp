@@ -77,6 +77,31 @@ class SearchController extends Controller
         return response()->json(['error' => false,'data' => $findedMap]);
     }
 
+    public function searchAllInMapTendencias(Request $request,PublicServiceRepository $gestion){
+        //save search
+        $query['ip'] =  $this->getIp();
+        $query['query'] = 'mapa';
+        $query['usuario'] = ($request->session()->has('user_id')) ? $request->session()->get('user_name') : null;
+        if ($query['ip'] != '' || $query['ip'] != null) {
+            $client = new Client();
+            $res = $client->get('http://ip-api.com/json/186.46.201.39', ['fields' => '520191', 'lang' => 'en']);
+            $status = $res->getStatusCode();
+            if ($status == 200) {
+                $result = json_decode($res->getBody());
+                $query['provincia'] = $result->regionName;
+                $query['canton'] = $result->city;
+            }
+        }else{
+            $query['provincia'] = null;
+            $query['canton'] = null;
+        }
+        $query['radio'] = $request->radio;
+        $idTendenciaS = Session::get('idTendenciaSearch');
+        $gestion->saveQueryVisitor($query);
+        $findedMap = $gestion->getAllServByTendencias(null,null,50,$idTendenciaS);
+        return response()->json(['error' => false,'data' => $findedMap]);
+    }
+
     // Obtiene los terminos y condiciones
     public function getTermsConditions()
         {
@@ -150,8 +175,9 @@ class SearchController extends Controller
                 
             }else{
                 $despliegue = [];
+                $desplieguePosts = [];
             }
-            // return response()->json(['data' => $desplieguePosts->items()]);
+            // return response()->json(['data' => $despliegue->items()]);
             return View('site.blades.search', compact(
                 'despliegue',
                 'desplieguePosts'

@@ -100,4 +100,8 @@ return [
     'lblSearchRadio' => 'Search radius (miles)',
     'altSearchMap' => 'Click on the map to mark the location from where you are going to search',
     'placeHolderSearchboxUbicacion' => 'Site or sector to be located',
+    'lblInstitucion' => 'Institution',
+    'lblPlaceholderInstitucion' => 'New clinic was ....',
+    'altInstitucion' => 'Insitutions in which you provide your service',
+    'altObservations' => 'Add extra axis information: Emergency telephone number, lunch schedule ...',
 ];

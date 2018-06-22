@@ -100,4 +100,7 @@ return [
     'lblSearchRadio' => 'Radio de búsqueda (kilómetros)',
     'altSearchMap' => 'Haz clic sobre el mapa para marcar la ubicación desde donde se va a buscar',
     'placeHolderSearchboxUbicacion' => 'Sitio o sector a ubicar',
+    'lblInstitucion' => 'Institución',
+    'altInstitucion' => 'Insituciones en las cuales presta su servicio',
+    'altObservaciones' => 'Agregue información extra eje: Telefono de emergencia, horario de almuerzo ...',
 ];

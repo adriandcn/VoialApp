@@ -26,7 +26,15 @@
 <div class="form-group">
     <input type="hidden" class='form-control input-sm' name='longitud_servicio' value="{!!$longitud_servicio!!}" id='longitud_servicio'/>
 </div>
-
+@if(session('device') == 'mobile')
+    <script type="text/javascript">
+        var isMobile = true;
+    </script>
+@else
+    <script type="text/javascript">
+        var isMobile = false;
+    </script>
+@endif
 <script>
 
     var map;
@@ -40,10 +48,10 @@
             center: {
                 lat: latitud,
                 lng: longitud
-
             },
             zoom: 15
         });
+        infoWindow = new google.maps.InfoWindow;
 
         var markerSearch = new google.maps.Marker({
             position: {
@@ -99,7 +107,8 @@
         });
 
         google.maps.event.addListener(searchCircle, 'radius_changed', function () {
-            $('#radioSearch').val(parseInt(searchCircle.getRadius())/1000);
+            var radiousVal = parseInt(searchCircle.getRadius()/500);
+            $('#radioSearch').val(radiousVal);
         });
 
         // google.maps.event.addListener(searchCircle, 'center_changed', function () {
@@ -109,9 +118,27 @@
         //     console.log(lng);
         //     // markerSearch.setPosition(new google.maps.LatLng(lat,lng));
         // });
-     $('#radioSearch').keyup(function(){
-        searchCircle.setRadius(parseInt($('#radioSearch').val()) * 1000);
-     });
+         $('#radioSearch').keyup(function(){
+            searchCircle.setRadius(parseInt(parseInt($('#radioSearch').val()) * 500));
+         });
+        // Try HTML5 geolocation.
+        if (isMobile) {
+            if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(function(position) {
+                var pos = {
+                  lat: position.coords.latitude,
+                  lng: position.coords.longitude
+                };
+                markerSearch.setPosition(pos);
+                map.setCenter(pos);
+              }, function(e) {
+                console.error(e);
+              });
+            } else {
+              // Browser doesn't support Geolocation
+              console.error('Browser doesnt support Geolocation');
+            }
+        }
     }
 </script>
 </head>

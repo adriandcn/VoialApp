@@ -2317,6 +2317,7 @@ class PublicServiceRepository extends BaseRepository {
                  $query->orWhereNull('images.profile_pic');
             })
             // ->havingRaw('aggregate >= 0')
+            ->groupBy('usuario_servicios.id')
             ->paginate($pagination);
             return $paginated;
         }else{

@@ -2313,6 +2313,7 @@ class PublicServiceRepository extends BaseRepository {
             $paginated = $this->usuario_servicio
             ->select(['usuario_servicios.*','filename'])
             ->leftJoin('images','images.id_auxiliar','=','usuario_servicios.id')
+            ->join('catalogo_servicios','catalogo_servicios.id_catalogo_servicios','=','usuario_servicios.id_catalogo_servicio')
             ->whereIn('usuario_servicios.id',$arrayId)
             ->where(function($query){
                  $query->where('images.profile_pic','=',1);
@@ -2321,7 +2322,10 @@ class PublicServiceRepository extends BaseRepository {
                  $query->orWhereNull('images.profile_pic');
             })
             // ->havingRaw('aggregate >= 0')
+            ->select(['usuario_servicios.id','usuario_servicios.nombre_servicio','filename','catalogo_servicios.nombre_servicio as especialidad'])
+            ->groupBy('usuario_servicios.id')
             ->paginate($pagination);
+
             return $paginated;
         }else{
             return null;
@@ -3647,7 +3651,7 @@ class PublicServiceRepository extends BaseRepository {
                                         ');
         }else{
             $dataTendencia = $this->tendencia->where('idTendencias',$idTendencia)->select('hashtag')->first();
-            $busquedaTotal = $this->getSearchTotal($dataTendencia->hashtag);
+            $busquedaTotal = $this->getSearchTotal($dataTendencia->hashtag,[4]);
             $arrayInTotal = [];
             foreach ($busquedaTotal as $key => $value) {
                 array_push($arrayInTotal, $value->id_usuario_servicio);
@@ -3662,6 +3666,52 @@ class PublicServiceRepository extends BaseRepository {
                 $value->distance = $distance;
                 array_push($arrayFinded,  $value);
             }
+        }
+        foreach ($arrayFinded as $serv) {
+            $image = DB::table('images')
+            ->where('id_usuario_servicio','=',$serv->id)
+            ->where(function($query){
+                 $query->where('images.profile_pic','=',1);
+                 $query->where('estado_fotografia', '=', 1);
+                 $query->where('images.id_catalogo_fotografia','=',1);
+                 $query->orWhereNull('images.profile_pic');
+            })
+            ->select('filename')
+            ->get();
+            if (count($image) > 0) {
+                $serv->filename = $image[0]->filename;
+            }else{
+                $serv->filename = 'default_service.png';
+            }
+            
+        }
+        return $arrayFinded;
+    }
+
+    public function getAllServByTendencias ($lat = null,$lng = null,$radio = 50,$idTendencia = null){
+
+        if ($lat == null || $lat == null) {
+            $lat = config('global.latDefault');
+            $lng = config('global.lngDefault');
+        }
+
+        if ($idTendencia == null || $idTendencia == '') {
+            $dataList = [];
+        }else{
+            $dataTendencia = $this->tendencia->where('idTendencias',$idTendencia)->select('hashtag')->first();
+            $busquedaTotal = $this->getSearchTotal(strtolower(str_replace('#','',$dataTendencia->hashtag)),[4]);
+            $arrayInTotal = [];
+            foreach ($busquedaTotal as $key => $value) {
+                array_push($arrayInTotal, $value->id_usuario_servicio);
+            }
+            $dataList = $this->usuario_servicio
+                        ->whereIn('usuario_servicios.id',$arrayInTotal)->get();
+        }
+        $arrayFinded = [];
+        foreach ($dataList as $value) {
+            $distance = $this->distance($lat,$lng,$value->latitud_servicio,$value->longitud_servicio,'K');
+            $value->distance = $distance / 1000;
+            array_push($arrayFinded,  $value);
         }
         foreach ($arrayFinded as $serv) {
             $image = DB::table('images')

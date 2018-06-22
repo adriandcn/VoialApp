@@ -257,7 +257,8 @@ class OperadorRepository extends BaseRepository
 							// 'horario'=>$inputs['horario'],
 //'tags_servicio'=>$inputs['tags_servicio'],
 							'observaciones'=>$inputs['observaciones'],
-							'previo_cita'=>$inputs['previa_cita'],
+							'previa_cita'=>$inputs['previa_cita'],
+							'institucion' => $inputs['institucion'],
 							'telefono'=>$inputs['telefono'],
 							'latitud_servicio'=>$inputs['latitud_servicio'],
 							'longitud_servicio'=>$inputs['longitud_servicio'],
@@ -365,6 +366,30 @@ class OperadorRepository extends BaseRepository
 				// ->where('catalogo_servicio_establecimiento.id_padre',0)
 				->orderBy('catalogo_servicio_establecimiento.id', 'ASC')
 				// ->groupBy('servicio_establecimiento_usuario.id_servicio_est')
+				->get(['catalogo_servicio_establecimiento.id',
+						'catalogo_servicio_establecimiento.nombre_servicio_est',
+						'servicio_establecimiento_usuario.estado_servicio_est_us',
+						'servicio_establecimiento_usuario.id_servicio_est',
+						'servicio_establecimiento_usuario.id AS id_servicio_establecimiento_usuario',
+						'catalogo_servicio_establecimiento.id_padre'
+				]);
+				
+	}
+
+	public function getCatalogoServicioEstablecimientoPublic($id_catalogo,$id_usuario_servicio)
+	{
+		$servicio_establecimiento_usuario = new $this->servicioEstablecimientoUsuario;
+		$servicio_ctalogo = new Catalogo_Servicio();
+		$dataCatalogo = $servicio_ctalogo->where('id_catalogo_servicios',$id_catalogo)
+			->select('id_padre')->first();
+		return $servicio_establecimiento_usuario::join('catalogo_servicio_establecimiento', function($join) use($id_usuario_servicio){
+					$join->on('catalogo_servicio_establecimiento.id', '=', 'servicio_establecimiento_usuario.id_servicio_est')
+					->where('servicio_establecimiento_usuario.id_usuario_servicio', '=', $id_usuario_servicio);
+				})
+				->where('catalogo_servicio_establecimiento.id_catalogo_servicio',$dataCatalogo->id_padre)
+				// ->where('catalogo_servicio_establecimiento.id_padre',0)
+				->orderBy('catalogo_servicio_establecimiento.id', 'ASC')
+				->groupBy('id')
 				->get(['catalogo_servicio_establecimiento.id',
 						'catalogo_servicio_establecimiento.nombre_servicio_est',
 						'servicio_establecimiento_usuario.estado_servicio_est_us',

@@ -34,7 +34,7 @@
             // 'id_catalogo_tipo_fotografia' => 2,
             'html' => '',
             'title' => '',
-            'status' => 1,
+            'status' => 'on',
             'date_ini' => '',
             'date_fin' => '',
             'date_ini_hasta' => date("Y-m-d") . ' - ' . date("Y-m-d")
@@ -46,7 +46,8 @@
             // 'id_catalogo_tipo_fotografia' => 2,
             'html' => $postData->html,
             'title' => $postData->title,
-            'status' => $postData->status,
+            // 'status' => (intval($postData->status) == 1)? 'on' : 'off',
+            'status' => intval($postData->status),
             'date_ini' => $postData->date_ini,
             'date_fin' => $postData->date_fin,
             'date_ini_hasta' => $postData->date_ini . ' - ' .$postData->date_fin
@@ -100,7 +101,7 @@
                         @endif
                         <div class="form-wrap col-md-8">
                           <label class="form-label-outside" for="pass">
-                            <i class="fa fa-font "></i>&nbsp;&nbsp; {{trans('publico/labels.lblPostTitle')}}
+                            <i class="fa fa-font "></i>&nbsp;&nbsp; {{trans('publico/labels.lblPostTitle')}} 
                           </label>
                           <input class="form-input" id="pass" type="text" name="title" value="{{$postData->title}}">
                         </div>
@@ -108,7 +109,11 @@
                           <label class="form-label-outside" for="contact-first-name">
                             <i class="fa fa-lightbulb-o "></i>&nbsp;&nbsp;{{ trans('publico/labels.lblPromotionStatus')}}
                           </label><br>
-                          <input  class="tooltip checkboxDays" type="checkbox" id='status' name="status" data-size="mini" data-on-color="success" data-on-text="Si" data-off-text="No" checked="{{$postData->status}}">
+                          @if($postData->status == 1)
+                          <input  class="tooltip checkboxDays" type="checkbox" id='status' name="status" data-size="mini" data-on-color="success" data-on-text="Si" data-off-text="No" checked>
+                          @else
+                          <input  class="tooltip checkboxDays" type="checkbox" id='status' name="status" data-size="mini" data-on-color="success" data-on-text="Si" data-off-text="No" >
+                          @endif
                         </div>
                         <div class="form-wrap col-md-12">
                           <label class="form-label-outside" for="date_ini_hasta">

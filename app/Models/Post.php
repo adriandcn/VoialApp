@@ -16,6 +16,10 @@ class Post extends Model  {
 	 */
 	protected $table = 'posts';
 
+	public $casts = [
+		'status' => 'integer'
+	];
+
 	/**
 	 * One to Many relation
 	 *

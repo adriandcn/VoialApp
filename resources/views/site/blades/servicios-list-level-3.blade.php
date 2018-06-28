@@ -120,7 +120,7 @@
                   {{trans('publico/labels.lblSearchAll')}}<span></span>
                 </a>
                 <a class="button button-primary button-icon button-icon-sm button-icon-right fa-search" href="" onclick="searchServ(event,{{request()->route('idCatalogo')}},{{request()->route('idSubCatalogo')}})" id="btnSearchMap">
-                  {{trans('publico/labels.lblSearch')}}<span></span>
+                  {{trans('publico/labels.lblSearchNear')}}<span></span>
                 </a>
             </div>
             </div>

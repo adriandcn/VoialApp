@@ -156,7 +156,21 @@
                           </div>
                         </div>
                         @endif
-
+                        @if($detalles->observaciones != null && $detalles->observaciones != '')
+                          <div class="panel panel-custom panel-custom-default">
+                          <div class="panel-custom-heading" id="accordion1HeadingOBservaciones" role="tab">
+                            <p class="panel-custom-title">
+                              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="#accordion1CollapseObservaciones" aria-controls="accordion1CollapseObservaciones"><i class="fa fa-eye"></i>&nbsp;&nbsp;{{ trans('publico/labels.lblPromotionObservations')}}
+                              </a>
+                            </p>
+                          </div>
+                          <div class="panel-custom-collapse collapse" id="accordion1CollapseObservaciones" role="tabpanel" aria-labelledby="accordion1HeadingOBservaciones">
+                            <div class="panel-custom-body">
+                              <h6 style="font-size: 14px;"> {{$detalles->observaciones}}</h6>
+                            </div>
+                          </div>
+                        </div>
+                        @endif
                         <!-- Bootstrap panel-->
                         @if($detalles->institucion != null && $detalles->institucion != '')
                           <div class="panel panel-custom panel-custom-default">
@@ -169,22 +183,6 @@
                           <div class="panel-custom-collapse collapse" id="accordion1CollapseInstitucion" role="tabpanel" aria-labelledby="accordion1HeadingInstitucion">
                             <div class="panel-custom-body">
                               <h6 style="font-size: 14px;"> {{$detalles->institucion}}</h6>
-                            </div>
-                          </div>
-                        </div>
-                        @endif
-
-                        @if($detalles->observaciones != null && $detalles->observaciones != '')
-                          <div class="panel panel-custom panel-custom-default">
-                          <div class="panel-custom-heading" id="accordion1HeadingOBservaciones" role="tab">
-                            <p class="panel-custom-title">
-                              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="#accordion1CollapseObservaciones" aria-controls="accordion1CollapseObservaciones"><i class="fa fa-eye"></i>&nbsp;&nbsp;{{ trans('publico/labels.lblPromotionObservations')}}
-                              </a>
-                            </p>
-                          </div>
-                          <div class="panel-custom-collapse collapse" id="accordion1CollapseObservaciones" role="tabpanel" aria-labelledby="accordion1HeadingOBservaciones">
-                            <div class="panel-custom-body">
-                              <h6 style="font-size: 14px;"> {{$detalles->observaciones}}</h6>
                             </div>
                           </div>
                         </div>

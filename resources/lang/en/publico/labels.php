@@ -3,6 +3,7 @@
 return [
     //voilapp
     'lblSearch' => 'Search',
+    'lblSearchNear' => 'Nearby',
     'saludo' => 'Your Virtual <img src="http://voilappbeta.com/public/siteStyle/images/cruz_roja.png" width="50" style="margin-left: 10px; margin-right: 10px;"> Health assistant',
     'appDescription' => 'We help you find registered medical and health services, with a
     easy access by its geolocated reference and arrival address.',
@@ -90,7 +91,7 @@ return [
     'messagePassNotEqual' => 'Passwords do not match',
     'lblTendencias' => 'Trends',
     'titleMapSearch' => 'Search by map',
-    'descriptionMapSearch' => 'In this section you can search for services, just select the point where you want to search and the radius',
+    'descriptionMapSearch' => 'In this section you can search for services, just select the point where you want to search and the diameter',
     'lblPathMapSearch' => 'Search by map',
     'lblResult' => 'Results',
     'lblMap' => 'Map',

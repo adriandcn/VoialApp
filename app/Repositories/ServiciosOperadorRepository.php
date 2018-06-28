@@ -1029,8 +1029,9 @@ Actualizar tabla de busqueda
             $post->image = $data['image']; 
             $post->html = $data['html'];
             $post->date_ini = $data['date_ini'];
-            $post->date_fin = $data['date_fin']; 
-            $post->status = intval($data['status']);
+            $post->date_fin = $data['date_fin'];
+            echo $data['status'];
+            $post->status = (array_key_exists('status',$data)) ? intval($data['status']) : 0;
             $post->save();
             // $post->id_usuario_servicio = $data['id_usuario_servicio']; 
             // $post->created_at = date("Y/m/d HH:mm:ss"); 

@@ -105,7 +105,7 @@
                   {{trans('publico/labels.lblSearchAll')}}<span></span>
                 </a>
                 <a class="button button-primary button-icon button-icon-sm button-icon-right fa-search" onclick="searchByMap(event)" id="btnSearchMap">
-                  {{trans('publico/labels.lblSearch')}}<span></span>
+                  {{trans('publico/labels.lblSearchNear')}}<span></span>
                 </a>
             </div>
             </div>

@@ -1705,6 +1705,7 @@ class UsuarioServiciosController extends Controller
         $date_hasta = $dateSplit[1];
         $formFields['date_ini'] = $date_desde;
         $formFields['date_fin'] = $date_hasta;
+        $formFields['status'] = (array_key_exists('status',$formFields))?($formFields['status'] == 'on')?1:0:0;
         $saved = $gestion->savePost($formFields['id_usuario_servicio'],$formFields,$formFields['id']);
         return response()->json(['success' => true, 'redirectto' => 'listado-de-post']);
     }

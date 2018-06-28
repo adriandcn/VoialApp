@@ -3,6 +3,7 @@
 return [
     //voilapp
     'lblSearch' => 'Buscar',
+    'lblSearchNear' => 'Cercanos',
     'saludo' => 'Tu asistente en <img src="http://voilappbeta.com/public/siteStyle/images/cruz_roja.png" width="50" style="margin-left: 10px; margin-right: 10px;"> Salud virtual',
     'appDescription' => 'Te ayuda a encontrar servicios médicos y de salud registrados, disponiendo de un
     acceso fácil por su referencia geolocalizada y direccionamiento de llegada.',
@@ -90,7 +91,7 @@ return [
     'messagePassNotEqual' => 'Contraseñas no coinciden',
     'lblTendencias' => 'Tendencias',
     'titleMapSearch' => 'Bùsqueda mediante mapa',
-    'descriptionMapSearch' => 'En esta sección puedes realizar la búsqueda de servicios, únicamente selecciona el punto donde deseas buscar y el radio.',
+    'descriptionMapSearch' => 'En esta sección puedes realizar la búsqueda de servicios, únicamente selecciona el punto donde deseas buscar y el Diámetro.',
     'lblPathMapSearch' => 'Busqueda mediante mapa',
     'lblResult' => 'Resultados',
     'lblMap' => 'Mapa',

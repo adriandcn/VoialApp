@@ -2294,6 +2294,7 @@ class PublicServiceRepository extends BaseRepository {
                 $id = intval($id);
                 $dataServ = DB::table('usuario_servicios')
                 ->where('id',$id)
+                ->where('estado_servicio',1)
                 ->select('id_catalogo_servicio')
                 ->first();
                 if ($dataServ != null) {

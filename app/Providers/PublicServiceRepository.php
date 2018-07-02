@@ -2896,6 +2896,7 @@ class PublicServiceRepository extends BaseRepository {
     public function getServiciosAll() {
         $servicios = DB::table('catalogo_servicios')
                         ->join('usuario_servicios', 'id_catalogo_servicios', '=', 'usuario_servicios.id_catalogo_servicio')
+                        ->where('usuario_servicios.estado_servicio',1)
                         ->select('catalogo_servicios.nombre_servicio', 'catalogo_servicios.id_catalogo_servicios', 'catalogo_servicios.nombre_servicio_eng')
                         ->distinct()->get();
         return $servicios;

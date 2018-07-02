@@ -2001,12 +2001,12 @@ function searchServIni(idCatalogo, idSubCatalogo) {
             for (var i = 0; i < array.length; i++) {
                 var latServ = parseFloat(array[i].latitud_servicio);
                 var longServ = parseFloat(array[i].longitud_servicio);
-                var marker = new google.maps.Marker({
-                    position: new google.maps.LatLng(latServ, longServ),
-                    map: map,
-                    title: 'Hello World!',
-                    icon: iconDir
-                });
+                // var marker = new google.maps.Marker({
+                //     position: new google.maps.LatLng(latServ, longServ),
+                //     map: map,
+                //     title: 'Hello World!',
+                //     icon: iconDir
+                // });
                 var id;
                 if (array[i].id_usuario_servicio) {
                     id = array[i].id_usuario_servicio;

@@ -17,6 +17,9 @@
         padding: 7px;
         border-radius: 5px;
       }
+      .panel-custom .panel-custom-collapse{
+            background: #ffffff;
+      }
     </style>
   </head>
    <body>
@@ -109,14 +112,14 @@
                     <div class="fb-share-button" data-href="{{Request::url()}}" data-layout="button" data-size="large" data-mobile-iframe="true">
                       <a target="_blank" href="{{Request::url()}}" class="fb-xfbml-parse-ignore">Compartir</a>
                     </div>
-                    <div class="panel-custom-group-wrap">
+                    <div class="panel-custom-group-wrap" style="margin-top: 50px;">
                       <!-- Bootstrap collapse-->
                       <div class="panel-custom-group text-left" id="accordion1" role="tablist">
                         <!-- Bootstrap panel-->
                         <div class="panel panel-custom panel-custom-default">
                           <div class="panel-custom-heading" id="accordion1Heading1" role="tab">
                             <p class="panel-custom-title">
-                              <a role="button" data-toggle="collapse" data-parent="#accordion1" href="#accordion1Collapse1" aria-controls="accordion1Collapse1" aria-expanded="true"><i class="fa fa-map-marker"></i>&nbsp;&nbsp;{{trans('publico/labels.lblComoLlegar')}}
+                              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="" aria-controls="accordion1Collapse1" aria-expanded="true"><i class="fa fa-map-marker"></i>&nbsp;&nbsp;{{trans('publico/labels.lblComoLlegar')}}
                               </a>
                             </p>
                           </div>
@@ -133,11 +136,11 @@
                           <div class="panel panel-custom panel-custom-default">
                           <div class="panel-custom-heading" id="accordion1Headinghorario" role="tab">
                             <p class="panel-custom-title">
-                              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="#accordion1CollapseHorario" aria-controls="accordion1CollapseHorario"><i class="fa fa-calendar"></i>&nbsp;&nbsp;{{trans('publico/labels.lblHorario')}}
+                              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="" aria-controls="accordion1CollapseHorario"><i class="fa fa-calendar"></i>&nbsp;&nbsp;{{trans('publico/labels.lblHorario')}}
                               </a>
                             </p>
                           </div>
-                          <div class="panel-custom-collapse collapse" id="accordion1CollapseHorario" role="tabpanel" aria-labelledby="accordion1Headinghorario">
+                          <div class="panel-custom-collapse collapse in" id="accordion1CollapseHorario" role="tabpanel" aria-labelledby="accordion1Headinghorario">
                             <div class="panel-custom-body">
                               @if($detalles->previa_cita == 1)
                                   <h6 style="font-size: 16px; color: #3aa9ed;"><i class="fa fa-calendar"></i> &nbsp;&nbsp; {{trans('publico/labels.lblPrevioCita')}}</h6>
@@ -160,11 +163,11 @@
                           <div class="panel panel-custom panel-custom-default">
                           <div class="panel-custom-heading" id="accordion1HeadingOBservaciones" role="tab">
                             <p class="panel-custom-title">
-                              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="#accordion1CollapseObservaciones" aria-controls="accordion1CollapseObservaciones"><i class="fa fa-eye"></i>&nbsp;&nbsp;{{ trans('publico/labels.lblPromotionObservations')}}
+                              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="" aria-controls="accordion1CollapseObservaciones"><i class="fa fa-eye"></i>&nbsp;&nbsp;{{ trans('publico/labels.lblPromotionObservations')}}
                               </a>
                             </p>
                           </div>
-                          <div class="panel-custom-collapse collapse" id="accordion1CollapseObservaciones" role="tabpanel" aria-labelledby="accordion1HeadingOBservaciones">
+                          <div class="panel-custom-collapse collapse in" id="accordion1CollapseObservaciones" role="tabpanel" aria-labelledby="accordion1HeadingOBservaciones">
                             <div class="panel-custom-body">
                               <h6 style="font-size: 14px;"> {{$detalles->observaciones}}</h6>
                             </div>
@@ -176,11 +179,11 @@
                           <div class="panel panel-custom panel-custom-default">
                           <div class="panel-custom-heading" id="accordion1HeadingInstitucion" role="tab">
                             <p class="panel-custom-title">
-                              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="#accordion1CollapseInstitucion" aria-controls="accordion1CollapseInstitucion"><i class="fa fa-building"></i>&nbsp;&nbsp;{{ trans('back/admin.lblInstitucion')}}
+                              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="" aria-controls="accordion1CollapseInstitucion"><i class="fa fa-building"></i>&nbsp;&nbsp;{{ trans('back/admin.lblInstitucion')}}
                               </a>
                             </p>
                           </div>
-                          <div class="panel-custom-collapse collapse" id="accordion1CollapseInstitucion" role="tabpanel" aria-labelledby="accordion1HeadingInstitucion">
+                          <div class="panel-custom-collapse collapse in" id="accordion1CollapseInstitucion" role="tabpanel" aria-labelledby="accordion1HeadingInstitucion">
                             <div class="panel-custom-body">
                               <h6 style="font-size: 14px;"> {{$detalles->institucion}}</h6>
                             </div>
@@ -191,11 +194,11 @@
                         <div class="panel panel-custom panel-custom-default">
                           <div class="panel-custom-heading" id="accordion1Heading3" role="tab">
                             <p class="panel-custom-title">
-                              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="#accordion1Collapse3" aria-controls="accordion1Collapse3"><i class="fa fa-envelope"></i>&nbsp;&nbsp;{{trans('publico/labels.titleContact')}}
+                              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="" aria-controls="accordion1Collapse3"><i class="fa fa-envelope"></i>&nbsp;&nbsp;{{trans('publico/labels.titleContact')}}
                               </a>
                             </p>
                           </div>
-                          <div class="panel-custom-collapse collapse" id="accordion1Collapse3" role="tabpanel" aria-labelledby="accordion1Heading3">
+                          <div class="panel-custom-collapse collapse in" id="accordion1Collapse3" role="tabpanel" aria-labelledby="accordion1Heading3">
                             <div class="panel-custom-body">
                               {{trans('publico/labels.lblPhone')}} : <h6 style="font-size: 14px;"> {{$detalles->telefono}}</h6>
                               {{trans('publico/labels.lblWebPage')}} : <h6 style="font-size: 14px;">
@@ -209,12 +212,12 @@
                         <div class="panel panel-custom panel-custom-default">
                           <div class="panel-custom-heading" id="accordion1Heading4" role="tab">
                             <p class="panel-custom-title">
-                              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="#accordion1Collapse4" aria-controls="accordion1Collapse4">
+                              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="" aria-controls="accordion1Collapse4">
                                 <i class="fa fa-money"></i>&nbsp;&nbsp;{{trans('publico/labels.lblCosto')}}
                               </a>
                             </p>
                           </div>
-                          <div class="panel-custom-collapse collapse" id="accordion1Collapse4" role="tabpanel" aria-labelledby="accordion1Heading4">
+                          <div class="panel-custom-collapse collapse in" id="accordion1Collapse4" role="tabpanel" aria-labelledby="accordion1Heading4">
                             <div class="panel-custom-body">
                               <h1> {{$detalles->precio_desde}}</h1>
                             </div>
@@ -226,12 +229,12 @@
                         <div class="panel panel-custom panel-custom-default">
                           <div class="panel-custom-heading" id="accordion1Heading5" role="tab">
                             <p class="panel-custom-title">
-                              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="#accordion1Collapse5" aria-controls="accordion1Collapse5">
+                              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="" aria-controls="accordion1Collapse5">
                                 <i class="fa fa-group"></i>&nbsp;&nbsp;{{trans('back/admin.titleSocialRed')}}
                               </a>
                             </p>
                           </div>
-                          <div class="panel-custom-collapse collapse" id="accordion1Collapse5" role="tabpanel" aria-labelledby="accordion1Heading5">
+                          <div class="panel-custom-collapse collapse in" id="accordion1Collapse5" role="tabpanel" aria-labelledby="accordion1Heading5">
                             <div class="panel-custom-body">
                               @foreach($detalles->redes as $red)
                                 @if($red->url != '')
@@ -247,12 +250,12 @@
                         <div class="panel panel-custom panel-custom-default">
                           <div class="panel-custom-heading" id="accordion1Heading6" role="tab">
                             <p class="panel-custom-title">
-                              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="#accordion1Collapse6" aria-controls="accordion1Collapse6">
+                              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="" aria-controls="accordion1Collapse6">
                                 <i class="fa fa-list"></i>&nbsp;&nbsp;{{trans('publico/labels.titleEstablecimiento')}}
                               </a>
                             </p>
                           </div>
-                          <div class="panel-custom-collapse collapse" id="accordion1Collapse6" role="tabpanel" aria-labelledby="accordion1Heading6">
+                          <div class="panel-custom-collapse collapse in" id="accordion1Collapse6" role="tabpanel" aria-labelledby="accordion1Heading6">
                             <div class="panel-custom-body">
                               @foreach($listPropiedades as $propiedad)
                                 @if($propiedad->id_servicio_establecimiento_usuario != null)
@@ -280,16 +283,16 @@
                           <div class="panel panel-custom panel-custom-default">
                             <div class="panel-custom-heading" id="accordion1Heading7" role="tab">
                               <p class="panel-custom-title">
-                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="#accordion1Collapse7" aria-controls="accordion1Collapse7">
+                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="" aria-controls="accordion1Collapse7">
                                   <i class="fa fa-hashtag"></i>&nbsp;&nbsp;{{trans('publico/labels.titleHashtags')}}
                                 </a>
                               </p>
                             </div>
-                            <div class="panel-custom-collapse collapse" id="accordion1Collapse7" role="tabpanel" aria-labelledby="accordion1Heading7">
+                            <div class="panel-custom-collapse collapse in" id="accordion1Collapse7" role="tabpanel" aria-labelledby="accordion1Heading7">
                               <div class="panel-custom-body">
                                 @foreach($tagsList as $tag)
                                 @if($tag  != '')
-                                  <h6 style="font-size: 14px;"><a href="{!!asset('/Search')!!}?s=#{{$tag}}">#{{$tag}}</a></h6>
+                                  <h6 style="font-size: 14px;"><a href="{!!asset('/Search')!!}?s={{$tag}}">#{{$tag}}</a></h6>
                                 @endif
                                 @endforeach
                               </div>

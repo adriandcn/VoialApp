@@ -57,7 +57,7 @@
       <!-- Breadcrumbs & Page title-->
       <!-- Breadcrumbs & Page title-->
 
-      <section class="page-title breadcrumbs-elements page-title-inset-1" style="background: white;">
+      <section class="page-title breadcrumbs-elements page-title-inset-1" style="background: white;padding-bottom: 0;">
         <div class="shell">
           <div class="page-title__overlay box-skew box-skew-var-1"><span class="box-skew__item"></span>
             <div class="page-title-text">{{$postDetails->title}}</div>
@@ -77,7 +77,7 @@
         </div>
       </section>
       
-      <section class="section-sm bg-white blog-wrap">
+      <section class="section-sm bg-white blog-wrap" style="padding-top: 0;">
         <div class="shell">
           <!-- <h1>Blog</h1> -->
           <div class="range range-50 range-center range-sm-justify">

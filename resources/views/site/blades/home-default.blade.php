@@ -74,6 +74,15 @@
           </div>
         </div>
     </section>
+    <br>
+    <div class="heading-group" style="text-align: center;">
+      <h1>Servicios de salud</h1>
+      <h6 class="text-regular">Voilàpp.city</h6>
+      <hr>
+    </div>
+    <br>
+    <br>
+    <br>
     @foreach ($serviciosList as $servicio)
     <section>
         <div class="parallax-container">

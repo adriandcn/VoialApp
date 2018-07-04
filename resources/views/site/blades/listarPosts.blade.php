@@ -69,7 +69,7 @@
               <ul class="breadcrumbs-custom">
                 <li><a href="{{asset('/')}}">{{ trans('publico/labels.lblHome')}}</a></li>
                 <li><a href="{{asset('/mis-servicios')}}">{{ trans('publico/labels.lblPathMyServices')}}</a></li>
-                <li>{{ trans('publico/labels.lblPathEditPostServ')}}</li>
+                <!-- <li>{{ trans('publico/labels.lblPathEditPostServ')}}</li> -->
                 <li>{{ $servicio->nombre_servicio}}</li>
               </ul>
             </div>

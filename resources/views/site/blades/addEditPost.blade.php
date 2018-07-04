@@ -67,7 +67,7 @@
               <ul class="breadcrumbs-custom">
                 <li><a href="{{asset('/')}}">{{ trans('publico/labels.lblHome')}}</a></li>
                 <li><a href="{{asset('/mis-servicios')}}">{{ trans('publico/labels.lblPathMyServices')}}</a></li>
-                <li><a href="{{asset('/listado-de-post')}}">{{ trans('publico/labels.lblPathPosts')}}</a></li>
+                <!-- <li><a href="{{asset('/mis-servicios')}}">{{ trans('publico/labels.lblPathPosts')}}</a></li> -->
                 <li>{{ trans('publico/labels.lblPathAddPost')}}</li>
               </ul>
             </div>
@@ -138,12 +138,12 @@
                             {{ trans('publico/labels.lblbtnSave')}}
                             <span></span></button>
                           @if(Session::has('idUsServ')) 
-                          <a class="button-primary button" href="{{asset('/listado-de-post')}}">
+                          <a class="button-primary button" href="{{asset('/mis-servicios')}}">
                             {{ trans('publico/labels.lblBtnCancel')}}
                             <span></span>
                           </a>
                           @else
-                          <a class="button-primary button" href="{{asset('/listado-de-post')}}">
+                          <a class="button-primary button" href="{{asset('/mis-servicios')}}">
                             {{ trans('publico/labels.lblBtnCancel')}}
                             <span></span>
                           </a>

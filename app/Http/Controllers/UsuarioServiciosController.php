@@ -1179,8 +1179,9 @@ class UsuarioServiciosController extends Controller
         // return response()->json(['abc' => $catalogoServicios]);
         $controlDashboard = $gestion->getControlDashboard(session('operador_id'));
         $listServiciosAll = $gestion->getServiciosOperadorAll(session('operador_id'));
-        // return response()->json(['abc' => $listServiciosAll->total()]);
-        return view('site.blades.dashboard', compact('listServiciosUnicos', 'listServiciosAll', 'data', "operador", 'controlDashboard','catalogoServicios'));
+        $postList = $gestion->getPostsUsuarioOperador(session('operador_id'));
+        // return response()->json(['abc' => session('operador_id')]);
+        return view('site.blades.dashboard', compact('listServiciosUnicos', 'listServiciosAll', 'data', "operador", 'controlDashboard','catalogoServicios','postList'));
         }
     public function getAllServicios1($id_usuario_servicio, Request $request, ServiciosOperadorRepository $gestion)
 
@@ -1687,11 +1688,32 @@ class UsuarioServiciosController extends Controller
         ));
     }
 
+    public function addPostRedactor(Request $request)
+    {
+
+        $formFields = [];
+        parse_str($request->formData, $formFields);
+        $returnHTML = 'crear-editar-post/' . $formFields['id_servicio'] . '/nw';
+        $existService = DB::table('usuario_servicios')->where('id',$formFields['id_servicio'])->count();
+        if ($existService == 0) {
+            $request->session()->put('id_usuario_servicio_post', $formFields['id_servicio']);
+            return response()->json(array(
+                'success' => false,
+                'error' => $returnHTML
+            ));
+        }
+        return response()->json(array(
+            'success' => true,
+            'redirectto' => $returnHTML
+        ));
+    }
+
     public function addEditPost(Request $request, PublicServiceRepository $gestionPublic,ServiciosOperadorRepository $gestion)
     {
         $idUserServBlog = $request->session()->get('id_usuario_servicio_post');        
         $servicio = $gestionPublic->obtenerDetallesServicio($idUserServBlog);
         $listPost  = $gestion->getPostUsuarioServicio($idUserServBlog);
+        // return response()->json($idUserServBlog);
         return view('site.blades.listarPosts', compact('servicio','listPost'));
     }
 
@@ -1707,7 +1729,7 @@ class UsuarioServiciosController extends Controller
         $formFields['date_fin'] = $date_hasta;
         $formFields['status'] = (array_key_exists('status',$formFields))?($formFields['status'] == 'on')?1:0:0;
         $saved = $gestion->savePost($formFields['id_usuario_servicio'],$formFields,$formFields['id']);
-        return response()->json(['success' => true, 'redirectto' => 'listado-de-post']);
+        return response()->json(['success' => true, 'redirectto' => 'mis-servicios']);
     }
 
     public function getPostDetails($idPost, ServiciosOperadorRepository $gestion)
@@ -1732,6 +1754,7 @@ class UsuarioServiciosController extends Controller
             $data['html'] = '';
             $data['date_ini'] = date("Y/m/d");
             $data['date_fin'] = date("Y/m/d");
+            $data['id_operador'] = session('operador_id');
             $postData = $gestion->savePost($idUsuarioServ,$data,null);
         }else{
             $postData = Post::find($idPost);
@@ -1756,6 +1779,26 @@ class UsuarioServiciosController extends Controller
             return $view;
             }
         return response()->json(['data'=>$lastPosts]);
+    }
+
+    public function getLastPostCreatedCarousel(Request $request,ServiciosOperadorRepository $gestion)
+    {
+        $lastPosts = $gestion->lastPostCreated(null,20);
+        if (count($lastPosts) == 0) {
+            return '';
+            // return response()->json(['data' => $lastPosts]);
+        }
+        $view = View::make('reusable.recentPostsCarousel')->with('lastPosts', $lastPosts);
+        if ($request->ajax())
+            {
+            $sections = $view->rendersections();
+            return Response::json($sections);
+            // return  Response::json($sections['contentPanel']);
+            }
+          else
+            {
+            return $view;
+            }
     }
 
     public function getPopularPosts($idUsuarioServ,ServiciosOperadorRepository $gestion,Request $request)

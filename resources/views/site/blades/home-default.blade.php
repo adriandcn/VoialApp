@@ -67,6 +67,13 @@
         </div>
       </section>
       <br>
+    <section>
+        <div class="row">
+          <div class="col-lg-12">
+            <div id="cousel-posts"></div>
+          </div>
+        </div>
+    </section>
     @foreach ($serviciosList as $servicio)
     <section>
         <div class="parallax-container">
@@ -202,6 +209,38 @@
           $('#videoIframe').attr('src',url);
           $('#modal-full-video').modal('show');
         }
+
+        function getLastPosts(){
+          var url = dirServer + "public/lastPostsList";
+          $.ajax({
+              type: "GET",
+              url: url,
+              data: {}
+          }).done(function(newHtml) {
+              $('#cousel-posts').html(newHtml.recentPost);
+              $('.owl-carousel').owlCarousel({
+                  stagePadding: 50,
+                  loop:true,
+                  margin:10,
+                  nav:true,
+                  responsive:{
+                      0:{
+                          items:1
+                      },
+                      600:{
+                          items:3
+                      },
+                      1000:{
+                          items:5
+                      }
+                  },
+                  autoplay:true,
+                  autoplayTimeout:1000,
+                  autoplayHoverPause:true
+              });
+          });
+        }
+        getLastPosts();
       </script>
     </div>
     <!-- END PANEL-->

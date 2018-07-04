@@ -103,4 +103,7 @@ return [
     'lblInstitucion' => 'Institución',
     'altInstitucion' => 'Insituciones en las cuales presta su servicio',
     'altObservaciones' => 'Agregue información extra eje: Telefono de emergencia, horario de almuerzo ...',
+    'lblAddPost' => 'Crear Post',
+    'descriptionPostList' => 'En esta sección puedes acceder a los posts creados o crear uno nuevo',
+    'ServiceId' => 'Id del servicio'
 ];

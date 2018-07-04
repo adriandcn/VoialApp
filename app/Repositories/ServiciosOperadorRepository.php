@@ -993,6 +993,16 @@ Actualizar tabla de busqueda
         return $arrayPosts;
     }
 
+    //Entrega el arreglo de posts por usuario operador
+    public function getPostsUsuarioOperador($id_operador) {
+        $posts = new $this->post;
+        $arrayPosts = $posts::where('id_operador', '=', $id_operador)
+                             // ->where('status',1)
+                             ->orderBy('id', 'DESC')
+                             ->get();
+        return $arrayPosts;
+    }
+
     //Entrega el arreglo de posts por usuario servicio
     public function postDetailsById($idPost) {
         $posts = $this->post;
@@ -1030,7 +1040,7 @@ Actualizar tabla de busqueda
             $post->html = $data['html'];
             $post->date_ini = $data['date_ini'];
             $post->date_fin = $data['date_fin'];
-            echo $data['status'];
+            // $post->id_operador = $data['id_operador'];
             $post->status = (array_key_exists('status',$data)) ? intval($data['status']) : 0;
             $post->save();
             // $post->id_usuario_servicio = $data['id_usuario_servicio']; 
@@ -1041,9 +1051,10 @@ Actualizar tabla de busqueda
             $post->title = $data['title']; 
             $post->slug = $data['slug']; 
             $post->image = $data['image']; 
-            $post->html = $data['html']; 
+            $post->html = $data['html'];
             $post->date_ini = $data['date_ini'];
             $post->date_fin = $data['date_fin'];
+            $post->id_operador = $data['id_operador'];
             $post->views = 0; 
             $post->status = 1; 
             $post->id_usuario_servicio = $id_usuario_servicio; 
@@ -1060,12 +1071,21 @@ Actualizar tabla de busqueda
 
     }
 
-    public function lastPostCreated($id_usuario_servicio,$data,$limit = 5) {
-        $recentPost = $this->post->where('status',1)
+    public function lastPostCreated($id_usuario_servicio = null,$data,$limit = 5) {
+        if ($id_usuario_servicio != null ) {
+            $recentPost = $this->post->where('status',1)
                         ->where('id_usuario_servicio',$id_usuario_servicio)
                         ->orderBy('created_at','DESC')
                         ->limit($limit)
                         ->get();
+        }else{
+            $recentPost = $this->post->where('status',1)
+                        ->join('usuario_operadores','id_operador','=','id_usuario_op')
+                        ->orderBy('posts.created_at','DESC')
+                        ->limit($limit)
+                        ->get();
+        }
+        
         return $recentPost;
     }
 

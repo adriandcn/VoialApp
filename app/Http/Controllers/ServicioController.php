@@ -1139,14 +1139,32 @@ class ServicioController extends Controller
         {
         $campos = ['id_catalogo_servicios', 'nombre_servicio', 'nombre_servicio_eng', 'descripcion', 'image'];
         $campos_serv = ['id', 'nombre_servicio', 'detalle_servicio'];
-        $dataCatalogo = DB::table('catalogo_servicios')->select($campos)->where('id_catalogo_servicios', $idCatalogo)->first();
-        $padresList = DB::table('catalogo_servicios')->select($campos)->where('id_padre', $idCatalogo)->where('estado_catalogo_servicios', 1)->get();
+        $dataCatalogo = DB::table('catalogo_servicios')
+                        ->select($campos)
+                        ->where('id_catalogo_servicios', $idCatalogo)
+                        ->first();
+        $padresList = DB::table('catalogo_servicios')
+                        ->select($campos)->where('id_padre', $idCatalogo)
+                        ->where('estado_catalogo_servicios', 1)
+                        ->get();
         $findedServ = [];
         $tendenciasList = $catalogoServicios->getTendencias($idCatalogo);
         $campos = ['id_catalogo_servicios', 'nombre_servicio', 'nombre_servicio_eng', 'nivel', 'id_padre', 'image'];
-        $exceptCatalogolist = DB::table('catalogo_servicios')->select($campos)->where('estado_catalogo_servicios', 1)->where('id_padre', $idCatalogo)->orderBy('orden', 'ASC')->limit(4)->get();
+        $exceptCatalogolist = DB::table('catalogo_servicios')
+                            ->select($campos)
+                            ->where('estado_catalogo_servicios', 1)
+                            ->where('id_padre', $idCatalogo)
+                            ->orderBy('orden', 'ASC')
+                            ->limit(4)
+                            ->get();
         $exceptCatalogo = array_pluck($exceptCatalogolist, 'id_catalogo_servicios');
-        $catalogoServiciosExtra = DB::table('catalogo_servicios')->select($campos)->where('estado_catalogo_servicios', 1)->where('id_padre', $idCatalogo)->whereNotIn('id_catalogo_servicios', $exceptCatalogo)->orderBy('nombre_servicio', 'ASC')->get();
+        $catalogoServiciosExtra = DB::table('catalogo_servicios')
+                            ->select($campos)
+                            ->where('estado_catalogo_servicios', 1)
+                            ->where('id_padre', $idCatalogo)
+                            ->whereNotIn('id_catalogo_servicios', $exceptCatalogo)
+                            ->orderBy('nombre_servicio', 'ASC')
+                            ->get();
         return view('site.blades.servicios-list-level-2', compact('catalogoServiciosExtra', 'exceptCatalogolist', 'idCatalogo', 'dataCatalogo', 'tendenciasList'));
         // return response()->json(array('success' => true, 'exceptCatalogo' => $exceptCatalogolist ,'catalogoServiciosExtra' => $catalogoServiciosExtra));
         }
@@ -1166,26 +1184,38 @@ class ServicioController extends Controller
         {
         $campos = ['id_catalogo_servicios', 'nombre_servicio', 'nombre_servicio_eng', 'descripcion', 'image'];
         $campos_serv = ['usuario_servicios.id', 'nombre_servicio', 'detalle_servicio', 'images.filename', 'id_catalogo_servicio'];
-        $dataCatalogo = DB::table('catalogo_servicios')->select($campos)->where('id_catalogo_servicios', $idCatalogo)->first();
-        $dataSubCatalogo = DB::table('catalogo_servicios')->select($campos)->where('id_catalogo_servicios', $idSubCatalogo)->first();
-        $padresList = DB::table('catalogo_servicio_establecimiento')->select('nombre_servicio_est', 'id')->where('id_catalogo_servicio', $idCatalogo)->get();
+        $dataCatalogo = DB::table('catalogo_servicios')
+                        ->select($campos)
+                        ->where('id_catalogo_servicios', $idCatalogo)
+                        ->first();
+        $dataSubCatalogo = DB::table('catalogo_servicios')
+                            ->select($campos)
+                            ->where('id_catalogo_servicios', $idSubCatalogo)
+                            ->first();
+        $padresList = DB::table('catalogo_servicio_establecimiento')
+                        ->select('nombre_servicio_est', 'id')
+                        ->where('id_catalogo_servicio', $idCatalogo)
+                        ->get();
         $findedServ = [];
-        $qServ = DB::table('usuario_servicios')->select($campos_serv)->leftJoin('images', 'usuario_servicios.id', '=', 'images.id_usuario_servicio')->where('id_catalogo_servicio', $idSubCatalogo)->where(function ($query)
-            {
-            $query->where('images.profile_pic', '=', 1);
-            $query->where('images.id_catalogo_fotografia', '=', 1);
-            $query->orWhereNull('images.profile_pic');
-            })->groupBy('usuario_servicios.id')->get();
+        $qServ = DB::table('usuario_servicios')
+                ->select($campos_serv)
+                ->leftJoin('images', 'usuario_servicios.id', '=', 'images.id_usuario_servicio')
+                ->where('id_catalogo_servicio', $idSubCatalogo)
+                ->where('estado_servicio',1)
+                ->where(function ($query){
+                    $query->where('images.profile_pic', '=', 1);
+                    $query->where('images.id_catalogo_fotografia', '=', 1);
+                    $query->orWhereNull('images.profile_pic');
+                    })
+                ->groupBy('usuario_servicios.id')
+                ->get();
         $findedServ = $qServ;
-        // foreach ($qServ as $serv) {
-        //     array_push($findedServ, $serv);
-        // }
         return view('site.blades.servicios-list-level-3', compact('findedServ', 'padresList', 'dataCatalogo', 'dataSubCatalogo'));
         return response()->json(array(
             'success' => true,
             'redirectto' => $findedServ
         ));
-        }
+    }
     public function getServiciosByOperador($idOperador)
 
         {
@@ -1199,14 +1229,20 @@ class ServicioController extends Controller
     public function cleanFilterServicios($catalogo, $idSubCatalogo, catalogoServiciosRepository $catalogoServicios)
 
         {
-        $campos_serv = ['usuario_servicios.id', 'nombre_servicio', 'detalle_servicio', 'images.filename', 'latitud_servicio', 'longitud_servicio'];
-        $qServ = DB::table('usuario_servicios')->leftJoin('images', 'usuario_servicios.id', '=', 'images.id_usuario_servicio')->select($campos_serv)->where('id_catalogo_servicio', $idSubCatalogo)->where(function ($query)
-            {
-            $query->where('images.profile_pic', '=', 1);
-            $query->where('images.id_catalogo_fotografia', '=', 1);
-            $query->orWhereNull('images.profile_pic');
-            })->groupBy('usuario_servicios.id')->get();
-        return $qServ;
+            $campos_serv = ['usuario_servicios.id', 'nombre_servicio', 'detalle_servicio', 'images.filename', 'latitud_servicio', 'longitud_servicio'];
+            $qServ = DB::table('usuario_servicios')
+                    ->leftJoin('images', 'usuario_servicios.id', '=', 'images.id_usuario_servicio')
+                    ->select($campos_serv)
+                    ->where('id_catalogo_servicio', $idSubCatalogo)
+                    ->where('usuario_servicios.estado_servicio',1)
+                    ->where('usuario_servicios.estado_servicio_usuario',1)
+                    ->where(function ($query)
+                {
+                $query->where('images.profile_pic', '=', 1);
+                $query->where('images.id_catalogo_fotografia', '=', 1);
+                $query->orWhereNull('images.profile_pic');
+                })->groupBy('usuario_servicios.id')->get();
+            return $qServ;
         }
     public function applyServicesFilter(Request $request, catalogoServiciosRepository $catalogoServicios, PublicServiceRepository $gestion)
 

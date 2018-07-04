@@ -300,6 +300,8 @@ class catalogoServiciosRepository extends BaseRepository
 			->leftJoin('images', 'usuario_servicios.id', '=', 'images.id_usuario_servicio')
 
 			->whereIn('usuario_servicios.id', $arrayEstServ)
+			->where('usuario_servicios.estado_servicio',1)
+            ->where('usuario_servicios.estado_servicio_usuario',1)
 
 			->where('id_catalogo_servicio',$idSubCatalogo)
 

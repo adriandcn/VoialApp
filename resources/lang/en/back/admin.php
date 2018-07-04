@@ -104,4 +104,7 @@ return [
     'lblPlaceholderInstitucion' => 'New clinic was ....',
     'altInstitucion' => 'Insitutions in which you provide your service',
     'altObservations' => 'Add extra axis information: Emergency telephone number, lunch schedule ...',
+    'lblAddPost' => 'Create Post',
+    'descriptionPostList' => 'In this section you can access the publications created or create a new one',
+    'ServiceId' => 'Service id'
 ];

@@ -78,7 +78,7 @@
       </section>
       <section class="section-xs bg-white">
           <div class="shell shell-inset-xs-15 shell-offset-left-xlg-50">
-              <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-plus" href="{{asset('/crear-editar-promocion')}}/{{$servicio->id}}">
+              <a class="button button-facebook button-icon button-icon-sm button-icon-right fa-plus" href="{{asset('/crear-editar-promocion')}}/{{$servicio->id}}/nw">
                 {{ trans('publico/labels.lblBtnAddPromotion')}}<span></span>
               </a>
               <br>
@@ -95,7 +95,7 @@
                 @else
                 @foreach ($listPromociones as $promotion)
                   <div class="cell-sm-3 cell-xs-6 wow rotate-custom rotate-custom-left" data-wow-delay=".15s">
-                      <a class="layouts-link" href="../crear-editar-promocion/{{$promotion->id}}">
+                      <a class="layouts-link" href="../crear-editar-promocion/{{$promotion->id}}/edt">
                         <img class="img-shadow" src="{{asset('/images/icon')}}/{{$promotion->filename}}" alt="" width="270" height="393"/>
                         <div class="eventCard">
                           <h6 style="margin-top: 1px;">

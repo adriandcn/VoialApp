@@ -2396,7 +2396,7 @@ function saveEvento(event, idEvent) {
         }
         if (data.success) {
             $('#spinnerSave').hide();
-            window.location.href = data.redirectto;
+            window.location.href = dirServer + 'public/' + data.redirectto;
         }
     });
     posting.error(function(e) {

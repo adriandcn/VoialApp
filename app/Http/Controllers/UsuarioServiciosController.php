@@ -64,33 +64,35 @@ class UsuarioServiciosController extends Controller
         return view('site.blades.events-Promotions-Admin', compact('listEventos', 'servicio','listPromociones'));
     }
 
-    public function getViewAdd(ServiciosOperadorRepository $gestion, $idPromotion = null,Request $request)
+    public function getViewAdd(ServiciosOperadorRepository $gestion, $idPromotion = null,$typeAdd = 'nw',Request $request)
     {
 
-        $promotion = $gestion->getPromocion($idPromotion);
-        if (count($promotion) > 0) {
+        if ($typeAdd == 'edt') {
             $promotion = $gestion->getPromocion($idPromotion);
+            // return response()->json(['data'=>$idPromotion]);
             $listTypePhoto  = DB::table('catalogo_tipo_fotografia')->get();
             $request->session()->put('idUsServ',$promotion[0]->id_usuario_servicio);
             return view('site.blades.addEvent', compact('promotion','listTypePhoto'));
         }
-        $idUsuarioServicio = $request->session()->get('idUsServ');
-        $listTypePhoto  = DB::table('catalogo_tipo_fotografia')->get();
-        $promotion = [];
-        $formFields['id_usuario_servicio'] = $idUsuarioServicio;
-        $formFields['id_catalogo_tipo_fotografia'] = 2;
-        $formFields['descripcion_promocion'] = 'NA';
-        $formFields['nombre_promocion'] = 'NA';
-        $formFields['estado_promocion'] = 'NA';
-        $formFields['fecha_inicio'] = \Carbon\Carbon::now()->toDateTimeString();
-        $formFields['fecha_fin'] = \Carbon\Carbon::now()->toDateTimeString();
-        $formFields['tags'] = 'NA';
-        $formFields['precio_normal'] = 0;
-        $formFields['descuento'] = 0;
-        $formFields['codigo_promocion'] = 'NA';
-        $formFields['observaciones_promocion'] = 'NA';
-        $objSaved = $gestion->storeNewPromocion($formFields);
-        $request->session()->put('idPromotionAdded',$objSaved->id);
+        if ($typeAdd == 'nw') {
+            $idUsuarioServicio = $request->session()->get('idUsServ');
+            $listTypePhoto  = DB::table('catalogo_tipo_fotografia')->get();
+            $promotion = [];
+            $formFields['id_usuario_servicio'] = $idUsuarioServicio;
+            $formFields['id_catalogo_tipo_fotografia'] = 2;
+            $formFields['descripcion_promocion'] = 'NA';
+            $formFields['nombre_promocion'] = 'NA';
+            $formFields['estado_promocion'] = 'NA';
+            $formFields['fecha_inicio'] = \Carbon\Carbon::now()->toDateTimeString();
+            $formFields['fecha_fin'] = \Carbon\Carbon::now()->toDateTimeString();
+            $formFields['tags'] = 'NA';
+            $formFields['precio_normal'] = 0;
+            $formFields['descuento'] = 0;
+            $formFields['codigo_promocion'] = 'NA';
+            $formFields['observaciones_promocion'] = 'NA';
+            $objSaved = $gestion->storeNewPromocion($formFields);
+            $request->session()->put('idPromotionAdded',$objSaved->id);
+        }
         // return response()->json(['data'=>$save]);
         return view('site.blades.addEvent', compact('promotion','listTypePhoto'));
     }
@@ -596,7 +598,7 @@ class UsuarioServiciosController extends Controller
             // Gestion de actualizacion de busqueda
             $search = $formFields['nombre_promocion'] . " " . $formFields['descripcion_promocion'] . " " . $formFields['codigo_promocion'] . " " . $formFields['tags'] . " " . $formFields['observaciones_promocion'];
             $gestion->storeUpdateSerchEngine($Promocion, 1, $formFields['id'], $search,$formFields['tags']);
-            $returnHTML = ('../administracion-de-promociones/' . $formFields['id_usuario_servicio']);
+            $returnHTML = ('administracion-de-promociones/' . $formFields['id_usuario_servicio']);
             }
           else
             { 
@@ -606,7 +608,7 @@ class UsuarioServiciosController extends Controller
             // Gestion de nueva de busqueda
             $search = $formFields['nombre_promocion'] . " " . $formFields['descripcion_promocion'] . " " . $formFields['codigo_promocion'];
             $gestion->storeSearchEngine($formFields['id_usuario_servicio'], $search, 1, $object->id,$formFields['tags']);
-            $returnHTML = ('../administracion-de-promociones/' . $formFields['id_usuario_servicio']);
+            $returnHTML = ('administracion-de-promociones/' . $formFields['id_usuario_servicio']);
             }
         return response()->json(array(
             'success' => true,

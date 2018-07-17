@@ -310,21 +310,41 @@
                               <h5><i class="fa fa-money"></i>&nbsp;&nbsp;{{ trans('publico/labels.titlePromotions')}}</h5>
                           </div>
                           <div class="range range-50">
-                            <div class="owl-carousel owl-theme">
+                            <div class="owl-carousel owl-theme" auto-play="false">
                               @foreach ($listPromociones as $promotion)
                                 <div class="item" style=" margin-right: 10px;">
-                                      <a class="layouts-link" href="../detalles-de-promocion/{{$promotion->id}}">
-                                        <img class="img-shadow" src="{{asset('/images/icon')}}/{{$promotion->filename}}" alt="" width="270" height="393"/>
-                                        <div class="eventCard">
-                                          <h6 style="margin-top: 1px;">
-                                            <i class="fa fa-money"></i>&nbsp;&nbsp;{{$promotion->nombre_promocion}}
-                                          </h6>
-                                          <hr>
-                                          <h7><i class="fa fa-dot"></i>&nbsp;&nbsp;Fecha: {{$promotion->created_at}}</h7><br>
-                                          <h7><i class="fa fa-dot"></i>&nbsp;&nbsp;Descripción: {{str_limit($promotion->descripcion_promocion, $limit = 15, $end = '...')}}</h7>
-                                          <h7><i class="fa fa-dot"></i>&nbsp;&nbsp;Descuento % : {{$promotion->descuento}}</h7>
-                                        </div>
-                                      </a>
+
+                                  <div class="panel-custom-group-wrap" style="margin-top: 50px;">
+                                    <!-- Bootstrap collapse-->
+                                    <div class="panel-custom-group text-left" id="accordion1" role="tablist">
+                                        <!-- Bootstrap panel-->
+                                          <div class="panel panel-custom panel-custom-default">
+                                              <div class="panel-custom-heading" style="text-align: center;">
+                                                <img class="img-shadow" src="{{asset('/images/icon')}}/{{$promotion->filename}}" alt="" width="270" height="393"/>
+                                                  <p class="panel-custom-title" style="font-size: 16px; margin: 20px; font-weight: bolder;">
+                                                          <i class="fa fa-money"></i>&nbsp;&nbsp;{{$promotion->nombre_promocion}}
+                                                  </p>
+                                              </div>
+                                              <div class="panel-custom-collapse collapse in" id="accordion1Collapse1" role="tabpanel" aria-labelledby="accordion1Heading1">
+                                                  <div class="panel-custom-body">
+                                                      Descripción :
+                                                      <h6 style="font-size: 14px;"> {{$promotion->descripcion_promocion}}</h6> 
+                                                      Fecha :
+                                                      <h6 style="font-size: 14px; text-align: justify;">
+                                                        {{$promotion->created_at}}
+                                                      </h6>
+                                                      Descuento %:
+                                                      <h6 style="font-size: 14px; text-align: justify;">
+                                                        {{$promotion->descuento}}
+                                                      </h6>
+                                                      <h6 style="text-align: center; font-size: 18px; ">
+                                                        <a href="{{asset('/')}}detalles-de-promocion/{{$promotion->id}}">Ver más</a>
+                                                      </h6>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                    </div>
+                                </div>
                                 </div>
                               @endforeach
                             </div>

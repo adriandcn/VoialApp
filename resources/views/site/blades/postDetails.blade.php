@@ -60,7 +60,12 @@
       <section class="page-title breadcrumbs-elements page-title-inset-1" style="background: white;padding-bottom: 0;">
         <div class="shell">
           <div class="page-title__overlay box-skew box-skew-var-1"><span class="box-skew__item"></span>
-            <div class="page-title-text">{{$postDetails->title}}</div>
+            <div class="page-title-text">Post de: <br>
+              {{$servicioData->nombre_servicio}}
+              <br>
+              <br>
+              {{$postDetails->title}}
+            </div>
             <!-- <p class="big text-width-medium">{{$postDetails->descripcion}}</p> -->
             <!-- path sistema -->
             <br>
@@ -112,11 +117,11 @@
             </div>
             <div class="cell-lg-3 cell-sm-4 cell-xs-8">
               <div class="blog-item text-left">
-                <h6>Recent posts</h6>
+                <h6>Post recientes</h6>
                 <div id="recentPosts"></div>
               </div>
               <div class="blog-item text-left">
-                <h6>Popular posts</h6>
+                <h6>Posts populares</h6>
                 <div id="popularPosts"></div>
               </div>
               <!-- <div class="blog-item">

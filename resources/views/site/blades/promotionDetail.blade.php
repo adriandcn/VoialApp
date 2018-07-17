@@ -60,8 +60,9 @@
       <section class="page-title breadcrumbs-elements page-title-inset-1" style="background: white;">
         <div class="shell">
           <div class="page-title__overlay box-skew box-skew-var-1"><span class="box-skew__item"></span>
-            <div class="page-title-text">{{$promotion->nombre_promocion}}</div>
-            <p class="big text-width-medium">{{$promotion->descripcion_promocion}}</p>
+            <div class="page-title-text">Promoción en: <br>
+              {{$servicioData->nombre_servicio}} <br><br>
+              {{$promotion->nombre_promocion}}</div>
             <!-- path sistema -->
             <br>
             <hr>
@@ -73,6 +74,13 @@
                 <li>{{$promotion->nombre_promocion}}</li>
               </ul>
             </div>
+          </div>
+        </div>
+      </section>
+      <section class="bg-white">
+        <div class="shell">
+          <div class="range range-50">
+              <p class="big cell-md-12" style="text-align: justify;    margin-bottom: 40px;">{{$promotion->descripcion_promocion}}</p>
           </div>
         </div>
       </section>
@@ -113,8 +121,21 @@
                         <div class="unit__left"><img class="img-circle" src="images/user-02-70x70.jpg" alt="" width="70" height="70"/>
                         </div>
                         <div class="unit__body">
-                          <time datetime="2017-03-15">{{trans('publico/labels.lblPromoDescuento')}}</time>
+                          <time datetime="2017-03-05">{{trans('publico/labels.lblPromotionPrecioNormal')}}</time>
                           <h6><a href="single-post.html">{{$promotion->precio_normal}}</a></h6>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="cell-md-6 cell-sm-6 cell-xs-12">
+                    <div class="post-mini post-sidebar">
+                      <div class="unit unit-horizontal unit-spacing-md">
+                        <div class="unit__left">
+                          <img class="img-circle" src="images/user-02-70x70.jpg" alt="" width="70" height="70"/>
+                        </div>
+                        <div class="unit__body">
+                          <time datetime="2017-03-15">{{trans('publico/labels.lblPromoDescuento')}}</time>
+                          <h6><a href="single-post.html">{{$promotion->descuento}}</a></h6>
                         </div>
                       </div>
                     </div>
@@ -125,8 +146,8 @@
                         <div class="unit__left"><img class="img-circle" src="images/user-02-70x70.jpg" alt="" width="70" height="70"/>
                         </div>
                         <div class="unit__body">
-                          <time datetime="2017-03-05">{{trans('publico/labels.lblPromotionPrecioNormal')}}</time>
-                          <h6><a href="single-post.html">{{$promotion->descuento}}</a></h6>
+                          <time datetime="2017-03-05">Precio Final</time>
+                          <h6><a href="single-post.html">{{floatval($promotion->precio_normal)-floatval(($promotion->precio_normal)*($promotion->descuento/100))}}</a></h6>
                         </div>
                       </div>
                     </div>

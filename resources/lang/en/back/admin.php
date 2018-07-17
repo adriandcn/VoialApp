@@ -106,5 +106,6 @@ return [
     'altObservations' => 'Add extra axis information: Emergency telephone number, lunch schedule ...',
     'lblAddPost' => 'Create Post',
     'descriptionPostList' => 'In this section you can access the publications created or create a new one',
-    'ServiceId' => 'Service id'
+    'ServiceId' => 'Service id',
+    'lblAddImagePost' => 'Add image to Post'
 ];

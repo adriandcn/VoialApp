@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\ServiciosOperadorRepository;
@@ -23,6 +24,7 @@ use Illuminate\Contracts\Auth\Guard;
 use \Crypt;
 use DB;
 use App\Models\Post;
+
 
 class UsuarioServiciosController extends Controller
 
@@ -54,29 +56,31 @@ class UsuarioServiciosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getEventos(Guard $auth, $idServicio, ServiciosOperadorRepository $gestion,PublicServiceRepository $gestionPublic,Request $request)
-    {
-        $request->session()->put('idUsServ',$idServicio);
+    public function getEventos(Guard $auth, $idServicio, ServiciosOperadorRepository $gestion, PublicServiceRepository $gestionPublic, Request $request)
+
+        {
+        $request->session()->put('idUsServ', $idServicio);
         $servicio = $gestionPublic->obtenerDetallesServicio($idServicio);
         $listEventos = $gestion->getEventosUsuarioServicio($idServicio);
-        $listPromociones  = $gestion->getPromocionesUsuarioServicio($idServicio);
+        $listPromociones = $gestion->getPromocionesUsuarioServicio($idServicio);
         // return response()->json(['data' => $listPromociones]);
-        return view('site.blades.events-Promotions-Admin', compact('listEventos', 'servicio','listPromociones'));
-    }
+        return view('site.blades.events-Promotions-Admin', compact('listEventos', 'servicio', 'listPromociones'));
+        }
+    public function getViewAdd(ServiciosOperadorRepository $gestion, $idPromotion = null, $typeAdd = 'nw', Request $request)
 
-    public function getViewAdd(ServiciosOperadorRepository $gestion, $idPromotion = null,$typeAdd = 'nw',Request $request)
-    {
-
-        if ($typeAdd == 'edt') {
+        {
+        if ($typeAdd == 'edt')
+            {
             $promotion = $gestion->getPromocion($idPromotion);
             // return response()->json(['data'=>$idPromotion]);
-            $listTypePhoto  = DB::table('catalogo_tipo_fotografia')->get();
-            $request->session()->put('idUsServ',$promotion[0]->id_usuario_servicio);
-            return view('site.blades.addEvent', compact('promotion','listTypePhoto'));
-        }
-        if ($typeAdd == 'nw') {
+            $listTypePhoto = DB::table('catalogo_tipo_fotografia')->get();
+            $request->session()->put('idUsServ', $promotion[0]->id_usuario_servicio);
+            return view('site.blades.addEvent', compact('promotion', 'listTypePhoto'));
+            }
+        if ($typeAdd == 'nw')
+            {
             $idUsuarioServicio = $request->session()->get('idUsServ');
-            $listTypePhoto  = DB::table('catalogo_tipo_fotografia')->get();
+            $listTypePhoto = DB::table('catalogo_tipo_fotografia')->get();
             $promotion = [];
             $formFields['id_usuario_servicio'] = $idUsuarioServicio;
             $formFields['id_catalogo_tipo_fotografia'] = 2;
@@ -91,21 +95,20 @@ class UsuarioServiciosController extends Controller
             $formFields['codigo_promocion'] = 'NA';
             $formFields['observaciones_promocion'] = 'NA';
             $objSaved = $gestion->storeNewPromocion($formFields);
-            $request->session()->put('idPromotionAdded',$objSaved->id);
-        }
+            $request->session()->put('idPromotionAdded', $objSaved->id);
+            }
         // return response()->json(['data'=>$save]);
-        return view('site.blades.addEvent', compact('promotion','listTypePhoto'));
-    }
-
+        return view('site.blades.addEvent', compact('promotion', 'listTypePhoto'));
+        }
     public function getViewEdit(ServiciosOperadorRepository $gestion, $idPromotion = null, Request $request)
-    {
 
+        {
         $promotion = $gestion->getPromocion($idPromotion);
-        $listTypePhoto  = DB::table('catalogo_tipo_fotografia')->get();
-        $request->session()->put('idUsServ',$promotion[0]->id_usuario_servicio);
+        $listTypePhoto = DB::table('catalogo_tipo_fotografia')->get();
+        $request->session()->put('idUsServ', $promotion[0]->id_usuario_servicio);
         // return response()->json(['data'=>$promotion]);
-        return view('site.blades.addEvent', compact('promotion','listTypePhoto'));
-    }
+        return view('site.blades.addEvent', compact('promotion', 'listTypePhoto'));
+        }
     public function getImagesDescription(Request $request, $tipo, $idtipo, ServiciosOperadorRepository $gestion)
 
         {
@@ -135,10 +138,11 @@ class UsuarioServiciosController extends Controller
         return view('Admin.canton');
         }
     public function getParroquiaDescipcion(Request $request)
+
         {
-            //
-            $request->session()->put('parroquia_admin', 1);
-            return view('Admin.parroquia');
+        //
+        $request->session()->put('parroquia_admin', 1);
+        return view('Admin.parroquia');
         }
     /**
      * Despliega los servicios por operador
@@ -580,34 +584,35 @@ class UsuarioServiciosController extends Controller
         // obtengo llas promociones por id
         if (isset($formFields['id']))
             {
-                if ($formFields['id'] != '' || $formFields['id'] != null) {
-                    $Promocion = $gestion->getPromocion($formFields['id']);
+            if ($formFields['id'] != '' || $formFields['id'] != null)
+                {
+                $Promocion = $gestion->getPromocion($formFields['id']);
                 }
             }
         // si ya existe el objeto se hace el update
-            $dateSplit = explode(" - ", $formFields['daterange']);
-            $date_desde = $dateSplit[0];
-            $date_hasta = $dateSplit[1];
-            $formFields['fecha_inicio'] = $date_desde;
-            $formFields['fecha_fin'] = $date_hasta;
-            $formFields['estado_promocion'] = ($formFields['estado_promocion'] == 'on')?true:false;
+        $dateSplit = explode(" - ", $formFields['daterange']);
+        $date_desde = $dateSplit[0];
+        $date_hasta = $dateSplit[1];
+        $formFields['fecha_desde'] = $date_desde;
+        $formFields['fecha_hasta'] = $date_hasta;
+        $formFields['estado_promocion'] = ($formFields['estado_promocion'] == 'on') ? true : false;
         if (isset($Promocion))
             {
             // logica update
             $gestion->storeUpdatePromocion($formFields, $Promocion);
             // Gestion de actualizacion de busqueda
             $search = $formFields['nombre_promocion'] . " " . $formFields['descripcion_promocion'] . " " . $formFields['codigo_promocion'] . " " . $formFields['tags'] . " " . $formFields['observaciones_promocion'];
-            $gestion->storeUpdateSerchEngine($Promocion, 1, $formFields['id'], $search,$formFields['tags']);
+            $gestion->storeUpdateSerchEngine($Promocion, 1, $formFields['id'], $search, $formFields['tags']);
             $returnHTML = ('administracion-de-promociones/' . $formFields['id_usuario_servicio']);
             }
           else
-            { 
-            //logica de insert
+            {
+            // logica de insert
             // Arreglo de inputs prestados que vienen del formulario
             $object = $gestion->storeNewPromocion($formFields);
             // Gestion de nueva de busqueda
             $search = $formFields['nombre_promocion'] . " " . $formFields['descripcion_promocion'] . " " . $formFields['codigo_promocion'];
-            $gestion->storeSearchEngine($formFields['id_usuario_servicio'], $search, 1, $object->id,$formFields['tags']);
+            $gestion->storeSearchEngine($formFields['id_usuario_servicio'], $search, 1, $object->id, $formFields['tags']);
             $returnHTML = ('administracion-de-promociones/' . $formFields['id_usuario_servicio']);
             }
         return response()->json(array(
@@ -732,22 +737,22 @@ class UsuarioServiciosController extends Controller
         // }
         $validator = Validator::make($formFields, Eventos_usuario_Servicio::$rulesP);
         if ($validator->fails())
-        {
+            {
             return response()->json(array(
                 'fail' => true,
                 'errors' => $validator->getMessageBag()->toArray()
             ));
-        }
+            }
         // obtengo llas promociones por id
-            $dateSplit = explode(" - ", $formFields['daterange']);
-            $date_desde = $dateSplit[0];
-            $date_hasta = $dateSplit[1];
-            $formFields['fecha_desde'] = $date_desde;
-            $formFields['fecha_hasta'] = $date_hasta;
-            $formFields['longitud_evento'] = $formFields['longitud_servicio'];
-            $formFields['latitud_evento'] = $formFields['latitud_servicio'];
-            $formFields['estado_evento'] = ($formFields['estado_evento'] == 'ok')?true:false;
-            $formFields['permanente'] = true;
+        $dateSplit = explode(" - ", $formFields['daterange']);
+        $date_desde = $dateSplit[0];
+        $date_hasta = $dateSplit[1];
+        $formFields['fecha_desde'] = $date_desde;
+        $formFields['fecha_hasta'] = $date_hasta;
+        $formFields['longitud_evento'] = $formFields['longitud_servicio'];
+        $formFields['latitud_evento'] = $formFields['latitud_servicio'];
+        $formFields['estado_evento'] = ($formFields['estado_evento'] == 'ok') ? true : false;
+        $formFields['permanente'] = true;
         if (isset($formFields['id']))
             {
             $Evento = $gestion->getEvento($formFields['id']);
@@ -988,7 +993,7 @@ class UsuarioServiciosController extends Controller
         // VERIFICO SI EL USUARIO YA EXISTE EN LA TABLA BOOKING
         $verificarUsuarioExiste = $gestion->getVerificarUsuario($identificadorUser, $emailUser);
         // GENERO LA FECHA Y EL IDENTIFICADOR
-        $fecha = CarbonCarbon::now()->toDateTimeString();
+        $fecha = \Carbon\Carbon::now()->toDateTimeString();
         $uuid = $idUser . "_" . $fecha;
         /*if($verificarUsuarioExiste == 0){
         // HAGO EL INSERT EN LA TABLA BOOKING_USER CON LA INFORMACION DEL USUARIO
@@ -1051,7 +1056,7 @@ class UsuarioServiciosController extends Controller
         // VERIFICO SI EL USUARIO YA EXISTE EN LA TABLA BOOKING
         $verificarUsuarioExiste = $gestion->getVerificarUsuario($identificadorUser, $emailUser);
         // GENERO LA FECHA Y EL IDENTIFICADOR
-        $fecha = CarbonCarbon::now()->toDateTimeString();
+        $fecha = \Carbon\Carbon::now()->toDateTimeString();
         $uuid = $idUser . "_" . $fecha;
         // ENCRIPTO EL IDENTIFICADOR
         $encriptado = Crypt::encrypt($uuid);
@@ -1158,32 +1163,28 @@ class UsuarioServiciosController extends Controller
         $view = view('responsive.dashboard', compact('data', 'listServicios'));
         return ($view);
         }
-    public function tablaServiciosRes(Guard $auth, ServiciosOperadorRepository $gestion, OperadorRepository $operador_gestion, catalogoServiciosRepository $catalogoRepo,Request $request)
+    public function tablaServiciosRes(Guard $auth, ServiciosOperadorRepository $gestion, OperadorRepository $operador_gestion, catalogoServiciosRepository $catalogoRepo, Request $request)
+
         {
         //
         $operador = $operador_gestion->getOperadorTipo($auth->user()->id, session('tip_oper'));
         $data['tipoOperador'] = session('tip_oper');
-        if (session('operador_id') == '' || session('operador_id') == null) {
+        if (session('operador_id') == '' || session('operador_id') == null)
+            {
             $operador_id = $operador_gestion->getOperador($auth->user()->id);
             $request->session()->put('operador_id', $operador_id[0]->id_usuario_op);
-        }
-
+            }
         $listServiciosUnicos = $gestion->getServiciosOperadorUnicos(session('operador_id'));
-        
-        //listado de arcordion
-        $campos = ['id_catalogo_servicios','nombre_servicio','nombre_servicio_eng','nivel'];
-        $padresList = DB::table('catalogo_servicios')
-                            ->select($campos)
-                            ->where('nivel',1)
-                            ->get();
+        // listado de arcordion
+        $campos = ['id_catalogo_servicios', 'nombre_servicio', 'nombre_servicio_eng', 'nivel'];
+        $padresList = DB::table('catalogo_servicios')->select($campos)->where('nivel', 1)->get();
         $catalogoServicios = $catalogoRepo->recursiveListForAcordion($padresList);
-
         // return response()->json(['abc' => $catalogoServicios]);
         $controlDashboard = $gestion->getControlDashboard(session('operador_id'));
         $listServiciosAll = $gestion->getServiciosOperadorAll(session('operador_id'));
         $postList = $gestion->getPostsUsuarioOperador(session('operador_id'));
         // return response()->json(['abc' => session('operador_id')]);
-        return view('site.blades.dashboard', compact('listServiciosUnicos', 'listServiciosAll', 'data', "operador", 'controlDashboard','catalogoServicios','postList'));
+        return view('site.blades.dashboard', compact('listServiciosUnicos', 'listServiciosAll', 'data', "operador", 'controlDashboard', 'catalogoServicios', 'postList'));
         }
     public function getAllServicios1($id_usuario_servicio, Request $request, ServiciosOperadorRepository $gestion)
 
@@ -1209,11 +1210,10 @@ class UsuarioServiciosController extends Controller
             }
         }
     public function getImagesDescription1(Request $request, $tipo, $idtipo, ServiciosOperadorRepository $gestion)
+
         {
         $ImgPromociones = $gestion->getGenericImagePromocionesOperador($tipo, $idtipo);
-        $view = View::make('reusable.imageContainerDescriptionAjax1')
-            ->with('serverDir', config('global.serverDir'))
-            ->with('ImgPromociones', $ImgPromociones);
+        $view = View::make('reusable.imageContainerDescriptionAjax1')->with('serverDir', config('global.serverDir'))->with('ImgPromociones', $ImgPromociones);
         if ($request->ajax())
             {
             $sections = $view->rendersections();
@@ -1226,6 +1226,7 @@ class UsuarioServiciosController extends Controller
             }
         }
     public function getImagesServicio(Request $request, $tipo, $idtipo, ServiciosOperadorRepository $gestion)
+
         {
         $ImgPromociones = $gestion->getGenericImagePromocionesOperador($tipo, $idtipo);
         $view = View::make('reusable.imageContainerDescriptionAjax2')->with('ImgPromociones', $ImgPromociones);
@@ -1241,6 +1242,7 @@ class UsuarioServiciosController extends Controller
             }
         }
     public function getProvincias1(Request $request, ServiciosOperadorRepository $gestion, $id_provincia, $id_canton, $id_parroquia)
+
         {
         $listProvincias = $gestion->getProvincias();
         $view = View::make('reusable.provincia1')->with('provincias', $listProvincias)->with('id_provincia', $id_provincia)->with('id_canton', $id_canton)->with('id_parroquia', $id_parroquia);
@@ -1675,52 +1677,53 @@ class UsuarioServiciosController extends Controller
         return redirect('/listarPromocion');
         }
     public function getEventEditView($id_usuario_servicio, Request $request, ServiciosOperadorRepository $gestion)
-    {
+
+        {
         $request->session()->put('id_usuario_servicio_promo', $id_usuario_servicio);
         return redirect('/listarPromocion');
-    }
-
+        }
     public function getPostList($id_usuario_servicio, $idCatalogo, Request $request, ServiciosOperadorRepository $gestion)
-    {
+
+        {
         $request->session()->put('id_usuario_servicio_post', $id_usuario_servicio);
         $returnHTML = 'listado-de-post';
         return response()->json(array(
             'success' => true,
             'redirectto' => $returnHTML
         ));
-    }
-
+        }
     public function addPostRedactor(Request $request)
-    {
 
+        {
         $formFields = [];
         parse_str($request->formData, $formFields);
         $returnHTML = 'crear-editar-post/' . $formFields['id_servicio'] . '/nw';
-        $existService = DB::table('usuario_servicios')->where('id',$formFields['id_servicio'])->count();
-        if ($existService == 0) {
+        $existService = DB::table('usuario_servicios')->where('id', $formFields['id_servicio'])->count();
+        if ($existService == 0)
+            {
             $request->session()->put('id_usuario_servicio_post', $formFields['id_servicio']);
             return response()->json(array(
                 'success' => false,
                 'error' => $returnHTML
             ));
-        }
+            }
         return response()->json(array(
             'success' => true,
             'redirectto' => $returnHTML
         ));
-    }
+        }
+    public function addEditPost(Request $request, PublicServiceRepository $gestionPublic, ServiciosOperadorRepository $gestion)
 
-    public function addEditPost(Request $request, PublicServiceRepository $gestionPublic,ServiciosOperadorRepository $gestion)
-    {
-        $idUserServBlog = $request->session()->get('id_usuario_servicio_post');        
+        {
+        $idUserServBlog = $request->session()->get('id_usuario_servicio_post');
         $servicio = $gestionPublic->obtenerDetallesServicio($idUserServBlog);
-        $listPost  = $gestion->getPostUsuarioServicio($idUserServBlog);
+        $listPost = $gestion->getPostUsuarioServicio($idUserServBlog);
         // return response()->json($idUserServBlog);
-        return view('site.blades.listarPosts', compact('servicio','listPost'));
-    }
-
+        return view('site.blades.listarPosts', compact('servicio', 'listPost'));
+        }
     public function saveEditPost(Request $request, ServiciosOperadorRepository $gestion)
-    {
+
+        {
         $formFields = $request->all();
         // parse_str($inputData, $formFields);
         $formFields['image'] = null;
@@ -1729,26 +1732,30 @@ class UsuarioServiciosController extends Controller
         $date_hasta = $dateSplit[1];
         $formFields['date_ini'] = $date_desde;
         $formFields['date_fin'] = $date_hasta;
-        $formFields['status'] = (array_key_exists('status',$formFields))?($formFields['status'] == 'on')?1:0:0;
-        $saved = $gestion->savePost($formFields['id_usuario_servicio'],$formFields,$formFields['id']);
+        $formFields['status'] = (array_key_exists('status', $formFields)) ? ($formFields['status'] == 'on') ? 1 : 0 : 0;
+        $saved = $gestion->savePost($formFields['id_usuario_servicio'], $formFields, $formFields['id']);
         return response()->json(['success' => true, 'redirectto' => 'mis-servicios']);
-    }
-
-    public function getPostDetails($idPost, ServiciosOperadorRepository $gestion)
-    {
-        $postDetails = $gestion->postDetailsById($idPost);
-        if (count($postDetails) > 0) {
-            $servicioData =DB::table('usuario_servicios')->where('id',$postDetails->id_usuario_servicio)->select(['id','nombre_servicio'])->first();
-        }else{
-            return view('errors.404');
         }
-        // return response()->json(['data' => $postDetails]);
-        return view('site.blades.postDetails', compact('postDetails','servicioData'));
-    }
+    public function getPostDetails($idPost, ServiciosOperadorRepository $gestion)
 
-    public function getViewaddEditPost($idUsuarioServ,$idPost = null,ServiciosOperadorRepository $gestion,Request $request)
-    {
-        if ($idPost == 'nw') {
+        {
+        $postDetails = $gestion->postDetailsById($idPost);
+        if (count($postDetails) > 0)
+            {
+            $servicioData = DB::table('usuario_servicios')->where('id', $postDetails->id_usuario_servicio)->select(['id', 'nombre_servicio'])->first();
+            }
+          else
+            {
+            return view('errors.404');
+            }
+        // return response()->json(['data' => $postDetails]);
+        return view('site.blades.postDetails', compact('postDetails', 'servicioData'));
+        }
+    public function getViewaddEditPost($idUsuarioServ, $idPost = null, ServiciosOperadorRepository $gestion, Request $request)
+
+        {
+        if ($idPost == 'nw')
+            {
             $data = [];
             $data['title'] = '';
             $data['slug'] = null;
@@ -1757,18 +1764,20 @@ class UsuarioServiciosController extends Controller
             $data['date_ini'] = date("Y/m/d");
             $data['date_fin'] = date("Y/m/d");
             $data['id_operador'] = session('operador_id');
-            $postData = $gestion->savePost($idUsuarioServ,$data,null);
-        }else{
+            $postData = $gestion->savePost($idUsuarioServ, $data, null);
+            }
+          else
+            {
             $postData = Post::find($idPost);
-        }
+            }
         // return response()->json(['data'=>$postData]);
-        $request->session()->put('idPostAdded',$postData->id);
+        $request->session()->put('idPostAdded', $postData->id);
         return view('site.blades.addEditPost', compact('postData'));
-    }
+        }
+    public function getLastPostCreated($idUsuarioServ, ServiciosOperadorRepository $gestion, Request $request)
 
-    public function getLastPostCreated($idUsuarioServ,ServiciosOperadorRepository $gestion,Request $request)
-    {
-        $lastPosts = $gestion->lastPostCreated($idUsuarioServ,5);
+        {
+        $lastPosts = $gestion->lastPostCreated($idUsuarioServ, 5);
         $view = View::make('reusable.recentPosts')->with('lastPosts', $lastPosts);
         if ($request->ajax())
             {
@@ -1780,16 +1789,17 @@ class UsuarioServiciosController extends Controller
             {
             return $view;
             }
-        return response()->json(['data'=>$lastPosts]);
-    }
+        return response()->json(['data' => $lastPosts]);
+        }
+    public function getLastPostCreatedCarousel(Request $request, ServiciosOperadorRepository $gestion)
 
-    public function getLastPostCreatedCarousel(Request $request,ServiciosOperadorRepository $gestion)
-    {
-        $lastPosts = $gestion->lastPostCreated(null,20);
-        if (count($lastPosts) == 0) {
+        {
+        $lastPosts = $gestion->lastPostCreated(null, 20);
+        if (count($lastPosts) == 0)
+            {
             return '';
             // return response()->json(['data' => $lastPosts]);
-        }
+            }
         $view = View::make('reusable.recentPostsCarousel')->with('lastPosts', $lastPosts);
         if ($request->ajax())
             {
@@ -1801,11 +1811,11 @@ class UsuarioServiciosController extends Controller
             {
             return $view;
             }
-    }
+        }
+    public function getPopularPosts($idUsuarioServ, ServiciosOperadorRepository $gestion, Request $request)
 
-    public function getPopularPosts($idUsuarioServ,ServiciosOperadorRepository $gestion,Request $request)
-    {
-        $lastPosts = $gestion->popularPost($idUsuarioServ,5);
+        {
+        $lastPosts = $gestion->popularPost($idUsuarioServ, 5);
         $view = View::make('reusable.popularPosts')->with('lastPosts', $lastPosts);
         if ($request->ajax())
             {
@@ -1816,7 +1826,6 @@ class UsuarioServiciosController extends Controller
             {
             return $view;
             }
-        return response()->json(['data'=>$lastPosts]);
+        return response()->json(['data' => $lastPosts]);
+        }
     }
-
-}

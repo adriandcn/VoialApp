@@ -1361,6 +1361,7 @@ function GetDataAjaxImagenesRes(url) {
         dataType: 'json',
         success: function(data) {
             $("#renderPartialImagenes").html(data.contentImagenes);
+            $('#spinnerLoadImagesAdmin').hide();
         },
         error: function(data) {
             var errors = data.responseJSON;
@@ -1436,16 +1437,12 @@ function AjaxContainerVistaPrevia($id_usuario_servicio) {
 
 function AjaxSaveDetailsFotografia1($formulario, $id) {
     $('.error').html('');
-
-    $("#spinnerSave").show();
-
     var $form = $('#' + $formulario),
         data = $form.serialize() + '&ids=' + $id + '&actionImage=update';
     url = $form.attr("action");
     var posting = $.post(url, { formData: data });
     posting.done(function(data) {
         if (data.fail) {
-
             var errorString = '<ul>';
             $.each(data.errors, function(key, value) {
                 errorString += '<li>' + value + '</li>';
@@ -1454,16 +1451,13 @@ function AjaxSaveDetailsFotografia1($formulario, $id) {
             $("#target").LoadingOverlay("hide", true);
             //$('#error').html(errorString);
             $('.rowerror').html(errorString);
-
         }
         if (data.success) {
-
             $("#target").LoadingOverlay("hide", true);
             //window.location.href = data.redirectto;
 
         } //success
     }); //done
-
 }
 
 function GetDataAjaxProvincias1(url) {
@@ -1651,9 +1645,6 @@ function GetDataAjaxDescripcion1(url) {
 function AjaxContainerRetrunMessageImagenRes($formulario, $id) {
 
     $('.error').html('');
-
-    //$("#spinnerSave").show();
-
     var $form = $('#' + $formulario),
         data = $form.serialize() + '&ids=' + $id;
     url = $form.attr("action");
@@ -1666,18 +1657,16 @@ function AjaxContainerRetrunMessageImagenRes($formulario, $id) {
             });
             errorString += '</ul>';
             $("#target").LoadingOverlay("hide", true);
-            //$('#error').html(errorString);
             $('.rowerror').html(errorString);
-
         }
         if (data.success) {
-            //$("#target").LoadingOverlay("hide", true);
             $('.register').fadeOut(); //hiding Reg form
             var successContent = '' + data.message + '';
-
+            if (typeof loadImagesPost == 'function') {
+                loadImagesPost();
+            }
         } //success
     }); //done
-
 }
 
 //COMPARTIDO.JS

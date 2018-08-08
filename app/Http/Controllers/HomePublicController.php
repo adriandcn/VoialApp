@@ -822,6 +822,20 @@ class HomePublicController extends Controller {
 
     }
 
+    public function getMorePromotions($idSubCatalogo, catalogoServiciosRepository $catalogoServicios,Request $request) {
+
+        $morePromotions = $catalogoServicios->getLastPromotionsBySubCatalog($idSubCatalogo);
+
+        // return response()->json(['morePromotions' => $morePromotions->items()]);
+        $view = View::make('site.partial.morePromotions', array(
+            'data' => $morePromotions
+        ));
+        if ($request->ajax()) {
+            $sections = $view->rendersections();
+            return Response::json($sections);
+        }
+    }
+
     //Obtiene las descripcion de la atraccion elegida
     public function getCatalogoDescripcion(PublicServiceRepository $gestion, $id_atraccion, $id_catalogo) {
         $agent = new Agent();
@@ -1203,6 +1217,7 @@ class HomePublicController extends Controller {
         if ($idPromotion != null) {
             $promotion = $gestion->getPromocion($idPromotion);
             $servicioData = $gestion->getServiciosOperadorporIdUsuarioServicio($promotion[0]->id_usuario_servicio);
+            // return $promotion;
             if (count($promotion) > 0 ) {
                 $promotion = $promotion[0];
                 $servicioData = $servicioData[0];

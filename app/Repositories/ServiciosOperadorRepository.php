@@ -582,7 +582,16 @@ class ServiciosOperadorRepository extends BaseRepository
     public function getServiciosOperadorporIdUsuarioServicio($id_usuario_servicio)
 
         {
-        $user_servicio = Usuario_Servicio::where('id', '=', $id_usuario_servicio)->get();
+        $user_servicio = Usuario_Servicio::
+                        select(['usuario_servicios.*',DB::Raw('IFNULL(filename, "default_service.png" ) filename')])
+                        ->where('usuario_servicios.id', '=', $id_usuario_servicio)
+                        ->leftJoin('images', 'usuario_servicios.id', '=', 'images.id_usuario_servicio')
+                        ->where(function ($query){
+                            $query->where('images.profile_pic', '=', 1);
+                            $query->where('images.id_catalogo_fotografia', '=', 1);
+                            $query->orWhereNull('images.profile_pic');
+                        })
+                        ->get();
         return $user_servicio;
         }
     public function getPermiso($id)

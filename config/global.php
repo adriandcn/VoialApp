@@ -9,5 +9,6 @@ return [
     // 'serverDir' => 'http://localhost/VoialApp/',
     // 'serverDir' => 'http://voilappbeta.com/',
     'freeImageLimit' => 5,
-    'urlHomeSite' => 'http://voilappbeta.com'
+    'urlHomeSite' => 'http://voilappbeta.com',
+    'defaultPromotionImg' => 'default_promotion.png'
 ];

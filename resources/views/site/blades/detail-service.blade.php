@@ -163,9 +163,10 @@
                                             <div class="panel panel-custom panel-custom-default">
                                                 <div class="panel-custom-heading" id="accordion1HeadingOBservaciones" role="tab">
                                                     <p class="panel-custom-title">
-                                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="" aria-controls="accordion1CollapseObservaciones"><i class="fa fa-eye"></i>&nbsp;&nbsp;{{ trans('publico/labels.lblPromotionObservations')}}
-
-                              </a>
+                                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="" aria-controls="accordion1CollapseObservaciones">
+                                                            <i class="fa fa-eye"></i>&nbsp;&nbsp;
+                                                            {{ trans('publico/labels.lblPromotionObservations')}}
+                                                        </a>
                                                     </p>
                                                 </div>
                                                 <div class="panel-custom-collapse collapse in" id="accordion1CollapseObservaciones" role="tabpanel" aria-labelledby="accordion1HeadingOBservaciones">
@@ -180,9 +181,10 @@
                                             <div class="panel panel-custom panel-custom-default">
                                                 <div class="panel-custom-heading" id="accordion1HeadingInstitucion" role="tab">
                                                     <p class="panel-custom-title">
-                                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="" aria-controls="accordion1CollapseInstitucion"><i class="fa fa-building"></i>&nbsp;&nbsp;{{ trans('back/admin.lblInstitucion')}}
-
-                              </a>
+                                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="" aria-controls="accordion1CollapseInstitucion">
+                                                            <i class="fa fa-building"></i>&nbsp;&nbsp;
+                                                            {{ trans('back/admin.lblInstitucion')}}
+                                                        </a>
                                                     </p>
                                                 </div>
                                                 <div class="panel-custom-collapse collapse in" id="accordion1CollapseInstitucion" role="tabpanel" aria-labelledby="accordion1HeadingInstitucion">
@@ -196,9 +198,10 @@
                                             <div class="panel panel-custom panel-custom-default">
                                                 <div class="panel-custom-heading" id="accordion1Heading3" role="tab">
                                                     <p class="panel-custom-title">
-                                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="" aria-controls="accordion1Collapse3"><i class="fa fa-envelope"></i>&nbsp;&nbsp;{{trans('publico/labels.titleContact')}}
+                                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="" aria-controls="accordion1Collapse3">
+                                                            <i class="fa fa-envelope"></i>&nbsp;&nbsp;{{trans('publico/labels.titleContact')}}
 
-                              </a>
+                                                        </a>
                                                     </p>
                                                 </div>
                                                 <div class="panel-custom-collapse collapse in" id="accordion1Collapse3" role="tabpanel" aria-labelledby="accordion1Heading3">
@@ -206,8 +209,10 @@
                                                         {{trans('publico/labels.lblPhone')}} :
                                                         <h6 style="font-size: 14px;"> {{$detalles->telefono}}</h6> {{trans('publico/labels.lblWebPage')}} :
                                                         <h6 style="font-size: 14px;">
-
-                                <a href="{{(strpos($detalles->pagina_web,'http') === false)?'http://' . $detalles->pagina_web : $detalles->pagina_web}}" target="_new">{{$detalles->pagina_web}}</a></h6> {{trans('publico/labels.lblEmail')}} :
+                                                            <a href="{{(strpos($detalles->pagina_web,'http') === false)?'http://' . $detalles->pagina_web : $detalles->pagina_web}}" target="_new">
+                                                                {{$detalles->pagina_web}}
+                                                            </a>
+                                                        </h6> {{trans('publico/labels.lblEmail')}} :
                                                         <h6 style="font-size: 14px;"> {{$detalles->correo_contacto}}</h6>
                                                     </div>
                                                 </div>
@@ -218,10 +223,8 @@
                                                 <div class="panel-custom-heading" id="accordion1Heading4" role="tab">
                                                     <p class="panel-custom-title">
                                                         <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="" aria-controls="accordion1Collapse4">
-
-                                <i class="fa fa-money"></i>&nbsp;&nbsp;{{trans('publico/labels.lblCosto')}}
-
-                              </a>
+                                                             <i class="fa fa-money"></i>&nbsp;&nbsp;{{trans('publico/labels.lblCosto')}}
+                                                        </a>
                                                     </p>
                                                 </div>
                                                 <div class="panel-custom-collapse collapse in" id="accordion1Collapse4" role="tabpanel" aria-labelledby="accordion1Heading4">
@@ -237,10 +240,8 @@
                                                 <div class="panel-custom-heading" id="accordion1Heading5" role="tab">
                                                     <p class="panel-custom-title">
                                                         <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="" aria-controls="accordion1Collapse5">
-
-                                <i class="fa fa-group"></i>&nbsp;&nbsp;{{trans('back/admin.titleSocialRed')}}
-
-                              </a>
+                                                            <i class="fa fa-group"></i>&nbsp;&nbsp;{{trans('back/admin.titleSocialRed')}}
+                                                        </a>
                                                     </p>
                                                 </div>
                                                 <div class="panel-custom-collapse collapse in" id="accordion1Collapse5" role="tabpanel" aria-labelledby="accordion1Heading5">
@@ -256,25 +257,20 @@
                                                 <div class="panel-custom-heading" id="accordion1Heading6" role="tab">
                                                     <p class="panel-custom-title">
                                                         <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="" aria-controls="accordion1Collapse6">
-
-                                <i class="fa fa-list"></i>&nbsp;&nbsp;{{trans('publico/labels.titleEstablecimiento')}}
-
-                              </a>
+                                                            <i class="fa fa-list"></i>&nbsp;&nbsp;{{trans('publico/labels.titleEstablecimiento')}}
+                                                        </a>
                                                     </p>
                                                 </div>
                                                 <div class="panel-custom-collapse collapse in" id="accordion1Collapse6" role="tabpanel" aria-labelledby="accordion1Heading6">
                                                     <div class="panel-custom-body">
                                                         @foreach($listPropiedades as $propiedad) @if($propiedad->id_servicio_establecimiento_usuario != null) @if($propiedad->id_padre == 0)
                                                         <h6 style="font-size: 14px;"> 
-
-                                      <i class="fa-check"></i>&nbsp;&nbsp;{{$propiedad->nombre_servicio_est}}
-
-                                    </h6> @else
+                                                            <i class="fa-check"></i>&nbsp;&nbsp;{{$propiedad->nombre_servicio_est}}
+                                                        </h6>
+                                                        @else
                                                         <h6 style="font-size: 12px; margin-left: 30px;"> 
-
-                                      <i class="fa-asterisk"></i>&nbsp;&nbsp;{{$propiedad->nombre_servicio_est}}
-
-                                    </h6> @endif @endif @endforeach
+                                                            <i class="fa-asterisk"></i>&nbsp;&nbsp;{{$propiedad->nombre_servicio_est}}
+                                                        </h6> @endif @endif @endforeach
                                                     </div>
                                                 </div>
                                             </div>

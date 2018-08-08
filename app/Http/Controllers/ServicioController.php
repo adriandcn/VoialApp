@@ -1180,8 +1180,8 @@ class ServicioController extends Controller
         ));
         }
     public function getServiciosByChildcatalogo($idCatalogo, $idSubCatalogo, catalogoServiciosRepository $catalogoServicios)
-
         {
+
         $campos = ['id_catalogo_servicios', 'nombre_servicio', 'nombre_servicio_eng', 'descripcion', 'image'];
         $campos_serv = ['usuario_servicios.id', 'nombre_servicio', 'detalle_servicio', 'images.filename', 'id_catalogo_servicio'];
         $dataCatalogo = DB::table('catalogo_servicios')
@@ -1210,11 +1210,10 @@ class ServicioController extends Controller
                 ->groupBy('usuario_servicios.id')
                 ->get();
         $findedServ = $qServ;
-        return view('site.blades.servicios-list-level-3', compact('findedServ', 'padresList', 'dataCatalogo', 'dataSubCatalogo'));
-        return response()->json(array(
-            'success' => true,
-            'redirectto' => $findedServ
-        ));
+        $lastPromotions = $catalogoServicios->getLastPromotionsBySubCatalog($idSubCatalogo);
+
+        // return response()->json($lastPromotions);
+        return view('site.blades.servicios-list-level-3', compact('findedServ', 'padresList', 'dataCatalogo', 'dataSubCatalogo','lastPromotions'));
     }
     public function getServiciosByOperador($idOperador)
 

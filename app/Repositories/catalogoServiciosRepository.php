@@ -7,13 +7,11 @@ namespace App\Repositories;
 
 
 use App\Models\User, App\Models\Role ,DB;
-
 use App\Models\Usuario_Servicio;
-
 use App\Models\Servicio_Establecimiento_Usuario;
-
 use App\Models\Tendencia;
-
+use App\Models\Promocion_Usuario_Servicio;
+use File;
 
 
 class catalogoServiciosRepository extends BaseRepository
@@ -55,14 +53,12 @@ class catalogoServiciosRepository extends BaseRepository
 	{
 
 		$this->level = 0;
-
 		$this->campos = ['id_catalogo_servicios','nombre_servicio','nombre_servicio_eng','nivel','id_padre','image'];
-
 		$this->arrayList = [];
-
 		$this->arrayForAcordion = [];
-
 		$this->tendenciasModel = new Tendencia();
+		$this->usuarioService = new Usuario_Servicio();
+		$this->promoUsuarioServicio = new Promocion_Usuario_Servicio();
 
 	}
 
@@ -87,15 +83,10 @@ class catalogoServiciosRepository extends BaseRepository
 	{		
 
 		$serviciosList = DB::table('catalogo_servicios')
-
 						->where('estado_catalogo_servicios',1)
-
 						->where('nivel',1)
-
 						->orderBy('orden','ASC')
-
 						->get();
-
 		return $serviciosList;
 
 	}
@@ -135,41 +126,24 @@ class catalogoServiciosRepository extends BaseRepository
 	{	
 
 		if ($level == null) {
-
 			$maxLevel = DB::table('catalogo_servicios')->max('nivel');
-
 			$level = $maxLevel;
-
 		}
 
 		if ($this->level < $level) {
-
 			foreach ($padresList as $child) {
-
 	            	array_push($this->arrayList, $child);
-
-	            }
-
+	        }
 			foreach ($padresList as $value) {
-
 		        $childList = DB::table('catalogo_servicios')
-
 	                            ->select($this->campos)
-
 	                            ->where('estado_catalogo_servicios',1)
-
 	                            ->where('id_padre',$value->id_catalogo_servicios)
-
 	                            ->get();
-
 				$this->level++;
-
 				$this->recursiveListInArray($childList,$level);
-
 			}
-
 		}
-
 		return $this->arrayList;
 
 	}
@@ -177,19 +151,13 @@ class catalogoServiciosRepository extends BaseRepository
 
 
 	public function getDifferentThan($differentThan)
-
 	{	
 
 		$lista = DB::table('catalogo_servicios')
-
 	                            ->select($this->campos)
-
 	                            ->where('id_padre','!=',$differentThan)
-
 	                            ->get();
-
 		return $lista;
-
 	}
 
 
@@ -201,56 +169,35 @@ class catalogoServiciosRepository extends BaseRepository
 
 
 		foreach ($padresList as $value) {
-
 	        $childList = DB::table('catalogo_servicios')
                             ->select($this->campos)
                             ->where('estado_catalogo_servicios',1)
                             ->where('id_padre',$value->id_catalogo_servicios)
                             ->orderBy('nombre_servicio','ASC')
                             ->get();
-
             // Cargar mensaje                
-
         	$message_catalogo = DB::table('mensajes_catalogo')
-
                         ->select('mensaje')
-
                         ->where('estado',1)
-
                         ->where('id_catalogo',$value->id_catalogo_servicios)
-
                         ->get();
-
             if (count($message_catalogo) > 0) {
-
                 $value->showMesage = true;
-
                 $value->mensaje = $message_catalogo[0]->mensaje;
-
             }else{
-
             	$value->showMesage = false;
-
                 $value->mensaje = null;
-
             }
 
         	if($value->nivel == 2){
-
             	array_push($this->arrayForAcordion,$value);
-
             }else{
-
             	$this->recursiveListForAcordion($childList);
-
             }
 
             if ($value->nivel == 1) {
-
             	$value->children = $this->arrayForAcordion;
-
 				$this->arrayForAcordion = [];
-
             }
 
 		}
@@ -266,74 +213,48 @@ class catalogoServiciosRepository extends BaseRepository
 	{	
 
 		$usuario_Servicio = new Usuario_Servicio();
-
 		$campos_serv = ['usuario_servicios.id','nombre_servicio','detalle_servicio','images.filename','latitud_servicio','longitud_servicio'];
-
 		// $finded = $usuario_Servicio->join('images', 'usuario_servicios.id', '=', 'images.id_usuario_servicio')
-
 		// 	->where('images.profile_pic', '=', 1)
-
 		// 	->whereIn('id_catalogo_servicio', $array)->get();
-
 		$servicio_establecimiento_usuario = new Servicio_Establecimiento_Usuario();
-
 		$findedEstablesimientos = $servicio_establecimiento_usuario
-
 			->select('id_usuario_servicio')
-
 			->whereIn('id_servicio_est', $array)
-
 			->groupBy('id_usuario_servicio')
-
 			->get();
 
 		$arrayEstServ = [];
 
 		foreach ($findedEstablesimientos as $value) {
-
 			array_push($arrayEstServ, $value->id_usuario_servicio);
-
 		}
 
 		$finded = $usuario_Servicio
-
 			->leftJoin('images', 'usuario_servicios.id', '=', 'images.id_usuario_servicio')
-
 			->whereIn('usuario_servicios.id', $arrayEstServ)
 			->where('usuario_servicios.estado_servicio',1)
             ->where('usuario_servicios.estado_servicio_usuario',1)
-
 			->where('id_catalogo_servicio',$idSubCatalogo)
-
 			->where(function($query){
                  $query->where('images.profile_pic','=',1);
                  $query->where('images.estado_fotografia','=',1);
                  $query->where('images.id_catalogo_fotografia','=',1);
                  $query->orWhereNull('images.profile_pic');
             })
-
             ->select($campos_serv)
             ->groupBy('usuario_servicios.id')
 			->get();
-
 		return $finded;
-
 	}
 
 
-
 	private function getIp() {
-
         if (!empty($_SERVER['HTTP_CLIENT_IP']))
-
             return $_SERVER['HTTP_CLIENT_IP'];
-
         if (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
-
             return $_SERVER['HTTP_X_FORWARDED_FOR'];
-
         return $_SERVER['REMOTE_ADDR'];
-
     }
 
 
@@ -341,37 +262,22 @@ class catalogoServiciosRepository extends BaseRepository
     public function getTendencias($idCatalogo = null){
 
         if ($idCatalogo != 'all' && $idCatalogo != null) {
-
             $tendenciasList = $this->tendenciasModel
-
                         ->join('tendencias_catalogo','idtendencia','=','idtendencias')
-
                         ->where('tendencias.status',1)
-
                         ->where('idCatalogo',$idCatalogo)
-
                         ->get();
-
         }else{
 
             $tendenciasList = $this->tendenciasModel
-
                         ->where('status',1)
-
                         ->get();
 
         }
-
-        
-
         foreach ($tendenciasList as $value) {
-
             $clics = DB::table('tendencias_clics')->where('idtendencia',$value->idtendencias)->count();
-
             $value->clics = $clics;
-
         }
-
         return $tendenciasList;
 
     }
@@ -379,57 +285,61 @@ class catalogoServiciosRepository extends BaseRepository
 
 
 	public function saveClickTendencias($idtendencia)
-
     {
 
-
-
         $ip = $this->getIp();
-
         if ($ip != '' || $ip != null) {
-
             $client = new Client();
-
             $res = $client->get('http://ip-api.com/json/186.46.201.39', ['fields' => '520191', 'lang' => 'en']);
-
             $status = $res->getStatusCode();
-
             if ($status == 200) {
-
                 $result = json_decode($res->getBody());
-
                 $query['provincia'] = $result->regionName;
-
                 $query['canton'] = $result->city;
-
             }
-
         }else{
-
             $query['provincia'] = null;
-
             $query['canton'] = null;
-
         }
-
         $insert = DB::table('tendencias_clics')
-
             ->insert(
-
                         [
-
                             'idtendencia' => $idtendencia,
-
                             'provincia' => $query['provincia'],
-
                             'canton' => $query['canton']
-
                         ]
-
                     );
-
         return ['error' => !$insert];
+    }
 
+    public function getLastPromotionsBySubCatalog($idSubCatalogo,$limit = 10)
+    {
+
+        $services = $this->usuarioService
+        			->select(['id'])
+        			->where('id_catalogo_servicio',$idSubCatalogo)
+        			->get()
+        			->pluck('id');
+        $data = $this->promoUsuarioServicio
+        		->whereIn('id_usuario_servicio',$services)
+        		->paginate($limit);
+
+        foreach ($data->items() as $promotion) {
+        	$image = DB::table('images')
+        			->where('images.profile_pic', '=', 1)
+        			->where('images.id_catalogo_fotografia', '=', 2)
+        			->where('images.id_auxiliar', '=', $promotion->id)
+        			->first();
+            if (count($image) > 0){
+            	$exist = File::exists(public_path() . '/images/icon/' . $image->filename);
+            	$promotion->filename = ($exist) ? $image->filename : config('global.defaultPromotionImg');
+                // $promotion->filename = $image->filename;
+            }
+            else{
+                $promotion->filename = config('global.defaultPromotionImg');
+            }
+        }
+        return $data;
     }
 
 

@@ -16,12 +16,29 @@ use Validator;
 use Jenssegers\Agent\Agent;
 use Illuminate\Support\Facades\Session;
 use App\Models\Review_Usuario_Servicio;
+use App\Models\Cod_Promotion;
+use App\Models\Usuario_Externo;
 use App\Jobs\VerifyReview;
 use App\Jobs\ContactosMail;
 use DB;
 use Mail;
+use Carbon\Carbon;
 
 class HomePublicController extends Controller {
+
+
+    public function __construct(){
+        $agent = new Agent();
+        $desk = $device = $agent->isMobile();
+        if ($desk == 1)
+            $desk = "mobile";
+        else {
+            $desk = "desk";
+        }
+        Session::put('device', $desk);
+        $this->codPromotionModel = new Cod_Promotion();
+        $this->codUsuarioExternonModel = new Usuario_Externo();
+    }
 
     private function getIp() {
         if (!empty($_SERVER['HTTP_CLIENT_IP']))
@@ -44,15 +61,15 @@ class HomePublicController extends Controller {
         // } catch (Exception $e) {
         //     $location = json_decode(file_get_contents("http://ipinfo.io/186.47.240.232"));
         // }
-        $agent = new Agent();
+        // $agent = new Agent();
 
-        $desk = $device = $agent->isMobile();
-        if ($desk == 1)
-            $desk = "mobile";
-        else {
-            $desk = "desk";
-        }
-        Session::put('device', $desk);
+        // $desk = $device = $agent->isMobile();
+        // if ($desk == 1)
+        //     $desk = "mobile";
+        // else {
+        //     $desk = "desk";
+        // }
+        // Session::put('device', $desk);
         $serviciosList = $catalogoServicios->getList();
         // $campos = ['id_catalogo_servicios','nombre_servicio','nombre_servicio_eng'];
         // $padresList = DB::table('catalogo_servicios')
@@ -838,15 +855,15 @@ class HomePublicController extends Controller {
 
     //Obtiene las descripcion de la atraccion elegida
     public function getCatalogoDescripcion(PublicServiceRepository $gestion, $id_atraccion, $id_catalogo) {
-        $agent = new Agent();
+        // $agent = new Agent();
 
-        $desk = $device = $agent->isMobile();
-        if ($desk == 1)
-            $desk = "mobile";
-        else {
-            $desk = "desk";
-        }
-        Session::put('device', $desk);
+        // $desk = $device = $agent->isMobile();
+        // if ($desk == 1)
+        //     $desk = "mobile";
+        // else {
+        //     $desk = "desk";
+        // }
+        // Session::put('device', $desk);
 
         $catalogo = $gestion->getCatalogoDetail($id_catalogo);
         $ServicioPrevio = $gestion->getAtraccionDetails($id_atraccion);
@@ -1238,6 +1255,52 @@ class HomePublicController extends Controller {
     public function getViewTerms()
     {
         return view('site.blades.termsConditions');
+    }
+
+    public function genCodePromotion($length = 10) {
+        $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+
+    public function getPromotion()
+    {
+        $inputData = Input::get('formData');
+        parse_str($inputData, $formFields);
+        // $this->codPromotionModel
+        // $this->codUsuarioExternonModel
+        $validator = Validator::make($formFields, Usuario_Externo::$rules,Usuario_Externo::$messages);
+        if ($validator->fails()) {
+            return response()->json(array(
+                        'fail' => true,
+                        'message' => $validator->messages()->first(),
+                        'errors' => $validator->getMessageBag()->toArray()
+            ));
+        } else {
+            $codePromotion = 'VAPP-' . $this->genCodePromotion(2) . '-' . Carbon::now()->format('d-m');
+            $transaction = DB::transaction(function() use($formFields,$codePromotion){
+                //guardar usuario externo
+                $itemUserExternal = $this->codUsuarioExternonModel;
+                $itemUserExternal->id_promo = $formFields['id_promo'];
+                $itemUserExternal->phone = $formFields['phone'];
+                $itemUserExternal->age = $formFields['age'];
+                $itemUserExternal->email = $formFields['email'];
+                $itemUserExternal->estado = 1;
+                $itemUserExternal->save();
+                //Save promotion
+                $itemPromotion = $this->codPromotionModel;
+                $itemPromotion->cod = $codePromotion;
+                $itemPromotion->id_promotion = $formFields['id_promo'];
+                $itemPromotion->email = $formFields['email'];
+                $itemPromotion->estado = 1;
+                $itemPromotion->save();
+            });
+            return response()->json(['success' => true]);
+        }
     }
 
 }

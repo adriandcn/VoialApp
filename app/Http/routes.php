@@ -81,6 +81,7 @@ Route::get('/crear-editar-promocion/{idPromotion}/{typeAdd?}', ['as' => 'getEven
 Route::post('/updateEvent', ['as' => 'AddEventst', 'uses' => 'UsuarioServiciosController@postPromocion', 'middleware' => 'notAuth']);
 Route::get('/detalles-de-promocion/{idPromotion?}', ['as' => 'AddEventst', 'uses' => 'HomePublicController@getDetailPromotion']);
 Route::get('/getMorePromotions/{idSubCatalogo}', ['as' => 'getMorePromotions', 'uses' => 'HomePublicController@getMorePromotions']);
+Route::post('/getPromotion/{idPromotion}', ['as' => 'getPromotion', 'uses' => 'HomePublicController@getPromotion']);
 // blog
 Route::get('/Blog/{idArticle?}', ['as' => 'AddEventst', 'uses' => 'HomePublicController@getViewArticles']);
 // MISION VISION POLITICAS

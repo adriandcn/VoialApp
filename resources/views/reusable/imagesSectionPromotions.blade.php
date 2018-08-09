@@ -9,7 +9,6 @@
 <input type="hidden" id="idPromotion" value="{{$idPromotion}}">
 @if(isset($ImgPromociones) && count($ImgPromociones)>0)
 {!! Form::open(['url' => route('delete-image1'),  'id'=>'deleteImage']) !!}
-<br><br>
         <div class="product-images col-sm-12 box-lg" style="padding-left: 0px;">
             <div id="owl-demo" class="owl-carousel" style="border: 1px solid #c269337a; margin-bottom: 15px;">
                 

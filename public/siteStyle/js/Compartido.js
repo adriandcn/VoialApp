@@ -2609,3 +2609,34 @@ var showMoreCatalogos = function(event, idCatalogo) {
     $('#resultsMoreCatalogos').css("visibility", "");
     $('#resultsMoreCatalogos').css("height", "");
 }
+
+function ajaxGetPromotion(event,$formulario, $id) {
+    event.preventDefault();
+    $('#spinnerGetPromotion').show();
+    $('.error').html('');
+    var $form = $('#' + $formulario),
+        data = $form.serialize();
+    url = $form.attr("action");
+    var posting = $.post(url, { formData: data });
+    posting.done(function(data) {
+        if (data.fail) {
+            var errorString = '<ul>';
+            $.each(data.errors, function(key, value) {
+                errorString += '<li>' + value + '</li>';
+            });
+            errorString += '</ul>';
+            $('#spinnerGetPromotion').hide();
+            $('#rowerrorGetPromotion').html(errorString);
+        }
+        if (data.success) {
+            $('#spinnerGetPromotion').hide();
+            showAlert('Felicidades!!','Se ha enviado un email con el código de la promoción.', null, 'info', 'info');
+            $('#btnClose').trigger('click');
+        } //success
+    })
+    .fail(function(xhr, status, error) {
+        $('#spinnerGetPromotion').hide();
+        $('.sweet-alert').css('z-index','999999');
+        showAlert('Error!!','Ha ocurrido un error, intentalo nuevamente', null, 'warning', 'danger');
+    });
+}

@@ -37,6 +37,9 @@
         padding: 7px;
         border-radius: 5px;
     }
+    .sweet-alert{
+        z-index: 99999999 !important;
+    }
     </style>
 </head>
 
@@ -88,22 +91,43 @@
               <div class="cell-lg-3 cell-sm-4 cell-xs-8 order-xs-last">
                 <div class="blog-item">
                   <h6>Otras Promociones</h6>
-                  <div class="flickr widget-flickrfeed group-flickr" data-photo-swipe-gallery="gallery" data-flickr-tags="tm-61140"><a class="flickr-item" data-photo-swipe-item="data-photo-swipe-item" href="https://farm5.staticflickr.com/4237/34455111694_25d41362b3_c.jpg" data-image_c="href" data-size="800x534" data-type="flickr-item"><img width="85" height="85" data-title="alt" src="https://farm5.staticflickr.com/4237/34455111694_25d41362b3_q.jpg" alt="Young man riding a mountain bike downhill style" data-image_q="src"></a><a class="flickr-item" data-photo-swipe-item="data-photo-swipe-item" href="https://farm5.staticflickr.com/4273/34455111384_57573662e4_c.jpg" data-image_c="href" data-size="800x481" data-type="flickr-item"><img width="85" height="85" data-title="alt" src="https://farm5.staticflickr.com/4273/34455111384_57573662e4_q.jpg" alt="Depositphotos_44532195_original" data-image_q="src"></a><a class="flickr-item" data-photo-swipe-item="data-photo-swipe-item" href="https://farm5.staticflickr.com/4210/34455111504_9bdfa9608e_c.jpg" data-image_c="href" data-size="800x546" data-type="flickr-item"><img width="85" height="85" data-title="alt" src="https://farm5.staticflickr.com/4210/34455111504_9bdfa9608e_q.jpg" alt="Bicycle accessories" data-image_q="src"></a><a class="flickr-item" data-photo-swipe-item="data-photo-swipe-item" href="https://farm5.staticflickr.com/4197/35258590426_5100554b38_c.jpg" data-image_c="href" data-size="800x534" data-type="flickr-item"><img width="85" height="85" data-title="alt" src="https://farm5.staticflickr.com/4197/35258590426_5100554b38_q.jpg" alt="Cycling" data-image_q="src"></a><a class="flickr-item" data-photo-swipe-item="data-photo-swipe-item" href="https://farm5.staticflickr.com/4216/34455111664_a5da8c674a_c.jpg" data-image_c="href" data-size="800x532" data-type="flickr-item"><img width="85" height="85" data-title="alt" src="https://farm5.staticflickr.com/4216/34455111664_a5da8c674a_q.jpg" alt="moutain bike man" data-image_q="src"></a><a class="flickr-item" data-photo-swipe-item="data-photo-swipe-item" href="https://farm5.staticflickr.com/4274/35298786275_8648413175_c.jpg" data-image_c="href" data-size="626x800" data-type="flickr-item"><img width="85" height="85" data-title="alt" src="https://farm5.staticflickr.com/4274/35298786275_8648413175_q.jpg" alt="Road racing bicycle woman" data-image_q="src"></a>
+                  <div class="flickr widget-flickrfeed group-flickr" data-photo-swipe-gallery="gallery" data-flickr-tags="tm-61140">
+                    <a class="flickr-item" data-photo-swipe-item="data-photo-swipe-item" href="https://farm5.staticflickr.com/4237/34455111694_25d41362b3_c.jpg" data-image_c="href" data-size="800x534" data-type="flickr-item">
+                        <img width="85" height="85" data-title="alt" src="https://farm5.staticflickr.com/4237/34455111694_25d41362b3_q.jpg" alt="Young man riding a mountain bike downhill style" data-image_q="src">
+                    </a>
+                    <a class="flickr-item" data-photo-swipe-item="data-photo-swipe-item" href="https://farm5.staticflickr.com/4273/34455111384_57573662e4_c.jpg" data-image_c="href" data-size="800x481" data-type="flickr-item">
+                        <img width="85" height="85" data-title="alt" src="https://farm5.staticflickr.com/4273/34455111384_57573662e4_q.jpg" alt="Depositphotos_44532195_original" data-image_q="src">
+                    </a>
+                    <a class="flickr-item" data-photo-swipe-item="data-photo-swipe-item" href="https://farm5.staticflickr.com/4210/34455111504_9bdfa9608e_c.jpg" data-image_c="href" data-size="800x546" data-type="flickr-item">
+                        <img width="85" height="85" data-title="alt" src="https://farm5.staticflickr.com/4210/34455111504_9bdfa9608e_q.jpg" alt="Bicycle accessories" data-image_q="src">
+                    </a>
+                    <a class="flickr-item" data-photo-swipe-item="data-photo-swipe-item" href="https://farm5.staticflickr.com/4197/35258590426_5100554b38_c.jpg" data-image_c="href" data-size="800x534" data-type="flickr-item">
+                        <img width="85" height="85" data-title="alt" src="https://farm5.staticflickr.com/4197/35258590426_5100554b38_q.jpg" alt="Cycling" data-image_q="src">
+                    </a>
+                    <a class="flickr-item" data-photo-swipe-item="data-photo-swipe-item" href="https://farm5.staticflickr.com/4216/34455111664_a5da8c674a_c.jpg" data-image_c="href" data-size="800x532" data-type="flickr-item">
+                        <img width="85" height="85" data-title="alt" src="https://farm5.staticflickr.com/4216/34455111664_a5da8c674a_q.jpg" alt="moutain bike man" data-image_q="src">
+                    </a>
+                    <a class="flickr-item" data-photo-swipe-item="data-photo-swipe-item" href="https://farm5.staticflickr.com/4274/35298786275_8648413175_c.jpg" data-image_c="href" data-size="626x800" data-type="flickr-item">
+                        <img width="85" height="85" data-title="alt" src="https://farm5.staticflickr.com/4274/35298786275_8648413175_q.jpg" alt="Road racing bicycle woman" data-image_q="src">
+                    </a>
                   </div>
                 </div>
               </div>
               <div class="cell-sm-8 cell-xs-12">
                 <div class="post-classic">
-                  <div class="post-classic-img-wrap">
-                    <a href="{!!asset('/detalles-de-servicio')!!}/{{$servicioData->id}}">
-                      <img src="{!!asset('/images/icon')!!}/{{$servicioData->filename}}" alt="" width="770" height="407"></a>
+                   <div class="post-classic-img-wrap row" >
+                        <div id="renderPartialImagenes">
+                                @section('contentImagenes') @show
+                        </div>
                     </div>
                   <div class="post-classic-body">
                     <div class="unit unit-sm-top unit-vertival unit-sm-horizontal">
                       <div class="unit__left text-left text-sm-center">
                         <div class="unit unit-spacing-xs unit-vertical unit-middle">
                           <div class="unit__left">
-                            <img class="img-circle" src="{!!asset('/')!!}images/icon/{{$servicioData->filename}}" alt="" width="70" height="70">
+                            <a href="{!!asset('/detalles-de-servicio')!!}/{{$servicioData->id}}">
+                                <img class="img-circle" src="{!!asset('/')!!}images/icon/{{$servicioData->filename}}" alt="" width="70" height="70" style="height: 70px; width: 70px;">
+                            </a>
                           </div>
                           <div class="unit__body">
                             <a class="author-name" href="{!!asset('/detalles-de-servicio')!!}/{{$servicioData->id}}">
@@ -113,8 +137,22 @@
                         </div>
                       </div>
                       <div class="unit__body">
-                        <time datetime="2017-03-25">March 25, 2017</time>
-                        <h6><a href="{!!asset('/detalles-de-servicio')!!}/{{$servicioData->id}}">Nimble 9 Boost – Now In Stock!</a></h6>
+                        <?php 
+                            if (session('locale') == 'es') {
+                                Carbon\Carbon::setLocale('es');
+                                setlocale(LC_TIME, 'Spanish');
+                                Carbon\Carbon::setUtf8(true);
+                            }
+                            $dbDate = $promotion->created_at;
+                            $diffDays = Carbon\Carbon::now()->diffInDays($dbDate);
+                            if ($diffDays <= 1) {
+                                $dateHuman = Carbon\Carbon::parse($dbDate)->diffForHumans();
+                            }else{
+                                $dateHuman = Carbon\Carbon::parse($dbDate)->formatLocalized('%A, %d %b %Y');
+                            }
+                        ?>
+                        <time>{{$dateHuman}}</time>
+                        <h6><a>{{$promotion->nombre_promocion}}</a></h6>
                         <p class="post-classic-text">
                           <span>{{$promotion->descripcion_promocion}}</span>
                         </p>
@@ -134,14 +172,14 @@
                             border-bottom: 1px solid #c8402c;
                           }
                         </style>
-                        <p><h6><i class="fa fa-calendar"></i> &nbsp;&nbsp;Tiempo de duracción</h6></p>
+                        <p><h6><i class="fa fa-calendar"></i> &nbsp;&nbsp;{{trans('publico/labels.lblTitleTimePromotion')}}</h6></p>
                         <p>
                             <span class="title-promotion">{{trans('publico/labels.lblFechaDesde')}} : </span><span class="detail-promotion">{{$promotion->fecha_desde}}</span>
                         </p>
                         <p>
                             <span class="title-promotion">{{trans('publico/labels.lblFechaHasta')}} : </span> <span class="detail-promotion">{{$promotion->fecha_hasta}}</span>
                         </p>
-                        <p><h6><i class="fa fa-money"></i> &nbsp;&nbsp;Beneficio</h6></p>
+                        <p><h6><i class="fa fa-money"></i> &nbsp;&nbsp;{{trans('publico/labels.lblTitleBeneficioPromotion')}}</h6></p>
                         <p>
                             <span class="title-promotion">{{trans('publico/labels.lblPromotionPrecioNormal')}} : </span><span class="detail-promotion">{{$promotion->precio_normal}}</span>
                         </p>
@@ -149,12 +187,17 @@
                             <span class="title-promotion">{{trans('publico/labels.lblPromoDescuento')}} : </span> <span class="detail-promotion">{{$promotion->descuento}}</span>
                         </p>
                         <p>
-                            <span class="title-promotion">Precio final : </span> <span class="detail-promotion">{{floatval($promotion->precio_normal)-floatval(($promotion->precio_normal)*($promotion->descuento/100))}}</span>
+                            <span class="title-promotion">{{trans('publico/labels.lblTitleFinalPricePromotion')}}: </span> <span class="detail-promotion">{{floatval($promotion->precio_normal)-floatval(($promotion->precio_normal)*($promotion->descuento/100))}}</span>
                         </p>
 
                         <p><h6><i class="fa fa-eye"></i> &nbsp;&nbsp;{{trans('publico/labels.lblPromotionObservations')}}</h6></p>
                         <p>
                             {{$promotion->observaciones_promocion}}
+                        </p>
+                        <p class="text-center">
+                            <button class="button button-facebook button-icon button-icon-sm button-icon-right fa-dollar" data-toggle="modal" data-target="#form-modal-get-promotion">
+                                {{trans('publico/labels.btnGetPromotion')}}<span></span>
+                            </button>
                         </p>
                       </div>
                     </div>
@@ -164,111 +207,7 @@
             </div>
           </div>
         </section>
-        <section class="bg-white">
-            <div class="shell">
-                <div class="range range-50">
-                    <p class="big cell-md-12" style="text-align: justify;    margin-bottom: 40px;">{{$promotion->descripcion_promocion}}</p>
-                </div>
-            </div>
-        </section>
-        <section class="bg-white">
-            <div class="shell">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div id="renderPartialImagenes" style="margin: 0px 0% 0px 6%;">
-                            @section('contentImagenes') @show
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="section-sm section-md-top-50 bg-white">
-            <div class="shell">
-                <div class="range range-50">
-                    <div class="cell-lg-8 cell-md-9">
-                        <div class="post-single-item text-left">
-                            <h5>Más detalles</h5>
-                            <div class="range range-20">
-                                <div class="cell-md-6 cell-sm-6 cell-xs-12">
-                                    <div class="post-mini post-sidebar">
-                                        <div class="unit unit-horizontal unit-spacing-md">
-                                            <div class="unit__left"><img class="img-circle" src="images/user-01-70x70.jpg" alt="" width="70" height="70" />
-                                            </div>
-                                            <div class="unit__body">
-                                                <time datetime="{{$promotion->fecha_desde}}">{{trans('publico/labels.lblFechaDesde')}}</time>
-                                                <h6><a href="{!!asset('/detalles-de-servicio')!!}/{{$servicioData->id}}">{{$promotion->fecha_desde}}</a></h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="cell-md-6 cell-sm-6 cell-xs-12">
-                                    <div class="post-mini post-sidebar">
-                                        <div class="unit unit-horizontal unit-spacing-md">
-                                            <div class="unit__left"><img class="img-circle" src="images/user-03-70x70.jpg" alt="" width="70" height="70" />
-                                            </div>
-                                            <div class="unit__body">
-                                                <time datetime="2017-04-07">{{trans('publico/labels.lblFechaHasta')}}</time>
-                                                <h6><a href="{!!asset('/detalles-de-servicio')!!}/{{$servicioData->id}}">{{$promotion->fecha_hasta}}</a></h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="cell-md-6 cell-sm-6 cell-xs-12">
-                                    <div class="post-mini post-sidebar">
-                                        <div class="unit unit-horizontal unit-spacing-md">
-                                            <div class="unit__left"><img class="img-circle" src="images/user-02-70x70.jpg" alt="" width="70" height="70" />
-                                            </div>
-                                            <div class="unit__body">
-                                                <time datetime="2017-03-05">{{trans('publico/labels.lblPromotionPrecioNormal')}}</time>
-                                                <h6><a href="{!!asset('/detalles-de-servicio')!!}/{{$servicioData->id}}">{{$promotion->precio_normal}}</a></h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="cell-md-6 cell-sm-6 cell-xs-12">
-                                    <div class="post-mini post-sidebar">
-                                        <div class="unit unit-horizontal unit-spacing-md">
-                                            <div class="unit__left">
-                                                <img class="img-circle" src="images/user-02-70x70.jpg" alt="" width="70" height="70" />
-                                            </div>
-                                            <div class="unit__body">
-                                                <time datetime="2017-03-15">{{trans('publico/labels.lblPromoDescuento')}}</time>
-                                                <h6><a href="{!!asset('/detalles-de-servicio')!!}/{{$servicioData->id}}">{{$promotion->descuento}}</a></h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="cell-md-6 cell-sm-6 cell-xs-12">
-                                    <div class="post-mini post-sidebar">
-                                        <div class="unit unit-horizontal unit-spacing-md">
-                                            <div class="unit__left"><img class="img-circle" src="images/user-02-70x70.jpg" alt="" width="70" height="70" />
-                                            </div>
-                                            <div class="unit__body">
-                                                <time datetime="2017-03-05">Precio Final</time>
-                                                <h6><a href="{!!asset('/detalles-de-servicio')!!}/{{$servicioData->id}}">
-                                                  {{floatval($promotion->precio_normal)-floatval(($promotion->precio_normal)*($promotion->descuento/100))}}</a></h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="cell-md-12 cell-sm-12 cell-xs-12">
-                                    <div class="post-mini post-sidebar">
-                                        <div class="unit unit-horizontal unit-spacing-md">
-                                            <div class="unit__left"><img class="img-circle" src="images/user-02-70x70.jpg" alt="" width="70" height="70" />
-                                            </div>
-                                            <div class="unit__body">
-                                                <time datetime="2017-03-05">{{trans('publico/labels.lblPromotionObservations')}}</time>
-                                                <h6><a href="{!!asset('/detalles-de-servicio')!!}/{{$servicioData->id}}">{{$promotion->observaciones_promocion}}</a></h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+
         <!-- Page Footer-->
         @include('site.reusable.footer')
         <style type="text/css">
@@ -302,18 +241,78 @@
         <div class="modal modal-custom fade" id="form-img-full" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document" style="width: 80%">
                 <div class="modal-content" id="imgFull">
-                    <!-- <a class="button" href="#" onclick="backImage()" style="position: absolute;
-                bottom: 43%;"> -->
                     <i class="fa fa-arrow-left fa-3x btn-full-image btn-right" onclick="backImage()"></i><span></span>
-                    <!-- </a> -->
-                    <!-- <a class="button" href="#" onclick="nextImage()" style="position: absolute;
-                bottom: 43%;
-                right: -14%;"> -->
                     <i class="fa fa-arrow-right fa-3x btn-full-image btn-left" onclick="nextImage()"></i><span></span>
-                    <!-- </a> -->
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close" style="color: white; top: 80%;"><span aria-hidden="true"></span></button>
                 </div>
             </div>
+        </div>
+        <!-- Modal Get Promotion -->
+        <div class="modal modal-custom fade" id="form-modal-get-promotion" tabindex="-1" role="dialog">
+              <div class="modal-dialog" role="document" style="width: 80%;">
+                <div class="modal-content">
+                  <button class="close" type="button" data-dismiss="modal" aria-label="Close" id="btnClose">
+                    <span aria-hidden="true"></span>
+                  </button>
+                  <div class="modal-header">
+                    <h5>{{$promotion->nombre_promocion}}</h5>
+                  </div>
+                  <form class="rd-mailform" id="form-get-promotion" action="{{asset('/')}}/getPromotion/{{$promotion->id}}">
+                      <div class="modal-body">
+                        <input type="hidden" name="id_promo" value="{{$promotion->id}}">
+                          <div class="form-wrap">
+                            <label class="form-label-outside" for="email">
+                                <i class="fa fa-envelope"></i>&nbsp;&nbsp;{{ trans('publico/labels.btnGetPromotionEmail')}}
+                            </label>
+                            <input class="form-input tooltip" id="email" type="email" name="email" title="{{ trans('publico/labels.titlePromotionEmail')}}" required>
+                          </div>
+                          <div class="form-wrap">
+                            <label class="form-label-outside" for="phone">
+                                <i class="fa fa-phone"></i>&nbsp;&nbsp;{{ trans('publico/labels.btnGetPromotionTelefono')}}
+                            </label>
+                            <input class="form-input tooltip" id="phone" type="number" name="phone" title="{{ trans('publico/labels.titlePromotionPhone')}}" required>
+                          </div>
+                          <div class="form-wrap">
+                            <label class="form-label-outside" for="age">
+                                <i class="fa fa-calendar"></i>&nbsp;&nbsp;{{ trans('publico/labels.btnGetPromotionEdad')}}
+                            </label>
+                            <input class="form-input tooltip" id="age" type="number" name="age" title="{{ trans('publico/labels.titlePromotionEdad')}}" required>
+                          </div>
+                          <div id="rowerrorGetPromotion" style="color: red;"></div>
+                      </div>
+                      <div class="modal-footer">
+                        <div class="row">
+                            <div class="col-md-12 text-right" style="margin-bottom: 20px;  margin-top: 15px;">
+                                <button class="button-primary button" type="submit" onclick="ajaxGetPromotion(event,'form-get-promotion')">
+                                  <div style="display: none;" id="spinnerGetPromotion">
+                                    <i class="fa fa-spinner fa-spin"></i>
+                                </div>
+                                  {{trans('publico/labels.btnGetPromotion')}}<span></span>
+                                </button>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="post-mini post-sidebar">
+                                    <div class="unit unit-horizontal unit-spacing-md">
+                                        <div class="unit__left">
+                                            <a href="{!!asset('/detalles-de-servicio')!!}/{{$servicioData->id}}">
+                                                <img class="img-circle" src="{!!asset('/')!!}images/icon/{{$servicioData->filename}}" alt="" width="70" height="70" style="height: 70px; width: 70px;">
+                                            </a>
+                                        </div>
+                                        <div class="unit__body">
+                                            <h6>
+                                                <a class="author-name" href="{!!asset('/detalles-de-servicio')!!}/{{$servicioData->id}}">
+                                                  {{$servicioData->nombre_servicio}}
+                                                </a>
+                                            </h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                  </form>
+                </div>
+              </div>
         </div>
         <script type="text/javascript">
         GetDataAjaxImagenesRes("{!!asset('/getImagesServicio')!!}/2/{!!$promotion->id!!}");

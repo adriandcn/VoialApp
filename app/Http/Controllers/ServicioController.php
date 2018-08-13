@@ -1228,40 +1228,42 @@ class ServicioController extends Controller
     public function cleanFilterServicios($catalogo, $idSubCatalogo, catalogoServiciosRepository $catalogoServicios)
 
         {
-            $campos_serv = ['usuario_servicios.id', 'nombre_servicio', 'detalle_servicio', 'images.filename', 'latitud_servicio', 'longitud_servicio'];
+            $campos_serv = ['usuario_servicios.id', 'nombre_servicio', 'detalle_servicio', 'images.filename', 'latitud_servicio', 'longitud_servicio','prioridad'];
             $qServ = DB::table('usuario_servicios')
                     ->leftJoin('images', 'usuario_servicios.id', '=', 'images.id_usuario_servicio')
                     ->select($campos_serv)
                     ->where('id_catalogo_servicio', $idSubCatalogo)
                     ->where('usuario_servicios.estado_servicio',1)
                     ->where('usuario_servicios.estado_servicio_usuario',1)
-                    ->where(function ($query)
-                {
-                $query->where('images.profile_pic', '=', 1);
-                $query->where('images.id_catalogo_fotografia', '=', 1);
-                $query->orWhereNull('images.profile_pic');
-                })->groupBy('usuario_servicios.id')->get();
+                    ->where(function ($query){
+                        $query->where('images.profile_pic', '=', 1);
+                        $query->where('images.id_catalogo_fotografia', '=', 1);
+                        $query->orWhereNull('images.profile_pic');
+                    })
+                    ->groupBy('usuario_servicios.id')
+                    ->orderBy('usuario_servicios.prioridad','DESC')
+                    ->orderBy('usuario_servicios.num_visitas','DESC')
+                    ->get();
             return $qServ;
         }
     public function applyServicesFilter(Request $request, catalogoServiciosRepository $catalogoServicios, PublicServiceRepository $gestion)
-
         {
-        if ($request->has('filter'))
+            if ($request->has('filter'))
             {
-            $inCatalogo = $catalogoServicios->getByCatalogoArray($request->filter, $request->idSubCatalogo);
+                $inCatalogo = $catalogoServicios->getByCatalogoArray($request->filter, $request->idSubCatalogo);
             }
-          else
+            else
             {
-            $inCatalogo = $this->cleanFilterServicios($request->idCatalogo, $request->idSubCatalogo, $catalogoServicios);
+                $inCatalogo = $this->cleanFilterServicios($request->idCatalogo, $request->idSubCatalogo, $catalogoServicios);
             }
-        if ($request->has('lat') && $request->has('lng') && $request->has('radio'))
+            if ($request->has('lat') && $request->has('lng') && $request->has('radio'))
             {
-            $inCatalogo = $gestion->searchInMapByDistance($request->lat, $request->lng, $request->radio, $inCatalogo);
+                $inCatalogo = $gestion->searchInMapByDistance($request->lat, $request->lng, $request->radio, $inCatalogo);
             }
-        return response()->json(array(
-            'success' => true,
-            'data' => $inCatalogo
-        ));
+            return response()->json(array(
+                'success' => true,
+                'data' => $inCatalogo
+            ));
         }
     }
 

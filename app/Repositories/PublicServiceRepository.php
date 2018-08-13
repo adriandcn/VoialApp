@@ -2864,6 +2864,10 @@ class PublicServiceRepository extends BaseRepository {
                         ->select(['usuario_servicios.*','filename'])
                         ->where('usuario_servicios.id',$idServicio)
                         ->first();
+        $numVisitas = intval($servicios->num_visitas) + 1;
+        DB::table('usuario_servicios')
+                ->where('id',$idServicio)
+                ->update(['num_visitas' => $numVisitas ]);
                         // return $servicios;
         $datosCatalogo = DB::table('catalogo_servicios')
                         ->where('id_catalogo_servicios',$servicios->id_catalogo_servicio)

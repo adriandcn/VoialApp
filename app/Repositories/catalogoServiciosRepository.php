@@ -222,6 +222,8 @@ class catalogoServiciosRepository extends BaseRepository
 			->select('id_usuario_servicio')
 			->whereIn('id_servicio_est', $array)
 			->groupBy('id_usuario_servicio')
+			->orderBy('usuario_servicios.prioridad','DESC')
+			->orderBy('usuario_servicios.num_visitas','DESC')
 			->get();
 
 		$arrayEstServ = [];

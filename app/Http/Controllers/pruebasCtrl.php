@@ -210,4 +210,8 @@ class pruebasCtrl extends Controller
     
         return response()->json($transaction);
     }
+
+    public function test(){
+        return view('emails.auth.promotionCode');
+    }
 }

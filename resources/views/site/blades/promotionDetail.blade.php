@@ -67,8 +67,6 @@
                 <div class="page-title__overlay box-skew box-skew-var-1"><span class="box-skew__item"></span>
                     <div class="page-title-text">Promoción en:
                         <br> {{$servicioData->nombre_servicio}}
-                        <br>
-                        <br> {{$promotion->nombre_promocion}}
                     </div>
                     <br>
                     <hr>
@@ -179,7 +177,11 @@
                         <p>
                             <span class="title-promotion">{{trans('publico/labels.lblFechaHasta')}} : </span> <span class="detail-promotion">{{$promotion->fecha_hasta}}</span>
                         </p>
-                        <p><h6><i class="fa fa-money"></i> &nbsp;&nbsp;{{trans('publico/labels.lblTitleBeneficioPromotion')}}</h6></p>
+                        <!-- <p>
+                            <h6>
+                                <i class="fa fa-money"></i> &nbsp;&nbsp;{{trans('publico/labels.lblTitleBeneficioPromotion')}}
+                            </h6>
+                        </p>
                         <p>
                             <span class="title-promotion">{{trans('publico/labels.lblPromotionPrecioNormal')}} : </span><span class="detail-promotion">{{$promotion->precio_normal}}</span>
                         </p>
@@ -188,7 +190,7 @@
                         </p>
                         <p>
                             <span class="title-promotion">{{trans('publico/labels.lblTitleFinalPricePromotion')}}: </span> <span class="detail-promotion">{{floatval($promotion->precio_normal)-floatval(($promotion->precio_normal)*($promotion->descuento/100))}}</span>
-                        </p>
+                        </p> -->
 
                         <p><h6><i class="fa fa-eye"></i> &nbsp;&nbsp;{{trans('publico/labels.lblPromotionObservations')}}</h6></p>
                         <p>

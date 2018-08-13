@@ -1267,12 +1267,28 @@ class HomePublicController extends Controller {
         return $randomString;
     }
 
+    public function sendEmailPromotion($data)
+    {
+        $correo_enviar = $data['email'];
+        $existUser = $this->codUsuarioExternonModel->orWhere('email',$correo_enviar)->first();
+        if (count($existUser) > 0) {
+            $data['code_promotion'] = $existUser->cod;
+            $correo_enviar = $existUser->email;
+            Mail::send('emails.auth.promotionCode', $data, function($message) use ($correo_enviar)
+            {
+                $message->from("info@voilappbeta.com",'VoilApp');
+                $message->to($correo_enviar,'')->subject('Código de promoción');
+            });
+            return true;
+        }else{
+            return true;
+        }
+    }
+
     public function getPromotion()
     {
         $inputData = Input::get('formData');
         parse_str($inputData, $formFields);
-        // $this->codPromotionModel
-        // $this->codUsuarioExternonModel
         $validator = Validator::make($formFields, Usuario_Externo::$rules,Usuario_Externo::$messages);
         if ($validator->fails()) {
             return response()->json(array(
@@ -1299,6 +1315,20 @@ class HomePublicController extends Controller {
                 $itemPromotion->estado = 1;
                 $itemPromotion->save();
             });
+            $dataEmail = [
+
+                    'email' => $formFields['email'],
+                    'urlPage'   => config('global.serverDir'),
+                    'title' => trans('front/promotion.email-title'),
+                    'body' => trans('front/promotion.email-body'),
+                    'link' => trans('front/promotion.email-link'),
+                    'linkPD' => trans('front/promotion.email-msg-link'),
+                    'confirmation_code' => $codePromotion,
+                    'linkUnsuscribe' => trans('front/promotion.email-unsubscribe'),
+                    'footer' => trans('front/promotion.email-footer')
+
+            ];
+            $this->sendEmailPromotion($dataEmail);
             return response()->json(['success' => true]);
         }
     }

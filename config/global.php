@@ -10,5 +10,6 @@ return [
     // 'serverDir' => 'http://voilappbeta.com/',
     'freeImageLimit' => 5,
     'urlHomeSite' => 'http://voilappbeta.com',
-    'defaultPromotionImg' => 'default_promotion.png'
+    'defaultPromotionImg' => 'default_promotion.png',
+    'emailAdmin' => 'salud@voilapp.city'
 ];

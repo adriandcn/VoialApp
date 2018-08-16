@@ -11,6 +11,8 @@ use App\Repositories\PublicServiceRepository;
 use App\Repositories\catalogoServiciosRepository;
 use App\Repositories\ServiciosOperadorRepository;
 use App\Repositories\OperadorRepository;
+use App\Models\Promocion_Usuario_Servicio;
+use App\Models\Usuario_Servicio;
 use Input;
 use Validator;
 use Jenssegers\Agent\Agent;
@@ -1272,12 +1274,17 @@ class HomePublicController extends Controller {
         $correo_enviar = $data['email'];
         $existUser = $this->codUsuarioExternonModel->orWhere('email',$correo_enviar)->first();
         if (count($existUser) > 0) {
-            $data['code_promotion'] = $existUser->cod;
+            $data['promo_code'] = $existUser->cod;
             $correo_enviar = $existUser->email;
-            Mail::send('emails.auth.promotionCode', $data, function($message) use ($correo_enviar)
+            Mail::send('site.emails.promotionCode', $data, function($message) use ($correo_enviar)
             {
-                $message->from("info@voilappbeta.com",'VoilApp');
+                $message->from(config('global.emailAdmin'),'VoilApp');
                 $message->to($correo_enviar,'')->subject('Código de promoción');
+            });
+            Mail::send('site.emails.promotionCode', $data, function($message) use ($correo_enviar)
+            {
+                $message->from(config('global.emailAdmin'),'VoilApp');
+                $message->to(config('global.emailAdmin'),'')->subject('Respaldo de promoción');
             });
             return true;
         }else{
@@ -1315,19 +1322,60 @@ class HomePublicController extends Controller {
                 $itemPromotion->estado = 1;
                 $itemPromotion->save();
             });
+            Carbon::setLocale('es');
+            setlocale(LC_TIME, 'Spanish');
+            Carbon::setUtf8(true);
+            $dataPromo = Promocion_Usuario_Servicio::join('images','id_auxiliar','=','promocion_usuario_servicio.id')
+                        ->where('promocion_usuario_servicio.id',$formFields['id_promo'])
+                        ->where('estado_promocion',1)
+                        ->where('id_catalogo_fotografia',2)
+                        ->where('profile_pic',1)
+                        ->where('estado_fotografia',1)
+                        ->select(['descripcion_promocion','nombre_promocion','promocion_usuario_servicio.id','filename','observaciones_promocion','fecha_hasta','promocion_usuario_servicio.id_usuario_servicio'])
+                        ->first();
+            $dataDoctor = Usuario_Servicio::join('images','id_auxiliar','=','usuario_servicios.id')
+                        ->where('id_catalogo_fotografia',1)
+                        ->where('profile_pic',1)
+                        ->where('estado_fotografia',1)
+                        ->with(['horarioList'])
+                        ->where('usuario_servicios.id',$dataPromo->id_usuario_servicio)
+                         ->select(['usuario_servicios.*','filename'])
+                        ->first();
             $dataEmail = [
-
-                    'email' => $formFields['email'],
-                    'urlPage'   => config('global.serverDir'),
-                    'title' => trans('front/promotion.email-title'),
-                    'body' => trans('front/promotion.email-body'),
-                    'link' => trans('front/promotion.email-link'),
-                    'linkPD' => trans('front/promotion.email-msg-link'),
-                    'confirmation_code' => $codePromotion,
-                    'linkUnsuscribe' => trans('front/promotion.email-unsubscribe'),
-                    'footer' => trans('front/promotion.email-footer')
-
-            ];
+                        'email' => $formFields['email'],
+                        'urlPage'   => config('global.serverDir'),
+                        'title' => trans('front/promotion.email-title'),
+                        'body' => trans('front/promotion.email-body'),
+                        'link' => trans('front/promotion.email-link'),
+                        'linkPD' => trans('front/promotion.email-msg-link'),
+                        'promo_code' => $codePromotion,
+                        'linkUnsuscribe' => trans('front/promotion.email-unsubscribe'),
+                        'footer' => trans('front/promotion.email-footer'),
+                        'dataDoctor' => $dataDoctor,
+                        'dataPromo' => $dataPromo
+                ];
+            $promo_code = $codePromotion;
+            if (isset($dataPromo)) {
+                $msgEndAd = '';
+                $now = Carbon::now();
+                $end_date = Carbon::parse($dataPromo->fecha_hasta);
+                $lengthOfAd = $now->diffInDays($end_date);
+                if ($lengthOfAd == 0) {
+                    $lengthOfAd = $now->diffInHours($end_date);
+                    if ($lengthOfAd == 0) {
+                        $msgEndAd = 'Hoy termina esta promoción';
+                    }else{
+                        $msgEndAd = 'Faltan ';
+                        $msgEndAd =  ($lengthOfAd > 1)? $msgEndAd . $lengthOfAd . ' horas':$msgEndAd . $lengthOfAd . ' hora';
+                        $msgEndAd = $msgEndAd . ' para que termine la promoción';
+                    }
+                }else{
+                    $msgEndAd = 'Faltan ';
+                    $msgEndAd =  ($lengthOfAd > 1)? $msgEndAd . $lengthOfAd . ' dias':$msgEndAd . $lengthOfAd . ' día';
+                    $msgEndAd = $msgEndAd . ' para que termine la promoción';
+                }
+               $dataPromo->endAd = $msgEndAd;
+            }
             $this->sendEmailPromotion($dataEmail);
             return response()->json(['success' => true]);
         }

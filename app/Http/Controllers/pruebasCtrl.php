@@ -8,9 +8,12 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Repositories\catalogoServiciosRepository;
 use App\Models\Usuario_Servicio;
+use App\Models\Usuario_Externo;
+use App\Models\Promocion_Usuario_Servicio;
 use App\Models\Servicio_Establecimiento_Usuario;
 use App\Models\SearchEngine;
-use DB;
+use DB,Mail;
+use Carbon\Carbon;
 
 class pruebasCtrl extends Controller
 {
@@ -211,7 +214,82 @@ class pruebasCtrl extends Controller
         return response()->json($transaction);
     }
 
-    public function test(){
-        return view('emails.auth.promotionCode');
+    public function sendEmailPromotion($data)
+    {
+        $correo_enviar = $data['email'];
+        $existUser = Usuario_Externo::orWhere('email',$correo_enviar)->first();
+        if (count($existUser) > 0) {
+            $data['promo_code'] = $existUser->cod;
+            $correo_enviar = $existUser->email;
+            Mail::send('site.emails.promotionCode', $data, function($message) use ($correo_enviar)
+            {
+                $message->from("salud@voilapp.city",'VoilApp');
+                $message->to($correo_enviar,'')->subject('Código de promoción');
+            });
+            return true;
+        }else{
+            return true;
+        }
+    }
+
+    public function test(Request $request){
+        Carbon::setLocale('es');
+        setlocale(LC_TIME, 'Spanish');
+        Carbon::setUtf8(true);
+        $dataPromo = Promocion_Usuario_Servicio::join('images','id_auxiliar','=','promocion_usuario_servicio.id')
+                        ->where('promocion_usuario_servicio.id',$request->id_promo)
+                        ->where('estado_promocion',1)
+                        ->where('id_catalogo_fotografia',2)
+                        ->where('profile_pic',1)
+                        ->where('estado_fotografia',1)
+                        ->select(['descripcion_promocion','nombre_promocion','promocion_usuario_servicio.id','filename','observaciones_promocion','fecha_hasta','promocion_usuario_servicio.id_usuario_servicio'])
+                        ->first();
+        $dataDoctor = Usuario_Servicio::join('images','id_auxiliar','=','usuario_servicios.id')
+                    ->where('id_catalogo_fotografia',1)
+                    ->where('profile_pic',1)
+                    ->where('estado_fotografia',1)
+                    ->with(['horarioList'])
+                    ->where('usuario_servicios.id',$dataPromo->id_usuario_servicio)
+                     ->select(['usuario_servicios.*','filename'])
+                    ->first();
+        $codePromotion = 'AADDSSVVCDTF';
+        $dataEmail = [
+                    'email' => 'alexdariogc@gmail.com',
+                    'urlPage'   => config('global.serverDir'),
+                    'title' => trans('front/promotion.email-title'),
+                    'body' => trans('front/promotion.email-body'),
+                    'link' => trans('front/promotion.email-link'),
+                    'linkPD' => trans('front/promotion.email-msg-link'),
+                    'promo_code' => $codePromotion,
+                    'linkUnsuscribe' => trans('front/promotion.email-unsubscribe'),
+                    'footer' => trans('front/promotion.email-footer'),
+                    'dataDoctor' => $dataDoctor,
+                    'dataPromo' => $dataPromo
+            ];
+        $promo_code = $codePromotion;
+        if (isset($dataPromo)) {
+            $msgEndAd = '';
+            $now = Carbon::now();
+            $end_date = Carbon::parse($dataPromo->fecha_hasta);
+            $lengthOfAd = $now->diffInDays($end_date);
+            if ($lengthOfAd == 0) {
+                $lengthOfAd = $now->diffInHours($end_date);
+                if ($lengthOfAd == 0) {
+                    $msgEndAd = 'Hoy termina esta promoción';
+                }else{
+                    $msgEndAd = 'Faltan ';
+                    $msgEndAd =  ($lengthOfAd > 1)? $msgEndAd . $lengthOfAd . ' horas':$msgEndAd . $lengthOfAd . ' hora';
+                    $msgEndAd = $msgEndAd . ' para que termine la promoción';
+                }
+            }else{
+                $msgEndAd = 'Faltan ';
+                $msgEndAd =  ($lengthOfAd > 1)? $msgEndAd . $lengthOfAd . ' dias':$msgEndAd . $lengthOfAd . ' día';
+                $msgEndAd = $msgEndAd . ' para que termine la promoción';
+            }
+           $dataPromo->endAd = $msgEndAd;
+        }
+        // $this->sendEmailPromotion($dataEmail);
+        // return response()->json($dataDoctor);
+        return view('site.emails.promotionCode',compact('dataDoctor','promo_code','dataPromo'));
     }
 }

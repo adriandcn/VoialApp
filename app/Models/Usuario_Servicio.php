@@ -10,6 +10,10 @@ class Usuario_Servicio extends Model
     //
     protected $table = 'usuario_servicios';
     public $timestamps = false;
+
+    public $appends = [
+        'redes_list'
+    ];
     
     // id_usuario_operador
     // id_catalogo_servicio
@@ -63,9 +67,16 @@ class Usuario_Servicio extends Model
         
     }
     
-      public function catalogo_servicio(){
+    public function horarioList(){
         
-      //  return $this->belongsTo('App\Models\Catalogo_Servicio');
+       return $this->hasMany('App\Models\Horario','id_usuario_servicio');
         
+    }
+
+    public function getredesListAttribute(){  
+       return redesSocialesServicio::select(['redes_sociales.idredes_sociales','nombre_red','icon','url'])
+                ->join('redes_sociales','servicio_redes_sociales.idredes_sociales','=','redes_sociales.idredes_sociales')
+                ->where('id_usuario_servicio',$this->id)
+                ->get();
     }
 }

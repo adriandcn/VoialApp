@@ -81,7 +81,11 @@
         <section class="bg-white">
             <div class="shell">
                 <div class="range range-50">
-                    <p class="big cell-md-12" style="text-align: justify;">{{$detalles->detalle_servicio}}</p>
+                    <pre style="white-space: pre-wrap;       /* Since CSS 2.1 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;   ">{{$detalles->detalle_servicio}}</pre>
                 </div>
             </div>
         </section>

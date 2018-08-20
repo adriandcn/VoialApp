@@ -1975,6 +1975,52 @@ function searchServ(event, idCatalogo, idSubCatalogo) {
     });
 }
 
+function htmlStringFromArray(array,callback) {
+    var htmlResult = '';
+    // var array = r.data.finded;
+    var iconDir = dirServer + 'public/images/marker.png';
+    for (var i = 0; i < array.length; i++) {
+        var latServ = parseFloat(array[i].latitud_servicio);
+        var longServ = parseFloat(array[i].longitud_servicio);
+        var id;
+        if (array[i].id_usuario_servicio) {
+            id = array[i].id_usuario_servicio;
+        } else {
+            id = array[i].id;
+        }
+        var image = (array[i].filename != null) ? array[i].filename : 'default_service.png';
+        var url = dirServer + 'public/';
+        var urlImg = url + 'images/fullsize/' + image;
+        var urlDetail = url + 'detalles-de-servicio/' + id;
+        var htmlString = '<div class="col-xs-12 col-sm-6 col-md-4 isotope-item" style=" padding-bottom: 25px;">\
+            <div class="post-masonry post-masonry-short post-content-white bg-post-2 bg-image post-skew-right-top post-skew-var-4" style="background: url(' + urlImg + ');\
+                  background-size: cover;\
+                  background-repeat: no-repeat;\
+                  min-height: 200px;\
+                  cursor: pointer;" onclick="openDetailOnClick(' + id + ')">\
+              <div class="post-masonry-content">\
+                <h6 class=""><a href="' + urlDetail + '" style="color: #fff; text-shadow: 3px -1px 2px #1b1b1b;">' + array[i].nombre_servicio.toUpperCase() + '</a></h6>\
+              </div><br>\
+            ';
+            if (array[i].institucion) {
+                htmlString = htmlString + '<span class="badge" style="color:Wwhite;background: #c26933;">' + array[i].institucion + '</span>';
+            }
+            htmlString = htmlString + '</a>\
+            </div>\
+          </div>';
+        htmlResult = htmlResult + htmlString;
+    }
+
+    if (array.length == 0) {
+        var htmlString = '<div class="col-xs-12 text-center text-default">\
+                <h4 style="color:#c26933;"><i class="fa fa-frown-o "></i> &nbsp;&nbsp;Ups!! No se han encontrado resultados</h4>\
+              </div>';
+        htmlResult = htmlResult + htmlString;
+    }
+
+    callback(htmlResult);
+}
+
 function searchServIni(idCatalogo, idSubCatalogo) {
     var data = { filter: filtersServ, idCatalogo: idCatalogo, idSubCatalogo: idSubCatalogo };
     var url = dirServer + 'public/filterService';
@@ -1984,60 +2030,33 @@ function searchServIni(idCatalogo, idSubCatalogo) {
         dataType: 'json',
         data: data,
         success: function(r) {
-            var htmlResult = '';
-            var array = r.data;
-            var iconDir = dirServer + 'public/images/marker.png';
-            for (var i = 0; i < array.length; i++) {
-                var latServ = parseFloat(array[i].latitud_servicio);
-                var longServ = parseFloat(array[i].longitud_servicio);
-                // var marker = new google.maps.Marker({
-                //     position: new google.maps.LatLng(latServ, longServ),
-                //     map: map,
-                //     title: 'Hello World!',
-                //     icon: iconDir
-                // });
-                var id;
-                if (array[i].id_usuario_servicio) {
-                    id = array[i].id_usuario_servicio;
-                } else {
-                    id = array[i].id;
-                }
-                var image = (array[i].filename != null) ? array[i].filename : 'default_service.png';
-                var url = dirServer + 'public/';
-                var urlImg = url + 'images/fullsize/' + image;
-                var urlDetail = url + 'detalles-de-servicio/' + id;
-                var htmlString = '<div class="col-xs-12 col-sm-6 col-md-4 isotope-item" style=" padding-bottom: 25px;">\
-                    <div class="post-masonry post-masonry-short post-content-white bg-post-2 bg-image post-skew-right-top post-skew-var-4" style="background: url(' + urlImg + ');\
-                          background-size: cover;\
-                          background-repeat: no-repeat;\
-                          min-height: 200px;\
-                          cursor: pointer;" onclick="openDetailOnClick(' + id + ')">\
-                      <div class="post-masonry-content">\
-                        <h6 class=""><a href="' + urlDetail + '" style="color: #fff; text-shadow: 3px -1px 2px #1b1b1b;">' + array[i].nombre_servicio.toUpperCase() + '</a></h6>\
-                      </div>\
-                      </a>\
-                    </div>\
-                  </div>';
-                htmlResult = htmlResult + htmlString;
-            }
-
-            if (array.length == 0) {
-                var htmlString = '<div class="col-xs-12 text-center text-default">\
-                        <h4 style="color:#c26933;"><i class="fa fa-frown-o "></i> &nbsp;&nbsp;Ups!! No se han encontrado resultados</h4>\
-                      </div>';
-                htmlResult = htmlResult + htmlString;
-            }
-
-            $('#findedFilter').html(htmlResult);
+            htmlStringFromArray(r.data,function(htmlResult){
+                $('#findedFilter').html(htmlResult);
+            });
             $('#initialRows').hide();
         },
         error: function(e) {
             console.log(e)
         }
-        //  <div style="overflow-x: hidden;">\
-        //   ' + array[i].detalle_servicio + '\
-        // </div>\
-        // <a class="link-position link-primary-sec-2 link-right post-link" href="' + urlDetail + '"><i class="fa fa-info-circle" aria-hidden="true" style="color: #2f6890;"></i>\
+    });
+}
+
+function getServWithPromotion(idCatalogo, idSubCatalogo) {
+    var data = { c: idCatalogo, sbc: idSubCatalogo };
+    var url = dirServer + 'public/getServWithPromotion';
+    $.ajax({
+        type: 'POST',
+        url: url,
+        dataType: 'json',
+        data: data,
+        success: function(r) {
+            htmlStringFromArray(r.data,function(htmlResult){
+                $('#PromotionServices').html(htmlResult);
+            });
+        },
+        error: function(e) {
+            console.log(e)
+        }
     });
 }
 

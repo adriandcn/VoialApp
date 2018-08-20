@@ -221,7 +221,7 @@ class pruebasCtrl extends Controller
         if (count($existUser) > 0) {
             $data['promo_code'] = $existUser->cod;
             $correo_enviar = $existUser->email;
-            Mail::send('site.emails.promotionCode', $data, function($message) use ($correo_enviar)
+            Mail::send('site.emails.promotionCodeService', $data, function($message) use ($correo_enviar)
             {
                 $message->from("salud@voilapp.city",'VoilApp');
                 $message->to($correo_enviar,'')->subject('Código de promoción');
@@ -287,9 +287,22 @@ class pruebasCtrl extends Controller
                 $msgEndAd = $msgEndAd . ' para que termine la promoción';
             }
            $dataPromo->endAd = $msgEndAd;
+           $dataPromo->msgDate = $now->formatLocalized('%A, %d %b %Y');
+           $dataPromo->promo_code = $codePromotion;
         }
-        // $this->sendEmailPromotion($dataEmail);
+        $dataPaciente = [
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'promo_code' => $codePromotion,
+            'age' => $request->age
+        ];
+        $dataEmailDoctor = [
+            'email' => $dataDoctor->email,
+            'dataPromo' => $dataPromo,
+            'dataPaciente' => $dataPaciente
+        ];
+        $this->sendEmailPromotion($dataEmailDoctor);
         // return response()->json($dataDoctor);
-        return view('site.emails.promotionCode',compact('dataDoctor','promo_code','dataPromo'));
+        return view('site.emails.promotionCodeService',compact('dataDoctor','dataPromo','dataPaciente'));
     }
 }

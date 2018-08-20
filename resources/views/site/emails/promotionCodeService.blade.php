@@ -269,41 +269,30 @@
                                         <td width='305'>
                                             <div class="contentEditableContainer contentTextEditable">
                                                 <div class="contentEditable">
-                                                    <h4 style='inline;'>{{$dataDoctor->nombre_servicio}}</h4>
+                                                    <h4>Existe un posible paciente para atención en su consultorio, los datos son:</h4>
                                                     <br>
-                                                    <p>{{$dataDoctor->detalle_servicio}}</p>
-                                                <br>
-                                                <strong>Contactos</strong>
                                                 <hr style="height:1px;border:none;color:#c8402c;background-color:#c8402c;">
                                                 <table>
-                                                    @if($dataDoctor->telefono != null && $dataDoctor->telefono != '')
+                                                    @if(isset($dataPaciente['phone']) != null && $dataPaciente['phone'] != '')
                                                         <tr>
                                                             <td><h6 style="font-size: 14px; margin: 2px;">Teléfono</h6></td>
-                                                            <td><span style="margin-left: 20px; margin-right: 10px;    color: #2f6890;">{{$dataDoctor->telefono}}</span></td>
+                                                            <td><span style="margin-left: 20px; margin-right: 10px;    color: #2f6890;">{{$dataPaciente['phone']}}</span></td>
                                                         </tr>
                                                     @endif
-                                                    @if($dataDoctor->pagina_web != null && $dataDoctor->pagina_web != '')
+                                                    @if(isset($dataPaciente['email']) != null && $dataPaciente['email'] != '')
                                                         <tr>
-                                                            <td><h6 style="font-size: 14px; margin: 2px;">Página Web</h6></td>
-                                                            <td><span style="margin-left: 20px; margin-right: 10px;    color: #2f6890;">{{$dataDoctor->pagina_web}}</span></td>
+                                                            <td><h6 style="font-size: 14px; margin: 2px;">Correo: </h6></td>
+                                                            <td><span style="margin-left: 20px; margin-right: 10px;    color: #2f6890;">{{$dataPaciente['email']}}</span></td>
                                                         </tr>
                                                     @endif
-                                                    @if($dataDoctor->correo_contacto != null && $dataDoctor->correo_contacto != '')
+                                                    @if(isset($dataPaciente['age']) != null && $dataPaciente['age'] != '')
                                                         <tr>
-                                                            <td><h6 style="font-size: 14px; margin: 2px;">Email</h6></td>
-                                                            <td><span style="margin-left: 20px; margin-right: 10px;    color: #2f6890;">{{$dataDoctor->correo_contacto}}</span></td>
+                                                            <td><h6 style="font-size: 14px; margin: 2px;">Edad del paciente: </h6></td>
+                                                            <td><span style="margin-left: 20px; margin-right: 10px;    color: #2f6890;">{{$dataPaciente['age']}}</span></td>
                                                         </tr>
                                                     @endif
                                                 </table>
                                                 <br/>
-                                                <hr>
-                                                <p>
-                                                    <strong style="font-style: oblique;">
-                                                        Sugerimos contactar al Médico Especialista para establecer la cita en la fecha y hora disponible y que sea adecuada para ti
-                                                    </strong>
-                                                </p>
-                                                <hr/>
-                                                <p style='text-align: right;'><a target='_blank' href="{{asset('/detalles-de-servicio')}}/{{$dataDoctor->id}}" class='link2'>Ver más</a></p>
                                                 </div>
                                             </div>
                                         </td>
@@ -393,15 +382,6 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <!-- <td width='68' align="center">
-                                                        <div class="contentEditableContainer contentTwitterEditable">
-                                                            <div class="contentEditable">
-                                                                <a target='_blank' href="{{asset('/')}}" style='color:#a5a5a5'>
-                                                                    <img src="{{asset('/img/instagram.png')}}" alt="Facebook" data-default="placeholder" width='25' height='25' data-max-width="25" data-customIcon="true">
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </td> -->
                                                 </tr>
                                             </table>
                                         </td>

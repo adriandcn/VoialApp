@@ -46,6 +46,7 @@ Route::post('servicios/serviciosoperadormini1', ['as' => 'upload-postusuarioserv
 Route::get('servicios/serviciooperador1/{id}/{id_catalogo}', ['as' => 'details.showres1', 'uses' => 'ServicioController@step4crear', 'middleware' => 'notAuth']);
 Route::get('/updateServicioActivo/{id_usuario_servicio}', ['uses' => 'ServicioController@uploadServiciosActivo', 'as' => 'getPermanete', 'middleware' => 'notAuth']);
 Route::post('/uploadServiciosRes1', ['as' => 'upload-serviciosres1', 'uses' => 'ServicioController@uploadServiciosRes1', 'middleware' => 'notAuth']);
+Route::post('getServWithPromotion', ['as' => 'getPromotion', 'uses' => 'HomePublicController@getServWithPromotion']);
 // --Imagenes--
 Route::get('/imagenesAjaxDescription1/{tipo}/{idtipo}', ['as' => 'getimages', 'uses' => 'UsuarioServiciosController@getImagesDescription1', 'middleware' => 'notAuth']);
 Route::get('/getImagesServicio/{tipo}/{idtipo}', ['as' => 'getimages', 'uses' => 'UsuarioServiciosController@getImagesServicio']);
@@ -82,6 +83,7 @@ Route::post('/updateEvent', ['as' => 'AddEventst', 'uses' => 'UsuarioServiciosCo
 Route::get('/detalles-de-promocion/{idPromotion?}', ['as' => 'AddEventst', 'uses' => 'HomePublicController@getDetailPromotion']);
 Route::get('/getMorePromotions/{idSubCatalogo}', ['as' => 'getMorePromotions', 'uses' => 'HomePublicController@getMorePromotions']);
 Route::post('/getPromotion/{idPromotion}', ['as' => 'getPromotion', 'uses' => 'HomePublicController@getPromotion']);
+Route::post('randomPromotions', ['as' => 'getPromotion', 'uses' => 'HomePublicController@getrandomPromotion']);
 // blog
 Route::get('/Blog/{idArticle?}', ['as' => 'AddEventst', 'uses' => 'HomePublicController@getViewArticles']);
 // MISION VISION POLITICAS

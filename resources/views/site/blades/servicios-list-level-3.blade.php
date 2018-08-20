@@ -251,40 +251,7 @@
                   </div>
                   <div class="panel-custom-collapse collapse in" id="accordion1Collapse3" role="tabpanel" aria-labelledby="accordion1Heading3">
                     <div class="panel-custom-body" style="padding: 0 0px 30px 0px !important;">
-                      <div class="owl-carousel owl-theme carousel-promociones">
-                          @foreach($lastPromotions as $promotion)
-                            <div class="panel-custom-group-wrap" style="margin-top: 3px;">
-                                    <!-- Bootstrap collapse-->
-                                    <div class="panel-custom-group text-left" id="accordion1" role="tablist">
-                                        <!-- Bootstrap panel-->
-                                        <div class="panel panel-custom panel-custom-default" onclick="goToPromotion('{{asset("/")}}detalles-de-promocion/{{$promotion->id}}')">
-                                            <div class="panel-custom-heading" style="text-align: center;">
-                                                <img class="img-shadow" src="{{asset('/images/icon')}}/{{$promotion->filename}}" alt="" width="270" height="393" />
-                                                <p class="panel-custom-title" style="font-size: 16px; margin: 20px; font-weight: bolder;">
-                                                    <i class="fa fa-money"></i>&nbsp;&nbsp;{{$promotion->nombre_promocion}}
-                                                </p>
-                                                <h6 class="text-center" style="font-size: 14px; text-align: center; margin-bottom: 10px;">
-                                                      Fecha : {{Carbon\Carbon::parse($promotion->created_at)->format('d-m-y')}} - {{Carbon\Carbon::parse($promotion->created_at)->format('d-m-y')}}
-                                                </h6>
-                                                <h6 style="text-align: center; font-size: 18px; ">
-                                                  <a>Ver más</a>
-                                                </h6>
-                                                <br>
-                                            </div>
-                                            <!-- <div class="panel-custom-collapse collapse in" id="accordion1Collapse1" role="tabpanel" aria-labelledby="accordion1Heading1">
-                                                <div class="panel-custom-body" style="padding: 7px;">
-                                                    Descripción :
-                                                    <h6 style="font-size: 14px;"> {{$promotion->descripcion_promocion}}</h6> 
-                                                    <h6 style="font-size: 14px; text-align: justify;">
-                                                      Descuento %:{{$promotion->descuento}} %
-                                                    </h6>
-                                                </div>
-                                            </div> -->
-                                        </div>
-                                    </div>
-                                </div>
-                          @endforeach
-                      </div>
+                      <div id="promoCarousel"></div>
                     </div>
                   </div>
                 </div>
@@ -340,6 +307,7 @@
             </div>
             <br>
             <div class="isotope grid-masonry text-left column-offset-30" data-isotope-layout="masonry">
+               <div id="PromotionServices"></div>
                <div id="findedFilter"></div>
                <br>
                 <br>
@@ -408,106 +376,48 @@
       <!-- <script src="{{ asset('/siteStyle/js/Compartido.js')}}"></script>  -->
       <script src="{{ asset('/siteStyle/js/bootstrap-switch.js')}}"></script> 
       <!-- <script src="{{ asset('/siteStyle/js/underscore.js')}}"></script> -->
-      <script type="text/javascript" src="{{ asset('/public_components/components/OwlCarousel2/owl.carousel.min.js')}}"></script>
-      <style type="text/css">
-        .owl-carousel{
-          touch-action: manipulation;
-        }
-        .owl-next, .owl-prev{
-          display: none;
-        }
-        .owl-dots{
-            text-align: left !important;
-            top: 100% !important;
-        }
-        .owl-stage{
-          padding-left: 0px !important;
-        }
-      </style>
+      <!-- <script type="text/javascript" src="{{ asset('/public_components/components/OwlCarousel2/owl.carousel.min.js')}}"></script> -->
       <script type="text/javascript">
         $("[name='my-checkbox']").bootstrapSwitch();
         var idRouteCatalogo = {!!request()->route('idCatalogo')!!};
         var idRouteSubCatalogo = {!!request()->route('idSubCatalogo')!!};
-        function startAllServices(){
-          var carouselPromotions = $('.carousel-promociones');
-          carouselPromotions.owlCarousel({
-                  // stagePadding: 0,
-                  loop:false,
-                  dotsContainer:false,
-                  margin:10,
-                  nav:true,
-                  responsive:{
-                      0:{
-                          items:1
-                      },
-                      600:{
-                          items:3
-                      },
-                      1000:{
-                          items:5
-                      }
-                  }
-              });
-          window.current_page = 1;
-          carouselPromotions.on('changed.owl.carousel', function(event) {
-              var items     = event.item.count;
-              var item  = event.item.index;
-              if (item == (items - 2)) {
-                getMorePromotions("{!!asset('/getMorePromotions')!!}/{!!request()->route('idSubCatalogo')!!}",'.carousel-promociones');
-              }
-          });
-          searchServIni(idRouteCatalogo,idRouteSubCatalogo);
+
+        function startAllServices() {
+            searchServIni(idRouteCatalogo, idRouteSubCatalogo);
+            getServWithPromotion(idRouteCatalogo, idRouteSubCatalogo);
+            startPromotions();
         }
-        startAllServices();
-        function getMorePromotions(url,carouselId){
+
+        function startPromotions() {
+          // $('#promoCarousel').html('');
             $.ajax({
-                type: 'GET',
-                url: url,
-                data: {
-                    'page': window.current_page + 1 // you might need to init that var on top of page (= 0)
-                },
-                dataType: 'json',
-                success: function(data) {
-                    window.current_page = current_page + 1;
-                    var carouselSelector = $(carouselId);
-                    var imgs = [];
-                    $(data.morePromotions).each(function() {
-                        var its = $.trim($(this).html());
-                        if (its != undefined) {
-                            imgs.push(its);
+                    type: 'POST',
+                    url: "{!!asset('/randomPromotions')!!}",
+                    data: {
+                        'c': idRouteCatalogo,
+                        'sbc': idRouteSubCatalogo
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.success) {
+                          $('#promoCarousel').html(data.sections.randomPromotions);
                         }
-                    });
-                    itemsHTML = $.map(imgs, function(src) {
-                        if (src) {
-                            return src;
+                    },
+                    error: function(data) {
+                        var errors = data.responseJSON;
+                        if (errors) {
+                            $.each(errors, function(i) {
+                                console.log(errors[i]);
+                            });
                         }
-                    });
-                    var items = $(itemsHTML.join(''));
-                    if (items.length > 0) {
-                        for (var i = 0; i < items.length; i++) {
-                            if (items[i] != "") {
-                                carouselSelector.owlCarousel('add', items[i]).owlCarousel('update');
-                            }
-                        }
-
                     }
-                },
-                error: function(data) {
-                    var errors = data.responseJSON;
-                    if (errors) {
-                        $.each(errors, function(i) {
-                            console.log(errors[i]);
-                        });
-                    }
-                }
-            });
+                });
         }
 
-        function goToPromotion(url){
-          var win = window.open(url, '_blank');
-          win.focus();
-        }
+        setInterval(startPromotions, 3000);
+        startAllServices();
       </script>
+      
     </div>
     <!-- END PANEL-->
   </body>

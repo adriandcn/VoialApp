@@ -1269,19 +1269,14 @@ class HomePublicController extends Controller {
         return $randomString;
     }
 
-    public function sendEmailPromotion($data)
+    public function sendEmailPromotion($data,$template)
     {
         $correo_enviar = $data['email'];
         $existUser = $this->codUsuarioExternonModel->orWhere('email',$correo_enviar)->first();
         if (count($existUser) > 0) {
             $data['promo_code'] = $existUser->cod;
             $correo_enviar = $existUser->email;
-            Mail::send('site.emails.promotionCode', $data, function($message) use ($correo_enviar)
-            {
-                $message->from(config('global.emailAdmin'),'VoilApp');
-                $message->to($correo_enviar,'')->subject('Código de promoción');
-            });
-            Mail::send('site.emails.promotionCode', $data, function($message) use ($correo_enviar)
+            Mail::send($template, $data, function($message) use ($correo_enviar)
             {
                 $message->from(config('global.emailAdmin'),'VoilApp');
                 $message->to(config('global.emailAdmin'),'')->subject('Respaldo de promoción');
@@ -1354,7 +1349,7 @@ class HomePublicController extends Controller {
                         'dataDoctor' => $dataDoctor,
                         'dataPromo' => $dataPromo
                 ];
-            $promo_code = $codePromotion;
+            // $promo_code = $codePromotion;
             if (isset($dataPromo)) {
                 $msgEndAd = '';
                 $now = Carbon::now();
@@ -1375,10 +1370,68 @@ class HomePublicController extends Controller {
                     $msgEndAd = $msgEndAd . ' para que termine la promoción';
                 }
                $dataPromo->endAd = $msgEndAd;
+               $dataPromo->msgDate = $now->formatLocalized('%A, %d %b %Y');
+               $dataPromo->promo_code = $codePromotion;
             }
-            $this->sendEmailPromotion($dataEmail);
+            if (isset($dataDoctor->correo_contacto)) {
+                $dataPaciente = [
+                    'email' => $formFields['email'],
+                    'phone' => $formFields['phone'],
+                    'promo_code' => $codePromotion,
+                    'age' => $formFields['age']
+                ];
+                $dataEmailDoctor = [
+                    'email' => $dataDoctor->correo_contacto,
+                    'dataPromo' => $dataPromo,
+                    'dataPaciente' => $dataPaciente
+                ];
+            }
+            // return view('site.emails.promotionCode',compact('dataEmail'));
+            $this->sendEmailPromotion($dataEmail,'site.emails.promotionCode');
+            if (isset($dataDoctor->correo_contacto)) {
+                $this->sendEmailPromotion($dataEmailDoctor,'site.emails.promotionCodeService');
+            }
             return response()->json(['success' => true]);
         }
+    }
+
+    public function getrandomPromotion(Request $request)
+    {
+
+        $listServList = Usuario_Servicio::select(['promocion_usuario_servicio.id','nombre_promocion','fecha_hasta','filename','fecha_desde'])
+                                        ->join('promocion_usuario_servicio','usuario_servicios.id','=','id_usuario_servicio')
+                                        ->join('images','id_auxiliar','=','promocion_usuario_servicio.id')
+                                        ->where('id_catalogo_fotografia',2)
+                                        ->where('profile_pic',1)
+                                        ->where('estado_fotografia',1)
+                                        ->where('id_catalogo_servicio',$request->sbc)
+                                        ->where('estado_promocion',1)
+                                        ->limit(5)
+                                        ->orderBy(DB::raw('RAND()'))
+                                        ->get();
+        // return response()->json(['success' => $listServList]);
+        $view = View::make('site.partial.randomPromotions', array('data' => $listServList));
+        if ($request->ajax()) {
+            $sections = $view->rendersections();
+            return response()->json(array('success' => true, 'sections' => $sections));
+        }
+        return response()->json(['success' => $listServList]);
+    }
+
+    public function getServWithPromotion(Request $request)
+    {
+
+        $listServList = Usuario_Servicio::select(['usuario_servicios.id','nombre_servicio','filename','institucion'])
+                                        ->leftJoin('images','id_auxiliar','=','usuario_servicios.id')
+                                        ->where('id_catalogo_fotografia',1)
+                                        ->where('profile_pic',1)
+                                        ->where('estado_servicio',1)
+                                        ->where('id_catalogo_servicio',$request->sbc)
+                                        ->where('estado_fotografia',1)
+                                        ->limit(5)
+                                        ->orderBy(DB::raw('RAND()'))
+                                        ->get();
+        return response()->json(['success' => true,'data' => $listServList]);
     }
 
 }

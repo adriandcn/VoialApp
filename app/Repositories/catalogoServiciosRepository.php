@@ -330,6 +330,7 @@ class catalogoServiciosRepository extends BaseRepository
         	$image = DB::table('images')
         			->where('images.profile_pic', '=', 1)
         			->where('images.id_catalogo_fotografia', '=', 2)
+        			->where('images.estado_fotografia',1)
         			->where('images.id_auxiliar', '=', $promotion->id)
         			->first();
             if (count($image) > 0){

@@ -4,6 +4,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class Usuario_Servicio extends Model
 {
@@ -11,9 +12,9 @@ class Usuario_Servicio extends Model
     protected $table = 'usuario_servicios';
     public $timestamps = false;
 
-    // public $appends = [
-    //     'redes_list'
-    // ];
+    public $appends = [
+        'institucion_data'
+    ];
     
     // id_usuario_operador
     // id_catalogo_servicio
@@ -85,4 +86,10 @@ class Usuario_Servicio extends Model
     //             ->where('id_usuario_servicio',$this->id)
     //             ->get();
     // }
+
+    public function getInstitucionDataAttribute(){  
+       return DB::table('usuario_servicios')->select(['id','nombre_servicio'])
+                ->where('id',$this->institucion)
+                ->first();
+    }
 }

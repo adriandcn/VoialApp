@@ -768,6 +768,18 @@ class ServicioController extends Controller
         $eventos = $gestion->getEventosUsuarioServicio($id);
         // return response()->json(['data' => $atraccion]);
         $calendarios = DB::table('booking_abcalendar_calendars')->where('id_usuario_servicio', '=', $usuarioServicio[0]['id'])->get();
+        // Listado de clinicas
+        $catalogClinicas = DB::table('catalogo_servicios')
+                            ->select(['id_catalogo_servicios'])
+                            ->where('id_padre', 2)
+                            ->where('estado_catalogo_servicios', 1)
+                            ->get();
+        $catalogClinicas = array_pluck($catalogClinicas, 'id_catalogo_servicios');
+        $clinicasList = DB::table('usuario_servicios')
+                            ->select(['id','nombre_servicio'])
+                            ->where('estado_servicio', 1)
+                            ->whereIn('id_catalogo_servicio', $catalogClinicas)
+                            ->get();
         // $calendarios1 = DB::table('booking_abcalendar_calendars')->where('id_usuario_servicio', '=', '57' )->get();
         // $contadorCalendario = DB::select('SELECT COUNT(id_usuario_servicio) AS contador FROM booking_abcalendar_calendars WHERE id_usuario_servicio ='.$usuarioServicio[0]['id'])->get();
         // $contadorCalendario = DB::table('booking_abcalendar_calendars')->where('id_usuario_servicio', '=', $usuarioServicio[0]['id'] )->count();
@@ -795,7 +807,7 @@ class ServicioController extends Controller
             //             'id_catalogo', 'ImgPromociones', 'Servicio' ,'calendarios',
             //             'contadorCalendario','arrayDeIds','calendarioConNombre','reservacionesConNombre',
             //             'imagenes','atraccion','promociones','eventos'));
-            return view('site.blades.edit-servicios', compact('redesServicio', 'usuarioServicio', 'catalogoServicioEstablecimiento', 'id_catalogo', 'ImgPromociones', 'Servicio', 'calendarios', 'contadorCalendario', 'arrayDeIds', 'calendarioConNombre', 'reservacionesConNombre', 'imagenes', 'atraccion', 'promociones', 'eventos', 'tendenciasList','horarios'));
+            return view('site.blades.edit-servicios', compact('redesServicio', 'usuarioServicio', 'catalogoServicioEstablecimiento', 'id_catalogo', 'ImgPromociones', 'Servicio', 'calendarios', 'contadorCalendario', 'arrayDeIds', 'calendarioConNombre', 'reservacionesConNombre', 'imagenes', 'atraccion', 'promociones', 'eventos', 'tendenciasList','horarios','clinicasList'));
             }
           else
             {
@@ -803,7 +815,7 @@ class ServicioController extends Controller
             //             'id_catalogo', 'ImgPromociones', 'Servicio','calendarios','imagenes',
             //             'atraccion','promociones','eventos'));
             // return $redesServicio;
-            return view('site.blades.edit-servicios', compact('redesServicio', 'usuarioServicio', 'catalogoServicioEstablecimiento', 'id_catalogo', 'ImgPromociones', 'Servicio', 'calendarios', 'imagenes', 'atraccion', 'promociones', 'eventos', 'tendenciasList','horarios'));
+            return view('site.blades.edit-servicios', compact('redesServicio', 'usuarioServicio', 'catalogoServicioEstablecimiento', 'id_catalogo', 'ImgPromociones', 'Servicio', 'calendarios', 'imagenes', 'atraccion', 'promociones', 'eventos', 'tendenciasList','horarios','clinicasList'));
             }
         }
     public function cleanSeguros(Request $request, $idServicioEstablecimiento)

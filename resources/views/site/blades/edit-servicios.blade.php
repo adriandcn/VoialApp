@@ -216,8 +216,17 @@ $usuarioServicio->longitud_servicio = ($detalles->longitud_servicio == '') ? -78
                       <div class="cell-sm-6">
                         <div class="form-wrap">
                           <label class="form-label-outside" for="contact-first-name"><i class="fa fa-building "></i>&nbsp;&nbsp;{{ trans('back/admin.lblInstitucion')}}</label>
-                          <input  class="form-input tooltip" type="text" id='institucion' 
-                                   name="institucion" value="{!!$usuarioServicio->institucion!!}" title="{{ trans('back/admin.altInstitucion')}}">
+                          <!-- <input  class="form-input tooltip" type="text" id='institucion' 
+                                   name="institucion" value="{!!$usuarioServicio->institucion!!}" title="{{ trans('back/admin.altInstitucion')}}"> -->
+                          <select name="institucion" id="institucion" class="form-control" style="height: 40px;width: 100%; border: 1px solid #cccccc;">
+                                <option value="">Selecione un elemento</option>
+                                @foreach($clinicasList as $servClinica)
+                                <option value="{{$servClinica->id}}">{{$servClinica->nombre_servicio}}</option>
+                                @endforeach
+                         </select>
+                         <script type="text/javascript">
+                             $("#institucion").val("{!!$usuarioServicio->institucion!!}");
+                          </script>
                         </div>
                       </div>
                       <div class="cell-sm-12">

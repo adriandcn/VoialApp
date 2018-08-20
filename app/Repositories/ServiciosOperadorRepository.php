@@ -842,18 +842,17 @@ class ServiciosOperadorRepository extends BaseRepository
         {
         $promociones = new $this->promocion;
         $arrayPromo = $promociones::where('promocion_usuario_servicio.id_usuario_servicio', '=', $id_usuario_servicio)
-        // ->where('promocion_usuario_servicio.id_catalogo_tipo_fotografia','=',2)
-        // ->where(function($query){
-        //      $query->where('images.profile_pic','=',1);
-        //      $query->where('images.estado_fotografia','=',1);
-        //      $query->orWhereNull('images.profile_pic');
-        // })
-        // ->groupBy('promocion_usuario_servicio.id')
-        // ->select(['promocion_usuario_servicio.*','filename'])
-        ->orderBy('promocion_usuario_servicio.updated_at', 'DESC')->get();
+                                    ->where('estado_promocion', 1)
+                                    ->orderBy('promocion_usuario_servicio.updated_at', 'DESC')
+                                    ->get();
         foreach($arrayPromo as $promotion)
             {
-            $image = DB::table('images')->where('images.profile_pic', '=', 1)->where('images.id_catalogo_fotografia', '=', 2)->where('images.id_auxiliar', '=', $promotion->id)->get();
+            $image = DB::table('images')
+                    ->where('images.profile_pic', '=', 1)
+                    ->where('images.id_catalogo_fotografia', '=', 2)
+                    ->where('images.estado_fotografia', 1)
+                    ->where('images.id_auxiliar', '=', $promotion->id)
+                    ->get();
             if (count($image) > 0)
                 {
                 $promotion->filename = $image[0]->filename;

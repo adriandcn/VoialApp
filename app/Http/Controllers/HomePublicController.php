@@ -1269,23 +1269,37 @@ class HomePublicController extends Controller {
         return $randomString;
     }
 
-    public function sendEmailPromotion($data,$template)
-    {
-        $correo_enviar = $data['email'];
+    public function sendEmailPromotion($dataPaciente,$dataDoctor,$emailPaciente,$emailDoctor)
+    {   
+        $correo_enviar = $emailPaciente;
         $existUser = $this->codUsuarioExternonModel->orWhere('email',$correo_enviar)->first();
         if (count($existUser) > 0) {
             $data['promo_code'] = $existUser->cod;
             $correo_enviar = $existUser->email;
-            Mail::send($template, $data, function($message) use ($correo_enviar)
+            Mail::send('site.emails.promotionCode', $dataPaciente, function($message) use ($correo_enviar)
+            {
+                $message->from(config('global.emailAdmin'),'VoilApp');
+                $message->to($correo_enviar,'')->subject('Código de promoción');
+            });
+            Mail::send('site.emails.promotionCode', $dataPaciente, function($message)
             {
                 $message->from(config('global.emailAdmin'),'VoilApp');
                 $message->to(config('global.emailAdmin'),'')->subject('Respaldo de promoción');
             });
+
+            if ($emailDoctor != null) {
+                Mail::send('site.emails.promotionCodeService', $dataDoctor, function($message) use ($emailDoctor)
+                {
+                    $message->from(config('global.emailAdmin'),'VoilApp');
+                    $message->to($emailDoctor,'')->subject('Solicitud de promoción');
+                });
+            }
             return true;
         }else{
             return true;
         }
     }
+
 
     public function getPromotion()
     {
@@ -1373,6 +1387,7 @@ class HomePublicController extends Controller {
                $dataPromo->msgDate = $now->formatLocalized('%A, %d %b %Y');
                $dataPromo->promo_code = $codePromotion;
             }
+            // $dataPaciente,$dataDoctor,$emailPaciente,$emailDoctor
             if (isset($dataDoctor->correo_contacto)) {
                 $dataPaciente = [
                     'email' => $formFields['email'],
@@ -1385,12 +1400,12 @@ class HomePublicController extends Controller {
                     'dataPromo' => $dataPromo,
                     'dataPaciente' => $dataPaciente
                 ];
+                $this->sendEmailPromotion($dataEmail,$dataEmailDoctor,$formFields['email'],$dataDoctor->correo_contacto);
+                
+            }else{
+                $this->sendEmailPromotion($dataEmail,null,$formFields['email'],null);
             }
-            // return view('site.emails.promotionCode',compact('dataEmail'));
-            $this->sendEmailPromotion($dataEmail,'site.emails.promotionCode');
-            if (isset($dataDoctor->correo_contacto)) {
-                $this->sendEmailPromotion($dataEmailDoctor,'site.emails.promotionCodeService');
-            }
+
             return response()->json(['success' => true]);
         }
     }

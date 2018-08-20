@@ -56,7 +56,7 @@
             'estado_promocion' => $promotion[0]->estado_promocion,
             'fecha_desde' => $promotion[0]->fecha_desde,
             'fecha_hasta' => $promotion[0]->fecha_hasta,
-            'fecha_desde_hasta' => $promotion[0]->fecha_desde . ' - ' .$promotion[0]->fecha_hasta,
+            'fecha_desde_hasta' => $promotion[0]->fecha_desde . ' - ' . $promotion[0]->fecha_hasta,
             'tags' => $promotion[0]->tags,
             'precio_normal' => $promotion[0]->precio_normal,
             'descuento' => $promotion[0]->descuento,
@@ -309,53 +309,30 @@
 
                       var values = keypressSliderDescuento.noUiSlider.get();
                       var value = Number(values[handle]);
-
-                      // [[handle0_down, handle0_up], [handle1_down, handle1_up]]
                       var steps = keypressSliderDescuento.noUiSlider.steps();
-
-                      // [down, up]
                       var step = steps[handle];
-
                       var position;
-
-                      // 13 is enter,
-                      // 38 is key up,
-                      // 40 is key down.
                       switch ( e.which ) {
-
                           case 13:
                               setSliderHandle(handle, this.value);
                               break;
-
                           case 38:
-
-                              // Get step to go increase slider value (up)
                               position = step[1];
-
-                              // false = no step is set
                               if ( position === false ) {
                                   position = 1;
                               }
-
-                              // null = edge of slider
                               if ( position !== null ) {
                                   setSliderHandle(handle, value + position);
                               }
-
                               break;
-
                           case 40:
-
                               position = step[0];
-
                               if ( position === false ) {
                                   position = 1;
                               }
-
                               if ( position !== null ) {
                                   setSliderHandle(handle, value - position);
                               }
-
                               break;
                       }
                   });
@@ -370,7 +347,15 @@
       <!-- @if($promotion->id != null) -->
         <script type="text/javascript">
           var idPromotion = {!!$promotion->id!!};
+          var statusPromo = {!! $promotion->estado_promocion !!};
           GetDataAjaxImagenesPromotion(idPromotion);
+          if (statusPromo == '0') {
+            $('#estado_promocion').bootstrapSwitch('state', false);
+          }
+          if (statusPromo == '1') {
+            $('#estado_promocion').bootstrapSwitch('state', true);
+          }
+          
         </script>
       <!-- @endif -->
   </body>

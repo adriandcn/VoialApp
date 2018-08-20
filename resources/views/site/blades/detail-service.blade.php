@@ -81,11 +81,15 @@
         <section class="bg-white">
             <div class="shell">
                 <div class="range range-50">
-                    <pre style="white-space: pre-wrap;       /* Since CSS 2.1 */
-    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
-    white-space: -pre-wrap;      /* Opera 4-6 */
-    white-space: -o-pre-wrap;    /* Opera 7 */
-    word-wrap: break-word;   ">{{$detalles->detalle_servicio}}</pre>
+                    @if(session('device') != 'mobile')
+                        <p style="margin-left: 15px; text-align: justify;"> 
+                            {!! str_replace("\n", '<br />',  $detalles->detalle_servicio); !!}
+                        </p>
+                    @else
+                        <p style="margin-left: 15px; text-align: justify;max-width: 92%;"> 
+                            {!! str_replace("\n", '<br />',  $detalles->detalle_servicio); !!}
+                        </p>
+                    @endif
                 </div>
             </div>
         </section>
@@ -193,7 +197,7 @@
                                                 </div>
                                                 <div class="panel-custom-collapse collapse in" id="accordion1CollapseInstitucion" role="tabpanel" aria-labelledby="accordion1HeadingInstitucion">
                                                     <div class="panel-custom-body">
-                                                        <h6 style="font-size: 14px;"> {{$detalles->institucion}}</h6>
+                                                        <h6 style="font-size: 14px;"> {{$detalles->institucion->nombre_servicio}}</h6>
                                                     </div>
                                                 </div>
                                             </div>

@@ -2002,8 +2002,8 @@ function htmlStringFromArray(array,callback) {
                 <h6 class=""><a href="' + urlDetail + '" style="color: #fff; text-shadow: 3px -1px 2px #1b1b1b;">' + array[i].nombre_servicio.toUpperCase() + '</a></h6>\
               </div><br>\
             ';
-            if (array[i].institucion) {
-                htmlString = htmlString + '<span class="badge" style="color:Wwhite;background: #c26933;">' + array[i].institucion + '</span>';
+            if (array[i].institucion != '' && array[i].institucion_data) {
+                htmlString = htmlString + '<span class="badge" style="color:Wwhite;background: #c26933;">' + array[i].institucion_data.nombre_servicio + '</span>';
             }
             htmlString = htmlString + '</a>\
             </div>\

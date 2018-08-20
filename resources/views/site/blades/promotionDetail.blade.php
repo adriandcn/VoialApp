@@ -146,7 +146,7 @@
                             if ($diffDays <= 1) {
                                 $dateHuman = Carbon\Carbon::parse($dbDate)->diffForHumans();
                             }else{
-                                $dateHuman = Carbon\Carbon::parse($dbDate)->formatLocalized('%A, %d %b %Y');
+                                $dateHuman = Carbon\Carbon::parse($dbDate)->formatLocalized('%A, %d %b');
                             }
                         ?>
                         <time>{{$dateHuman}}</time>
@@ -172,10 +172,10 @@
                         </style>
                         <p><h6><i class="fa fa-calendar"></i> &nbsp;&nbsp;{{trans('publico/labels.lblTitleTimePromotion')}}</h6></p>
                         <p>
-                            <span class="title-promotion">{{trans('publico/labels.lblFechaDesde')}} : </span><span class="detail-promotion">{{$promotion->fecha_desde}}</span>
+                            <span class="title-promotion">{{trans('publico/labels.lblFechaDesde')}} : </span><span class="detail-promotion">{{Carbon\Carbon::parse($promotion->fecha_desde)->formatLocalized('%A, %d %b de %Y')}}</span>
                         </p>
                         <p>
-                            <span class="title-promotion">{{trans('publico/labels.lblFechaHasta')}} : </span> <span class="detail-promotion">{{$promotion->fecha_hasta}}</span>
+                            <span class="title-promotion">{{trans('publico/labels.lblFechaHasta')}} : </span> <span class="detail-promotion">{{Carbon\Carbon::parse($promotion->fecha_hasta)->formatLocalized('%A, %d %b de %Y')}}</span>
                         </p>
                         <!-- <p>
                             <h6>

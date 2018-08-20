@@ -954,11 +954,30 @@ Actualizar tabla de busqueda
     }   
 
     //Entrega el arreglo de promociones por usuario servicio
-    public function getPromocionesUsuarioServicio($id_usuario_servicio) {
-        $promociones = new $this->promocion;
-        return $promociones::where('id_usuario_servicio', '=', $id_usuario_servicio)->orderBy('updated_at', 'DESC')->get();
-        return $promociones::All();
-    }
+    // public function getPromocionesUsuarioServicio($id_usuario_servicio) {
+    //     $promociones = new $this->promocion;
+    //         $arrayPromo = $promociones::select(['promocion_usuario_servicio.*','filename'])->where('promocion_usuario_servicio.id_usuario_servicio', '=', $id_usuario_servicio)
+    //                                         ->leftJoin('images','id_auxiliar','=','promocion_usuario_servicio.id')
+    //                                         ->where('id_catalogo_fotografia',2)
+    //                                         ->where('profile_pic',1)
+    //                                         ->where('estado_fotografia',1)
+    //                                         ->where('estado_promocion',1)
+    //                                         ->orderBy('promocion_usuario_servicio.updated_at', 'DESC')
+    //                                         ->get();
+    //         foreach($arrayPromo as $promotion)
+    //             {
+    //             $image = DB::table('images')->where('images.profile_pic', '=', 1)->where('images.id_catalogo_fotografia', '=', 2)->where('images.id_auxiliar', '=', $promotion->id)->get();
+    //             if (count($image) > 0)
+    //                 {
+    //                 $promotion->filename = $image[0]->filename;
+    //                 }
+    //               else
+    //                 {
+    //                 $promotion->filename = 'default.png';
+    //                 }
+    //             }
+    //         return $arrayPromo;
+    // }
 
     //Entrega el arreglo de posts por usuario servicio
     public function getPostsUsuarioServicio($id_usuario_servicio) {

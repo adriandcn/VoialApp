@@ -2877,11 +2877,19 @@ class PublicServiceRepository extends BaseRepository {
                         ->where('id_catalogo_servicios',$datosCatalogo->id_padre)
                         ->select('nombre_servicio','id_catalogo_servicios')
                         ->first();
+
         $redesSociales = DB::table('servicio_redes_sociales')
                         ->join('redes_sociales','redes_sociales.idredes_sociales','=','servicio_redes_sociales.idredes_sociales')
                         ->select('nombre_red','url','icon')
                         ->where('id_usuario_servicio',$idServicio)
                         ->get();
+        if (isset($servicios->institucion) && $servicios->institucion != null && $servicios->institucion != '') {
+            $dataInstitucion = DB::table('usuario_servicios')
+                        ->where('id',$servicios->institucion)
+                        ->select('nombre_servicio','id')
+                        ->first();
+            $servicios->institucion = $dataInstitucion;
+        }
         $servicios->redes = $redesSociales;
         $servicios->id_usuario_servicio = $servicios->id;
         $servicios->catPadre = $datosPadreCatalogo->nombre_servicio;

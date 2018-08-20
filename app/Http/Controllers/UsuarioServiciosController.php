@@ -595,7 +595,8 @@ class UsuarioServiciosController extends Controller
         $date_hasta = $dateSplit[1];
         $formFields['fecha_desde'] = $date_desde;
         $formFields['fecha_hasta'] = $date_hasta;
-        $formFields['estado_promocion'] = ($formFields['estado_promocion'] == 'on') ? true : false;
+        $formFields['estado_promocion'] = (array_key_exists('estado_promocion', $formFields))?($formFields['estado_promocion'] == 'on') ? true : false : false;
+        // return  response()->json(['r' => $formFields['estado_promocion']]);
         if (isset($Promocion))
             {
             // logica update
@@ -1177,9 +1178,8 @@ class UsuarioServiciosController extends Controller
         $listServiciosUnicos = $gestion->getServiciosOperadorUnicos(session('operador_id'));
         // listado de arcordion
         $campos = ['id_catalogo_servicios', 'nombre_servicio', 'nombre_servicio_eng', 'nivel'];
-        $padresList = DB::table('catalogo_servicios')->select($campos)->where('nivel', 1)->get();
+        $padresList = DB::table('catalogo_servicios')->select($campos)->where('nivel', 1)->where('estado_catalogo_servicios',1)->get();
         $catalogoServicios = $catalogoRepo->recursiveListForAcordion($padresList);
-        // return response()->json(['abc' => $catalogoServicios]);
         $controlDashboard = $gestion->getControlDashboard(session('operador_id'));
         $listServiciosAll = $gestion->getServiciosOperadorAll(session('operador_id'));
         $postList = $gestion->getPostsUsuarioOperador(session('operador_id'));

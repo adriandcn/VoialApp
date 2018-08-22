@@ -208,7 +208,7 @@ class catalogoServiciosRepository extends BaseRepository
 
 
 
-	public function getByCatalogoArray($array, $idSubCatalogo = null)
+	public function getByCatalogoArray($array, $idSubCatalogo = null, $arrayDiff = [])
 
 	{	
 
@@ -222,8 +222,6 @@ class catalogoServiciosRepository extends BaseRepository
 			->select('id_usuario_servicio')
 			->whereIn('id_servicio_est', $array)
 			->groupBy('id_usuario_servicio')
-			->orderBy('usuario_servicios.prioridad','DESC')
-			->orderBy('usuario_servicios.num_visitas','DESC')
 			->get();
 
 		$arrayEstServ = [];
@@ -238,6 +236,7 @@ class catalogoServiciosRepository extends BaseRepository
 			->where('usuario_servicios.estado_servicio',1)
             ->where('usuario_servicios.estado_servicio_usuario',1)
 			->where('id_catalogo_servicio',$idSubCatalogo)
+			->whereNotIn('usuario_servicios.id',$arrayDiff)
 			->where(function($query){
                  $query->where('images.profile_pic','=',1);
                  $query->where('images.estado_fotografia','=',1);
@@ -246,6 +245,8 @@ class catalogoServiciosRepository extends BaseRepository
             })
             ->select($campos_serv)
             ->groupBy('usuario_servicios.id')
+			->orderBy('usuario_servicios.prioridad','DESC')
+			->orderBy('usuario_servicios.num_visitas','DESC')
 			->get();
 		return $finded;
 	}

@@ -191,16 +191,48 @@
                         <p>
                             <span class="title-promotion">{{trans('publico/labels.lblTitleFinalPricePromotion')}}: </span> <span class="detail-promotion">{{floatval($promotion->precio_normal)-floatval(($promotion->precio_normal)*($promotion->descuento/100))}}</span>
                         </p> -->
-
-                        <p><h6><i class="fa fa-eye"></i> &nbsp;&nbsp;{{trans('publico/labels.lblPromotionObservations')}}</h6></p>
-                        <p>
-                            {{$promotion->observaciones_promocion}}
-                        </p>
-                        <p class="text-center">
-                            <button class="button button-facebook button-icon button-icon-sm button-icon-right fa-dollar" data-toggle="modal" data-target="#form-modal-get-promotion">
-                                {{trans('publico/labels.btnGetPromotion')}}<span></span>
-                            </button>
-                        </p>
+                        @if(isset($promotion->observaciones_promocion) && $promotion->observaciones_promocion != "")
+                            <p><h6><i class="fa fa-eye"></i> &nbsp;&nbsp;{{trans('publico/labels.lblPromotionObservations')}}</h6></p>
+                            <p>
+                                {{$promotion->observaciones_promocion}}
+                            </p>
+                        @endif
+                        <br>
+                        <br>
+                        @if(isset($promotion->endAd) && $promotion->expirePromo == false)
+                            <div style="background: #162849;
+                                        color: white;
+                                        border-radius: 5px;
+                                        font-size: 20px;
+                                        padding: 10px;
+                                        -webkit-box-shadow: 0px 0px 30px 0px rgb(22, 40, 73);
+                                        -moz-box-shadow: 0px 0px 34px 0px rgba(50,81,235,1);
+                                        box-shadow: 0px 0px 30px 0px rgb(22, 40, 7);
+                                        text-align: center;">
+                                        {{$promotion->endAd}}
+                            </div>
+                        @else
+                            <div style="background: #F44336;
+                                        color: white;
+                                        border-radius: 5px;
+                                        font-size: 20px;
+                                        padding: 10px;
+                                        -webkit-box-shadow: 0px 0px 30px 0px #F44336;
+                                        -moz-box-shadow: 0px 0px 34px 0px #F44336;
+                                        box-shadow: 0px 0px 30px 0px #F44336;
+                                        text-align: center;">
+                                        {{trans('publico/labels.lblPromotionExpire')}}
+                            </div>
+                        @endif
+                        <br>
+                        <br>
+                        @if(isset($promotion->endAd) && $promotion->expirePromo == false)
+                            <p class="text-center">
+                                <button class="button button-facebook button-icon button-icon-sm button-icon-right fa-dollar" data-toggle="modal" data-target="#form-modal-get-promotion">
+                                    {{trans('publico/labels.btnGetPromotion')}}<span></span>
+                                </button>
+                            </p>
+                        @endif
                       </div>
                     </div>
                   </div>

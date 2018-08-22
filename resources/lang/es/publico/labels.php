@@ -257,4 +257,5 @@ return [
     'titlePromotionEmail' => 'Se enviará un email con el codigo de la promoción, no olvides revisar también tu correo no deseado',
     'titlePromotionPhone' => 'Ingrese su numero de telefono Ej: 09912345678',
     'titlePromotionEdad' => 'Ingrese la edad del paciente',
+    'lblPromotionExpire' => 'Promoción no disponible',
 ];

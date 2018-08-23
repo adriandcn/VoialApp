@@ -102,3 +102,8 @@ Route::post('/saveEditPost', ['as' => 'saveEditPost', 'uses' => 'UsuarioServicio
 Route::get('/listado-de-post', ['as' => 'listado-post', 'uses' => 'UsuarioServiciosController@addEditPost', 'middleware' => 'notAuth']);
 Route::get('/lastPostsList', ['as' => 'listado-last-post', 'uses' => 'UsuarioServiciosController@getLastPostCreatedCarousel']);
 Route::get('/crear-editar-post/{idUsuarioServ}/{idPost?}', ['as' => 'crear-editar-post', 'uses' => 'UsuarioServiciosController@getViewaddEditPost', 'middleware' => 'notAuth']);
+
+Route::get("sitemap.xml", array(
+    "as"   => "sitemap",
+    "uses" => "HomePublicController@sitemap", // or any other controller you want to use
+));

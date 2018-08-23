@@ -88,14 +88,12 @@ class HomePublicController extends Controller {
     //Logica para obtener sitemap de los sitios turisticos
     public function sitemap(PublicServiceRepository $gestion) {
         if (!\Cache::has('usuarioServicioCache')) {
-
             $usuarioServicioCache = $gestion->getSitemapUsuariosServicio();
-
             \Cache::put('usuarioServicioCache', $usuarioServicioCache, 4320);
         } else {
             $usuarioServicioCache = \Cache::get('usuarioServicioCache');
         }
-        $content = View::make('Admin/sitemap', ['usuarioServicioCache' => $usuarioServicioCache]);
+        $content = View::make('site/sitemap', ['usuarioServicioCache' => $usuarioServicioCache]);
         return Response::make($content)->header('Content-Type', 'text/xml;charset=utf-8');
     }
 

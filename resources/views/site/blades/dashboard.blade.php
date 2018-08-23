@@ -164,41 +164,44 @@
                       @endforeach
                     </div>
                 </div>
-                <div class="tab-pane fade" id="tabs-2-3">
-                    @if(Auth::user()->role_id = 2)
-                    <div class="row">
-                      <div class="heading-group">
-                        <h1><i class="fa fa-list"></i> &nbsp;&nbsp;{{ trans('back/admin.lblAddPost')}}</h1>
-                        <h6 class="text-regular">{{ trans('back/admin.descriptionPostList')}}</h6>
-                      </div>
-                      <div class="col-lg-12 text-center" style="margin-top: 30px; margin-bottom: 25px;">
-                          <button class="button-primary button" style="padding: 3px 0px 3px; margin-top: 7px;" type="button" onclick="openAddPost();">
-                                Añadir post<span></span>
-                          </button>
-                      </div>
-                     @foreach ($postList as $postItem)
-                        <div class="col-xs-12 col-sm-4 isotope-item">
-                            <div class="post-masonry post-masonry-short post-content-white bg-post-primary-sec box-skew post-skew-right-bottom post-skew-var-3" style="background: url({{asset('/images/postIcon.png')}});
-                                    background-size: contain;
-                                    background-repeat: no-repeat;
-                                    cursor: pointer;
-                                    background-position: center;">
-                                <div class="post-masonry-content">
-                                    <h6>
-                                      <a class="text-white" href="" style="color: #fff;    text-shadow: 3px -1px 2px #1b1b1b;"> 
-                                        {{ strtoupper($postItem->title) }}
-                                      </a>
-                                    </h6>
-                                </div>
-                                <div style="bottom: 20px !important; position: absolute;">
-                                  <button class="button-primary button" style="padding: 3px 0px 3px; margin-top: 7px;" type="button" data-toggle="modal" onclick="openEditPost(event,{!!$postItem->id!!}, {!!session('operador_id')!!});">
-                                          Editar post<span></span>
-                                  </button>
-                                </div>
-                            </div>
+                
+                  <div class="tab-pane fade" id="tabs-2-3">
+                      @if(Auth::user()->role_id = 2)
+                      <div class="row">
+                        <div class="heading-group">
+                          <h1><i class="fa fa-list"></i> &nbsp;&nbsp;{{ trans('back/admin.lblAddPost')}}</h1>
+                          <h6 class="text-regular">{{ trans('back/admin.descriptionPostList')}}</h6>
                         </div>
-                      @endforeach
-                    </div>
+                        <div class="col-lg-12 text-center" style="margin-top: 30px; margin-bottom: 25px;">
+                            <button class="button-primary button" style="padding: 3px 0px 3px; margin-top: 7px;" type="button" onclick="openAddPost();">
+                                  Añadir post<span></span>
+                            </button>
+                        </div>
+                        @if(isset($postList))
+                           @foreach ($postList as $postItem)
+                              <div class="col-xs-12 col-sm-4 isotope-item">
+                                  <div class="post-masonry post-masonry-short post-content-white bg-post-primary-sec box-skew post-skew-right-bottom post-skew-var-3" style="background: url({{asset('/images/postIcon.png')}});
+                                          background-size: contain;
+                                          background-repeat: no-repeat;
+                                          cursor: pointer;
+                                          background-position: center;">
+                                      <div class="post-masonry-content">
+                                          <h6>
+                                            <a class="text-white" href="" style="color: #fff;    text-shadow: 3px -1px 2px #1b1b1b;"> 
+                                              {{ strtoupper($postItem->title) }}
+                                            </a>
+                                          </h6>
+                                      </div>
+                                      <div style="bottom: 20px !important; position: absolute;">
+                                        <button class="button-primary button" style="padding: 3px 0px 3px; margin-top: 7px;" type="button" data-toggle="modal" onclick="openEditPost(event,{!!$postItem->id!!}, {!!session('operador_id')!!});">
+                                                Editar post<span></span>
+                                        </button>
+                                      </div>
+                                  </div>
+                              </div>
+                            @endforeach
+                        @endif
+                      </div>
                     @endif
                   </div>
               </div>

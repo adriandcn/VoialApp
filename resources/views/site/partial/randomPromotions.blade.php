@@ -6,9 +6,6 @@
         .owl-stage{
           padding-left: 0px !important;
         }
-        .owl-item{
-          width: 26% !important;
-        }
         .owl-prev{
           left: 0;
           width: 0px;

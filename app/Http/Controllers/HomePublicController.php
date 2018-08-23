@@ -1240,33 +1240,6 @@ class HomePublicController extends Controller {
             if (count($promotion) > 0 ) {
                 $promotion = $promotion[0];
                 $servicioData = $servicioData[0];
-                $msgEndAd = '';
-                $now = Carbon::now();
-                $end_date = Carbon::parse($promotion->fecha_hasta);
-
-                if ($end_date->gt($now)){
-                    $promotion->expirePromo = false;
-                }else{
-                    $promotion->expirePromo = true;
-                }
-
-                $lengthOfAd = $now->diffInDays($end_date);
-                if ($lengthOfAd == 0) {
-                    $lengthOfAd = $now->diffInHours($end_date);
-                    if ($lengthOfAd == 0) {
-                        $msgEndAd = 'Hoy termina esta promoción';
-                    }else{
-                        $msgEndAd = 'Faltan ';
-                        $msgEndAd =  ($lengthOfAd > 1)? $msgEndAd . $lengthOfAd . ' horas':$msgEndAd . $lengthOfAd . ' hora';
-                        $msgEndAd = $msgEndAd . ' para que termine la promoción';
-                    }
-                }else{
-                    $msgEndAd = 'Faltan ';
-                    $msgEndAd =  ($lengthOfAd > 1)? $msgEndAd . $lengthOfAd . ' dias':$msgEndAd . $lengthOfAd . ' día';
-                    $msgEndAd = $msgEndAd . ' para que termine la promoción';
-                }
-                $promotion->endAd = $msgEndAd;
-                // return response()->json(['data' => $promotion]);
                 return view('site.blades.promotionDetail',compact('promotion','servicioData'));
             }else{
                 return view('errors.404');
@@ -1462,21 +1435,18 @@ class HomePublicController extends Controller {
 
     public function getServWithPromotion(Request $request)
     {
+
         $listServList = Usuario_Servicio::select(['usuario_servicios.id','nombre_servicio','filename','institucion'])
                                         ->leftJoin('images','id_auxiliar','=','usuario_servicios.id')
-                                        ->leftJoin('promocion_usuario_servicio','promocion_usuario_servicio.id_usuario_servicio','=','usuario_servicios.id')
                                         ->where('id_catalogo_fotografia',1)
-                                        ->where('estado_promocion',1)
                                         ->where('profile_pic',1)
                                         ->where('estado_servicio',1)
                                         ->where('id_catalogo_servicio',$request->sbc)
                                         ->where('estado_fotografia',1)
-                                        ->groupBy('usuario_servicios.id')
-                                        ->limit(3)
+                                        ->limit(5)
                                         ->orderBy(DB::raw('RAND()'))
                                         ->get();
-        $listServListPluck = $listServList->pluck('id');
-        return response()->json(['success' => true,'data' => $listServList, 'pluck' => $listServListPluck]);
+        return response()->json(['success' => true,'data' => $listServList]);
     }
 
 }

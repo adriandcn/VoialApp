@@ -1906,7 +1906,6 @@ var openFilterModal = function(event) {
     event.preventDefault();
     $('#filter').modal('show');
 }
-var arrayDiff = [];
 
 function searchServ(event, idCatalogo, idSubCatalogo) {
     event.preventDefault();
@@ -1916,8 +1915,7 @@ function searchServ(event, idCatalogo, idSubCatalogo) {
         idSubCatalogo: idSubCatalogo,
         lat: $('#latitud_servicio').val(),
         lng: $('#longitud_servicio').val(),
-        radio: $('#radioSearch').val(),
-        diff: arrayDiff
+        radio: $('#radioSearch').val()
     };
     var url = dirServer + 'public/filterService';
     $.ajax({
@@ -1955,12 +1953,12 @@ function searchServ(event, idCatalogo, idSubCatalogo) {
                   </div>';
                 htmlResult = htmlResult + htmlString;
             }
-            // if (array.length == 0) {
-            //     var htmlString = '<div class="col-xs-12 text-center text-default">\
-            //             <h4 style="color:#c26933;"><i class="fa fa-frown-o "></i> &nbsp;&nbsp;Ups!! No se han encontrado resultados</h4>\
-            //           </div>';
-            //     htmlResult = htmlResult + htmlString;
-            // }
+            if (array.length == 0) {
+                var htmlString = '<div class="col-xs-12 text-center text-default">\
+                        <h4 style="color:#c26933;"><i class="fa fa-frown-o "></i> &nbsp;&nbsp;Ups!! No se han encontrado resultados</h4>\
+                      </div>';
+                htmlResult = htmlResult + htmlString;
+            }
             $('#findedFilter').html(htmlResult);
             $('#initialRows').hide();
             $('#filter').modal('hide');
@@ -2013,18 +2011,18 @@ function htmlStringFromArray(array,callback) {
         htmlResult = htmlResult + htmlString;
     }
 
-    // if (array.length == 0) {
-    //     var htmlString = '<div class="col-xs-12 text-center text-default">\
-    //             <h4 style="color:#c26933;"><i class="fa fa-frown-o "></i> &nbsp;&nbsp;Ups!! No se han encontrado resultados</h4>\
-    //           </div>';
-    //     htmlResult = htmlResult + htmlString;
-    // }
+    if (array.length == 0) {
+        var htmlString = '<div class="col-xs-12 text-center text-default">\
+                <h4 style="color:#c26933;"><i class="fa fa-frown-o "></i> &nbsp;&nbsp;Ups!! No se han encontrado resultados</h4>\
+              </div>';
+        htmlResult = htmlResult + htmlString;
+    }
 
     callback(htmlResult);
 }
 
-function searchServIni(idCatalogo, idSubCatalogo, array) {
-    var data = { filter: filtersServ, idCatalogo: idCatalogo, idSubCatalogo: idSubCatalogo , diff: array};
+function searchServIni(idCatalogo, idSubCatalogo) {
+    var data = { filter: filtersServ, idCatalogo: idCatalogo, idSubCatalogo: idSubCatalogo };
     var url = dirServer + 'public/filterService';
     $.ajax({
         type: 'POST',
@@ -2046,7 +2044,6 @@ function searchServIni(idCatalogo, idSubCatalogo, array) {
 function getServWithPromotion(idCatalogo, idSubCatalogo) {
     var data = { c: idCatalogo, sbc: idSubCatalogo };
     var url = dirServer + 'public/getServWithPromotion';
-    arrayDiff = [];
     $.ajax({
         type: 'POST',
         url: url,
@@ -2055,8 +2052,6 @@ function getServWithPromotion(idCatalogo, idSubCatalogo) {
         success: function(r) {
             htmlStringFromArray(r.data,function(htmlResult){
                 $('#PromotionServices').html(htmlResult);
-                arrayDiff = r.pluck;
-                searchServIni(idCatalogo,idSubCatalogo,r.pluck)
             });
         },
         error: function(e) {
@@ -2322,12 +2317,12 @@ function searchByMap(event) {
                   </div>';
                 htmlResult = htmlResult + htmlString;
             }
-            // if (array.length == 0) {
-            //     var htmlString = '<div class="col-xs-12 text-center text-default">\
-            //             <h4 style="color:#c26933;"><i class="fa fa-frown-o "></i> &nbsp;&nbsp;Ups!! No se han encontrado resultados</h4>\
-            //           </div>';
-            //     htmlResult = htmlResult + htmlString;
-            // }
+            if (array.length == 0) {
+                var htmlString = '<div class="col-xs-12 text-center text-default">\
+                        <h4 style="color:#c26933;"><i class="fa fa-frown-o "></i> &nbsp;&nbsp;Ups!! No se han encontrado resultados</h4>\
+                      </div>';
+                htmlResult = htmlResult + htmlString;
+            }
             $('#findedFilterMap').html(htmlResult);
             $("#resultsMap").fadeIn();
         },
@@ -2371,12 +2366,12 @@ function searchServIniTendencias() {
                   </div>';
                 htmlResult = htmlResult + htmlString;
             }
-            // if (array.length == 0) {
-            //     var htmlString = '<div class="col-xs-12 text-center text-default">\
-            //             <h4 style="color:#c26933;"><i class="fa fa-frown-o "></i> &nbsp;&nbsp;Ups!! No se han encontrado resultados</h4>\
-            //           </div>';
-            //     htmlResult = htmlResult + htmlString;
-            // }
+            if (array.length == 0) {
+                var htmlString = '<div class="col-xs-12 text-center text-default">\
+                        <h4 style="color:#c26933;"><i class="fa fa-frown-o "></i> &nbsp;&nbsp;Ups!! No se han encontrado resultados</h4>\
+                      </div>';
+                htmlResult = htmlResult + htmlString;
+            }
             $('#findedFilterMap').html(htmlResult);
             $("#resultsMap").fadeIn();
         },

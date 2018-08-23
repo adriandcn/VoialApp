@@ -745,6 +745,7 @@ class ServicioController extends Controller
         ));
         }
     public function edicionServicios(ServiciosOperadorRepository $gestion, Guard $auth, PublicServiceRepository $gestion1, redesSocialesRepository $redesSociales, catalogoServiciosRepository $catalogoServRep)
+
         {
         $id = session('usu_serviciocrear');
         $id_catalogo = session('catalogocrear');
@@ -1236,7 +1237,7 @@ class ServicioController extends Controller
         return view('site.blades.servicios-operador', compact('findedServ', 'dataOperador'));
         // return response()->json(array('success' => true, 'redirectto' => $findedServ));
         }
-    public function cleanFilterServicios($catalogo, $idSubCatalogo, catalogoServiciosRepository $catalogoServicios,$arrayDiff = [])
+    public function cleanFilterServicios($catalogo, $idSubCatalogo, catalogoServiciosRepository $catalogoServicios)
 
         {
             $campos_serv = ['usuario_servicios.id', 'nombre_servicio', 'detalle_servicio', 'images.filename', 'latitud_servicio', 'longitud_servicio','prioridad'];
@@ -1246,7 +1247,6 @@ class ServicioController extends Controller
                     ->where('id_catalogo_servicio', $idSubCatalogo)
                     ->where('usuario_servicios.estado_servicio',1)
                     ->where('usuario_servicios.estado_servicio_usuario',1)
-                    ->whereNotIn('usuario_servicios.id',$arrayDiff)
                     ->where(function ($query){
                         $query->where('images.profile_pic', '=', 1);
                         $query->where('images.id_catalogo_fotografia', '=', 1);
@@ -1260,15 +1260,13 @@ class ServicioController extends Controller
         }
     public function applyServicesFilter(Request $request, catalogoServiciosRepository $catalogoServicios, PublicServiceRepository $gestion)
         {
-
-            $arrayDiff = ($request->has('diff')) ? $request->diff : [];
             if ($request->has('filter'))
             {
-                $inCatalogo = $catalogoServicios->getByCatalogoArray($request->filter, $request->idSubCatalogo,$arrayDiff);
+                $inCatalogo = $catalogoServicios->getByCatalogoArray($request->filter, $request->idSubCatalogo);
             }
             else
             {
-                $inCatalogo = $this->cleanFilterServicios($request->idCatalogo, $request->idSubCatalogo, $catalogoServicios, $arrayDiff);
+                $inCatalogo = $this->cleanFilterServicios($request->idCatalogo, $request->idSubCatalogo, $catalogoServicios);
             }
             if ($request->has('lat') && $request->has('lng') && $request->has('radio'))
             {

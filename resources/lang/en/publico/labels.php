@@ -256,5 +256,4 @@ return [
     'titlePromotionEmail' => 'Send an email with the promotion code, do not forget to check your spam too',
     'titlePromotionPhone' => 'Enter your phone number Ex: 09912345678',
     'titlePromotionEdad' => 'Enter the patient' . "'" . 's age',
-    'lblPromotionExpire' => 'Promotion not available',
 ];

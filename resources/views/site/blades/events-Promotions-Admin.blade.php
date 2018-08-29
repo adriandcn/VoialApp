@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="wide wow-animation" lang="en">
+<html class="wide wow-animation" lang="es">
   <head>
     <!-- Site Title-->
     <title>Servicios</title>
@@ -102,9 +102,9 @@
                             <i class="fa fa-money"></i>&nbsp;&nbsp;{{$promotion->nombre_promocion}}
                           </h6>
                           <hr>
-                          <h7><i class="fa fa-dot"></i>&nbsp;&nbsp;Fecha: {{$promotion->created_at}}</h7><br>
+                          <h7><i class="fa fa-dot"></i>&nbsp;&nbsp;Fecha: {{Carbon\Carbon::parse($promotion->created_at)->format('d-m-y')}}</h7><br>
                           <h7><i class="fa fa-dot"></i>&nbsp;&nbsp;Descripción: {{str_limit($promotion->descripcion_promocion, $limit = 15, $end = '...')}}</h7>
-                          <h7><i class="fa fa-dot"></i>&nbsp;&nbsp;Descuento % : {{$promotion->descuento}}</h7>
+                          <!-- <h7><i class="fa fa-dot"></i>&nbsp;&nbsp;Descuento % : {{$promotion->descuento}}</h7> -->
                         </div>
                       </a>
                   </div>

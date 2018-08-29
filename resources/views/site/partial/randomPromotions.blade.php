@@ -47,7 +47,7 @@
       </style>
 <div class="owl-carousel owl-theme carousel-promociones">
     @foreach($data as $promotion)
-    <div class="panel-custom-group-wrap" style="margin-top: 3px;">
+    <div class="panel-custom-group-wrap" style="margin-top: 3px; cursor: pointer;">
         <div class="panel-custom-group text-left" id="accordion1" role="tablist">
             <div class="panel panel-custom panel-custom-default" onclick="goToPromotion('{{asset("/")}}detalles-de-promocion/{{$promotion->id}}')">
                 <div class="panel-custom-heading" style="text-align: center;">
@@ -57,7 +57,7 @@
                     </p>
                     <h6 class="text-center" style="font-size: 14px; text-align: center; margin-bottom: 10px;">
                                 Fecha desde: {{Carbon\Carbon::parse($promotion->fecha_desde)->format('d-m-y')}}<br>
-                                Fecha desde: {{Carbon\Carbon::parse($promotion->fecha_hasta)->format('d-m-y')}}
+                                Fecha hasta: {{Carbon\Carbon::parse($promotion->fecha_hasta)->format('d-m-y')}}
                           </h6>
                     <h6 style="text-align: center; font-size: 18px; ">
                             <a>Ver más</a>
@@ -72,7 +72,7 @@
 <script type="text/javascript">
 var carouselPromotions = $('.carousel-promociones');
     carouselPromotions.owlCarousel({
-        autoPlay: false,
+        autoPlay: true,
         slideSpeed: 2000,
         pagination: false,
         navigation: true,
@@ -137,8 +137,9 @@ function getMorePromotions(url, carouselId) {
 }
 
 function goToPromotion(url) {
-    var win = window.open(url, '_blank');
-    win.focus();
+    // var win = window.open(url);
+    // win.focus();
+    window.location.href = url;
 }
 </script>
 @endsection

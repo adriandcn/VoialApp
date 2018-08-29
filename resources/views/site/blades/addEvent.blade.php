@@ -131,17 +131,15 @@
                           </label>
                           <input class="form-input" id="pass" type="text" name="nombre_promocion" value="{{$promotion->nombre_promocion}}">
                         </div>
-                        <div class="form-wrap">
+                        <div class="form-wrap has-error">
                           <label class="form-label-outside" for="descripcion_promocion">
-                            <i class="fa fa-font "></i>&nbsp;&nbsp; {{trans('publico/labels.lblPromotionDescripion')}}
-                          </label>
-                          <input class="form-input" id="descripcion_promocion" type="text" name="descripcion_promocion" value="{{$promotion->descripcion_promocion}}">
+                            <i class="fa fa-font"></i>&nbsp;&nbsp; {{trans('publico/labels.lblPromotionDescripion')}}</label>
+                          <textarea class="form-input form-control-has-validation form-control-last-child" id="descripcion_promocion" name="descripcion_promocion" data-constraints="@Required">{{$promotion->descripcion_promocion}}</textarea><span class="form-validation">Campo obligatorio</span>
                         </div>
-                        <div class="form-wrap">
+                        <div class="form-wrap has-error">
                           <label class="form-label-outside" for="observaciones_promocion">
-                            <i class="fa fa-eye "></i>&nbsp;&nbsp; {{trans('publico/labels.lblPromotionObservations')}}
-                          </label>
-                          <input class="form-input" id="observaciones_promocion" type="text" name="observaciones_promocion" value="{{$promotion->observaciones_promocion}}">
+                            <i class="fa fa-eye"></i>&nbsp;&nbsp; {{trans('publico/labels.lblPromotionObservations')}}</label>
+                          <textarea class="form-input form-control-has-validation form-control-last-child" id="observaciones_promocion" name="observaciones_promocion" data-constraints="@Required">{{$promotion->observaciones_promocion}}</textarea><span class="form-validation">Campo obligatorio</span>
                         </div>
                         <div class="form-wrap">
                           <label class="form-label-outside" for="contact-first-name">
@@ -153,7 +151,7 @@
                           <label class="form-label-outside" for="fecha_desde_hasta">
                             <i class="fa fa-calendar"></i>&nbsp;&nbsp; {{trans('publico/labels.lblPromotionDate')}}
                           </label>
-                          <input class="form-input" id="fecha_desde_hasta" type="text" name="daterange" value="{{$promotion->fecha_desde_hasta}}">
+                          <input class="" id="fecha_desde_hasta" type="text" name="daterange" value="{{$promotion->fecha_desde_hasta}}">
                         </div>
                         <div class="form-wrap">
                           <label class="form-label-outside" for="tags">
@@ -175,12 +173,12 @@
                           <br>
                           <div id="slideDescuento"></div>
                         </div>
-                        <div class="form-wrap">
+                       <!--  <div class="form-wrap">
                           <label class="form-label-outside" for="codigo_promocion">
                             <i class="fa fa-hashtag "></i>&nbsp;&nbsp; {{trans('publico/labels.lblPromotionCodigo')}}
-                          </label>
-                          <input class="form-input" id="codigo_promocion" type="text" name="codigo_promocion" value="{{$promotion->codigo_promocion}}">
-                        </div>
+                          </label> -->
+                          <input class="form-input" id="codigo_promocion" type="hidden" name="codigo_promocion" value="-">
+                        <!-- </div> -->
                         <div class="rowerrorPromotion" style="margin-top: 10px;"></div>
                         <div class="group-buttons-3 group-md-justify">
                           <button class="button button-facebook button-icon button-icon-sm button-icon-right fa-plus" type="submit" onclick="saveEvento(event,'{{$promotion->id}}')">

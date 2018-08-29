@@ -1279,11 +1279,11 @@ class HomePublicController extends Controller {
                 $message->from(config('global.emailAdmin'),'VoilApp');
                 $message->to($correo_enviar,'')->subject('Código de promoción');
             });
-            Mail::send('site.emails.promotionCode', $dataPaciente, function($message)
-            {
-                $message->from(config('global.emailAdmin'),'VoilApp');
-                $message->to(config('global.emailAdmin'),'')->subject('Respaldo de promoción');
-            });
+            // Mail::send('site.emails.promotionCode', $dataPaciente, function($message)
+            // {
+            //     $message->from(config('global.emailAdmin'),'VoilApp');
+            //     $message->to(config('global.emailAdmin'),'')->subject('Respaldo de promoción');
+            // });
 
             if ($emailDoctor != null) {
                 Mail::send('site.emails.promotionCodeService', $dataDoctor, function($message) use ($emailDoctor)

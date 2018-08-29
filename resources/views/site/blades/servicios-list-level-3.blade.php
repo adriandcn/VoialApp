@@ -129,13 +129,22 @@
               </div>
               </div>
             </div>
+            <br>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 isotope-item" style=" margin-bottom: 15px;">
+                  <h4>Promociones</h4>
+                </div>
+                <div class="col-xs-12 col-sm-12 isotope-item">
+                  <div id="promoCarousel"></div>
+                </div>
+            </div>
             <div id="sectionResult"></div>
           </div>
         </section>
         <section class="section-xs bg-white">
           <div class="shell">
             <div class="heading-group" >
-              <h4><i class="fa fa-search"></i> &nbsp;&nbsp;{{ trans('publico/labels.lblResult')}}</h4>
+              <!-- <h4><i class="fa fa-search"></i> &nbsp;&nbsp;{{ trans('publico/labels.lblResult')}}</h4> -->
             </div>
             <br>
             <div class="isotope grid-masonry text-left column-offset-30" data-isotope-layout="masonry">
@@ -199,7 +208,7 @@
         </div>
       @endif
       @if(session('device') == 'mobile')
-        <section class="section-xs bg-white" style="padding-top: 20px;">
+        <section class="section-xs bg-white" style="padding-top: 20px; padding-bottom: 5px;">
           <div class="shell">
             <div class="panel-custom-group-wrap">
               <!-- <h4>{{$dataSubCatalogo->nombre_servicio}}</h4> -->
@@ -303,7 +312,7 @@
         <section class="section-xs bg-white">
           <div class="shell">
             <div class="heading-group" >
-              <h4><i class="fa fa-search"></i> &nbsp;&nbsp;{{ trans('publico/labels.lblResult')}}</h4>
+              <!-- <h4><i class="fa fa-search"></i> &nbsp;&nbsp;{{ trans('publico/labels.lblResult')}}</h4> -->
             </div>
             <br>
             <div class="isotope grid-masonry text-left column-offset-30" data-isotope-layout="masonry">
@@ -383,7 +392,7 @@
         var idRouteSubCatalogo = {!!request()->route('idSubCatalogo')!!};
 
         function startAllServices() {
-            searchServIni(idRouteCatalogo, idRouteSubCatalogo);
+            // searchServIni(idRouteCatalogo, idRouteSubCatalogo);
             getServWithPromotion(idRouteCatalogo, idRouteSubCatalogo);
             startPromotions();
         }
@@ -414,10 +423,9 @@
                 });
         }
 
-        setInterval(startPromotions, 3000);
+        // setInterval(startPromotions, 3000);
         startAllServices();
-      </script>
-      
+      </script>      
     </div>
     <!-- END PANEL-->
   </body>

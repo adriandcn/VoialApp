@@ -295,7 +295,17 @@ class ServiciosOperadorRepository extends BaseRepository
             // Transformo el arreglo en un solo objeto
             // $inputs['id'] =  $promo->id;
             $inputs['updated_at'] = \Carbon\Carbon::now()->toDateTimeString();
-            $pro->fill($inputs)->save();
+            $pro->fecha_hasta = $inputs['fecha_fin'];
+            $pro->fecha_desde = $inputs['fecha_inicio'];
+            $pro->fecha_desde = $inputs['fecha_inicio'];
+            $pro->descripcion_promocion = $inputs['descripcion_promocion'];
+            $pro->observaciones_promocion = $inputs['observaciones_promocion'];
+            $pro->nombre_promocion = $inputs['nombre_promocion'];
+            $pro->estado_promocion = $inputs['estado_promocion'];
+            $pro->tags = $inputs['tags'];
+            $pro->precio_normal = $inputs['precio_normal'];
+            $pro->descuento = $inputs['descuento'];
+            $pro->save();
             }
         return true;
         }

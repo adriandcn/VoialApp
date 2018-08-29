@@ -1,7 +1,7 @@
 @section('morePromotions') 
 	@foreach ($data as $promotion)
 		<div>
-  		<div class="panel-custom-group-wrap" style="margin-top: 3px;" onclick="goToPromotion('{{asset("/")}}detalles-de-promocion/{{$promotion->id}}')">
+  		<div class="panel-custom-group-wrap" style="margin-top: 3px; cursor: pointer;" onclick="goToPromotion('{{asset("/")}}detalles-de-promocion/{{$promotion->id}}')">
               <div class="panel-custom-group text-left" id="accordion1" role="tablist">
                   <div class="panel panel-custom panel-custom-default">
                       <div class="panel-custom-heading" style="text-align: center;">

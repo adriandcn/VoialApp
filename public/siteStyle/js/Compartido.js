@@ -2649,7 +2649,7 @@ function ajaxGetPromotion(event,$formulario, $id) {
         }
         if (data.success) {
             $('#spinnerGetPromotion').hide();
-            showAlert('Felicidades!!','Se ha enviado un email con el código de la promoción.', null, 'info', 'info');
+            showAlert('Felicidades!!','Se ha enviado un email con el código de la promoción, revise su bandeja de entrada o spam (correo no deseado)', null, 'success', 'success');
             $('#btnClose').trigger('click');
         } //success
     })

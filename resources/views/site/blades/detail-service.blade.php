@@ -336,20 +336,12 @@
                                                                     Descripción :
                                                                     <h6 style="font-size: 14px;"> {{$promotion->descripcion_promocion}}</h6> Fecha :
                                                                     <h6 style="font-size: 14px; text-align: justify;">
-
-                                                        {{$promotion->created_at}}
-
-                                                      </h6> Descuento %:
-                                                                    <h6 style="font-size: 14px; text-align: justify;">
-
-                                                        {{$promotion->descuento}}
-
-                                                      </h6>
+                                                                        Fecha desde: {{Carbon\Carbon::parse($promotion->fecha_desde)->format('d-m-y')}}<br>
+                                                                        Fecha hasta: {{Carbon\Carbon::parse($promotion->fecha_hasta)->format('d-m-y')}}
+                                                                    </h6>
                                                                     <h6 style="text-align: center; font-size: 18px; ">
-
-                                                        <a href="{{asset('/')}}detalles-de-promocion/{{$promotion->id}}">Ver más</a>
-
-                                                      </h6>
+                                                                        <a href="{{asset('/')}}detalles-de-promocion/{{$promotion->id}}">Ver más</a>
+                                                                    </h6>
                                                                 </div>
                                                             </div>
                                                         </div>

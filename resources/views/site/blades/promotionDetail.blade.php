@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="wide wow-animation" lang="en">
+<html class="wide wow-animation" lang="es">
 
 <head>
     <!-- Site Title-->
@@ -152,7 +152,7 @@
                         <time>{{$dateHuman}}</time>
                         <h6><a>{{$promotion->nombre_promocion}}</a></h6>
                         <p class="post-classic-text">
-                          <span>{{$promotion->descripcion_promocion}}</span>
+                          <span>{!! str_replace("\n", '<br />',  $promotion->descripcion_promocion); !!}</span>
                         </p>
                         <style type="text/css">
                           .detail-promotion{

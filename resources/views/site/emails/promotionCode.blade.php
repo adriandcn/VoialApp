@@ -303,7 +303,11 @@
                                                     </strong>
                                                 </p>
                                                 <hr/>
-                                                <p style='text-align: right;'><a target='_blank' href="{{asset('/detalles-de-servicio')}}/{{$dataDoctor->id}}" class='link2'>Ver más</a></p>
+                                                <p style='text-align: right;'>
+                                                    <a target='_blank' href="{{asset('/detalles-de-servicio')}}/{{$dataDoctor->id}}" class='link2'>
+                                                        Ver más
+                                                    </a>
+                                                </p>
                                                 </div>
                                             </div>
                                         </td>
@@ -347,6 +351,11 @@
                                                                 <strong>
                                                                     {{$dataPromo->endAd}}
                                                                 </strong>
+                                                            </p>
+                                                            <p style='text-align: right;'>
+                                                                <a target='_blank' href="{{asset('/detalles-de-promocion')}}/{{$dataPromo->id}}" class='link2'>
+                                                                    Ver promoción
+                                                                </a>
                                                             </p>
                                                         </div>
                                                     </div>
